@@ -1,0 +1,7 @@
+**/Thumbs.db
+**/logs/
+**/out/
+**/target/
+**/.settings/
+**/.DS_Store
+/.settings/
