@@ -44,6 +44,7 @@ public class NettyServer extends AbstractServer{
 	public Codec getCodec(URL url) {
 		return codec;
 		
+		
 	}
 
 	/*
