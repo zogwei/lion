@@ -49,10 +49,10 @@ public class LionConstants {
     public static final String REGISTRY_PROTOCOL_DIRECT = "direct";
     public static final String REGISTRY_PROTOCOL_ZOOKEEPER = "zookeeper";
     public static final String PROTOCOL_INJVM = "injvm";
-    public static final String PROTOCOL_MOTAN = "motan";
+    public static final String PROTOCOL_LION = "lion";
     public static final String PROXY_JDK = "jdk";
     public static final String PROXY_JAVASSIST = "javassist";
-    public static final String FRAMEWORK_NAME = "motan";
+    public static final String FRAMEWORK_NAME = "lion";
     public static final String PROTOCOL_SWITCHER_PREFIX = "protocol:";
     public static final String METHOD_CONFIG_PREFIX = "methodconfig.";
     public static final int MILLS = 1;
@@ -99,14 +99,14 @@ public class LionConstants {
      * heartbeat constants start
      */
     public static final int HEARTBEAT_PERIOD = 500;
-    public static final String HEARTBEAT_INTERFACE_NAME = "com.weibo.api.motan.rpc.heartbeat";
+    public static final String HEARTBEAT_INTERFACE_NAME = "com.alacode.lion.heartbeat";
     public static final String HEARTBEAT_METHOD_NAME = "heartbeat";
     public static final String HHEARTBEAT_PARAM = ReflectUtil.EMPTY_PARAM;
     /**
      * heartbeat constants end
      */
 
-    public static final String ZOOKEEPER_REGISTRY_NAMESPACE = "/motan";
+    public static final String ZOOKEEPER_REGISTRY_NAMESPACE = "/lion";
     public static final String ZOOKEEPER_REGISTRY_COMMAND = "/command";
 
     public static final String REGISTRY_HEARTBEAT_SWITCHER = "feature.configserver.heartbeat";
