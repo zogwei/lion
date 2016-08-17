@@ -15,7 +15,7 @@ package com.alacoder.lion.common;
 
 /**
  * @ClassName: LionConstants
- * @Description: TODO
+ * @Description: 
  * @author jimmy.zhong
  * @date 2016年8月5日 上午11:22:16
  *

@@ -23,7 +23,8 @@ import java.util.Collection;
  *
  */
 
-public interface Server {
+public interface Server extends Endpoint{
+	
 
 	Collection<Channel> getChannels();
 	

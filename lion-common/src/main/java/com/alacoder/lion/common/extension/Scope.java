@@ -15,7 +15,7 @@ package com.alacoder.lion.common.extension;
 
 /**
  * @ClassName: Scope
- * @Description: TODO
+ * @Description: 
  * @author jimmy.zhong
  * @date 2016年8月5日 上午11:11:48
  *

@@ -15,7 +15,7 @@ package com.alacoder.lion.remote.codec;
 
 /**
  * @ClassName: RemoteProtocolVersion
- * @Description: TODO
+ * @Description: 
  * @author jimmy.zhong
  * @date 2016年8月11日 上午10:13:50
  *

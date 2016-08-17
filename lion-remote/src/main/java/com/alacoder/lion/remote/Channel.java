@@ -31,15 +31,11 @@ public interface Channel {
 	
 	InetSocketAddress getRemoteAddress();
 	
-	void open();
-	
 	void close();
 	
 	void close(int timeout);
 	
-	void send();
+	void send(TransportData data);
 	
 	URL getUrl();
-	
-	void setUrl(URL url);
 }

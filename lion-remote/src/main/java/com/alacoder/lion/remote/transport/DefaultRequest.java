@@ -17,7 +17,7 @@ import java.util.Map;
 
 /**
  * @ClassName: Request
- * @Description: TODO
+ * @Description: 
  * @author jimmy.zhong
  * @date 2016年8月9日 上午11:08:38
  *

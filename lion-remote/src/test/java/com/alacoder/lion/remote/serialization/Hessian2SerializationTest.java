@@ -26,7 +26,7 @@ import com.alacoder.lion.remote.transport.Response;
 
 /**
  * @ClassName: Hessian2SerializationTest
- * @Description: TODO
+ * @Description: 
  * @author jimmy.zhong
  * @date 2016年8月9日 下午5:59:01
  *
@@ -61,8 +61,8 @@ public class Hessian2SerializationTest {
 		
 		Response response = new DefaultResponse();
 		response.setId(1111L);
-		response.setInterfaceName("interfacename");
-		response.setMethod("method");
+//		response.setInterfaceName("interfacename");
+//		response.setMethod("method");
 
 		
 		 bytes = ser.serialize(response);

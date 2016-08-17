@@ -35,11 +35,26 @@ public abstract class AbstractServer implements Server {
 	protected URL url;
 	protected Codec codec;
 	
+    protected volatile ChannelState state = ChannelState.UNINIT;
+	
 	public AbstractServer(URL url) {
 		this.url = url;
 		this.codec = ExtensionLoader.getExtensionLoader(Codec.class).getExtension(
                         url.getParameter(URLParamType.codec.getName(), URLParamType.codec.getValue()));
+		Serialization serialization = ExtensionLoader.getExtensionLoader(Serialization.class).getExtension(
+				        url.getParameter(URLParamType.serialize.getName(), URLParamType.serialize.getValue()));
+		
+		codec.setSerialization(serialization);
+		
+		try{
+			doOpen();
+		} catch ( Throwable t ){
+			t.printStackTrace();
+		}
+		
 	}
+	
+	public abstract void doOpen();
 	
 	public InetSocketAddress getLocalAddress() {
 		return localAddress;

@@ -21,7 +21,6 @@ package com.alacoder.lion.remote;
  *
  */
 
-public interface Client {
+public interface Client  extends Endpoint {
 
-	void connect();
 }

@@ -15,9 +15,11 @@ package com.alacoder.lion.remote.transport;
 
 import java.util.Map;
 
+import com.alacoder.lion.remote.TransportData;
+
 /**
  * @ClassName: Request
- * @Description: TODO
+ * @Description: 
  * @author jimmy.zhong
  * @date 2016年8月9日 上午11:08:38
  *

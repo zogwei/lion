@@ -29,7 +29,7 @@ import com.alacoder.lion.remote.transport.Response;
 
 /**
  * @ClassName: DefaultCodecTest
- * @Description: TODO
+ * @Description: 
  * @author jimmy.zhong
  * @date 2016年8月11日 上午11:12:05
  *
@@ -47,64 +47,11 @@ public class DefaultCodecTest {
 //        url.addParameter(URLParamType.serialize.getName(), "mockMotan");
 //        url.addParameter(URLParamType.requestTimeout.getName(), "2000");
 		
-		Channel channel = new Channel(){
-			
-			URL url = null;
 
-			@Override
-			public InetSocketAddress getLocalAddress() {
-				// TODO Auto-generated method stub
-				return null;
-			}
-
-			@Override
-			public InetSocketAddress getRemoteAddress() {
-				// TODO Auto-generated method stub
-				return null;
-			}
-
-			@Override
-			public void open() {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public void close() {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public void close(int timeout) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public void send() {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public URL getUrl() {
-				// TODO Auto-generated method stub
-				return url;
-			}
-			
-			public void setUrl(URL url){
-				this.url = url;
-			}
-			
-		};
-		
-		channel.setUrl(url);
-		
 		Codec codec = ExtensionLoader.getExtensionLoader(Codec.class).getExtension("lion");
-		byte[] data = codec.encode(channel, request);
+		byte[] data = codec.encode( request);
 		
-		request = (Request)codec.decode(channel, data);
+		request = (Request)codec.decode(data);
 
 		System.out.println("result : " + request );
 		
@@ -112,14 +59,14 @@ public class DefaultCodecTest {
 		
 		Response response = new DefaultResponse();
 		response.setId(1111L);
-		response.setInterfaceName("interfacename");
-		response.setMethod("method");
+//		response.setInterfaceName("interfacename");
+//		response.setMethod("method");
 
 		
 		codec = ExtensionLoader.getExtensionLoader(Codec.class).getExtension("lion");
-		data = codec.encode(channel, response);
+		data = codec.encode(response);
 		
-		response = (Response)codec.decode(channel, data);
+		response = (Response)codec.decode(data);
 		
 		System.out.println("result Response : " + response );
 	}

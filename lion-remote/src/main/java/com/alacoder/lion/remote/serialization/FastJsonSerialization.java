@@ -26,7 +26,7 @@ import com.alibaba.fastjson.serializer.SerializerFeature;
 
 /**
  * @ClassName: FastJsonSerialization
- * @Description: TODO
+ * @Description: 
  * @author jimmy.zhong
  * @date 2016年8月9日 上午11:29:35
  *

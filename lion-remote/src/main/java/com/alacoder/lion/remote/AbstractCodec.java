@@ -15,7 +15,7 @@ package com.alacoder.lion.remote;
 
 /**
  * @ClassName: AbstractCodec
- * @Description: TODO
+ * @Description: 
  * @author jimmy.zhong
  * @date 2016年8月9日 上午11:21:20
  *

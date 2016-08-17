@@ -15,7 +15,7 @@ package com.alacoder.lion.remote;
 
 /**
  * @ClassName: Buffer
- * @Description: TODO
+ * @Description: 
  * @author jimmy.zhong
  * @date 2016年8月5日 下午5:02:59
  *

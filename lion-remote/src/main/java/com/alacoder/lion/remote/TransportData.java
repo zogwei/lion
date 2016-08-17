@@ -11,11 +11,11 @@
  * @version V1.0
  */
 
-package com.alacoder.lion.remote.transport;
+package com.alacoder.lion.remote;
 
 /**
  * @ClassName: TransportData
- * @Description: TODO
+ * @Description: 
  * @author jimmy.zhong
  * @date 2016年8月9日 上午11:13:09
  *

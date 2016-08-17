@@ -3,31 +3,25 @@
  * Copyright: Copyright (c) 2016 
  * 
  * @project_name: lion-remote
- * @Title: Handler.java
+ * @Title: Endpoint.java
  * @Package com.alacoder.lion.remote
  * @Description: 
  * @author jimmy.zhong
- * @date 2016年8月5日 下午2:55:11
+ * @date 2016年8月6日 上午10:55:12
  * @version V1.0
  */
 
 package com.alacoder.lion.remote;
 
+
 /**
- * @ClassName: Handler
+ * @ClassName: Endpoint
  * @Description: 
  * @author jimmy.zhong
- * @date 2016年8月5日 下午2:55:11
+ * @date 2016年8月6日 上午10:55:12
  *
  */
 
-public interface Handler {
+public interface Endpoint extends Channel{
 
-	void connect() ;
-	
-	void messageRecevice();
-	
-	void close();
-	
-	void exception();
 }

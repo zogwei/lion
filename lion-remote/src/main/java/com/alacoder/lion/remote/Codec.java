@@ -28,7 +28,11 @@ import com.alacoder.lion.common.extension.Scope;
 @Spi(scope=Scope.PROTOTYPE)
 public interface Codec {
 
-	byte[] encode(Channel channel, Object message) throws IOException;
+	byte[] encode(Object message) throws IOException;
 	
-	Object decode(Channel channel, byte[] buffer) throws IOException;
+	Object decode(byte[] buffer) throws IOException;
+	
+	Serialization getSerialization();
+	
+	void setSerialization(Serialization serialization);
 }

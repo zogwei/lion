@@ -9,6 +9,7 @@
     <module>lion-remote</module>
     <module>lion-remote-netty</module>
     <module>lion-common</module>
+    <module>lion-exchange</module>
   </modules>
   
       <properties>

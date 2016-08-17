@@ -1,4 +1,4 @@
-package com.alacoder.lion.remote.netty;
+package com.alacoder.lion.exchange;
 
 import junit.framework.Test;
 import junit.framework.TestCase;

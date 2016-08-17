@@ -17,7 +17,7 @@ import com.alacoder.lion.common.LionConstants;
 
 /**
  * @ClassName: URLParamType
- * @Description: TODO
+ * @Description: 
  * @author jimmy.zhong
  * @date 2016年8月8日 下午5:03:38
  *
@@ -32,6 +32,8 @@ public enum URLParamType {
     requestIdFromClient("requestIdFromClient", 0),
     /** connect timeout **/
     connectTimeout("connectTimeout", 1000),
+    /**  timeout **/
+    timeout("timeout", 1000),
     /** service min worker threads **/
     minWorkerThread("minWorkerThread", 20),
     /** service max worker threads **/

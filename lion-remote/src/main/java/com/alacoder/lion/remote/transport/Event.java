@@ -13,9 +13,11 @@
 
 package com.alacoder.lion.remote.transport;
 
+import com.alacoder.lion.remote.TransportData;
+
 /**
  * @ClassName: Event
- * @Description: TODO
+ * @Description: 
  * @author jimmy.zhong
  * @date 2016年8月9日 上午11:09:16
  *

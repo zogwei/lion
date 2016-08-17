@@ -20,7 +20,7 @@ import com.alacoder.lion.common.extension.Spi;
 
 /**
  * @ClassName: Serialization
- * @Description: TODO
+ * @Description: 
  * @author jimmy.zhong
  * @date 2016年8月9日 上午11:25:07
  *

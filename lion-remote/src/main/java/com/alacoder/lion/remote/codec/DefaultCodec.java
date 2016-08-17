@@ -45,12 +45,16 @@ public class DefaultCodec implements Codec{
 	private static final byte VERSION = RemoteProtocolVersion.VERSION_1.getVersion();
 	private static final int VERSION_HEADER_LENGTH = RemoteProtocolVersion.VERSION_1.getHeaderLength();
 	
+	Serialization serialization = null;
+	
+	
+	
 	@Override
-	public byte[] encode(Channel channel, Object message) throws IOException {
+	public byte[] encode(Object message) throws IOException {
 		if(message instanceof Request) {
-			return encodeRequest(channel, (Request)message);
+			return encodeRequest((Request)message);
 		} else if ( message instanceof Response ) {
-			return encodeResponse(channel, (Response)message);
+			return encodeResponse((Response)message);
 		} else {
 			LoggerUtil.warn(" error message type message is : ", message);
 		}
@@ -59,7 +63,7 @@ public class DefaultCodec implements Codec{
 	}
 
 	@Override
-	public Object decode(Channel channel, byte[] data) throws IOException { 
+	public Object decode(byte[] data) throws IOException { 
 		if( data.length < VERSION_HEADER_LENGTH) {
 			throw new LionFrameworkException("decode error: format problem", LionErrorMsgConstant.FRAMEWORK_DECODE_ERROR);
         }
@@ -89,36 +93,24 @@ public class DefaultCodec implements Codec{
 		System.arraycopy(data, VERSION_HEADER_LENGTH , body, 0, bodyLength);
 		
 		if(dataType == LionConstants.FLAG_REQUEST) {
-			return decodeRequest(channel, body ,requestId);
+			return decodeRequest(body ,requestId);
 		} else if ( dataType == LionConstants.FLAG_RESPONSE) {
-			return decodeResponse(channel, body ,requestId);
+			return decodeResponse( body ,requestId);
 		}
 		
 		return null;
 	}
 	
-	private Request decodeRequest(Channel channel, byte[] body, Long requestId) throws IOException {
-		Serialization serialization =
-                ExtensionLoader.getExtensionLoader(Serialization.class).getExtension(
-                        channel.getUrl().getParameter(URLParamType.serialize.getName(), URLParamType.serialize.getValue()));
-		
+	private Request decodeRequest( byte[] body, Long requestId) throws IOException {
 		return serialization.deserialize(body, DefaultRequest.class);
 	}
 	
-	private Response decodeResponse(Channel channel, byte[] body, Long requestId) throws IOException {
-		Serialization serialization =
-                ExtensionLoader.getExtensionLoader(Serialization.class).getExtension(
-                        channel.getUrl().getParameter(URLParamType.serialize.getName(), URLParamType.serialize.getValue()));
-		
+	private Response decodeResponse( byte[] body, Long requestId) throws IOException {
 		return serialization.deserialize(body, DefaultResponse.class);
 	}
 	
 	
-	private byte[] encodeResponse(Channel channel,Response response) throws IOException {
-		Serialization serialization =
-                ExtensionLoader.getExtensionLoader(Serialization.class).getExtension(
-                        channel.getUrl().getParameter(URLParamType.serialize.getName(), URLParamType.serialize.getValue()));
-		
+	private byte[] encodeResponse(Response response) throws IOException {
 		byte[] body = serialization.serialize(response);
 		byte dataType = LionConstants.FLAG_RESPONSE;
 		
@@ -127,10 +119,7 @@ public class DefaultCodec implements Codec{
 	}
 	
 	
-	private byte[] encodeRequest(Channel channel,Request request) throws IOException {
-		Serialization serialization =
-                ExtensionLoader.getExtensionLoader(Serialization.class).getExtension(
-                        channel.getUrl().getParameter(URLParamType.serialize.getName(), URLParamType.serialize.getValue()));
+	private byte[] encodeRequest(Request request) throws IOException {
 		byte[] body = serialization.serialize(request);
 		
 		byte dataType = LionConstants.FLAG_REQUEST;
@@ -193,4 +182,12 @@ public class DefaultCodec implements Codec{
 		return data;
 	}
 
+	@Override
+	public Serialization getSerialization() {
+		return this.serialization!=null?serialization : ExtensionLoader.getExtensionLoader(Serialization.class).getExtension(URLParamType.serialize.getValue());
+	}
+
+	public void setSerialization(Serialization serialization) {
+		 this.serialization = serialization;
+	}
 }
