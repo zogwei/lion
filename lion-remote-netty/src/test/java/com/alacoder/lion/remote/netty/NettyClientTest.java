@@ -42,7 +42,7 @@ public class NettyClientTest {
 	 */
 
 	public static void main(String[] args) {
-		URL url = new URL("netty", "127.0.0.1", 4455, "com.weibo.api.motan.procotol.example.IHello");
+		URL url = new URL("netty", "10.12.104.6", 4455, "IHello");
 		url.addParameter(URLParamType.connectTimeout.getName(), "10000");
 		
 		NettyClient client = new NettyClient(url,new MessageHandler(){
@@ -58,16 +58,16 @@ public class NettyClientTest {
 			
 		});
 		
+		client.doOpen();
+		
 		Request request = new DefaultRequest();
 		
 		request.setId(System.currentTimeMillis());
-		
 		client.send(request);
 
         try {
 			Thread.sleep(100000);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

@@ -97,6 +97,7 @@ public class NettyClient extends AbstractClient {
 			}
 		} catch (InterruptedException e) {
 			LoggerUtil.error("NettyClient open fail:  url = {} ", url.getUri());
+			LoggerUtil.error("NettyClient error ", e);
 			close();
 		} finally {
 			if(!clientChannel.isActive()) {
@@ -134,7 +135,5 @@ public class NettyClient extends AbstractClient {
 		// TODO Auto-generated method stub
 		
 	}
-
-
 
 }

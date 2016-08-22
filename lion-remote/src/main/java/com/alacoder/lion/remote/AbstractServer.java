@@ -18,6 +18,7 @@ import java.net.InetSocketAddress;
 import com.alacoder.lion.common.extension.ExtensionLoader;
 import com.alacoder.lion.common.url.URL;
 import com.alacoder.lion.common.url.URLParamType;
+import com.alacoder.lion.common.utils.LoggerUtil;
 
 /**
  * @ClassName: AbstractServer
@@ -46,11 +47,11 @@ public abstract class AbstractServer implements Server {
 		
 		codec.setSerialization(serialization);
 		
-		try{
-			doOpen();
-		} catch ( Throwable t ){
-			t.printStackTrace();
-		}
+//		try{
+//			doOpen();
+//		} catch ( Throwable t ){
+//			LoggerUtil.error("init abstract server error", t);
+//		}
 		
 	}
 	

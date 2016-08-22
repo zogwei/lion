@@ -82,6 +82,8 @@ public class NettyDecodeHandler extends ByteToMessageDecoder {
 				Response response = buildExceptionResponse(requestId, e);
 				ch.write(response);
 				throw e;
+			} else if (messageType == LionConstants.FLAG_RESPONSE) {
+				
 			} else {
 				throw e;
 			}

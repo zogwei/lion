@@ -16,6 +16,7 @@ package com.alacoder.lion.remote.netty;
 import java.net.InetSocketAddress;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
 import com.alacoder.lion.common.utils.LoggerUtil;
@@ -39,15 +40,15 @@ public class NettyServerChannelHandler extends ChannelInboundHandlerAdapter {
 	
 	private int MaxChannelNum = 0;
 	
-	public NettyServerChannelHandler(int MaxChannelNum,ConcurrentMap<String, Channel> channels){
+	public NettyServerChannelHandler(int MaxChannelNum){
 		super();
 		this.MaxChannelNum = MaxChannelNum;
-		this.channels = channels;
+		this.channels = new ConcurrentHashMap<String, io.netty.channel.Channel>();;
 	}
 
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-    	List<Object> buf = (List<Object>) msg;
-    	NioSocketChannel nioChannel = (NioSocketChannel) buf.get(0);
+//    	List<Object> buf = (List<Object>) msg;
+    	NioSocketChannel nioChannel = (NioSocketChannel) msg;
     	
     	String channelKey = getChannelKey((InetSocketAddress) nioChannel.localAddress(),
 				(InetSocketAddress) nioChannel.remoteAddress());

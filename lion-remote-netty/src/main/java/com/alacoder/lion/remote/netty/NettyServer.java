@@ -52,8 +52,9 @@ import com.alacoder.lion.remote.TransportData;
 public class NettyServer extends AbstractServer{
 
 	private StandardThreadExecutor standardThreadExecutor = null;
+
+//	private ConcurrentMap<String, io.netty.channel.Channel> channels = new ConcurrentHashMap<String, io.netty.channel.Channel>();
 	private io.netty.channel.Channel serverChannel;
-	private ConcurrentMap<String, io.netty.channel.Channel> channels = new ConcurrentHashMap<String, io.netty.channel.Channel>();
 	private MessageHandler messagehandler ;
 	private ServerBootstrap  server;
 	
@@ -65,8 +66,7 @@ public class NettyServer extends AbstractServer{
 		this.messagehandler = messagehandler;
 	}
 
-	
-	public void doOpen() {
+	private void init() {
 		boolean shareChannel = url.getBooleanParameter(URLParamType.shareChannel.getName(),
 				URLParamType.shareChannel.getBooleanValue());
 		final int maxContentLength = url.getIntParameter(URLParamType.maxContentLength.getName(),
@@ -97,28 +97,35 @@ public class NettyServer extends AbstractServer{
 		
 	    bossGroup = new NioEventLoopGroup();
         workerGroup = new NioEventLoopGroup();
-        try {
-        	server = new ServerBootstrap();
-        	server.group(bossGroup, workerGroup)
-             .channel(NioServerSocketChannel.class)
-             .handler(new NettyServerChannelHandler(maxServerConnection, channels))
-             .childHandler(new  ChannelInitializer<SocketChannel>(){
-            	 @Override
-            	    public void initChannel(SocketChannel ch) throws Exception {
-            	        ChannelPipeline pipeline = ch.pipeline();
-//            	        // Enable stream compression (you can remove these two if unnecessary)
-//            	        pipeline.addLast("deflater", ZlibCodecFactory.newZlibEncoder(ZlibWrapper.GZIP));
-//            	        pipeline.addLast("inflater", ZlibCodecFactory.newZlibDecoder(ZlibWrapper.GZIP));
+        
+        server = new ServerBootstrap();
+    	server.group(bossGroup, workerGroup)
+         .channel(NioServerSocketChannel.class)
+         .handler(new NettyServerChannelHandler(maxServerConnection))
+         .childHandler(new  ChannelInitializer<SocketChannel>(){
+        	 @Override
+        	    public void initChannel(SocketChannel ch) throws Exception {
+        	        ChannelPipeline pipeline = ch.pipeline();
+//        	        // Enable stream compression (you can remove these two if unnecessary)
+//        	        pipeline.addLast("deflater", ZlibCodecFactory.newZlibEncoder(ZlibWrapper.GZIP));
+//        	        pipeline.addLast("inflater", ZlibCodecFactory.newZlibDecoder(ZlibWrapper.GZIP));
 
-            	        // Add the codec first,
-            	        pipeline.addLast("decoder", new NettyDecodeHandler(codec,maxContentLength));
-            	        pipeline.addLast("encoder", new NettyEncodeHandler(codec));
-            	        
-            	        pipeline.addLast("handler", new NettyChannelHandler(messagehandler,standardThreadExecutor));
-            	    }
-             })
-             .childOption(ChannelOption.TCP_NODELAY, true)
-             .childOption(ChannelOption.SO_KEEPALIVE, true);
+        	        // Add the codec first,
+        	        pipeline.addLast("decoder", new NettyDecodeHandler(codec,maxContentLength));
+        	        pipeline.addLast("encoder", new NettyEncodeHandler(codec));
+        	        
+        	        pipeline.addLast("handler", new NettyChannelHandler(messagehandler,standardThreadExecutor));
+        	    }
+         })
+         .childOption(ChannelOption.TCP_NODELAY, true)
+         .childOption(ChannelOption.SO_KEEPALIVE, true);
+	}
+	
+	public void doOpen() {
+		
+		init() ;
+		
+        try {
         	
         	ChannelFuture  channelFuture = server.bind(new InetSocketAddress(url.getPort())).sync();
         	serverChannel = channelFuture.channel();
@@ -126,12 +133,12 @@ public class NettyServer extends AbstractServer{
         	state = ChannelState.ALIVE;
         	
         } catch (InterruptedException e) {
-        	LoggerUtil.info("NettyServer close fail: interrupted url = {} ", url.getUri());
-        	
-		} finally {
-//            bossGroup.shutdownGracefully();
-//            workerGroup.shutdownGracefully();
-        }
+        	LoggerUtil.warn("NettyServer close fail: interrupted url = {} ", url.getUri());
+        	close();
+		} catch (Throwable e) {
+	    	LoggerUtil.error("NettyServer error  ", e);
+	    	close();
+		}
 	}
 	
 	@Override
@@ -147,7 +154,6 @@ public class NettyServer extends AbstractServer{
 	
 	@Override
 	public void close(int timeout) {
-		
 		//判断系统server是否启动
 		if (state.isCloseState()) {
 			LoggerUtil.info("NettyServer close fail: already close, url={}", url.getUri());
@@ -155,11 +161,9 @@ public class NettyServer extends AbstractServer{
 		}
 
 		if (state.isUnInitState()) {
-			LoggerUtil.info("NettyServer close Fail: don't need to close because node is unInit state: url={}",
-					url.getUri());
+			LoggerUtil.info("NettyServer close Fail: don't need to close because node is unInit state: url={}", url.getUri());
 			return;
 		}
-
 		
 		//关闭 serverchannel
 		try{
@@ -168,6 +172,7 @@ public class NettyServer extends AbstractServer{
 			}
 		} catch(Throwable e) {
 			LoggerUtil.info("NettyServer close Fail: close error: url={}", url.getUri());
+			LoggerUtil.info("NettyServer serverChannel.close() error", e);
 		}
 		
 		//关闭netty 相关资源
@@ -176,6 +181,7 @@ public class NettyServer extends AbstractServer{
             workerGroup.shutdownGracefully();
 		} catch(Throwable e) {
 			LoggerUtil.info("NettyServer close Fail: close error: url={}", url.getUri());
+			LoggerUtil.info("NettyServer workerGroup.shutdownGracefully() error", e);
 		}
 		
 		//关闭threadpool相关资源
@@ -183,7 +189,11 @@ public class NettyServer extends AbstractServer{
 			standardThreadExecutor.shutdownNow();
 		} catch(Throwable e) {
 			LoggerUtil.info("NettyServer close Fail: close error: url={}", url.getUri());
+			LoggerUtil.info("NettyServer standardThreadExecutor.shutdownNow() error", e);
 		}
+		
+		// 设置close状态
+		state = ChannelState.CLOSE;
 	}
 
 	@Override

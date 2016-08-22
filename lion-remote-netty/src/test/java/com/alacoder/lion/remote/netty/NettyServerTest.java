@@ -39,7 +39,7 @@ public class NettyServerTest {
 	 */
 
 	public static void main(String[] args) {
-		URL url = new URL("netty", "127.0.0.1", 4455, "com.weibo.api.motan.procotol.example.IHello");
+		URL url = new URL("netty", "10.12.104.6", 4455, "IHello");
 		
 		NettyServer server = new NettyServer(url,new MessageHandler(){
 
@@ -54,6 +54,8 @@ public class NettyServerTest {
 			}
 			
 		});
+		
+		server.doOpen();
 
         try {
 			Thread.sleep(100000);

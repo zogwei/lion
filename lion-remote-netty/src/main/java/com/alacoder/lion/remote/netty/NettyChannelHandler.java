@@ -53,16 +53,13 @@ public class NettyChannelHandler extends SimpleChannelInboundHandler<TransportDa
 		if( msg instanceof Request ) {
 			processRequest((Request) msg,channel);
 			return;
-		} 
-//		else if ( msg instanceof Response ) {
-//			processResponse((Response) msg,channel);
-//		}
-		messagehandler.handle(msg);  
-	
+		} else if ( msg instanceof Response ) {
+			processResponse((Response) msg,channel);
+		}
 	}
 	
-	private void processResponse(final Response request, final io.netty.channel.Channel channel) {
-		
+	private void processResponse(final Response response, final io.netty.channel.Channel channel) {
+		messagehandler.handle(response);
 	}
 	
 		
@@ -87,7 +84,7 @@ public class NettyChannelHandler extends SimpleChannelInboundHandler<TransportDa
             		response.setProcessTime(System.currentTimeMillis() - processStartTime);
 
             		if (channel.isActive()) {
-            			channel.write(response);
+            			channel.writeAndFlush(response);
             		}
                 }
             });
@@ -104,5 +101,11 @@ public class NettyChannelHandler extends SimpleChannelInboundHandler<TransportDa
 							threadPoolExecutor.getTaskCount(), request.getId());
 		}
 	}
+	
+    @Override
+    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+    	LoggerUtil.error("netty error" ,cause);
+        ctx.close();
+    }
 
 }

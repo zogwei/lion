@@ -53,12 +53,12 @@ public abstract class AbstractClient implements Client {
         this.timeout = url.getIntParameter(URLParamType.timeout.getName(), URLParamType.timeout.getIntValue());
         this.connectTimeout = url.getIntParameter(URLParamType.connectTimeout.getName(), URLParamType.connectTimeout.getIntValue());
 		
-		try{
-			doOpen();
-		} catch ( Throwable t ){
-			t.printStackTrace();
-		}
-		
+//		try{
+//			doOpen();
+//		} catch ( Throwable t ){
+//			t.printStackTrace();
+//		}
+//		
 	}
 	
 	public abstract void doOpen();

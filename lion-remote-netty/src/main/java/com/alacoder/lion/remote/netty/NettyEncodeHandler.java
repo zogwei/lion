@@ -54,7 +54,10 @@ public class NettyEncodeHandler extends MessageToByteEncoder {
 				Response response = buildExceptionResponse(id, e);
 				data = codec.encode(response);
 			}
-		}
+		} else if(msg instanceof Request) {
+			id =  ((Request)msg).getId();
+			data = codec.encode(msg);
+		} 
 		
 		byte[] transportHeader = new byte[LionConstants.NETTY_HEADER];
 		ByteUtil.short2bytes(LionConstants.NETTY_MAGIC_TYPE, transportHeader, 0);
