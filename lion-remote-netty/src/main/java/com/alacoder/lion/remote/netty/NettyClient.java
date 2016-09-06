@@ -91,9 +91,7 @@ public class NettyClient extends AbstractClient {
 				clientChannel = f.channel();
 				state = ChannelState.ALIVE;
 			} else {
-				// fail
-				LoggerUtil.error("NettyClient open fail:  url = {} ", url.getUri());
-				close();
+				throw new IllegalStateException("client can not conncet ");
 			}
 		} catch (InterruptedException e) {
 			LoggerUtil.error("NettyClient open fail:  url = {} ", url.getUri());

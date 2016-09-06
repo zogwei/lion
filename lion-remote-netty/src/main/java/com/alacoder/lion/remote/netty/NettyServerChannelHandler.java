@@ -47,11 +47,9 @@ public class NettyServerChannelHandler extends ChannelInboundHandlerAdapter {
 	}
 
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-//    	List<Object> buf = (List<Object>) msg;
     	NioSocketChannel nioChannel = (NioSocketChannel) msg;
     	
-    	String channelKey = getChannelKey((InetSocketAddress) nioChannel.localAddress(),
-				(InetSocketAddress) nioChannel.remoteAddress());
+    	String channelKey = getChannelKey((InetSocketAddress) nioChannel.localAddress(), (InetSocketAddress) nioChannel.remoteAddress());
 
 		if (channels.size() > MaxChannelNum) {
 			// 超过最大连接数限制，直接close连接
@@ -67,8 +65,7 @@ public class NettyServerChannelHandler extends ChannelInboundHandlerAdapter {
     
     private void removeChannel(ChannelHandlerContext ctx){
     	Channel channel = ctx.channel();
-    	String channelKey = getChannelKey((InetSocketAddress) channel.localAddress(),
-				(InetSocketAddress) channel.remoteAddress());
+    	String channelKey = getChannelKey((InetSocketAddress) channel.localAddress(), (InetSocketAddress) channel.remoteAddress());
 
 		channels.remove(channelKey);
     }
