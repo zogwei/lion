@@ -42,6 +42,7 @@ import com.alacoder.lion.remote.TransportData;
  * @date 2016年8月16日 下午3:53:17
  *
  *TODO 1、客户端池支持
+ *     2、heartbeat支持 
  */
 
 public class NettyClient extends AbstractClient {
@@ -124,14 +125,14 @@ public class NettyClient extends AbstractClient {
 
 	@Override
 	public void close() {
-		// TODO Auto-generated method stub
-		
+		close(0);
 	}
 
 	@Override
 	public void close(int timeout) {
-		// TODO Auto-generated method stub
-		
+		clientChannel.close();
+		group.shutdownGracefully();
+		LoggerUtil.warn("NettyClient close :  url = {} ", url.getUri());
 	}
 
 }

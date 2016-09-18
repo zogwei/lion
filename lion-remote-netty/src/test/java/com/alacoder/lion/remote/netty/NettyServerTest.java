@@ -14,6 +14,7 @@
 package com.alacoder.lion.remote.netty;
 
 import com.alacoder.lion.common.url.URL;
+import com.alacoder.lion.common.utils.LoggerUtil;
 import com.alacoder.lion.remote.MessageHandler;
 import com.alacoder.lion.remote.transport.DefaultResponse;
 import com.alacoder.lion.remote.transport.Request;
@@ -48,6 +49,7 @@ public class NettyServerTest {
 				if( message instanceof Request) {
 					Request request = (Request)message;
 					System.out.println(" server reciver request ： " + request.getId() );
+					LoggerUtil.info(" server reciver request ： " + request.getId() );
 					return new DefaultResponse();
 				}
 				return null;
@@ -58,11 +60,13 @@ public class NettyServerTest {
 		server.doOpen();
 
         try {
-			Thread.sleep(100000);
+			Thread.sleep(10000);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+        
+        server.close();
 	}
 
 }

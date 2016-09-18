@@ -36,7 +36,7 @@ import io.netty.channel.SimpleChannelInboundHandler;
  *
  */
 
-public class NettyChannelHandler extends SimpleChannelInboundHandler<TransportData>  {
+public class NettyChannelHandler extends SimpleChannelInboundHandler<TransportData> {
 	
 	private MessageHandler messagehandler;
 	private ThreadPoolExecutor threadPoolExecutor;
@@ -57,6 +57,12 @@ public class NettyChannelHandler extends SimpleChannelInboundHandler<TransportDa
 			processResponse((Response) msg,channel);
 		}
 	}
+	
+    @Override
+    public void channelInactive(ChannelHandlerContext ctx) throws Exception {
+    	LoggerUtil.info("chanel inactive " + ctx.channel().toString());
+        ctx.fireChannelInactive();
+    }
 	
 	private void processResponse(final Response response, final io.netty.channel.Channel channel) {
 		messagehandler.handle(response);

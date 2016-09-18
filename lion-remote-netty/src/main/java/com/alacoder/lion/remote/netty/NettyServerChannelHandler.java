@@ -73,7 +73,7 @@ public class NettyServerChannelHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
     	removeChannel(ctx);
-		
+    	LoggerUtil.info("server chanel inactive ");
         ctx.fireChannelInactive();
     }
     
@@ -81,7 +81,7 @@ public class NettyServerChannelHandler extends ChannelInboundHandlerAdapter {
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause)
             throws Exception {
     	removeChannel(ctx);
-    	
+    	LoggerUtil.info("server chanel exceptionCaught ");
         ctx.fireExceptionCaught(cause);
     }
     
@@ -127,8 +127,9 @@ public class NettyServerChannelHandler extends ChannelInboundHandlerAdapter {
 		for (Map.Entry<String, Channel> entry : channels.entrySet()) {
 			try {
 				Channel channel = entry.getValue();
-
+				
 				if (channel != null) {
+					LoggerUtil.info("chanel inactive " + channel.toString());
 					channel.close();
 				}
 			} catch (Exception e) {
