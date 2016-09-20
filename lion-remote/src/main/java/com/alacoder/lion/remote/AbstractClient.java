@@ -37,10 +37,12 @@ public abstract class AbstractClient implements Client {
 	
 	protected int timeout;
     protected int  connectTimeout;
+    
+    protected MessageHandler messageHandler;
 	
     protected volatile ChannelState state = ChannelState.UNINIT;
 	
-	public AbstractClient(URL url) {
+	public AbstractClient(URL url,MessageHandler messageHandler) {
 		this.url = url;
 		this.codec = ExtensionLoader.getExtensionLoader(Codec.class).getExtension(
                         url.getParameter(URLParamType.codec.getName(), URLParamType.codec.getValue()));
@@ -53,15 +55,16 @@ public abstract class AbstractClient implements Client {
         this.timeout = url.getIntParameter(URLParamType.timeout.getName(), URLParamType.timeout.getIntValue());
         this.connectTimeout = url.getIntParameter(URLParamType.connectTimeout.getName(), URLParamType.connectTimeout.getIntValue());
 		
+        this.messageHandler = messageHandler;
 //		try{
-//			doOpen();
+//			open();
 //		} catch ( Throwable t ){
 //			t.printStackTrace();
 //		}
-//		
+		
 	}
 	
-	public abstract void doOpen();
+	public abstract void open();
 	
 	public InetSocketAddress getLocalAddress() {
 		return localAddress;

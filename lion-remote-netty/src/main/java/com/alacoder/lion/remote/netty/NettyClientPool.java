@@ -41,16 +41,16 @@ import com.alacoder.lion.remote.TransportData;
  * @author jimmy.zhong
  * @date 2016年8月16日 下午3:53:17
  *
- *TODO heartbeat支持 、客户端重连
+ *TODO 连接池支持、 heartbeat支持 、客户端重连
  */
 
-public class NettyClient extends AbstractClient {
+public class NettyClientPool extends AbstractClient {
 
 	private io.netty.channel.Channel clientChannel;
 	private io.netty.bootstrap.Bootstrap client;
 	private EventLoopGroup group;
 	
-	public NettyClient(URL url,MessageHandler messageHandler) {
+	public NettyClientPool(URL url,MessageHandler messageHandler) {
 		super(url,messageHandler);
 	}
 	

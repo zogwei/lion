@@ -11,7 +11,7 @@
  * @version V1.0
  */
 
-package com.alacoder.lion.remote.netty;
+package com.alacoder.lion.common.utils;
 
 /**
  * @ClassName: StandardThreadExecutor

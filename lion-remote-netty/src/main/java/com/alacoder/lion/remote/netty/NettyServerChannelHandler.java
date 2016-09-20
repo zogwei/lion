@@ -36,31 +36,31 @@ import io.netty.channel.socket.nio.NioSocketChannel;
 
 public class NettyServerChannelHandler extends ChannelInboundHandlerAdapter {
 	
-	private ConcurrentMap<String, Channel> channels = null;
-	
 	private int MaxChannelNum = 0;
+	private ConcurrentMap<String, io.netty.channel.Channel> channels = null;
 	
-	public NettyServerChannelHandler(int MaxChannelNum){
+	public NettyServerChannelHandler(int MaxChannelNum, ConcurrentMap<String, io.netty.channel.Channel> channels){
 		super();
 		this.MaxChannelNum = MaxChannelNum;
-		this.channels = new ConcurrentHashMap<String, io.netty.channel.Channel>();;
+		this.channels = channels;
 	}
 
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
+    	LoggerUtil.debug("server chanel channelRead ");
     	NioSocketChannel nioChannel = (NioSocketChannel) msg;
-    	
-    	String channelKey = getChannelKey((InetSocketAddress) nioChannel.localAddress(), (InetSocketAddress) nioChannel.remoteAddress());
-
-		if (channels.size() > MaxChannelNum) {
-			// 超过最大连接数限制，直接close连接
-			LoggerUtil.warn("NettyServerChannelManage channelConnected channel size out of limit: limit={} current={}",
-					MaxChannelNum, channels.size());
-
-			nioChannel.close();
-		} else {
-			channels.put(channelKey, nioChannel);
+//    	
+//    	String channelKey = getChannelKey((InetSocketAddress) nioChannel.localAddress(), (InetSocketAddress) nioChannel.remoteAddress());
+//
+//		if (channels.size() > MaxChannelNum) {
+//			// 超过最大连接数限制，直接close连接
+//			LoggerUtil.warn("NettyServerChannelManage channelConnected channel size out of limit: limit={} current={}",
+//					MaxChannelNum, channels.size());
+//
+//			nioChannel.close();
+//		} else {
+//			channels.put(channelKey, nioChannel);
 			ctx.fireChannelRead(msg);
-		}
+//		}
     }
     
     private void removeChannel(ChannelHandlerContext ctx){
@@ -68,27 +68,24 @@ public class NettyServerChannelHandler extends ChannelInboundHandlerAdapter {
     	String channelKey = getChannelKey((InetSocketAddress) channel.localAddress(), (InetSocketAddress) channel.remoteAddress());
 
 		channels.remove(channelKey);
+		LoggerUtil.debug("server chanel remove  " + channelKey);
     }
     
     @Override
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
-    	removeChannel(ctx);
-    	LoggerUtil.info("server chanel inactive ");
+    	LoggerUtil.debug("server chanel inactive ");
         ctx.fireChannelInactive();
     }
     
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause)
             throws Exception {
-    	removeChannel(ctx);
-    	LoggerUtil.info("server chanel exceptionCaught ");
+    	LoggerUtil.warn("server chanel exceptionCaught ");
         ctx.fireExceptionCaught(cause);
     }
     
     @Override
     public void channelUnregistered(ChannelHandlerContext ctx) throws Exception {
-    	removeChannel(ctx);
-    	
         ctx.fireChannelUnregistered();
     }
     

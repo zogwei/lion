@@ -34,10 +34,10 @@ import com.alacoder.lion.common.LionConstants;
 import com.alacoder.lion.common.url.URL;
 import com.alacoder.lion.common.url.URLParamType;
 import com.alacoder.lion.common.utils.LoggerUtil;
+import com.alacoder.lion.common.utils.StandardThreadExecutor;
 import com.alacoder.lion.remote.AbstractServer;
 import com.alacoder.lion.remote.Channel;
 import com.alacoder.lion.remote.ChannelState;
-import com.alacoder.lion.remote.Codec;
 import com.alacoder.lion.remote.MessageHandler;
 import com.alacoder.lion.remote.TransportData;
 
@@ -51,27 +51,31 @@ import com.alacoder.lion.remote.TransportData;
 
 public class NettyServer extends AbstractServer{
 
-	private StandardThreadExecutor standardThreadExecutor = null;
-
 //	private ConcurrentMap<String, io.netty.channel.Channel> channels = new ConcurrentHashMap<String, io.netty.channel.Channel>();
 	private io.netty.channel.Channel serverChannel;
-	private MessageHandler messagehandler ;
+	private ConcurrentMap<String, io.netty.channel.Channel> channels = null;
+
 	private ServerBootstrap  server;
 	
 	EventLoopGroup bossGroup  = null;
 	EventLoopGroup workerGroup = null;
 	 
 	public NettyServer(URL url,MessageHandler messagehandler) {
-		super(url);
-		this.messagehandler = messagehandler;
+		super(url,messagehandler);
+		this.channels = new ConcurrentHashMap<String, io.netty.channel.Channel>();
 	}
 
 	private void init() {
+		if(state != ChannelState.UNINIT) {
+			LoggerUtil.error("NettyServer is not in uninit state, init error, url = {} ", url.getUri());
+			return ;
+		}
+		
 		boolean shareChannel = url.getBooleanParameter(URLParamType.shareChannel.getName(),
 				URLParamType.shareChannel.getBooleanValue());
 		final int maxContentLength = url.getIntParameter(URLParamType.maxContentLength.getName(),
 				URLParamType.maxContentLength.getIntValue());
-		int maxServerConnection = url.getIntParameter(URLParamType.maxServerConnection.getName(),
+		final int maxServerConnection = url.getIntParameter(URLParamType.maxServerConnection.getName(),
 				URLParamType.maxServerConnection.getIntValue());
 		int workerQueueSize = url.getIntParameter(URLParamType.workerQueueSize.getName(),
 				URLParamType.workerQueueSize.getIntValue());
@@ -101,43 +105,60 @@ public class NettyServer extends AbstractServer{
         server = new ServerBootstrap();
     	server.group(bossGroup, workerGroup)
          .channel(NioServerSocketChannel.class)
-         .handler(new NettyServerChannelHandler(maxServerConnection))
+         .handler(new NettyServerChannelHandler(maxServerConnection, channels))
          .childHandler(new  ChannelInitializer<SocketChannel>(){
         	 @Override
         	    public void initChannel(SocketChannel ch) throws Exception {
         	        ChannelPipeline pipeline = ch.pipeline();
-//        	        // Enable stream compression (you can remove these two if unnecessary)
-//        	        pipeline.addLast("deflater", ZlibCodecFactory.newZlibEncoder(ZlibWrapper.GZIP));
-//        	        pipeline.addLast("inflater", ZlibCodecFactory.newZlibDecoder(ZlibWrapper.GZIP));
-
-        	        // Add the codec first,
+        	        
         	        pipeline.addLast("decoder", new NettyDecodeHandler(codec,maxContentLength));
         	        pipeline.addLast("encoder", new NettyEncodeHandler(codec));
-        	        
-        	        pipeline.addLast("handler", new NettyChannelHandler(messagehandler,standardThreadExecutor));
+        	        pipeline.addLast("handler", new NettyServerChildChannelHandler(messagehandler,standardThreadExecutor,channels,maxServerConnection));
         	    }
          })
          .childOption(ChannelOption.TCP_NODELAY, true)
          .childOption(ChannelOption.SO_KEEPALIVE, true);
+    	
+    	state = ChannelState.INIT;
 	}
 	
-	public void doOpen() {
-		
+	public void open() {
 		init() ;
 		
-        try {
-        	
-        	ChannelFuture  channelFuture = server.bind(new InetSocketAddress(url.getPort())).sync();
-        	serverChannel = channelFuture.channel();
-        	
-        	state = ChannelState.ALIVE;
-        	
-        } catch (InterruptedException e) {
-        	LoggerUtil.warn("NettyServer close fail: interrupted url = {} ", url.getUri());
-        	close();
+		doOpen();
+		
+		heartbeat();
+	}
+	
+	private void heartbeat(){
+		
+		
+	}
+	
+	
+	private void doOpen() {
+		
+		if(state != ChannelState.INIT) {
+			LoggerUtil.error("NettyServer is not in init state, open error, url = {} ", url.getUri());
+			return ;
+		}
+		
+		try {
+
+			ChannelFuture channelFuture = server.bind(new InetSocketAddress(url.getPort())).sync();
+			serverChannel = channelFuture.channel();
+			
+
+			state = ChannelState.ALIVE;
+
+			LoggerUtil.info("NettyServer open success , url = {}", url.getUri());
+
+		} catch (InterruptedException e) {
+			LoggerUtil.warn("NettyServer close fail: interrupted url = {} ", url.getUri());
+			close();
 		} catch (Throwable e) {
-	    	LoggerUtil.error("NettyServer error  ", e);
-	    	close();
+			LoggerUtil.error("NettyServer error  ", e);
+			close();
 		}
 	}
 	

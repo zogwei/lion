@@ -48,7 +48,6 @@ public class NettyServerTest {
 			public Object handle(Object message) {
 				if( message instanceof Request) {
 					Request request = (Request)message;
-					System.out.println(" server reciver request ： " + request.getId() );
 					LoggerUtil.info(" server reciver request ： " + request.getId() );
 					return new DefaultResponse();
 				}
@@ -57,7 +56,7 @@ public class NettyServerTest {
 			
 		});
 		
-		server.doOpen();
+		server.open();
 
         try {
 			Thread.sleep(10000);

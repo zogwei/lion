@@ -18,7 +18,7 @@ import java.net.InetSocketAddress;
 import com.alacoder.lion.common.extension.ExtensionLoader;
 import com.alacoder.lion.common.url.URL;
 import com.alacoder.lion.common.url.URLParamType;
-import com.alacoder.lion.common.utils.LoggerUtil;
+import com.alacoder.lion.common.utils.StandardThreadExecutor;
 
 /**
  * @ClassName: AbstractServer
@@ -35,10 +35,13 @@ public abstract class AbstractServer implements Server {
 	
 	protected URL url;
 	protected Codec codec;
+	protected MessageHandler messagehandler ;
+	
+	protected StandardThreadExecutor standardThreadExecutor = null;
 	
     protected volatile ChannelState state = ChannelState.UNINIT;
 	
-	public AbstractServer(URL url) {
+	public AbstractServer(URL url,MessageHandler messagehandler) {
 		this.url = url;
 		this.codec = ExtensionLoader.getExtensionLoader(Codec.class).getExtension(
                         url.getParameter(URLParamType.codec.getName(), URLParamType.codec.getValue()));
@@ -46,16 +49,10 @@ public abstract class AbstractServer implements Server {
 				        url.getParameter(URLParamType.serialize.getName(), URLParamType.serialize.getValue()));
 		
 		codec.setSerialization(serialization);
-		
-//		try{
-//			doOpen();
-//		} catch ( Throwable t ){
-//			LoggerUtil.error("init abstract server error", t);
-//		}
-		
+		this.messagehandler = messagehandler;
 	}
 	
-	public abstract void doOpen();
+	public abstract void open();
 	
 	public InetSocketAddress getLocalAddress() {
 		return localAddress;
