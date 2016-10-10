@@ -111,7 +111,7 @@ public class NettyDecodeHandler extends ByteToMessageDecoder {
 	
 	private Response buildExceptionResponse(long requestId, Exception e) {
 		DefaultResponse response = new DefaultResponse();
-		response.setId(requestId);
+		response.setRequestId(requestId);
 		response.setException(e);
 		return response;
 	}

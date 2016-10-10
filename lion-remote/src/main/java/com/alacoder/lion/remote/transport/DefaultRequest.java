@@ -13,7 +13,10 @@
 
 package com.alacoder.lion.remote.transport;
 
+import java.util.Arrays;
 import java.util.Map;
+
+import com.alacoder.lion.remote.codec.RemoteProtocolVersion;
 
 /**
  * @ClassName: Request
@@ -32,13 +35,14 @@ public class DefaultRequest implements Request{
 	private Object[] arguments;
 	private Map<String, String> attachments;
 	
+    private byte rpcProtocolVersion = RemoteProtocolVersion.VERSION_1.getVersion();
 	
 	/**
 	 * getter method
 	 * @return the id
 	 */
 	
-	public Long getId() {
+	public Long getRequestId() {
 		return id;
 	}
 	/**
@@ -46,7 +50,7 @@ public class DefaultRequest implements Request{
 	 * @param id the id to set
 	 */
 	
-	public void setId(Long id) {
+	public void setRequestId(Long id) {
 		this.id = id;
 	}
 	/**
@@ -54,7 +58,7 @@ public class DefaultRequest implements Request{
 	 * @return the parametersDesc
 	 */
 	
-	public String getParametersDesc() {
+	public String getParamtersDesc() {
 		return parametersDesc;
 	}
 	/**
@@ -62,7 +66,7 @@ public class DefaultRequest implements Request{
 	 * @param parametersDesc the parametersDesc to set
 	 */
 	
-	public void setParametersDesc(String parametersDesc) {
+	public void setParamtersDesc(String parametersDesc) {
 		this.parametersDesc = parametersDesc;
 	}
 	/**
@@ -118,7 +122,7 @@ public class DefaultRequest implements Request{
 	 * @return the method
 	 */
 	
-	public String getMethod() {
+	public String getMethodName() {
 		return method;
 	}
 	/**
@@ -126,7 +130,7 @@ public class DefaultRequest implements Request{
 	 * @param method the method to set
 	 */
 	
-	public void setMethod(String method) {
+	public void setMethodName(String method) {
 		this.method = method;
 	}
 	/*
@@ -135,13 +139,38 @@ public class DefaultRequest implements Request{
 	  * @return
 	  * @see java.lang.Object#toString()
 	  */
-	
-	
+	@Override
+	public void setRpcProtocolVersion(byte rpcProtocolVersion) {
+		this.rpcProtocolVersion = rpcProtocolVersion;
+	}
+	@Override
+	public byte getRpcProtocolVersion() {
+		return rpcProtocolVersion;
+	}
 	@Override
 	public String toString() {
-		return "Request [interfaceName=" + interfaceName + ", method=" + method + "]";
+		return "DefaultRequest [id=" + id + ", interfaceName=" + interfaceName
+				+ ", method=" + method + ", parametersDesc=" + parametersDesc
+				+ ", arguments=" + Arrays.toString(arguments)
+				+ ", attachments=" + attachments + ", rpcProtocolVersion="
+				+ rpcProtocolVersion + ", getId()=" + getRequestId()
+				+ ", getParamtersDesc()=" + getParamtersDesc()
+				+ ", getArguments()=" + Arrays.toString(getArguments())
+				+ ", getAttachments()=" + getAttachments()
+				+ ", getInterfaceName()=" + getInterfaceName()
+				+ ", getMethodName()=" + getMethodName()
+				+ ", getRpcProtocolVersion()=" + getRpcProtocolVersion()
+				+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode()
+				+ ", toString()=" + super.toString() + "]";
 	}
-	
+	@Override
+	public int getRetries() {
+		return 0;
+	}
+	@Override
+	public void setAttachment(String name, String value) {
+		attachments.put(name, value);
+	}
 	
 	
 }

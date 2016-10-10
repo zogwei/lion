@@ -48,7 +48,7 @@ public class NettyServerTest {
 			public Object handle(Object message) {
 				if( message instanceof Request) {
 					Request request = (Request)message;
-					LoggerUtil.info(" server reciver request ： " + request.getId() );
+					LoggerUtil.info(" server reciver request ： " + request.getRequestId() );
 					return new DefaultResponse();
 				}
 				return null;

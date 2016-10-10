@@ -27,9 +27,9 @@ import com.alacoder.lion.remote.TransportData;
 
 public interface Request extends TransportData{
 
-	public String getParametersDesc();;
+	public String getParamtersDesc();;
 	
-	public void setParametersDesc(String parametersDesc);
+	public void setParamtersDesc(String parametersDesc);
 	
 	public Object[] getArguments();
 	
@@ -39,11 +39,20 @@ public interface Request extends TransportData{
 	
 	public void setAttachments(Map<String, String> attachments) ;
 	
+	public void setAttachment(String name, String value);
+	
 	public String getInterfaceName();
 	
 	public void setInterfaceName(String interfaceName);
 	
-	public String getMethod() ;
+	public String getMethodName() ;
 	
-	public void setMethod(String method);
+	public void setMethodName(String method);
+	
+    void setRpcProtocolVersion(byte rpcProtocolVersion);
+
+    byte getRpcProtocolVersion();
+    
+    int getRetries();
+	
 }

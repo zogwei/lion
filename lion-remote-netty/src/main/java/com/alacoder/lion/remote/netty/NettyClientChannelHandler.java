@@ -80,7 +80,7 @@ public class NettyClientChannelHandler extends SimpleChannelInboundHandler<Trans
     			response = (DefaultResponse) result;
     		}
     		
-    		response.setId(request.getId());
+    		response.setRequestId(request.getRequestId());
     		response.setProcessTime(System.currentTimeMillis() - processStartTime);
 
     		if (channel.isActive()) {
@@ -88,7 +88,7 @@ public class NettyClientChannelHandler extends SimpleChannelInboundHandler<Trans
     		}
 		} catch (RejectedExecutionException rejectException) {
 			DefaultResponse response = new DefaultResponse();
-			response.setId(request.getId());
+			response.setRequestId(request.getRequestId());
 			response.setException(new LionServiceException("process thread pool is full, reject", LionErrorMsgConstant.SERVICE_REJECT));
 			response.setProcessTime(System.currentTimeMillis() - processStartTime);
 			channel.write(response);

@@ -48,9 +48,9 @@ public class FastJsonSerializationTest {
 	public static void main(String[] args) throws IOException {
 		Serialization ser = ExtensionLoader.getExtensionLoader(Serialization.class).getExtension("fastJson");
 		Request request = new DefaultRequest();
-		request.setId(1111L);
+		request.setRequestId(1111L);
 		request.setInterfaceName("interfacename");
-		request.setMethod("method");
+		request.setMethodName("method");
 		
 		byte[] bytes = ser.serialize(request);
 		
@@ -61,7 +61,7 @@ public class FastJsonSerializationTest {
 		
 		
 		Response response = new DefaultResponse();
-		response.setId(1111L);
+		response.setRequestId(1111L);
 //		response.setInterfaceName("interfacename");
 //		response.setMethod("method");
 

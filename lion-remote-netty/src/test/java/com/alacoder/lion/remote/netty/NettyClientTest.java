@@ -52,7 +52,7 @@ public class NettyClientTest {
 			public Object handle(Object message) {
 				if( message instanceof Response) {
 					Response response = (Response)message;
-					LoggerUtil.info(" client reciver response ： " + response.getId() );
+					LoggerUtil.info(" client reciver response ： " + response.getRequestId() );
 				}
 				return null;
 			}
@@ -64,7 +64,7 @@ public class NettyClientTest {
 		Request request = new DefaultRequest();
 		
 		for (int i =0 ; i < 3 ; i++){
-			request.setId(System.currentTimeMillis());
+			request.setRequestId(System.currentTimeMillis());
 			client.send(request);
 			 try {
 					Thread.sleep(1000);

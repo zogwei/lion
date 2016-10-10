@@ -16,6 +16,8 @@ package com.alacoder.lion.remote;
 import java.net.InetSocketAddress;
 
 import com.alacoder.lion.common.url.URL;
+import com.alacoder.lion.remote.transport.Request;
+import com.alacoder.lion.remote.transport.Response;
 
 /**
  * @ClassName: Channel
@@ -37,5 +39,11 @@ public interface Channel {
 	
 	void send(TransportData data);
 	
+    Response request(Request request) throws TransportException;
+	
 	URL getUrl();
+	
+    boolean open();
+    
+    boolean isAvailable();
 }

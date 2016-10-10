@@ -47,7 +47,7 @@ public class NettyEncodeHandler extends MessageToByteEncoder {
 		byte[] data = null;
 		Long id = null;
 		if(msg instanceof Response) {
-			id = ((Response)msg).getId();
+			id = ((Response)msg).getRequestId();
 			try{
 				data = codec.encode(msg);
 			} catch (Exception e) {
@@ -55,7 +55,7 @@ public class NettyEncodeHandler extends MessageToByteEncoder {
 				data = codec.encode(response);
 			}
 		} else if(msg instanceof Request) {
-			id =  ((Request)msg).getId();
+			id =  ((Request)msg).getRequestId();
 			data = codec.encode(msg);
 		} 
 		
@@ -81,7 +81,7 @@ public class NettyEncodeHandler extends MessageToByteEncoder {
 
 	private Response buildExceptionResponse(long requestId, Exception e) {
 		DefaultResponse response = new DefaultResponse();
-		response.setId(requestId);
+		response.setRequestId(requestId);
 		response.setException(e);
 		return response;
 	}

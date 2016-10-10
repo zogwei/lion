@@ -64,7 +64,7 @@ public abstract class AbstractClient implements Client {
 		
 	}
 	
-	public abstract void open();
+	public abstract boolean open();
 	
 	public InetSocketAddress getLocalAddress() {
 		return localAddress;

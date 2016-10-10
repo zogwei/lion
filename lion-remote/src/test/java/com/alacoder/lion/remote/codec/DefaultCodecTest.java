@@ -39,9 +39,9 @@ public class DefaultCodecTest {
 
 	public static void main(String[] args) throws IOException {
 		Request request = new DefaultRequest();
-		request.setId(1111L);
+		request.setRequestId(1111L);
 		request.setInterfaceName("interfacename");
-		request.setMethod("method");
+		request.setMethodName("method");
 		
         URL url = new URL("netty", "localhost", 18080, "com.weibo.api.motan.procotol.example.IHello");
 //        url.addParameter(URLParamType.serialize.getName(), "mockMotan");
@@ -58,7 +58,7 @@ public class DefaultCodecTest {
 		
 		
 		Response response = new DefaultResponse();
-		response.setId(1111L);
+		response.setRequestId(1111L);
 //		response.setInterfaceName("interfacename");
 //		response.setMethod("method");
 

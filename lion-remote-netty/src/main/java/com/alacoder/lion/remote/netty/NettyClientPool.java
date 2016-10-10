@@ -25,7 +25,6 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
-import io.netty.example.telnet.TelnetClientInitializer;
 
 import com.alacoder.lion.common.url.URL;
 import com.alacoder.lion.common.url.URLParamType;
@@ -34,6 +33,9 @@ import com.alacoder.lion.remote.AbstractClient;
 import com.alacoder.lion.remote.ChannelState;
 import com.alacoder.lion.remote.MessageHandler;
 import com.alacoder.lion.remote.TransportData;
+import com.alacoder.lion.remote.TransportException;
+import com.alacoder.lion.remote.transport.Request;
+import com.alacoder.lion.remote.transport.Response;
 
 /**
  * @ClassName: NettyClient
@@ -55,7 +57,7 @@ public class NettyClientPool extends AbstractClient {
 	}
 	
 	@Override
-	public void open() {
+	public boolean open() {
 		final int maxContentLength = url.getIntParameter(URLParamType.maxContentLength.getName(),
 				URLParamType.maxContentLength.getIntValue());
 		
@@ -103,6 +105,8 @@ public class NettyClientPool extends AbstractClient {
 				f.cancel(false);
 			}
 		}
+		
+		return true;
 	}
 	
 	@Override
@@ -130,6 +134,18 @@ public class NettyClientPool extends AbstractClient {
 		clientChannel.close();
 		group.shutdownGracefully();
 		LoggerUtil.warn("NettyClient close :  url = {} ", url.getUri());
+	}
+
+	@Override
+	public Response request(Request request) throws TransportException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean isAvailable() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

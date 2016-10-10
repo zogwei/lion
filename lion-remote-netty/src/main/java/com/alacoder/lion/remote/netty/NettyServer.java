@@ -40,6 +40,9 @@ import com.alacoder.lion.remote.Channel;
 import com.alacoder.lion.remote.ChannelState;
 import com.alacoder.lion.remote.MessageHandler;
 import com.alacoder.lion.remote.TransportData;
+import com.alacoder.lion.remote.TransportException;
+import com.alacoder.lion.remote.transport.Request;
+import com.alacoder.lion.remote.transport.Response;
 
 /**
  * @ClassName: NettyServer
@@ -122,12 +125,14 @@ public class NettyServer extends AbstractServer{
     	state = ChannelState.INIT;
 	}
 	
-	public void open() {
+	public boolean open() {
 		init() ;
 		
 		doOpen();
 		
 		heartbeat();
+		
+		return true;
 	}
 	
 	private void heartbeat(){
@@ -231,6 +236,18 @@ public class NettyServer extends AbstractServer{
 	@Override
 	public URL getUrl() {
 		return this.url;
+	}
+
+	@Override
+	public Response request(Request request) throws TransportException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean isAvailable() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

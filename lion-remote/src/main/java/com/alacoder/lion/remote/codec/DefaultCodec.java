@@ -114,7 +114,7 @@ public class DefaultCodec implements Codec{
 		byte[] body = serialization.serialize(response);
 		byte dataType = LionConstants.FLAG_RESPONSE;
 		
-		return encode(body,dataType , response.getId());
+		return encode(body,dataType , response.getRequestId());
 		
 	}
 	
@@ -124,7 +124,7 @@ public class DefaultCodec implements Codec{
 		
 		byte dataType = LionConstants.FLAG_REQUEST;
 		
-		return encode(body,dataType , request.getId());
+		return encode(body,dataType , request.getRequestId());
 		
 	}
 	

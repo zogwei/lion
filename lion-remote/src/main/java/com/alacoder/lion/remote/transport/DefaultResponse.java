@@ -49,7 +49,7 @@ public class DefaultResponse implements Response{
     public DefaultResponse(Response response) {
         this.value = response.getValue();
         this.exception = response.getException();
-        this.id = response.getId();
+        this.id = response.getRequestId();
         this.processTime = response.getProcessTime();
         this.timeout = response.getTimeout();
     }
@@ -83,11 +83,11 @@ public class DefaultResponse implements Response{
         this.exception = exception;
     }
 
-    public Long getId() {
+    public Long getRequestId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setRequestId(Long id) {
         this.id = id;
     }
 
@@ -131,5 +131,22 @@ public class DefaultResponse implements Response{
     public void setRpcProtocolVersion(byte rpcProtocolVersion) {
         this.rpcProtocolVersion = rpcProtocolVersion;
     }
+
+	@Override
+	public String toString() {
+		return "DefaultResponse [value=" + value + ", exception=" + exception
+				+ ", id=" + id + ", processTime=" + processTime + ", timeout="
+				+ timeout + ", attachments=" + attachments
+				+ ", rpcProtocolVersion=" + rpcProtocolVersion
+				+ ", getValue()=" + getValue() + ", getException()="
+				+ getException() + ", getId()=" + getRequestId()
+				+ ", getProcessTime()=" + getProcessTime() + ", getTimeout()="
+				+ getTimeout() + ", getAttachments()=" + getAttachments()
+				+ ", getRpcProtocolVersion()=" + getRpcProtocolVersion()
+				+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode()
+				+ ", toString()=" + super.toString() + "]";
+	}
+    
+    
 
 }
