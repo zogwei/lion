@@ -15,7 +15,7 @@ package com.alacoder.lion.remote;
 
 import java.net.InetSocketAddress;
 
-import com.alacoder.lion.common.url.URL;
+import com.alacoder.lion.common.url.LionURL;
 import com.alacoder.lion.remote.transport.Request;
 import com.alacoder.lion.remote.transport.Response;
 
@@ -28,22 +28,25 @@ import com.alacoder.lion.remote.transport.Response;
  */
 
 public interface Channel {
-
-	InetSocketAddress getLocalAddress();
 	
-	InetSocketAddress getRemoteAddress();
+    boolean open();
+    
+    Response request(Request request) throws TransportException;
+    
+    boolean send(TransportData transportData) throws TransportException;
 	
 	void close();
 	
 	void close(int timeout);
+
 	
-	void send(TransportData data);
+	InetSocketAddress getLocalAddress();
 	
-    Response request(Request request) throws TransportException;
+	InetSocketAddress getRemoteAddress();
 	
-	URL getUrl();
-	
-    boolean open();
+	LionURL getUrl();
     
     boolean isAvailable();
+    
+    boolean isClosed();
 }

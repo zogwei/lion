@@ -14,7 +14,7 @@
 package com.alacoder.lion.rpc;
 
 import com.alacoder.lion.common.extension.ExtensionLoader;
-import com.alacoder.lion.common.url.URL;
+import com.alacoder.lion.common.url.LionURL;
 import com.alacoder.lion.common.url.URLParamType;
 import com.alacoder.lion.remote.Server;
 
@@ -30,7 +30,7 @@ public class DefaultRpcExporter<T> extends AbstractExporter<T> {
 	private Server server;
 	private EndpointFactory endpointFactory;
 
-	public DefaultRpcExporter(Provider<T> provider, URL url) {
+	public DefaultRpcExporter(Provider<T> provider, LionURL url) {
 		super(provider, url);
 		DefaultMessageHandler messageHandler = new DefaultMessageHandler();
 		endpointFactory =

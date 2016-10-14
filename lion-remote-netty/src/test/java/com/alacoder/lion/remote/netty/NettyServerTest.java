@@ -13,8 +13,9 @@
 
 package com.alacoder.lion.remote.netty;
 
-import com.alacoder.lion.common.url.URL;
+import com.alacoder.lion.common.url.LionURL;
 import com.alacoder.lion.common.utils.LoggerUtil;
+import com.alacoder.lion.remote.Channel;
 import com.alacoder.lion.remote.MessageHandler;
 import com.alacoder.lion.remote.transport.DefaultResponse;
 import com.alacoder.lion.remote.transport.Request;
@@ -40,12 +41,12 @@ public class NettyServerTest {
 	 */
 
 	public static void main(String[] args) {
-		URL url = new URL("netty", "10.12.104.6", 4455, "IHello");
+		LionURL url = new LionURL("netty", "10.12.104.6", 4455, "IHello");
 		
 		NettyServer server = new NettyServer(url,new MessageHandler(){
 
 			@Override
-			public Object handle(Object message) {
+			public Object handle(Channel channel, Object message) {
 				if( message instanceof Request) {
 					Request request = (Request)message;
 					LoggerUtil.info(" server reciver request ： " + request.getRequestId() );

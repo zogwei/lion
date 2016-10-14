@@ -18,7 +18,7 @@ import java.util.concurrent.locks.ReentrantLock;
 
 import com.alacoder.common.exception.LionErrorMsgConstant;
 import com.alacoder.common.exception.LionFrameworkException;
-import com.alacoder.lion.common.url.URL;
+import com.alacoder.lion.common.url.LionURL;
 
 /**
  * @ClassName: AbstractRegistryFactory
@@ -34,13 +34,13 @@ public abstract class AbstractRegistryFactory implements RegistryFactory{
 	
 	private static final ReentrantLock lock = new ReentrantLock();
 
-	protected String getRegistryUri(URL url) {
+	protected String getRegistryUri(LionURL url) {
 		String registryUri = url.getUri();
 		return registryUri;
 	}
 	
     @Override
-    public Registry getRegistry(URL url) {
+    public Registry getRegistry(LionURL url) {
         String registryUri = getRegistryUri(url);
         try {
             lock.lock();
@@ -61,5 +61,5 @@ public abstract class AbstractRegistryFactory implements RegistryFactory{
         }
     }
 
-    protected abstract Registry createRegistry(URL url);	
+    protected abstract Registry createRegistry(LionURL url);	
 }

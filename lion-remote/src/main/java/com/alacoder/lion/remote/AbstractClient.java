@@ -16,7 +16,7 @@ package com.alacoder.lion.remote;
 import java.net.InetSocketAddress;
 
 import com.alacoder.lion.common.extension.ExtensionLoader;
-import com.alacoder.lion.common.url.URL;
+import com.alacoder.lion.common.url.LionURL;
 import com.alacoder.lion.common.url.URLParamType;
 
 /**
@@ -27,22 +27,21 @@ import com.alacoder.lion.common.url.URLParamType;
  *
  */
 
-public abstract class AbstractClient implements Client {
+public abstract class AbstractClient extends AbstractEndpoint implements Client {
 
 	protected InetSocketAddress localAddress ;
 	protected InetSocketAddress remoteAddress;
 	
-	protected URL url;
+	protected LionURL url;
 	protected Codec codec;
 	
 	protected int timeout;
     protected int  connectTimeout;
     
     protected MessageHandler messageHandler;
+
 	
-    protected volatile ChannelState state = ChannelState.UNINIT;
-	
-	public AbstractClient(URL url,MessageHandler messageHandler) {
+	public AbstractClient(LionURL url,MessageHandler messageHandler) {
 		this.url = url;
 		this.codec = ExtensionLoader.getExtensionLoader(Codec.class).getExtension(
                         url.getParameter(URLParamType.codec.getName(), URLParamType.codec.getValue()));
@@ -56,12 +55,6 @@ public abstract class AbstractClient implements Client {
         this.connectTimeout = url.getIntParameter(URLParamType.connectTimeout.getName(), URLParamType.connectTimeout.getIntValue());
 		
         this.messageHandler = messageHandler;
-//		try{
-//			open();
-//		} catch ( Throwable t ){
-//			t.printStackTrace();
-//		}
-		
 	}
 	
 	public abstract boolean open();

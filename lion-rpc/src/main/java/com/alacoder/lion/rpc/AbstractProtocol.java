@@ -17,7 +17,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import com.alacoder.common.exception.LionErrorMsgConstant;
 import com.alacoder.common.exception.LionFrameworkException;
-import com.alacoder.lion.common.url.URL;
+import com.alacoder.lion.common.url.LionURL;
 import com.alacoder.lion.common.utils.LoggerUtil;
 import com.alacoder.lion.rpc.utils.LionFrameworkUtil;
 
@@ -33,7 +33,7 @@ public abstract class AbstractProtocol implements Protocol {
 	protected ConcurrentHashMap<String, Exporter<?>> exporterMap = new ConcurrentHashMap<String, Exporter<?>>();
 
 	@Override
-	public <T> Exporter<T> export(Provider<T> provider, URL url) {
+	public <T> Exporter<T> export(Provider<T> provider, LionURL url) {
 		if(url == null ) {
 			throw new LionFrameworkException(this.getClass().getSimpleName() + " export Error: url is null",
 					LionErrorMsgConstant.FRAMEWORK_INIT_ERROR);
@@ -62,10 +62,10 @@ public abstract class AbstractProtocol implements Protocol {
 		
 	}
 	
-	protected abstract <T> Exporter<T> createExporter(Provider<T> provider, URL url);
+	protected abstract <T> Exporter<T> createExporter(Provider<T> provider, LionURL url);
 
     @Override
-    public <T> Referer<T> refer(Class<T> clz, URL url, URL serviceUrl) {
+    public <T> Referer<T> refer(Class<T> clz, LionURL url, LionURL serviceUrl) {
         if (url == null) {
             throw new LionFrameworkException(this.getClass().getSimpleName() + " refer Error: url is null",
                     LionErrorMsgConstant.FRAMEWORK_INIT_ERROR);
@@ -85,7 +85,7 @@ public abstract class AbstractProtocol implements Protocol {
     }
 
 
-    protected abstract <T> Referer<T> createReferer(Class<T> clz, URL url, URL serviceUrl);
+    protected abstract <T> Referer<T> createReferer(Class<T> clz, LionURL url, LionURL serviceUrl);
 
     @Override
     public void destroy() {

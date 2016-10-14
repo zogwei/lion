@@ -15,7 +15,7 @@ package com.alacoder.lion.rpc.ha;
 
 import com.alacoder.lion.common.extension.Spi;
 import com.alacoder.lion.common.extension.Scope;
-import com.alacoder.lion.common.url.URL;
+import com.alacoder.lion.common.url.LionURL;
 import com.alacoder.lion.remote.transport.Request;
 import com.alacoder.lion.remote.transport.Response;
 
@@ -30,7 +30,7 @@ import com.alacoder.lion.remote.transport.Response;
 @Spi(scope = Scope.PROTOTYPE)
 public interface HaStrategy<T> {
 
-    void setUrl(URL url);
+    void setUrl(LionURL url);
 
     Response call(Request request, LoadBalance<T> loadBalance);
 

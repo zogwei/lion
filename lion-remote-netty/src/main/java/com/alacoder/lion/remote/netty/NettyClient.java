@@ -13,10 +13,16 @@
 
 package com.alacoder.lion.remote.netty;
 
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicLong;
 
 import io.netty.bootstrap.Bootstrap;
-import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelOption;
@@ -26,14 +32,22 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 
-import com.alacoder.lion.common.url.URL;
+import com.alacoder.common.exception.LionAbstractException;
+import com.alacoder.common.exception.LionErrorMsgConstant;
+import com.alacoder.common.exception.LionServiceException;
+import com.alacoder.lion.common.LionConstants;
+import com.alacoder.lion.common.url.LionURL;
 import com.alacoder.lion.common.url.URLParamType;
 import com.alacoder.lion.common.utils.LoggerUtil;
 import com.alacoder.lion.remote.AbstractClient;
-import com.alacoder.lion.remote.ChannelState;
+import com.alacoder.lion.remote.Channel;
+import com.alacoder.lion.remote.EndpointState;
+import com.alacoder.lion.remote.Endpoint;
 import com.alacoder.lion.remote.MessageHandler;
+import com.alacoder.lion.remote.ResponseFuture;
 import com.alacoder.lion.remote.TransportData;
 import com.alacoder.lion.remote.TransportException;
+import com.alacoder.lion.remote.transport.DefaultResponse;
 import com.alacoder.lion.remote.transport.Request;
 import com.alacoder.lion.remote.transport.Response;
 
@@ -48,18 +62,17 @@ import com.alacoder.lion.remote.transport.Response;
 
 public class NettyClient extends AbstractClient {
 
-	private io.netty.channel.Channel clientChannel;
+	private Channel clientChannel;
 	private io.netty.bootstrap.Bootstrap client;
 	private EventLoopGroup group;
 	
-	public NettyClient(URL url,MessageHandler messageHandler) {
+	public NettyClient(LionURL url,MessageHandler messageHandler) {
 		super(url,messageHandler);
 	}
 	
 	@Override
 	public boolean open() {
-		final int maxContentLength = url.getIntParameter(URLParamType.maxContentLength.getName(),
-				URLParamType.maxContentLength.getIntValue());
+		final int maxContentLength = url.getIntParameter(URLParamType.maxContentLength.getName(), URLParamType.maxContentLength.getIntValue());
 		
 		String host = url.getHost(); 
 		int port = url.getPort();
@@ -78,52 +91,103 @@ public class NettyClient extends AbstractClient {
                 	 pipeline.addLast("decoder", new NettyDecodeHandler(codec,maxContentLength));
          	         pipeline.addLast("encoder", new NettyEncodeHandler(codec));
          	        
-         	         pipeline.addLast("handler", new NettyClientChannelHandler(messageHandler));
+         	         if(messageHandler==null) {
+         	        	pipeline.addLast("handler", new NettyClientChannelHandler( NettyClient.this,  messageHandler));
+         	         }
+         	         else {
+         	        	pipeline.addLast("handler", new NettyClientChannelHandler( NettyClient.this, new MessageHandler() {
+        					@Override
+        					public Object handle(com.alacoder.lion.remote.Channel channel, Object message) {
+        						Response response = (Response) message;
+        						Endpoint endpoint = NettyClient.this;
+        						ResponseFuture responseFuture = endpoint.removeCallback(response.getRequestId());
+
+        						if (responseFuture == null) {
+        							LoggerUtil.warn("NettyClient has response from server, but resonseFuture not exist,  requestId={}", response.getRequestId());
+        							return null;
+        						}
+
+        						if (response.getException() != null) {
+        							responseFuture.onFailure(response);
+        						} else {
+        							responseFuture.onSuccess(response);
+        						}
+
+        						return null;
+        					}
+        				})); 
+         	         }
                  }
              });
 
-		ChannelFuture f  = null;
 		try {
-			state = ChannelState.INIT;
-		    f = client.connect(host, port);
-			f.await(connectTimeout, TimeUnit.MILLISECONDS);
-			if ( f != null && f.isSuccess() ) {
-				clientChannel = f.channel();
-				state = ChannelState.ALIVE;
-			} else {
-				throw new IllegalStateException("client can not conncet ");
-			}
-			
-			LoggerUtil.info("Nettyclient open success: socket = {}", f.channel().toString());
-			
-		} catch (InterruptedException e) {
-			LoggerUtil.error("NettyClient open fail:  url = {} ", url.getUri());
-			LoggerUtil.error("NettyClient error ", e);
-			close();
+			NettyChannel nettyChannel = new NettyChannel(this);
+			nettyChannel.open();
+			clientChannel = nettyChannel;
+			this.state = EndpointState.ALIVE;
+			return state.isAliveState();
+		} catch (Exception e) {
+			LoggerUtil.error("NettyClient open fail:  url =  "+ url.getUri(), e);
+			throw new LionServiceException("NettyClient failed to open , url: "+ getUrl().getUri(), e);
 		} finally {
-			if(!clientChannel.isActive()) {
-				f.cancel(false);
+			if(!clientChannel.isAvailable()) {
+				clientChannel.close();
 			}
 		}
-		
-		return true;
 	}
 	
 	@Override
-	public void send(TransportData data) {
-		if( clientChannel.isActive() ) {
-			clientChannel.writeAndFlush(data);
-		} else {
-			LoggerUtil.warn("NettyClient close fail:  url = {} ", url.getUri());
+	public Response request(Request request) throws TransportException {
+		if(!clientChannel.isAvailable()){
+			throw new LionServiceException("NettyChannel is unavaliable: url= " + url.getUri() + " request= " + request);
 		}
 		
+		boolean async = url.getMethodParameter(request.getMethodName(), request.getParamtersDesc()
+		        , URLParamType.async.getName(), URLParamType.async.getBooleanValue());
+		
+		return request(request,async);
 	}
+	
+	public Response request(Request request, boolean async) throws TransportException {
+		Response response = null;
+		try{
+			response = clientChannel.request(request);
+		}
+		catch(Exception e) {
+			LoggerUtil.error(
+					"NettyClient request Error: url=" + url.getUri() + " " + request, e);
+			if (e instanceof LionAbstractException) {
+				throw (LionAbstractException) e;
+			} else {
+				throw new LionServiceException("NettyClient request Error: url=" + url.getUri() + " "+ request, e);
+			}
+		}
+		
+		if (async || !(response instanceof NettyResponseFuture)) {
+			return response;
+		}
 
+		return new DefaultResponse(response);
+		
+	}
+	
 	@Override
-	public URL getUrl() {
-		return url;
+	public boolean send(TransportData transportData) throws TransportException {
+		boolean result = false;
+		try{
+			result = clientChannel.send(transportData);
+			return true;
+		}
+		catch(Exception e) {
+			LoggerUtil.error("NettyClient send Error: url=" + url.getUri() + " " + transportData, e);
+			if (e instanceof LionAbstractException) {
+				throw (LionAbstractException) e;
+			} else {
+				throw new LionServiceException("NettyClient send Error: url=" + url.getUri() + " "+ transportData, e);
+			}
+		}
 	}
-
+	
 	@Override
 	public void close() {
 		close(0);
@@ -131,21 +195,55 @@ public class NettyClient extends AbstractClient {
 
 	@Override
 	public void close(int timeout) {
-		clientChannel.close();
-		group.shutdownGracefully();
-		LoggerUtil.warn("NettyClient close :  url = {} ", url.getUri());
+		if(state.isCloseState()){
+			LoggerUtil.info("NettyClient close fail: already close, url={}", url.getUri());
+			return;
+		}
+		
+		// 如果当前nettyClient还没有初始化，那么就没有close的理由。
+		if (state.isUnInitState()) {
+			LoggerUtil.info("NettyClient close Fail: don't need to close because node is unInit state: url={}", url.getUri());
+			return;
+		}
+		
+		try{
+			timeMonitorFuture.cancel(true);
+			
+			// 清空callback
+			callbackMap.clear();
+			
+			clientChannel.close();
+			
+			group.shutdownGracefully();
+			
+			// 设置close状态
+			state = EndpointState.CLOSE;
+			LoggerUtil.info("NettyClient close :  url = {} ", url.getUri());
+		}
+		catch(Exception e) {
+			LoggerUtil.error("NettyClient close Error: url=" + url.getUri(), e);
+		}
 	}
+	
+
 
 	@Override
-	public Response request(Request request) throws TransportException {
-		// TODO Auto-generated method stub
-		return null;
+	public LionURL getUrl() {
+		return url;
 	}
 
 	@Override
 	public boolean isAvailable() {
-		// TODO Auto-generated method stub
-		return false;
+		return state.isAliveState();
 	}
 
+	@Override
+	public boolean isClosed() {
+		return state.isCloseState();
+	}
+	
+	public io.netty.bootstrap.Bootstrap getClient() {
+		return client;
+	}
+	
 }

@@ -19,7 +19,7 @@ import com.alacoder.common.exception.LionBizException;
 import com.alacoder.common.exception.LionErrorMsgConstant;
 import com.alacoder.common.exception.LionServiceException;
 import com.alacoder.lion.common.extension.SpiMeta;
-import com.alacoder.lion.common.url.URL;
+import com.alacoder.lion.common.url.LionURL;
 import com.alacoder.lion.common.utils.LoggerUtil;
 import com.alacoder.lion.remote.transport.DefaultResponse;
 import com.alacoder.lion.remote.transport.Request;
@@ -37,7 +37,7 @@ public class DefaultProvider<T> extends AbstractProvider<T> {
 
 	protected T proxyImpl;
 
-	public DefaultProvider(T proxyImpl, URL url, Class<T> clz) {
+	public DefaultProvider(T proxyImpl, LionURL url, Class<T> clz) {
 		super(url, clz);
 		this.proxyImpl = proxyImpl;
 	}

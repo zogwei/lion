@@ -13,10 +13,12 @@
 
 package com.alacoder.lion.remote.netty;
 
-import com.alacoder.lion.common.url.URL;
+import com.alacoder.lion.common.url.LionURL;
 import com.alacoder.lion.common.url.URLParamType;
 import com.alacoder.lion.common.utils.LoggerUtil;
+import com.alacoder.lion.remote.Channel;
 import com.alacoder.lion.remote.MessageHandler;
+import com.alacoder.lion.remote.TransportException;
 import com.alacoder.lion.remote.transport.DefaultRequest;
 import com.alacoder.lion.remote.transport.DefaultResponse;
 import com.alacoder.lion.remote.transport.Request;
@@ -32,27 +34,18 @@ import com.alacoder.lion.remote.transport.Response;
 
 public class NettyClientTest {
 
-	/**
-	 * main(这里用一句话描述这个方法的作用)
-	 *
-	 * @Title: main
-	 * @Description: 
-	 * @param @param args    设定文件
-	 * @return void    返回类型
-	 * @throws
-	 */
-
-	public static void main(String[] args) {
-		URL url = new URL("netty", "10.12.104.6", 4455, "IHello");
+	public static void main(String[] args) throws TransportException {
+		LionURL url = new LionURL("netty", "10.12.104.6", 4455, "IHello");
 		url.addParameter(URLParamType.connectTimeout.getName(), "10000");
 		
+		LoggerUtil.info(" client send() begin ： " );
 		NettyClient client = new NettyClient(url,new MessageHandler(){
 
 			@Override
-			public Object handle(Object message) {
+			public Object handle(Channel channel, Object message) {
 				if( message instanceof Response) {
 					Response response = (Response)message;
-					LoggerUtil.info(" client reciver response ： " + response.getRequestId() );
+					LoggerUtil.info(" client reciver send response ： " + response.getRequestId() );
 				}
 				return null;
 			}
@@ -66,6 +59,24 @@ public class NettyClientTest {
 		for (int i =0 ; i < 3 ; i++){
 			request.setRequestId(System.currentTimeMillis());
 			client.send(request);
+			 try {
+					Thread.sleep(1000);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+		}
+		
+		client.close();
+		
+		
+		LoggerUtil.info(" client request() begin ： " );
+		 client = new NettyClient(url,null);
+	     client.open();
+		
+		for (int i =0 ; i < 3 ; i++){
+			request.setRequestId(System.currentTimeMillis());
+			Response response = client.request(request);
+			LoggerUtil.info(" client reciver request() response ： " + response.getRequestId() + " value: " +response.getValue() );
 			 try {
 					Thread.sleep(1000);
 				} catch (InterruptedException e) {

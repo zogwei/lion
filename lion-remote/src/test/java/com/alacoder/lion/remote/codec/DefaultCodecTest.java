@@ -17,7 +17,7 @@ import java.io.IOException;
 import java.net.InetSocketAddress;
 
 import com.alacoder.lion.common.extension.ExtensionLoader;
-import com.alacoder.lion.common.url.URL;
+import com.alacoder.lion.common.url.LionURL;
 import com.alacoder.lion.common.url.URLParamType;
 import com.alacoder.lion.remote.Channel;
 import com.alacoder.lion.remote.Codec;
@@ -43,7 +43,7 @@ public class DefaultCodecTest {
 		request.setInterfaceName("interfacename");
 		request.setMethodName("method");
 		
-        URL url = new URL("netty", "localhost", 18080, "com.weibo.api.motan.procotol.example.IHello");
+        LionURL url = new LionURL("netty", "localhost", 18080, "com.weibo.api.motan.procotol.example.IHello");
 //        url.addParameter(URLParamType.serialize.getName(), "mockMotan");
 //        url.addParameter(URLParamType.requestTimeout.getName(), "2000");
 		

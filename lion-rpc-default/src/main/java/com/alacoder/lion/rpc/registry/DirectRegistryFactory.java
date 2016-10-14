@@ -14,7 +14,7 @@
 package com.alacoder.lion.rpc.registry;
 
 import com.alacoder.lion.common.extension.SpiMeta;
-import com.alacoder.lion.common.url.URL;
+import com.alacoder.lion.common.url.LionURL;
 
 /**
  * @ClassName: DirectRegistryFactory
@@ -27,7 +27,7 @@ import com.alacoder.lion.common.url.URL;
 public class DirectRegistryFactory extends AbstractRegistryFactory{
 
 	@Override
-	protected Registry createRegistry(URL url) {
+	protected Registry createRegistry(LionURL url) {
 		return new DirectRegistry(url);
 	}
 

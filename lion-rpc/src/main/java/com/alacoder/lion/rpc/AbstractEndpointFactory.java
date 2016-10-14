@@ -22,7 +22,7 @@ import java.util.concurrent.ConcurrentMap;
 
 import com.alacoder.common.exception.LionErrorMsgConstant;
 import com.alacoder.common.exception.LionFrameworkException;
-import com.alacoder.lion.common.url.URL;
+import com.alacoder.lion.common.url.LionURL;
 import com.alacoder.lion.common.url.URLParamType;
 import com.alacoder.lion.common.utils.LoggerUtil;
 import com.alacoder.lion.remote.Client;
@@ -48,7 +48,7 @@ public abstract class AbstractEndpointFactory implements EndpointFactory {
 	}
 	
 	 @Override
-	 public Server createServer(URL url, MessageHandler messageHandler) {
+	 public Server createServer(LionURL url, MessageHandler messageHandler) {
 		 Server server = null;
 		 synchronized(ipPort2ShareServer) {
 			 String ipPort = url.getServerPortStr();
@@ -100,16 +100,16 @@ public abstract class AbstractEndpointFactory implements EndpointFactory {
 	}
 	
 	@Override
-	public void safeReleaseResource(Server server, URL url) {
+	public void safeReleaseResource(Server server, LionURL url) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void safeReleaseResource(Client client, URL url) {
+	public void safeReleaseResource(Client client, LionURL url) {
 		// TODO Auto-generated method stub
 
 	}
 	 
-	 protected abstract Server innerCreateServer(URL url, MessageHandler messageHandler);
+	 protected abstract Server innerCreateServer(LionURL url, MessageHandler messageHandler);
 }

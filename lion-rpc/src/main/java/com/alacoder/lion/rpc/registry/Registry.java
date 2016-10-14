@@ -15,7 +15,7 @@ package com.alacoder.lion.rpc.registry;
 
 import com.alacoder.lion.common.extension.Spi;
 import com.alacoder.lion.common.extension.Scope;
-import com.alacoder.lion.common.url.URL;
+import com.alacoder.lion.common.url.LionURL;
 
 /**
  * @ClassName: Registry
@@ -28,5 +28,5 @@ import com.alacoder.lion.common.url.URL;
 @Spi(scope = Scope.SINGLETON)
 public interface Registry extends RegistryService, DiscoveryService {
 
-    URL getUrl();
+    LionURL getUrl();
 }

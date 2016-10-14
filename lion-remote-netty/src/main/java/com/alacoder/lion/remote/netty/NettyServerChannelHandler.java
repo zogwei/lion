@@ -20,8 +20,8 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
 import com.alacoder.lion.common.utils.LoggerUtil;
+import com.alacoder.lion.remote.Channel;
 
-import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.channel.socket.nio.NioSocketChannel;
@@ -37,16 +37,16 @@ import io.netty.channel.socket.nio.NioSocketChannel;
 public class NettyServerChannelHandler extends ChannelInboundHandlerAdapter {
 	
 	private int MaxChannelNum = 0;
-	private ConcurrentMap<String, io.netty.channel.Channel> channels = null;
+	private ConcurrentMap<String, Channel> channels = null;
 	
-	public NettyServerChannelHandler(int MaxChannelNum, ConcurrentMap<String, io.netty.channel.Channel> channels){
+	public NettyServerChannelHandler(int MaxChannelNum, ConcurrentMap<String, Channel> channels){
 		super();
 		this.MaxChannelNum = MaxChannelNum;
 		this.channels = channels;
 	}
 
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-    	LoggerUtil.debug("server chanel channelRead ");
+    	LoggerUtil.info("server chanel channelRead ");
     	NioSocketChannel nioChannel = (NioSocketChannel) msg;
 //    	
 //    	String channelKey = getChannelKey((InetSocketAddress) nioChannel.localAddress(), (InetSocketAddress) nioChannel.remoteAddress());
@@ -64,7 +64,7 @@ public class NettyServerChannelHandler extends ChannelInboundHandlerAdapter {
     }
     
     private void removeChannel(ChannelHandlerContext ctx){
-    	Channel channel = ctx.channel();
+    	io.netty.channel.Channel channel = ctx.channel();
     	String channelKey = getChannelKey((InetSocketAddress) channel.localAddress(), (InetSocketAddress) channel.remoteAddress());
 
 		channels.remove(channelKey);

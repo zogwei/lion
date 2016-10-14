@@ -13,6 +13,7 @@
 
 package com.alacoder.lion.remote;
 
+
 /**
  * @ClassName: MessageHandler
  * @Description: 
@@ -23,5 +24,5 @@ package com.alacoder.lion.remote;
 
 public interface MessageHandler {
 
-	 Object handle( Object message);
+	public Object handle(Channel channel, Object message);
 }

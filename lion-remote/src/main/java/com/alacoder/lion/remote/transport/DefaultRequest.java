@@ -14,6 +14,7 @@
 package com.alacoder.lion.remote.transport;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Map;
 
 import com.alacoder.lion.remote.codec.RemoteProtocolVersion;
@@ -168,9 +169,13 @@ public class DefaultRequest implements Request{
 		return 0;
 	}
 	@Override
-	public void setAttachment(String name, String value) {
-		attachments.put(name, value);
-	}
+    public void setAttachment(String key, String value) {
+        if (this.attachments == null) {
+            this.attachments = new HashMap<String, String>();
+        }
+
+        this.attachments.put(key, value);
+    }
 	
 	
 }

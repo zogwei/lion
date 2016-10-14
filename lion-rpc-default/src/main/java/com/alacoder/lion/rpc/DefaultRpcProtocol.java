@@ -14,7 +14,7 @@
 package com.alacoder.lion.rpc;
 
 import com.alacoder.lion.common.extension.SpiMeta;
-import com.alacoder.lion.common.url.URL;
+import com.alacoder.lion.common.url.LionURL;
 
 /**
  * @ClassName: DefaultRpcProtocol
@@ -27,12 +27,12 @@ import com.alacoder.lion.common.url.URL;
 public class DefaultRpcProtocol extends AbstractProtocol {
 
 	@Override
-	protected <T> Exporter<T> createExporter(Provider<T> provider, URL url) {
+	protected <T> Exporter<T> createExporter(Provider<T> provider, LionURL url) {
 		 return new DefaultRpcExporter<T>(provider, url);
 	}
 	
     @Override
-    protected <T> Referer<T> createReferer(Class<T> clz, URL url, URL serviceUrl) {
+    protected <T> Referer<T> createReferer(Class<T> clz, LionURL url, LionURL serviceUrl) {
         return new DefaultRpcReferer<T>(clz, url, serviceUrl);
     }
 

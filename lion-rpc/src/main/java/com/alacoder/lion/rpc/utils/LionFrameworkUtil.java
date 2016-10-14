@@ -16,7 +16,7 @@ package com.alacoder.lion.rpc.utils;
 import org.apache.commons.lang3.StringUtils;
 
 import com.alacoder.lion.common.LionConstants;
-import com.alacoder.lion.common.url.URL;
+import com.alacoder.lion.common.url.LionURL;
 import com.alacoder.lion.common.url.URLParamType;
 import com.alacoder.lion.remote.transport.Request;
 
@@ -65,7 +65,7 @@ public class LionFrameworkUtil {
      * @param url
      * @return
      */
-    public static String getServiceKey(URL url) {
+    public static String getServiceKey(LionURL url) {
         return getServiceKey(url.getGroup(), url.getPath(), url.getVersion());
     }
 
@@ -75,7 +75,7 @@ public class LionFrameworkUtil {
      * @param url
      * @return
      */
-    public static String getProtocolKey(URL url) {
+    public static String getProtocolKey(LionURL url) {
         return url.getProtocol() + LionConstants.PROTOCOL_SEPARATOR + url.getServerPortStr() + LionConstants.PATH_SEPARATOR
                 + url.getGroup() + LionConstants.PATH_SEPARATOR + url.getPath() + LionConstants.PATH_SEPARATOR + url.getVersion();
     }
@@ -130,7 +130,7 @@ public class LionFrameworkUtil {
      * @param target
      * @return
      */
-    public static boolean checkIfCanShallServiceChannel(URL source, URL target) {
+    public static boolean checkIfCanShallServiceChannel(LionURL source, LionURL target) {
         if (!StringUtils.equals(source.getProtocol(), target.getProtocol())) {
             return false;
         }
@@ -185,7 +185,7 @@ public class LionFrameworkUtil {
      * @param target
      * @return
      */
-    public static boolean checkIfCanShallClientChannel(URL source, URL target) {
+    public static boolean checkIfCanShallClientChannel(LionURL source, LionURL target) {
         if (!StringUtils.equals(source.getProtocol(), target.getProtocol())) {
             return false;
         }

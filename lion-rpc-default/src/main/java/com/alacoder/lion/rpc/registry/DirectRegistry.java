@@ -21,7 +21,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import com.alacoder.common.exception.LionFrameworkException;
 import com.alacoder.lion.common.LionConstants;
 import com.alacoder.lion.common.extension.SpiMeta;
-import com.alacoder.lion.common.url.URL;
+import com.alacoder.lion.common.url.LionURL;
 
 /**
  * @ClassName: DirectRegistry
@@ -32,10 +32,10 @@ import com.alacoder.lion.common.url.URL;
  */
 @SpiMeta(name = "direct")
 public class DirectRegistry extends AbstractRegistry {
-	private ConcurrentHashMap<URL,Object> subscribeUrl = new ConcurrentHashMap();
-	private List<URL> directUrls = new ArrayList<URL>();
+	private ConcurrentHashMap<LionURL,Object> subscribeUrl = new ConcurrentHashMap();
+	private List<LionURL> directUrls = new ArrayList<LionURL>();
 
-	public DirectRegistry(URL url) {
+	public DirectRegistry(LionURL url) {
 		super(url);
 		String address = url.getParameter("address");
 		if(address.contains(",")) {
@@ -64,56 +64,56 @@ public class DirectRegistry extends AbstractRegistry {
 	}
 	
 	private void registerDirectUrl(String ip, Integer port) {
-		 URL url = new URL(LionConstants.REGISTRY_PROTOCOL_DIRECT,ip,port,"");
+		 LionURL url = new LionURL(LionConstants.REGISTRY_PROTOCOL_DIRECT,ip,port,"");
 	     directUrls.add(url);
 	}
 	
 	@Override
-	public URL getUrl() {
+	public LionURL getUrl() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void available(URL url) {
+	public void available(LionURL url) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void unavailable(URL url) {
+	public void unavailable(LionURL url) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public Collection<URL> getRegisteredServiceUrls() {
+	public Collection<LionURL> getRegisteredServiceUrls() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void subscribe(URL url, NotifyListener listener) {
+	public void subscribe(LionURL url, NotifyListener listener) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void unsubscribe(URL url, NotifyListener listener) {
+	public void unsubscribe(LionURL url, NotifyListener listener) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public List<URL> discover(URL url) {
+	public List<LionURL> discover(LionURL url) {
 		return createSubscribeUrl(url);
 	}
 	
-    private List<URL> createSubscribeUrl(URL subscribeUrl) {
-        URL url = this.getUrl();
+    private List<LionURL> createSubscribeUrl(LionURL subscribeUrl) {
+        LionURL url = this.getUrl();
         List result = new ArrayList(directUrls.size());
-        for (URL directUrl : directUrls) {
-            URL tmp = subscribeUrl.createCopy();
+        for (LionURL directUrl : directUrls) {
+            LionURL tmp = subscribeUrl.createCopy();
             tmp.setHost(directUrl.getHost());
             tmp.setPort(directUrl.getPort());
             result.add(tmp);
@@ -122,41 +122,41 @@ public class DirectRegistry extends AbstractRegistry {
     }
 
 	@Override
-	protected void doRegister(URL url) {
+	protected void doRegister(LionURL url) {
 
 	}
 
 	@Override
-	protected void doUnregister(URL url) {
+	protected void doUnregister(LionURL url) {
 		
 	}
 
 	@Override
-	protected void doSubscribe(URL url, NotifyListener listener) {
+	protected void doSubscribe(LionURL url, NotifyListener listener) {
 		subscribeUrl.putIfAbsent(url, 1);
         listener.notify(this.getUrl(), doDiscover(url));
 	}
 
 	@Override
-	protected void doUnsubscribe(URL url, NotifyListener listener) {
+	protected void doUnsubscribe(LionURL url, NotifyListener listener) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	protected List<URL> doDiscover(URL url) {
+	protected List<LionURL> doDiscover(LionURL url) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	protected void doAvailable(URL url) {
+	protected void doAvailable(LionURL url) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	protected void doUnavailable(URL url) {
+	protected void doUnavailable(LionURL url) {
 		// TODO Auto-generated method stub
 		
 	}

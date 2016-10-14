@@ -54,6 +54,8 @@ public interface Response extends TransportData{
      * @return
      */
     long getProcessTime();
+    
+    long getCreateTime();
 
     /**
      * 业务处理时间

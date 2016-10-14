@@ -19,7 +19,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
-import com.alacoder.lion.common.url.URL;
+import com.alacoder.lion.common.url.LionURL;
 import com.alacoder.lion.common.url.URLParamType;
 import com.alacoder.lion.common.utils.ConcurrentHashSet;
 import com.alacoder.lion.common.utils.LoggerUtil;
@@ -34,19 +34,19 @@ import com.alacoder.lion.common.utils.LoggerUtil;
 
 public abstract class AbstractRegistry implements Registry {
 	
-	 private ConcurrentHashMap<URL, Map<String, List<URL>>> subscribedCategoryResponses =
-	            new ConcurrentHashMap<URL, Map<String, List<URL>>>();
-	 private URL registryUrl;
-	 private Set<URL> registeredServiceUrls = new ConcurrentHashSet<URL>();
+	 private ConcurrentHashMap<LionURL, Map<String, List<LionURL>>> subscribedCategoryResponses =
+	            new ConcurrentHashMap<LionURL, Map<String, List<LionURL>>>();
+	 private LionURL registryUrl;
+	 private Set<LionURL> registeredServiceUrls = new ConcurrentHashSet<LionURL>();
 	 protected String registryClassName = this.getClass().getSimpleName();
 	 
-	 public AbstractRegistry(URL url) {
+	 public AbstractRegistry(LionURL url) {
 		 this.registryUrl = url.createCopy();
 		 //TODO register a heartbeat switcher to perceive service state change and change available state
 	 }
 
 	 @Override
-	 public void register(URL url) {
+	 public void register(LionURL url) {
 		if (url == null) {
 			LoggerUtil.warn("[{}] register with malformed param, url is null", registryClassName);
 			return;
@@ -61,14 +61,14 @@ public abstract class AbstractRegistry implements Registry {
 	 *
 	 * @param url
 	 */
-	private URL removeUnnecessaryParmas(URL url) {
+	private LionURL removeUnnecessaryParmas(LionURL url) {
 		// codec参数不能提交到注册中心，如果client端没有对应的codec会导致client端不能正常请求。
 		url.getParameters().remove(URLParamType.codec.getName());
 		return url;
 	}
 	
 	@Override
-	public void unregister(URL url) {
+	public void unregister(LionURL url) {
 		if( url == null) {
 			 LoggerUtil.warn("[{}] unregister with malformed param, url is null", registryClassName);
 	            return;
@@ -80,7 +80,7 @@ public abstract class AbstractRegistry implements Registry {
 	}
 	
     @Override
-    public void subscribe(URL url, NotifyListener listener) {
+    public void subscribe(LionURL url, NotifyListener listener) {
         if (url == null || listener == null) {
             LoggerUtil.warn("[{}] subscribe with malformed param, url:{}, listener:{}", registryClassName, url, listener);
             return;
@@ -91,7 +91,7 @@ public abstract class AbstractRegistry implements Registry {
     }
     
     @Override
-    public void unsubscribe(URL url, NotifyListener listener) {
+    public void unsubscribe(LionURL url, NotifyListener listener) {
         if (url == null || listener == null) {
             LoggerUtil.warn("[{}] unsubscribe with malformed param, url:{}, listener:{}", registryClassName, url, listener);
             return;
@@ -102,7 +102,7 @@ public abstract class AbstractRegistry implements Registry {
     }
     
     @Override
-    public void available(URL url) {
+    public void available(LionURL url) {
         LoggerUtil.info("[{}] Url ({}) will set to available to Registry [{}]", registryClassName, url, registryUrl.getIdentity());
         if (url != null) {
             doAvailable(removeUnnecessaryParmas(url.createCopy()));
@@ -112,7 +112,7 @@ public abstract class AbstractRegistry implements Registry {
     }
 
     @Override
-    public void unavailable(URL url) {
+    public void unavailable(LionURL url) {
         LoggerUtil.info("[{}] Url ({}) will set to unavailable to Registry [{}]", registryClassName, url, registryUrl.getIdentity());
         if (url != null) {
             doUnavailable(removeUnnecessaryParmas(url.createCopy()));
@@ -122,17 +122,17 @@ public abstract class AbstractRegistry implements Registry {
     }
 
 
-    protected abstract void doRegister(URL url);
+    protected abstract void doRegister(LionURL url);
 
-    protected abstract void doUnregister(URL url);
+    protected abstract void doUnregister(LionURL url);
 
-    protected abstract void doSubscribe(URL url, NotifyListener listener);
+    protected abstract void doSubscribe(LionURL url, NotifyListener listener);
 
-    protected abstract void doUnsubscribe(URL url, NotifyListener listener);
+    protected abstract void doUnsubscribe(LionURL url, NotifyListener listener);
 
-    protected abstract List<URL> doDiscover(URL url);
+    protected abstract List<LionURL> doDiscover(LionURL url);
 
-    protected abstract void doAvailable(URL url);
+    protected abstract void doAvailable(LionURL url);
 
-    protected abstract void doUnavailable(URL url);
+    protected abstract void doUnavailable(LionURL url);
 }

@@ -16,7 +16,7 @@ package com.alacoder.lion.rpc;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import com.alacoder.common.exception.LionFrameworkException;
-import com.alacoder.lion.common.url.URL;
+import com.alacoder.lion.common.url.LionURL;
 import com.alacoder.lion.remote.transport.Request;
 import com.alacoder.lion.remote.transport.Response;
 import com.alacoder.lion.rpc.utils.LionFrameworkUtil;
@@ -33,15 +33,15 @@ public abstract class AbstractReferer<T> extends AbstractNode implements Referer
 	
 	protected Class<T> clz;
 	protected AtomicInteger activeRefererCount = new AtomicInteger(0);
-	protected URL serviceUrl;
+	protected LionURL serviceUrl;
 	
-	public AbstractReferer(Class<T> clz, URL url) {
+	public AbstractReferer(Class<T> clz, LionURL url) {
 		super(url);
 		this.clz = clz;
 		this.serviceUrl = url;
 	}
 
-	public AbstractReferer(Class<T> clz, URL url, URL serviceUrl) {
+	public AbstractReferer(Class<T> clz, LionURL url, LionURL serviceUrl) {
         super(url);
         this.clz = clz;
         this.serviceUrl = serviceUrl;
@@ -91,7 +91,7 @@ public abstract class AbstractReferer<T> extends AbstractNode implements Referer
     }
 
     @Override
-    public URL getServiceUrl() {
+    public LionURL getServiceUrl() {
         return serviceUrl;
     }
 }

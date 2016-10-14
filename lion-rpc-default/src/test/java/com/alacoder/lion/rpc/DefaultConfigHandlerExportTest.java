@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.alacoder.lion.common.LionConstants;
-import com.alacoder.lion.common.url.URL;
+import com.alacoder.lion.common.url.LionURL;
 
 /**
  * @ClassName: DefaultConfigHandler
@@ -27,17 +27,7 @@ import com.alacoder.lion.common.url.URL;
  *
  */
 
-public class DefaultConfigHandlerTest {
-
-	/**
-	 * main(这里用一句话描述这个方法的作用)
-	 *
-	 * @Title: main
-	 * @Description: 
-	 * @param @param args    设定文件
-	 * @return void    返回类型
-	 * @throws
-	 */
+public class DefaultConfigHandlerExportTest {
 
 	public static void main(String[] args) {
 		
@@ -76,7 +66,7 @@ public class DefaultConfigHandlerTest {
 				+ "address=10.12.104.6:4455&"
 				+ "shareChannel=true&";
 
-		URL url = new URL(LionConstants.REGISTRY_PROTOCOL_DIRECT, "10.12.104.6", 4455, "com.alacoder.lion.rpc.DemoService");
+		LionURL url = new LionURL(LionConstants.REGISTRY_PROTOCOL_DIRECT, "10.12.104.6", 4455, "com.alacoder.lion.rpc.DemoService");
 		url.addParameter("embed", embed);
 		url.addParameter("protocol", LionConstants.REGISTRY_PROTOCOL_DIRECT);
 		url.addParameter("export", "demoMotan:8001");
@@ -94,7 +84,7 @@ public class DefaultConfigHandlerTest {
 		url.addParameter("shareChannel", "true");
 		url.addParameter("address", "10.12.104.6:4455");
 		
-		List<URL> protocolURL = new ArrayList<URL>();
+		List<LionURL> protocolURL = new ArrayList<LionURL>();
 		protocolURL.add(url);
 		
 		DefaultConfigHandler configHandler = new DefaultConfigHandler();

@@ -17,7 +17,7 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.alacoder.lion.common.url.URL;
+import com.alacoder.lion.common.url.LionURL;
 import com.alacoder.lion.common.utils.ReflectUtil;
 import com.alacoder.lion.remote.transport.Request;
 import com.alacoder.lion.remote.transport.Response;
@@ -32,13 +32,13 @@ import com.alacoder.lion.remote.transport.Response;
 
 public abstract class AbstractProvider<T> implements Provider<T> {
 	protected Class<T> clz;
-	protected URL url;
+	protected LionURL url;
 	protected boolean alive = false;
 	protected boolean close = false;
 	
 	protected Map<String, Method> methodMap = new HashMap<String, Method>();
 	
-	public AbstractProvider(URL url,Class<T> clz){
+	public AbstractProvider(LionURL url,Class<T> clz){
 		this.clz = clz;
 		this.url = url;
 		
@@ -93,7 +93,7 @@ public abstract class AbstractProvider<T> implements Provider<T> {
 	}
 
 	@Override
-	public URL getUrl() {
+	public LionURL getUrl() {
 		return url;
 	}
 

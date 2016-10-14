@@ -14,6 +14,7 @@
 package com.alacoder.lion.rpc;
 
 import com.alacoder.lion.common.url.LionURL;
+import com.alacoder.lion.common.url.URLParamType;
 import com.alacoder.lion.common.utils.LoggerUtil;
 import com.alacoder.lion.remote.transport.DefaultRequest;
 import com.alacoder.lion.remote.transport.Request;
@@ -27,12 +28,17 @@ import com.alacoder.lion.remote.transport.Response;
  *
  */
 
-public class DefaultProviderTest {
+public class DefaultRefererTest {
 
 
 	public static void main(String[] args) {
-		LionURL url = new LionURL("netty", "10.12.104.6", 4455, "com.alacoder.lion.rpc.DemoService");
-		DefaultProvider provider = new DefaultProvider(new DemoServiceImple(), url , DemoService.class);
+		LionURL refererUrl = new LionURL("netty", "10.12.104.6", 4455, "com.alacoder.lion.rpc.DemoService");
+		LionURL serviceUrl = new LionURL("netty", "10.12.104.6", 4455, "com.alacoder.lion.rpc.DemoService");
+		serviceUrl.addParameter(URLParamType.group.getName(), "motan-demo-rpc");
+		
+		DefaultRpcReferer referer = new DefaultRpcReferer(DemoService.class, refererUrl , serviceUrl);
+		referer.init();
+		
 		Request request = new DefaultRequest();
 		request.setInterfaceName("com.alacoder.lion.rpc.DemoService");
 		request.setMethodName("hello");
@@ -40,9 +46,9 @@ public class DefaultProviderTest {
 		Object arguments[] = {"Jimmy"};  
 		request.setArguments(arguments);
 		
-		Response response = provider.call(request);
+		Response response = referer.call(request);
 		
-		LoggerUtil.info("provider response value = {} ", response.getValue());
+		LoggerUtil.info("referer response value = {} ", response.getValue());
 
 	}
 

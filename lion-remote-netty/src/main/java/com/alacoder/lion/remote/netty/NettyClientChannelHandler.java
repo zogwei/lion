@@ -13,13 +13,12 @@
 
 package com.alacoder.lion.remote.netty;
 
-import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.RejectedExecutionException;
-import java.util.concurrent.ThreadPoolExecutor;
 
 import com.alacoder.common.exception.LionErrorMsgConstant;
 import com.alacoder.common.exception.LionServiceException;
 import com.alacoder.lion.common.utils.LoggerUtil;
+import com.alacoder.lion.remote.Channel;
 import com.alacoder.lion.remote.MessageHandler;
 import com.alacoder.lion.remote.TransportData;
 import com.alacoder.lion.remote.transport.DefaultResponse;
@@ -40,18 +39,19 @@ import io.netty.channel.SimpleChannelInboundHandler;
 public class NettyClientChannelHandler extends SimpleChannelInboundHandler<TransportData> {
 	
 	private MessageHandler messagehandler;
+	private Channel channel ;
 	
-	public NettyClientChannelHandler(MessageHandler messagehandler) {
+	public NettyClientChannelHandler(Channel nettyChannel , MessageHandler messagehandler) {
+		this.channel = nettyChannel; 
 		this.messagehandler = messagehandler;
 	}
 
 	@Override
 	protected void channelRead0(ChannelHandlerContext ctx, TransportData msg) throws Exception {
-		io.netty.channel.Channel channel = ctx.channel();
 		if( msg instanceof Request ) {
-			processRequest((Request) msg,channel);
+			processRequest(channel,(Request) msg,ctx);
 		} else if ( msg instanceof Response ) {
-			processResponse((Response) msg,channel);
+			processResponse(channel,(Response) msg);
 		}
 	}
 	
@@ -61,17 +61,17 @@ public class NettyClientChannelHandler extends SimpleChannelInboundHandler<Trans
         ctx.fireChannelInactive();
     }
 	
-	private void processResponse(final Response response, final io.netty.channel.Channel channel) {
-		messagehandler.handle(response);
+	private void processResponse(Channel channel,final Response response) {
+		
+		messagehandler.handle(channel,response);
 	}
 	
 		
-	private void processRequest(final Request request, final io.netty.channel.Channel channel) {
+	private void processRequest(Channel channel,final Request request,ChannelHandlerContext ctx) {
 		final long processStartTime = System.currentTimeMillis();
 
-		// 使用线程池方式处理
 		try {
-			Object result = messagehandler.handle(request);
+			Object result = messagehandler.handle(channel,request);
             DefaultResponse response = null;
 
     		if (!(result instanceof DefaultResponse)) {
@@ -83,15 +83,17 @@ public class NettyClientChannelHandler extends SimpleChannelInboundHandler<Trans
     		response.setRequestId(request.getRequestId());
     		response.setProcessTime(System.currentTimeMillis() - processStartTime);
 
-    		if (channel.isActive()) {
-    			channel.writeAndFlush(response);
+    		if (ctx.channel().isActive()) {
+    			ctx.channel().write(response);
     		}
 		} catch (RejectedExecutionException rejectException) {
 			DefaultResponse response = new DefaultResponse();
 			response.setRequestId(request.getRequestId());
 			response.setException(new LionServiceException("process thread pool is full, reject", LionErrorMsgConstant.SERVICE_REJECT));
 			response.setProcessTime(System.currentTimeMillis() - processStartTime);
-			channel.write(response);
+			if (ctx.channel().isActive()) {
+    			ctx.channel().write(response);
+    		}
 		}
 	}
 	

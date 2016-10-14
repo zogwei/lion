@@ -15,7 +15,7 @@ package com.alacoder.lion.rpc;
 
 import com.alacoder.lion.common.extension.Scope;
 import com.alacoder.lion.common.extension.Spi;
-import com.alacoder.lion.common.url.URL;
+import com.alacoder.lion.common.url.LionURL;
 import com.alacoder.lion.remote.Client;
 import com.alacoder.lion.remote.MessageHandler;
 import com.alacoder.lion.remote.Server;
@@ -30,11 +30,11 @@ import com.alacoder.lion.remote.Server;
 @Spi(scope = Scope.SINGLETON)
 public interface EndpointFactory {
 
-    Server createServer(URL url, MessageHandler messageHandler);
+    Server createServer(LionURL url, MessageHandler messageHandler);
     
-    Client createClient(URL url, MessageHandler messageHandler);
+    Client createClient(LionURL url, MessageHandler messageHandler);
     
-    void safeReleaseResource(Server server, URL url);
+    void safeReleaseResource(Server server, LionURL url);
     
-    void safeReleaseResource(Client client, URL url);
+    void safeReleaseResource(Client client, LionURL url);
 }

@@ -13,7 +13,7 @@
 
 package com.alacoder.lion.rpc;
 
-import com.alacoder.lion.common.url.URL;
+import com.alacoder.lion.common.url.LionURL;
 
 /**
  * @ClassName: Node
@@ -33,5 +33,5 @@ public interface Node {
 
     String desc();
 
-    URL getUrl();
+    LionURL getUrl();
 }

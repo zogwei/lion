@@ -16,7 +16,7 @@ package com.alacoder.lion.remote;
 import java.net.InetSocketAddress;
 
 import com.alacoder.lion.common.extension.ExtensionLoader;
-import com.alacoder.lion.common.url.URL;
+import com.alacoder.lion.common.url.LionURL;
 import com.alacoder.lion.common.url.URLParamType;
 import com.alacoder.lion.common.utils.StandardThreadExecutor;
 
@@ -28,12 +28,12 @@ import com.alacoder.lion.common.utils.StandardThreadExecutor;
  *
  */
 
-public abstract class AbstractServer implements Server {
+public abstract class AbstractServer extends AbstractEndpoint implements Server {
 
 	protected InetSocketAddress localAddress ;
 	protected InetSocketAddress remoteAddress;
 	
-	protected URL url;
+	protected LionURL url;
 	protected Codec codec;
 	protected MessageHandler messagehandler ;
 	
@@ -41,7 +41,7 @@ public abstract class AbstractServer implements Server {
 	
     protected volatile ChannelState state = ChannelState.UNINIT;
 	
-	public AbstractServer(URL url,MessageHandler messagehandler) {
+	public AbstractServer(LionURL url,MessageHandler messagehandler) {
 		this.url = url;
 		this.codec = ExtensionLoader.getExtensionLoader(Codec.class).getExtension(
                         url.getParameter(URLParamType.codec.getName(), URLParamType.codec.getValue()));

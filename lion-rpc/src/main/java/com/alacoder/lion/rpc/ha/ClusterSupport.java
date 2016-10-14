@@ -24,7 +24,7 @@ import com.alacoder.common.exception.LionErrorMsgConstant;
 import com.alacoder.common.exception.LionFrameworkException;
 import com.alacoder.lion.common.LionConstants;
 import com.alacoder.lion.common.extension.ExtensionLoader;
-import com.alacoder.lion.common.url.URL;
+import com.alacoder.lion.common.url.LionURL;
 import com.alacoder.lion.common.url.URLParamType;
 import com.alacoder.lion.common.utils.CollectionUtil;
 import com.alacoder.lion.common.utils.LoggerUtil;
@@ -48,30 +48,30 @@ public class ClusterSupport<T> implements NotifyListener {
 	
 	private static ConcurrentHashMap<String, Protocol> protocols = new ConcurrentHashMap<String, Protocol>();
 	private Cluster<T> cluster;
-	private List<URL> registryUrls;
-	private URL url;
+	private List<LionURL> registryUrls;
+	private LionURL url;
 	private Class<T> interfaceClass;
     private Protocol protocol;
     //一个点阅的服务，要到多个注册中心去找服务器提供者，每一个注册中心下面有多个服务提供者，一个服务提供者可以注册到多个注册中心
-    private ConcurrentHashMap<URL, List<Referer<T>>> registryReferers = new ConcurrentHashMap<URL, List<Referer<T>>>();
+    private ConcurrentHashMap<LionURL, List<Referer<T>>> registryReferers = new ConcurrentHashMap<LionURL, List<Referer<T>>>();
 	
-	public ClusterSupport(Class<T> interfaceClass, List<URL> registryUrls) {
+	public ClusterSupport(Class<T> interfaceClass, List<LionURL> registryUrls) {
 		this.registryUrls = registryUrls;
 		this.interfaceClass = interfaceClass;
 		String urlStr = StringTools.urlDecode(registryUrls.get(0).getParameter(URLParamType.embed.getName()));
-		this.url = URL.valueOf(urlStr); 
+		this.url = LionURL.valueOf(urlStr); 
 		protocol = getDecorateProtocol(url.getProtocol());
 	}
 	
 	public void init() {
 		prepareCluster();
 		
-		 URL subUrl = toSubscribeUrl(url);
-		 for (URL ru : registryUrls) {
+		 LionURL subUrl = toSubscribeUrl(url);
+		 for (LionURL ru : registryUrls) {
 			 String directUrlStr = ru.getParameter(URLParamType.directUrl.getName());
 			// 如果有directUrl，直接使用这些directUrls进行初始化，不用到注册中心discover
 			if (StringUtils.isNotBlank(directUrlStr)) {
-				List<URL> directUrls = parseDirectUrls(directUrlStr);
+				List<LionURL> directUrls = parseDirectUrls(directUrlStr);
 				if (!directUrls.isEmpty()) {
 					notify(ru, directUrls);
 					LoggerUtil.info("Use direct urls, refUrl={}, directUrls={}", url,directUrls);
@@ -98,16 +98,16 @@ public class ClusterSupport<T> implements NotifyListener {
 	     }
 	}
 	
-    protected Registry getRegistry(URL url) {
+    protected Registry getRegistry(LionURL url) {
         RegistryFactory registryFactory = ExtensionLoader.getExtensionLoader(RegistryFactory.class).getExtension(url.getProtocol());
         return registryFactory.getRegistry(url);
     }
 	
-    private List<URL> parseDirectUrls(String directUrlStr) {
+    private List<LionURL> parseDirectUrls(String directUrlStr) {
         String[] durlArr = LionConstants.COMMA_SPLIT_PATTERN.split(directUrlStr);
-        List<URL> directUrls = new ArrayList<URL>();
+        List<LionURL> directUrls = new ArrayList<LionURL>();
         for (String dus : durlArr) {
-            URL du = URL.valueOf(StringTools.urlDecode(dus));
+            LionURL du = LionURL.valueOf(StringTools.urlDecode(dus));
             if (du != null) {
                 directUrls.add(du);
             }
@@ -130,8 +130,8 @@ public class ClusterSupport<T> implements NotifyListener {
         cluster.setUrl(url);
 	}
 	
-	private URL toSubscribeUrl(URL url) {
-		URL subUrl = url.createCopy();
+	private LionURL toSubscribeUrl(LionURL url) {
+		LionURL subUrl = url.createCopy();
 		subUrl.addParameter(URLParamType.nodeType.getName(), LionConstants.NODE_TYPE_SERVICE);
 		return subUrl;
 	}
@@ -155,7 +155,7 @@ public class ClusterSupport<T> implements NotifyListener {
      * </pre>
      */
 	@Override
-	public synchronized void notify(URL registryUrl, List<URL> urls) {
+	public synchronized void notify(LionURL registryUrl, List<LionURL> urls) {
 		// TODO Auto-generated method stub
 		if(CollectionUtil.isEmpty(registryUrls)) {
 			onRegistryEmpty(registryUrl);
@@ -173,13 +173,13 @@ public class ClusterSupport<T> implements NotifyListener {
 	     processWeights(urls);
 	     
 	     List<Referer<T>> newReferers = new ArrayList<Referer<T>>();
-	     for(URL u : urls) {
+	     for(LionURL u : urls) {
 	    	 if(!u.canServe(url)) {
 	    		 continue;
 	    	 }
 	    	 Referer<T> referer  = getExistingReferer(u,registryReferers.get(registryUrl));
 	    	 if(referer == null) {
-	    		 URL refererURL = u.createCopy();
+	    		 LionURL refererURL = u.createCopy();
 	    		 mergeClientConfigs(refererURL);
 	    		 referer = protocol.refer(interfaceClass, refererURL, u);
 	    	 }
@@ -204,7 +204,7 @@ public class ClusterSupport<T> implements NotifyListener {
      *
      * @param refererURL
      */
-    private void mergeClientConfigs(URL refererURL) {
+    private void mergeClientConfigs(LionURL refererURL) {
         String application = refererURL.getParameter(URLParamType.application.getName(), URLParamType.application.getValue());
         String module = refererURL.getParameter(URLParamType.module.getName(), URLParamType.module.getValue());
         refererURL.addParameters(this.url.getParameters());
@@ -213,7 +213,7 @@ public class ClusterSupport<T> implements NotifyListener {
         refererURL.addParameter(URLParamType.module.getName(), module);
     }
 	
-    private Referer<T> getExistingReferer(URL url, List<Referer<T>> referers) {
+    private Referer<T> getExistingReferer(LionURL url, List<Referer<T>> referers) {
     	if(referers == null) {
     		return null;
     	}
@@ -231,9 +231,9 @@ public class ClusterSupport<T> implements NotifyListener {
      *  TODO 1、第一个权重信息什么时候设置的，2、多个注册中间，权重如何控制
      * @param urls
      */
-    private void processWeights(List<URL> urls) {
+    private void processWeights(List<LionURL> urls) {
         if (urls != null && !urls.isEmpty()) {
-            URL ruleUrl = urls.get(0);
+            LionURL ruleUrl = urls.get(0);
             // 没有权重时需要传递默认值。因为可能是变更时去掉了权重
             String weights = URLParamType.weights.getValue();
             if ("rule".equalsIgnoreCase(ruleUrl.getProtocol())) {
@@ -246,14 +246,14 @@ public class ClusterSupport<T> implements NotifyListener {
     }
 	
 
-    private String getIdentities(List<URL> urls) {
+    private String getIdentities(List<LionURL> urls) {
         if (urls == null || urls.isEmpty()) {
             return "[]";
         }
 
         StringBuilder builder = new StringBuilder();
         builder.append("[");
-        for (URL u : urls) {
+        for (LionURL u : urls) {
             builder.append(u.getIdentity()).append(",");
         }
         builder.setLength(builder.length() - 1);
@@ -262,7 +262,7 @@ public class ClusterSupport<T> implements NotifyListener {
         return builder.toString();
     }
 	
-	private void onRegistryEmpty(URL excludeRegistryUrl) {
+	private void onRegistryEmpty(LionURL excludeRegistryUrl) {
 		boolean noMoreOtherRefers = registryReferers.size() == 1 && registryReferers.contains(excludeRegistryUrl);
 		if(noMoreOtherRefers) {
 			LoggerUtil.warn(String.format("Ignore notify for no more referers in this cluster, registry: %s, cluster=%s", excludeRegistryUrl, getUrl()));
@@ -280,8 +280,11 @@ public class ClusterSupport<T> implements NotifyListener {
         }
         cluster.onRefresh(referers);
     }
-    public URL getUrl() {
+    public LionURL getUrl() {
         return url;
+    }
+    public Cluster<T> getCluster() {
+        return cluster;
     }
 
 }

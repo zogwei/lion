@@ -26,7 +26,7 @@ import com.alacoder.lion.common.extension.Activation;
 import com.alacoder.lion.common.extension.ActivationComparator;
 import com.alacoder.lion.common.extension.ExtensionLoader;
 import com.alacoder.lion.common.extension.SpiMeta;
-import com.alacoder.lion.common.url.URL;
+import com.alacoder.lion.common.url.LionURL;
 import com.alacoder.lion.common.url.URLParamType;
 import com.alacoder.lion.remote.transport.Request;
 import com.alacoder.lion.remote.transport.Response;
@@ -58,12 +58,12 @@ public class ProtocolFilterDecorator implements Protocol {
     }
 
     @Override
-    public <T> Exporter<T> export(Provider<T> provider, URL url) {
+    public <T> Exporter<T> export(Provider<T> provider, LionURL url) {
         return protocol.export(decorateWithFilter(provider, url), url);
     }
 
     @Override
-    public <T> Referer<T> refer(Class<T> clz, URL url, URL serviceUrl) {
+    public <T> Referer<T> refer(Class<T> clz, LionURL url, LionURL serviceUrl) {
         return decorateWithFilter(protocol.refer(clz, url, serviceUrl), url);
     }
 
@@ -71,7 +71,7 @@ public class ProtocolFilterDecorator implements Protocol {
         protocol.destroy();
     }
 
-    private <T> Referer<T> decorateWithFilter(Referer<T> referer, URL url) {
+    private <T> Referer<T> decorateWithFilter(Referer<T> referer, LionURL url) {
         List<Filter> filters = getFilters(url, LionConstants.NODE_TYPE_REFERER);
         Referer<T> lastRef = referer;
         for (Filter filter : filters) {
@@ -103,7 +103,7 @@ public class ProtocolFilterDecorator implements Protocol {
                 }
 
                 @Override
-                public URL getUrl() {
+                public LionURL getUrl() {
                     return lf.getUrl();
                 }
 
@@ -124,7 +124,7 @@ public class ProtocolFilterDecorator implements Protocol {
 
 
                 @Override
-                public URL getServiceUrl() {
+                public LionURL getServiceUrl() {
                     return lf.getServiceUrl();
                 }
             };
@@ -132,7 +132,7 @@ public class ProtocolFilterDecorator implements Protocol {
         return lastRef;
     }
 
-    private <T> Provider<T> decorateWithFilter(Provider<T> provider, URL url) {
+    private <T> Provider<T> decorateWithFilter(Provider<T> provider, LionURL url) {
         List<Filter> filters = getFilters(url, LionConstants.NODE_TYPE_SERVICE);
         if (filters == null || filters.size() == 0) {
             return provider;
@@ -163,7 +163,7 @@ public class ProtocolFilterDecorator implements Protocol {
                 }
 
                 @Override
-                public URL getUrl() {
+                public LionURL getUrl() {
                     return lp.getUrl();
                 }
 
@@ -193,7 +193,7 @@ public class ProtocolFilterDecorator implements Protocol {
      * @param key
      * @return
      */
-    private List<Filter> getFilters(URL url, String key) {
+    private List<Filter> getFilters(LionURL url, String key) {
 
         // load default filters
         List<Filter> filters = new ArrayList<Filter>();

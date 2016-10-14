@@ -31,7 +31,7 @@ import com.alacoder.lion.common.LionConstants;
  *
  */
 
-public class URL {
+public class LionURL {
 
     private String protocol;
 
@@ -46,11 +46,11 @@ public class URL {
 
     private volatile transient Map<String, Number> numbers;
 
-    public URL(String protocol, String host, int port, String path) {
+    public LionURL(String protocol, String host, int port, String path) {
         this(protocol, host, port, path, new HashMap<String, String>());
     }
 
-    public URL(String protocol, String host, int port, String path, Map<String, String> parameters) {
+    public LionURL(String protocol, String host, int port, String path, Map<String, String> parameters) {
         this.protocol = protocol;
         this.host = host;
         this.port = port;
@@ -58,7 +58,7 @@ public class URL {
         this.parameters = parameters;
     }
 
-    public static URL valueOf(String url) {
+    public static LionURL valueOf(String url) {
         if (StringUtils.isBlank(url)) {
             throw new LionServiceException("url is null");
         }
@@ -110,7 +110,7 @@ public class URL {
             url = url.substring(0, i);
         }
         if (url.length() > 0) host = url;
-        return new URL(protocol, host, port, path, parameters);
+        return new LionURL(protocol, host, port, path, parameters);
     }
 
     private static String buildHostPortStr(String host, int defaultPort) {
@@ -130,13 +130,13 @@ public class URL {
         return host;
     }
 
-    public URL createCopy() {
+    public LionURL createCopy() {
         Map<String, String> params = new HashMap<String, String>();
         if (this.parameters != null) {
             params.putAll(this.parameters);
         }
 
-        return new URL(protocol, host, port, path, params);
+        return new LionURL(protocol, host, port, path, params);
     }
 
     public String getProtocol() {
@@ -370,7 +370,7 @@ public class URL {
      * @param refUrl
      * @return
      */
-    public boolean canServe(URL refUrl) {
+    public boolean canServe(LionURL refUrl) {
         if (refUrl == null || !this.getPath().equals(refUrl.getPath())) {
             return false;
         }
@@ -444,10 +444,10 @@ public class URL {
 
     @Override
     public boolean equals(Object obj) {
-        if (obj == null || !(obj instanceof URL)) {
+        if (obj == null || !(obj instanceof LionURL)) {
             return false;
         }
-        URL ou = (URL) obj;
+        LionURL ou = (LionURL) obj;
         if (!ObjectUtils.equals(this.protocol, ou.protocol)) {
             return false;
         }

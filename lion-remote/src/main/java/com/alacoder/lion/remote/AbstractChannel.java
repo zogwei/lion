@@ -13,7 +13,7 @@
 
 package com.alacoder.lion.remote;
 
-import com.alacoder.lion.common.url.URL;
+import com.alacoder.lion.common.url.LionURL;
 
 /**
  * @ClassName: AbstractChannel
@@ -25,11 +25,11 @@ import com.alacoder.lion.common.url.URL;
 
 public abstract class AbstractChannel implements Channel {
 
-	private URL url;
+	private LionURL url;
 	
 	private MessageHandler handler;
 	
-	public AbstractChannel(URL url,MessageHandler handler){
+	public AbstractChannel(LionURL url,MessageHandler handler){
 		this.url = url;
 		this.handler = handler;
 	}

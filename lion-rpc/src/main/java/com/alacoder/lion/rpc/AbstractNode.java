@@ -15,7 +15,7 @@ package com.alacoder.lion.rpc;
 
 import com.alacoder.common.exception.LionErrorMsgConstant;
 import com.alacoder.common.exception.LionFrameworkException;
-import com.alacoder.lion.common.url.URL;
+import com.alacoder.lion.common.url.LionURL;
 import com.alacoder.lion.common.utils.LoggerUtil;
 
 /**
@@ -28,12 +28,12 @@ import com.alacoder.lion.common.utils.LoggerUtil;
 
 public abstract class AbstractNode implements Node {
 
-	protected URL url;
+	protected LionURL url;
 	
 	protected volatile boolean init = false;
 	protected volatile boolean available = false;
 	
-	public AbstractNode(URL url) {
+	public AbstractNode(LionURL url) {
 		this.url = url;
 	}
 	
@@ -69,7 +69,7 @@ public abstract class AbstractNode implements Node {
         this.available = available;
     }
 
-    public URL getUrl() {
+    public LionURL getUrl() {
         return url;
     }
 }

@@ -18,7 +18,7 @@ import io.netty.util.concurrent.FutureListener;
 
 import com.alacoder.common.exception.LionServiceException;
 import com.alacoder.lion.common.extension.ExtensionLoader;
-import com.alacoder.lion.common.url.URL;
+import com.alacoder.lion.common.url.LionURL;
 import com.alacoder.lion.common.url.URLParamType;
 import com.alacoder.lion.common.utils.LoggerUtil;
 import com.alacoder.lion.remote.Client;
@@ -38,7 +38,7 @@ public class DefaultRpcReferer<T> extends AbstractReferer<T>{
 	private Client client;
     private EndpointFactory endpointFactory;
 
-	 public DefaultRpcReferer(Class<T> clz, URL url, URL serviceUrl) {
+	 public DefaultRpcReferer(Class<T> clz, LionURL url, LionURL serviceUrl) {
          super(clz, url, serviceUrl);
 
          endpointFactory =

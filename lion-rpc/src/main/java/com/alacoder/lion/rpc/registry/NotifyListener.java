@@ -15,7 +15,7 @@ package com.alacoder.lion.rpc.registry;
 
 import java.util.List;
 
-import com.alacoder.lion.common.url.URL;
+import com.alacoder.lion.common.url.LionURL;
 
 /**
  * @ClassName: NotifyListener
@@ -27,6 +27,6 @@ import com.alacoder.lion.common.url.URL;
 
 public interface NotifyListener {
 
-    void notify(URL registryUrl, List<URL> urls);
+    void notify(LionURL registryUrl, List<LionURL> urls);
 }
 

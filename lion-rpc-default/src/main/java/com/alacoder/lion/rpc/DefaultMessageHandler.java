@@ -14,6 +14,7 @@
 package com.alacoder.lion.rpc;
 
 import com.alacoder.lion.common.utils.LoggerUtil;
+import com.alacoder.lion.remote.Channel;
 import com.alacoder.lion.remote.transport.DefaultResponse;
 import com.alacoder.lion.remote.transport.Request;
 import com.alacoder.lion.remote.transport.Response;
@@ -38,5 +39,11 @@ public class DefaultMessageHandler extends AbstractMessageHandler {
 			response.setException(e);
 			return response;
 		}
+	}
+
+	@Override
+	public Object handle(Channel channel, Object message) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

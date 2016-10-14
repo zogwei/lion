@@ -21,7 +21,7 @@ import com.alacoder.common.exception.LionAbstractException;
 import com.alacoder.common.exception.LionErrorMsgConstant;
 import com.alacoder.common.exception.LionServiceException;
 import com.alacoder.lion.common.extension.SpiMeta;
-import com.alacoder.lion.common.url.URL;
+import com.alacoder.lion.common.url.LionURL;
 import com.alacoder.lion.common.url.URLParamType;
 import com.alacoder.lion.common.utils.CollectionUtil;
 import com.alacoder.lion.common.utils.ExceptionUtil;
@@ -48,7 +48,7 @@ public class ClusterSpi<T> implements Cluster<T> {
 
     private AtomicBoolean available = new AtomicBoolean(false);
 
-    private URL url;
+    private LionURL url;
 
     @Override
     public void init() {
@@ -91,12 +91,12 @@ public class ClusterSpi<T> implements Cluster<T> {
     }
 
     @Override
-    public URL getUrl() {
+    public LionURL getUrl() {
         return url;
     }
 
     @Override
-    public void setUrl(URL url) {
+    public void setUrl(LionURL url) {
         this.url = url;
     }
 

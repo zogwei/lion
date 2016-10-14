@@ -13,7 +13,7 @@
 
 package com.alacoder.lion.rpc;
 
-import com.alacoder.lion.common.url.URL;
+import com.alacoder.lion.common.url.LionURL;
 
 /**
  * @ClassName: AbstractExporter
@@ -26,7 +26,7 @@ import com.alacoder.lion.common.url.URL;
 public abstract class AbstractExporter<T> extends AbstractNode implements Exporter<T> {
 	protected Provider<T> provider;
 
-	public AbstractExporter(Provider<T> provider,URL url) {
+	public AbstractExporter(Provider<T> provider,LionURL url) {
 		super(url);
 		this.provider = provider;
 	}

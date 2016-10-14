@@ -15,7 +15,7 @@ package com.alacoder.lion.rpc.registry;
 
 import java.util.List;
 
-import com.alacoder.lion.common.url.URL;
+import com.alacoder.lion.common.url.LionURL;
 
 /**
  * @ClassName: DiscoveryService
@@ -26,9 +26,9 @@ import com.alacoder.lion.common.url.URL;
  */
 
 public interface DiscoveryService {
-    void subscribe(URL url, NotifyListener listener);
+    void subscribe(LionURL url, NotifyListener listener);
 
-    void unsubscribe(URL url, NotifyListener listener);
+    void unsubscribe(LionURL url, NotifyListener listener);
 
-    List<URL> discover(URL url);
+    List<LionURL> discover(LionURL url);
 }

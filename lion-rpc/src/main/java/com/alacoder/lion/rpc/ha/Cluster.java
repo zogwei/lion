@@ -17,7 +17,7 @@ import java.util.List;
 
 import com.alacoder.lion.common.extension.Spi;
 import com.alacoder.lion.common.extension.Scope;
-import com.alacoder.lion.common.url.URL;
+import com.alacoder.lion.common.url.LionURL;
 import com.alacoder.lion.rpc.Caller;
 import com.alacoder.lion.rpc.Referer;
 /**
@@ -34,7 +34,7 @@ public interface Cluster<T> extends Caller<T> {
     @Override
     void init();
 
-    void setUrl(URL url);
+    void setUrl(LionURL url);
 
     void setLoadBalance(LoadBalance<T> loadBalance);
 

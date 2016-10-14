@@ -35,6 +35,8 @@ public class DefaultResponse implements Response{
     private long id;
     private long processTime;
     private int timeout;
+    private long createTime = System.currentTimeMillis();
+    
 	
     private Map<String, String> attachments;// rpc协议版本兼容时可以回传一些额外的信息
 
@@ -145,6 +147,11 @@ public class DefaultResponse implements Response{
 				+ ", getRpcProtocolVersion()=" + getRpcProtocolVersion()
 				+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode()
 				+ ", toString()=" + super.toString() + "]";
+	}
+
+	@Override
+	public long getCreateTime() {
+		return this.createTimes;
 	}
     
     

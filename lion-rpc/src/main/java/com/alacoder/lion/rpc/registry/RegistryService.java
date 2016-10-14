@@ -15,7 +15,7 @@ package com.alacoder.lion.rpc.registry;
 
 import java.util.Collection;
 
-import com.alacoder.lion.common.url.URL;
+import com.alacoder.lion.common.url.LionURL;
 
 /**
  * @ClassName: RegistryService
@@ -31,28 +31,28 @@ public interface RegistryService {
      *
      * @param url
      */
-    void register(URL url);
+    void register(LionURL url);
 
     /**
      * unregister service to registry
      *
      * @param url
      */
-    void unregister(URL url);
+    void unregister(LionURL url);
 
     /**
      * set service status to available, so clients could use it
      *
      * @param url service url to be available, <b>null</b> means all services
      */
-    void available(URL url);
+    void available(LionURL url);
 
     /**
      * set service status to unavailable, client should not discover services of unavailable state
      *
      * @param url service url to be unavailable, <b>null</b> means all services
      */
-    void unavailable(URL url);
+    void unavailable(LionURL url);
 
-    Collection<URL> getRegisteredServiceUrls();
+    Collection<LionURL> getRegisteredServiceUrls();
 }

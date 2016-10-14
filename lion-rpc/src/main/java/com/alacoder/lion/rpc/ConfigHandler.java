@@ -15,8 +15,9 @@ package com.alacoder.lion.rpc;
 
 import java.util.List;
 
-import com.alacoder.lion.common.url.URL;
+import com.alacoder.lion.common.url.LionURL;
 import com.alacoder.lion.rpc.ha.Cluster;
+import com.alacoder.lion.rpc.ha.ClusterSupport;
 
 
 /**
@@ -28,8 +29,10 @@ import com.alacoder.lion.rpc.ha.Cluster;
  */
 
 public interface ConfigHandler {
+	
+    <T> ClusterSupport<T> buildClusterSupport(Class<T> interfaceClass, List<LionURL> registryUrls);
 
-    <T> Exporter<T> export(Class<T> interfaceClass, T ref, List<URL> registryUrls);
+    <T> Exporter<T> export(Class<T> interfaceClass, T ref, List<LionURL> registryUrls);
     
     <T> T refer(Class<T> interfaceClass, List<Cluster<T>> cluster, String proxyType);
 }

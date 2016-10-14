@@ -3,11 +3,11 @@
  * Copyright: Copyright (c) 2016 
  * 
  * @project_name: lion-remote
- * @Title: Endpoint.java
+ * @Title: ResponseFuture.java
  * @Package com.alacoder.lion.remote
  * @Description: 
  * @author jimmy.zhong
- * @date 2016年8月6日 上午10:55:12
+ * @date 2016年10月13日 下午4:50:51
  * @version V1.0
  */
 
@@ -16,20 +16,16 @@ package com.alacoder.lion.remote;
 import com.alacoder.lion.remote.transport.Response;
 
 /**
- * @ClassName: Endpoint
+ * @ClassName: ResponseFuture
  * @Description: 
  * @author jimmy.zhong
- * @date 2016年8月6日 上午10:55:12
+ * @date 2016年10月13日 下午4:50:51
  *
  */
 
-public interface Endpoint extends Channel{
+public abstract class ResponseFuture implements Future, Response {
 
-	public void resetErrorCount();
-	
-	public void incrErrorCount() ;
-	
-	public void registerCallback(long requestId, ResponseFuture Future);
-	
-	public ResponseFuture removeCallback(long requestId);
+	public abstract void onSuccess(Response response) ;
+
+	public abstract void onFailure(Response response);
 }

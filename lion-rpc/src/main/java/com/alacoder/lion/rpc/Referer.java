@@ -13,7 +13,7 @@
 
 package com.alacoder.lion.rpc;
 
-import com.alacoder.lion.common.url.URL;
+import com.alacoder.lion.common.url.LionURL;
 
 /**
  * @ClassName: Referer
@@ -27,5 +27,5 @@ public interface Referer<T> extends Caller<T>, Node {
 
     int activeRefererCount();
 
-    URL getServiceUrl();
+    LionURL getServiceUrl();
 }

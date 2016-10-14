@@ -19,10 +19,12 @@ import com.alacoder.common.exception.LionErrorMsg;
 import com.alacoder.common.exception.LionErrorMsgConstant;
 import com.alacoder.common.exception.LionFrameworkException;
 import com.alacoder.lion.common.extension.ExtensionLoader;
-import com.alacoder.lion.common.url.URL;
+import com.alacoder.lion.common.extension.SpiMeta;
+import com.alacoder.lion.common.url.LionURL;
 import com.alacoder.lion.common.url.URLParamType;
 import com.alacoder.lion.common.utils.StringTools;
 import com.alacoder.lion.rpc.ha.Cluster;
+import com.alacoder.lion.rpc.ha.ClusterSupport;
 import com.alacoder.lion.rpc.registry.Registry;
 import com.alacoder.lion.rpc.registry.RegistryFactory;
 import com.alacoder.lion.rpc.RefererInvocationHandler;
@@ -34,14 +36,21 @@ import com.alacoder.lion.rpc.RefererInvocationHandler;
  * @date 2016年9月26日 上午11:47:12
  *
  */
-
 public class DefaultConfigHandler implements ConfigHandler {
+	
+    @Override
+    public <T> ClusterSupport<T> buildClusterSupport(Class<T> interfaceClass, List<LionURL> registryUrls) {
+        ClusterSupport<T> clusterSupport = new ClusterSupport<T>(interfaceClass, registryUrls);
+        clusterSupport.init();
+
+        return clusterSupport;
+    }
 
     @Override
-    public <T> Exporter<T> export(Class<T> interfaceClass, T ref, List<URL> registryUrls) {
+    public <T> Exporter<T> export(Class<T> interfaceClass, T ref, List<LionURL> registryUrls) {
 
         String serviceStr = StringTools.urlDecode(registryUrls.get(0).getParameter(URLParamType.embed.getName()));
-        URL serviceUrl = URL.valueOf(serviceStr);
+        LionURL serviceUrl = LionURL.valueOf(serviceStr);
 
         // export service
         // 利用protocol decorator来增加filter特性
@@ -56,9 +65,9 @@ public class DefaultConfigHandler implements ConfigHandler {
         return exporter;
     }
     
-    private void register(List<URL> registryUrls, URL serviceUrl) {
+    private void register(List<LionURL> registryUrls, LionURL serviceUrl) {
 
-        for ( URL url : registryUrls) {
+        for ( LionURL url : registryUrls) {
             // 根据check参数的设置，register失败可能会抛异常，上层应该知晓
             RegistryFactory registryFactory = ExtensionLoader.getExtensionLoader(RegistryFactory.class).getExtension(url.getProtocol());
             if (registryFactory == null) {

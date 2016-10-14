@@ -15,7 +15,7 @@ package com.alacoder.lion.rpc;
 
 import com.alacoder.lion.common.extension.Scope;
 import com.alacoder.lion.common.extension.Spi;
-import com.alacoder.lion.common.url.URL;
+import com.alacoder.lion.common.url.LionURL;
 
 /**
  * @ClassName: Protocol
@@ -27,9 +27,9 @@ import com.alacoder.lion.common.url.URL;
 @Spi(scope = Scope.SINGLETON)
 public interface Protocol {
 
-    <T> Exporter<T> export(Provider<T> provider, URL url);
+    <T> Exporter<T> export(Provider<T> provider, LionURL url);
     
-    <T> Referer<T> refer(Class<T> clz, URL url, URL serviceUrl);  
+    <T> Referer<T> refer(Class<T> clz, LionURL url, LionURL serviceUrl);  
     
     void destroy();
     
