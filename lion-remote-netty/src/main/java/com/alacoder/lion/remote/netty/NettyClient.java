@@ -139,25 +139,25 @@ public class NettyClient extends AbstractClient {
 	
 	public Response request(Request request, boolean async) throws TransportException {
 		Response response = null;
-		try{
+		try {
 			response = clientChannel.request(request);
-		}
-		catch(Exception e) {
-			LoggerUtil.error(
-					"NettyClient request Error: url=" + url.getUri() + " " + request, e);
+		} catch (Exception e) {
+			LoggerUtil.error("NettyClient request Error: url=" + url.getUri()
+					+ " " + request, e);
 			if (e instanceof LionAbstractException) {
 				throw (LionAbstractException) e;
 			} else {
-				throw new LionServiceException("NettyClient request Error: url=" + url.getUri() + " "+ request, e);
+				throw new LionServiceException(
+						"NettyClient request Error: url=" + url.getUri() + " "
+								+ request, e);
 			}
 		}
-		
-		if (async && response instanceof NettyResponseFuture) {
+
+		if (async || !(response instanceof NettyResponseFuture)) {
 			return response;
 		}
 
 		return new DefaultResponse(response);
-		
 	}
 	
 	@Override

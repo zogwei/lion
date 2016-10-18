@@ -136,7 +136,7 @@ public class NettyResponseFuture extends ResponseFuture{
 	}
 	
 	private boolean isDoing(){
-		return state.isDoneState();
+		return state.isDoingState();
 	}
 
 	@Override

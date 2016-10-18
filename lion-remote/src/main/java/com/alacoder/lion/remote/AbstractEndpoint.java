@@ -169,8 +169,9 @@ public abstract class AbstractEndpoint implements Endpoint {
 				try {
 					ResponseFuture future = entry.getValue();
 
-					if (future.getCreateTime() + future.getTimeout() < currentTime) {
+					if (future.getCreateTime() + future.getTimeout() > currentTime) {
 						// timeout: remove from callback list, and then cancel
+						LoggerUtil.warn(" clear ResponseFuture : requestId=" + entry.getKey() );
 						removeCallback(entry.getKey());
 						future.cancel();
 					} 
