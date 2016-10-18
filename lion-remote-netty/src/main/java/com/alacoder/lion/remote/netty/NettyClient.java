@@ -13,17 +13,8 @@
 
 package com.alacoder.lion.remote.netty;
 
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ScheduledFuture;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicLong;
 
 import io.netty.bootstrap.Bootstrap;
-import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelOption;
 import io.netty.channel.ChannelPipeline;
@@ -33,9 +24,7 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 
 import com.alacoder.common.exception.LionAbstractException;
-import com.alacoder.common.exception.LionErrorMsgConstant;
 import com.alacoder.common.exception.LionServiceException;
-import com.alacoder.lion.common.LionConstants;
 import com.alacoder.lion.common.url.LionURL;
 import com.alacoder.lion.common.url.URLParamType;
 import com.alacoder.lion.common.utils.LoggerUtil;
@@ -57,7 +46,7 @@ import com.alacoder.lion.remote.transport.Response;
  * @author jimmy.zhong
  * @date 2016年8月16日 下午3:53:17
  *
- *TODO heartbeat支持 、客户端重连
+ *TODO heartbeat支持 、客户端重连、JMX
  */
 
 public class NettyClient extends AbstractClient {
@@ -91,7 +80,7 @@ public class NettyClient extends AbstractClient {
                 	 pipeline.addLast("decoder", new NettyDecodeHandler(codec,maxContentLength));
          	         pipeline.addLast("encoder", new NettyEncodeHandler(codec));
          	        
-         	         if(messageHandler==null) {
+         	         if(messageHandler != null) {
          	        	pipeline.addLast("handler", new NettyClientChannelHandler( NettyClient.this,  messageHandler));
          	         }
          	         else {
@@ -103,7 +92,7 @@ public class NettyClient extends AbstractClient {
         						ResponseFuture responseFuture = endpoint.removeCallback(response.getRequestId());
 
         						if (responseFuture == null) {
-        							LoggerUtil.warn("NettyClient has response from server, but resonseFuture not exist,  requestId={}", response.getRequestId());
+        							LoggerUtil.warn("NettyClient has response from server, but responseFuture not exist,  requestId={}", response.getRequestId());
         							return null;
         						}
 
@@ -163,7 +152,7 @@ public class NettyClient extends AbstractClient {
 			}
 		}
 		
-		if (async || !(response instanceof NettyResponseFuture)) {
+		if (async && response instanceof NettyResponseFuture) {
 			return response;
 		}
 

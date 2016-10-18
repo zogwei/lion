@@ -54,5 +54,6 @@ public interface Request extends TransportData{
     byte getRpcProtocolVersion();
     
     int getRetries();
-	
+
+	 void setRetries(int i);
 }

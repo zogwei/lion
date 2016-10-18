@@ -116,6 +116,8 @@ public class NettyServerChildChannelHandler extends SimpleChannelInboundHandler<
 	private void processRequest(final Channel nettyChannel, final Request request) {
 		final long processStartTime = System.currentTimeMillis();
 
+		LoggerUtil.debug("processRequest , request = {} " , request);
+		
 		// 使用线程池方式处理
 		try {
 			threadPoolExecutor.execute(new Runnable() {
@@ -135,6 +137,7 @@ public class NettyServerChildChannelHandler extends SimpleChannelInboundHandler<
 
             		if (nettyChannel.isAvailable()) {
             			try {
+            				LoggerUtil.debug("processRequest , response = {} " , response);
 							nettyChannel.send(response);
 						}
             			catch (Exception e) {
@@ -153,6 +156,7 @@ public class NettyServerChildChannelHandler extends SimpleChannelInboundHandler<
 			response.setProcessTime(System.currentTimeMillis() - processStartTime);
 			if (nettyChannel.isAvailable()) {
 				try {
+					LoggerUtil.debug("processRequest , response = {} " , response);
 					nettyChannel.send(response);
 				} catch (TransportException e) {
 				    response = new DefaultResponse();

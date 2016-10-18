@@ -27,7 +27,7 @@ public enum URLParamType {
     /** version **/
     version("version", LionConstants.DEFAULT_VERSION),
     /** request timeout **/
-    requestTimeout("requestTimeout", 200),
+    requestTimeout("requestTimeout", 1000),
     /** request id from http interface **/
     requestIdFromClient("requestIdFromClient", 0),
     /** connect timeout **/

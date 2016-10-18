@@ -42,6 +42,7 @@ public abstract class AbstractClient extends AbstractEndpoint implements Client 
 
 	
 	public AbstractClient(LionURL url,MessageHandler messageHandler) {
+		super(url);
 		this.url = url;
 		this.codec = ExtensionLoader.getExtensionLoader(Codec.class).getExtension(
                         url.getParameter(URLParamType.codec.getName(), URLParamType.codec.getValue()));

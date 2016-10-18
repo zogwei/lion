@@ -56,6 +56,7 @@ public class NettyResponseFuture extends ResponseFuture{
 	
 	public NettyResponseFuture(Request requestObj, int timeout, Channel channel) {
 		this.request = requestObj;
+		this.channel = channel;
 	}
 
 	public void onSuccess(Response response) {

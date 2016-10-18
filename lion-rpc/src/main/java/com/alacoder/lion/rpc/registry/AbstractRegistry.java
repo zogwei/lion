@@ -13,7 +13,9 @@
 
 package com.alacoder.lion.rpc.registry;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -34,8 +36,7 @@ import com.alacoder.lion.common.utils.LoggerUtil;
 
 public abstract class AbstractRegistry implements Registry {
 	
-	 private ConcurrentHashMap<LionURL, Map<String, List<LionURL>>> subscribedCategoryResponses =
-	            new ConcurrentHashMap<LionURL, Map<String, List<LionURL>>>();
+	 private ConcurrentHashMap<LionURL, Map<String, List<LionURL>>> subscribedCategoryResponses = new ConcurrentHashMap<LionURL, Map<String, List<LionURL>>>();
 	 private LionURL registryUrl;
 	 private Set<LionURL> registeredServiceUrls = new ConcurrentHashSet<LionURL>();
 	 protected String registryClassName = this.getClass().getSimpleName();
@@ -120,8 +121,47 @@ public abstract class AbstractRegistry implements Registry {
             doUnavailable(null);
         }
     }
+    
+	@Override
+	public Collection<LionURL> getRegisteredServiceUrls() {
+		return registeredServiceUrls;
+	}
+	
 
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<LionURL> discover(LionURL url) {
+        if (url == null) {
+            LoggerUtil.warn("[{}] discover with malformed param, refUrl is null", registryClassName);
+            return Collections.EMPTY_LIST;
+        }
+        url = url.createCopy();
+        List<LionURL> results = new ArrayList<LionURL>();
 
+        Map<String, List<LionURL>> categoryUrls = subscribedCategoryResponses.get(url);
+        if (categoryUrls != null && categoryUrls.size() > 0) {
+            for (List<LionURL> urls : categoryUrls.values()) {
+                for (LionURL tempUrl : urls) {
+                    results.add(tempUrl.createCopy());
+                }
+            }
+        } else {
+            List<LionURL> urlsDiscovered = doDiscover(url);
+            if (urlsDiscovered != null) {
+                for (LionURL u : urlsDiscovered) {
+                    results.add(u.createCopy());
+                }
+            }
+        }
+        return results;
+    }
+
+    
+	@Override
+	public LionURL getUrl() {
+		return this.registryUrl;
+	}
+	
     protected abstract void doRegister(LionURL url);
 
     protected abstract void doUnregister(LionURL url);

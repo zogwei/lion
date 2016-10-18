@@ -35,6 +35,7 @@ public class DefaultRequest implements Request{
 	private String parametersDesc;
 	private Object[] arguments;
 	private Map<String, String> attachments;
+	private int retrey;
 	
     private byte rpcProtocolVersion = RemoteProtocolVersion.VERSION_1.getVersion();
 	
@@ -166,7 +167,7 @@ public class DefaultRequest implements Request{
 	}
 	@Override
 	public int getRetries() {
-		return 0;
+		return this.retrey;
 	}
 	@Override
     public void setAttachment(String key, String value) {
@@ -176,6 +177,10 @@ public class DefaultRequest implements Request{
 
         this.attachments.put(key, value);
     }
+	@Override
+	public void setRetries(int i) {
+		this.retrey = i;
+	}
 	
 	
 }

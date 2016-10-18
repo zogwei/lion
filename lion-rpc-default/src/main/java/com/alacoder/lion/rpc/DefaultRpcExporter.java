@@ -13,6 +13,8 @@
 
 package com.alacoder.lion.rpc;
 
+import java.util.Map;
+
 import com.alacoder.lion.common.extension.ExtensionLoader;
 import com.alacoder.lion.common.url.LionURL;
 import com.alacoder.lion.common.url.URLParamType;
@@ -29,14 +31,33 @@ import com.alacoder.lion.remote.Server;
 public class DefaultRpcExporter<T> extends AbstractExporter<T> {
 	private Server server;
 	private EndpointFactory endpointFactory;
+	private Map<String, DefaultMessageHandler> ipPort2RequestRouter;
 
-	public DefaultRpcExporter(Provider<T> provider, LionURL url) {
+	public DefaultRpcExporter(Provider<T> provider, LionURL url,  Map<String, DefaultMessageHandler> ipPort2RequestRouter) {
 		super(provider, url);
-		DefaultMessageHandler messageHandler = new DefaultMessageHandler();
+		DefaultMessageHandler messageHandler = getDefaultMessageHandler(ipPort2RequestRouter);
 		endpointFactory =
                  ExtensionLoader.getExtensionLoader(EndpointFactory.class).getExtension(
                          url.getParameter(URLParamType.endpointFactory.getName(), URLParamType.endpointFactory.getValue()));
         server = endpointFactory.createServer(url, messageHandler);
+	}
+	
+	public DefaultMessageHandler getDefaultMessageHandler(Map<String, DefaultMessageHandler> ipPort2RequestRouter){
+		DefaultMessageHandler requestRouter = null;
+          String ipPort = url.getServerPortStr();
+
+          synchronized (ipPort2RequestRouter) {
+              requestRouter = ipPort2RequestRouter.get(ipPort);
+
+              if (requestRouter == null) {
+                  requestRouter = new DefaultMessageHandler(provider);
+                  ipPort2RequestRouter.put(ipPort, requestRouter);
+              } else {
+                  requestRouter.addProvider(provider);
+              }
+          }
+
+          return requestRouter;
 	}
 
 	@Override

@@ -13,7 +13,6 @@
 
 package com.alacoder.lion.remote;
 
-import java.net.InetSocketAddress;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
@@ -29,8 +28,6 @@ import com.alacoder.lion.common.LionConstants;
 import com.alacoder.lion.common.url.LionURL;
 import com.alacoder.lion.common.url.URLParamType;
 import com.alacoder.lion.common.utils.LoggerUtil;
-import com.alacoder.lion.remote.transport.Request;
-import com.alacoder.lion.remote.transport.Response;
 
 /**
  * @ClassName: AbstractEndpoint
@@ -57,15 +54,16 @@ public abstract class AbstractEndpoint implements Endpoint {
 	
 	// 回收过期任务
 	private static ScheduledExecutorService scheduledExecutor = Executors.newScheduledThreadPool(1);
+	
 	protected ScheduledFuture<?> timeMonitorFuture = null;
 	
-	public AbstractEndpoint(){
-		this.url = getUrl();
-		maxClientConnection = getUrl().getIntParameter(URLParamType.maxClientConnection.getName(),
+	public AbstractEndpoint(LionURL url){
+		this.url = url;
+		maxClientConnection = url.getIntParameter(URLParamType.maxClientConnection.getName(),
 				URLParamType.maxClientConnection.getIntValue());
-		
+
 		timeMonitorFuture = scheduledExecutor.scheduleWithFixedDelay(
-				new TimeoutMonitor("timeout_monitor_" + getUrl().getHost() + "_" + getUrl().getPort()),
+				new TimeoutMonitor("timeout_monitor_" + url.getHost() + "_" + url.getPort()),
 				LionConstants.NETTY_TIMEOUT_TIMER_PERIOD, LionConstants.NETTY_TIMEOUT_TIMER_PERIOD,
 				TimeUnit.MILLISECONDS);
 	}
@@ -180,6 +178,15 @@ public abstract class AbstractEndpoint implements Endpoint {
 					LoggerUtil.error(name + " clear timeout future Error: uri=" + url.getUri() + " requestId=" + entry.getKey(), e);
 				}
 			}
+		}
+	}
+	
+	public void close(){
+		scheduledExecutor.shutdownNow();
+		try {
+			scheduledExecutor.awaitTermination(1000,  TimeUnit.MILLISECONDS);
+		} catch (InterruptedException e) {
+			LoggerUtil.error("close scheduledExecutor error ", e);
 		}
 	}
 

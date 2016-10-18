@@ -17,6 +17,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import com.alacoder.common.exception.LionFrameworkException;
 import com.alacoder.lion.common.utils.LoggerUtil;
+import com.alacoder.lion.remote.Channel;
 import com.alacoder.lion.remote.MessageHandler;
 import com.alacoder.lion.remote.transport.DefaultResponse;
 import com.alacoder.lion.remote.transport.Request;
@@ -35,7 +36,7 @@ public abstract class AbstractMessageHandler implements MessageHandler {
 	protected ConcurrentHashMap<String,Provider<?>> providers = new ConcurrentHashMap<String,Provider<?>>();
 	
 	@Override
-	public Object handle(Object message) {
+	public Object handle(Channel channel, Object message) {
 		
 		Request request = (Request)message;
 		String serviceKey = LionFrameworkUtil.getServiceKey(request);

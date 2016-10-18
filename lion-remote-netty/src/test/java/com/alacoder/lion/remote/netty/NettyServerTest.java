@@ -50,7 +50,10 @@ public class NettyServerTest {
 				if( message instanceof Request) {
 					Request request = (Request)message;
 					LoggerUtil.info(" server reciver request ： " + request.getRequestId() );
-					return new DefaultResponse();
+					DefaultResponse reponse = new DefaultResponse();
+					reponse.setRequestId(request.getRequestId() );
+					reponse.setValue("response value : " + request.getRequestId() );
+					return reponse;
 				}
 				return null;
 			}
@@ -60,7 +63,7 @@ public class NettyServerTest {
 		server.open();
 
         try {
-			Thread.sleep(10000);
+			Thread.sleep(1000000);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

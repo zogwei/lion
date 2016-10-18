@@ -60,6 +60,7 @@ public class NettyChannel implements com.alacoder.lion.remote.Channel{
 	public NettyChannel(Endpoint endpoint,io.netty.channel.Channel channel) {
 		this.endpoint = endpoint;
 		this.channel = channel;
+		open();
 	}
 	
 	@Override
@@ -136,7 +137,7 @@ public class NettyChannel implements com.alacoder.lion.remote.Channel{
 		ResponseFuture response = new NettyResponseFuture(request, timeout, this.endpoint);
 		this.endpoint.registerCallback(request.getRequestId(), response);
 		
-		ChannelFuture writeFuture = this.channel.write(request);
+		ChannelFuture writeFuture = this.channel.writeAndFlush(request);
 		
 		boolean result = writeFuture.awaitUninterruptibly(timeout, TimeUnit.MILLISECONDS);
 		if(result && writeFuture.isSuccess()) {
@@ -173,7 +174,7 @@ public class NettyChannel implements com.alacoder.lion.remote.Channel{
 	public boolean send(TransportData transportData) throws TransportException {
 		int timeout = endpoint.getUrl().getIntParameter(URLParamType.timeout.getName(), URLParamType.timeout.getIntValue());
 		
-		ChannelFuture writeFuture = this.channel.write(transportData);
+		ChannelFuture writeFuture = this.channel.writeAndFlush(transportData);
 		boolean result = writeFuture.awaitUninterruptibly(timeout, TimeUnit.MILLISECONDS);
 		
 		return result;

@@ -13,6 +13,13 @@
 
 package com.alacoder.lion.remote.netty;
 
+import junit.framework.Assert;
+import junit.framework.TestCase;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
 import com.alacoder.lion.common.url.LionURL;
 import com.alacoder.lion.common.url.URLParamType;
 import com.alacoder.lion.common.utils.LoggerUtil;
@@ -32,66 +39,68 @@ import com.alacoder.lion.remote.transport.Response;
  *
  */
 
-public class NettyClientTest {
+public class NettyClientTest  extends TestCase {
 
-	public static void main(String[] args) throws TransportException {
+    @Test
+	public void testClientSend() throws TransportException {
 		LionURL url = new LionURL("netty", "10.12.104.6", 4455, "IHello");
 		url.addParameter(URLParamType.connectTimeout.getName(), "10000");
-		
-		LoggerUtil.info(" client send() begin ： " );
-		NettyClient client = new NettyClient(url,new MessageHandler(){
+		url.addParameter(URLParamType.requestTimeout.getName(), "10000");
+		Request request = new DefaultRequest();
+		NettyClient client = null;
 
+		LoggerUtil.info(" client send() begin ： ");
+		client = new NettyClient(url, new MessageHandler() {
 			@Override
 			public Object handle(Channel channel, Object message) {
-				if( message instanceof Response) {
-					Response response = (Response)message;
-					LoggerUtil.info(" client reciver send response ： " + response.getRequestId() );
+				if (message instanceof Response) {
+					Response response = (Response) message;
+					LoggerUtil.info(" client reciver send response ： " + response.getRequestId());
 				}
 				return null;
 			}
-			
 		});
-		
+
 		client.open();
-		
-		Request request = new DefaultRequest();
-		
-		for (int i =0 ; i < 3 ; i++){
+
+		for (int i = 0; i < 3; i++) {
 			request.setRequestId(System.currentTimeMillis());
 			client.send(request);
-			 try {
-					Thread.sleep(1000);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 		}
-		
+
 		client.close();
-		
-		
-		LoggerUtil.info(" client request() begin ： " );
-		 client = new NettyClient(url,null);
-	     client.open();
-		
-		for (int i =0 ; i < 3 ; i++){
+	}
+    
+    @Test
+   	public void testClientRequest() throws TransportException {
+   		LionURL url = new LionURL("netty", "10.12.104.6", 4455, "IHello");
+   		url.addParameter(URLParamType.connectTimeout.getName(), "10000");
+   		Request request = new DefaultRequest();
+   		NettyClient client = null;
+   		
+   		LoggerUtil.info(" client request() begin ： " );
+   		 client = new NettyClient(url,null);
+   	     client.open();
+   		
+		for (int i = 0; i < 3; i++) {
 			request.setRequestId(System.currentTimeMillis());
 			Response response = client.request(request);
-			LoggerUtil.info(" client reciver request() response ： " + response.getRequestId() + " value: " +response.getValue() );
-			 try {
-					Thread.sleep(1000);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
+			LoggerUtil.info(" client reciver request() response ： "
+					+ response.getRequestId() + " value: "
+					+ response.getValue());
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 		}
 
-		client.close();
-
-//        try {
-//			Thread.sleep(100000);
-//		} catch (InterruptedException e) {
-//			e.printStackTrace();
-//		}
-
-	}
+   		client.close();
+   	}
 
 }

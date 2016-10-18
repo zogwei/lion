@@ -42,6 +42,7 @@ public abstract class AbstractServer extends AbstractEndpoint implements Server 
     protected volatile ChannelState state = ChannelState.UNINIT;
 	
 	public AbstractServer(LionURL url,MessageHandler messagehandler) {
+		super(url);
 		this.url = url;
 		this.codec = ExtensionLoader.getExtensionLoader(Codec.class).getExtension(
                         url.getParameter(URLParamType.codec.getName(), URLParamType.codec.getValue()));

@@ -65,7 +65,7 @@ public class DefaultConfigHandlerRefererTest {
 				+ "isDefault=true&"
 				+ "minWorkerThread=20&"
 				+ "group=motan-demo-rpc&"
-				+ "nodeType=service&"
+				+ "nodeType=referer&"
 				+ "address=10.12.104.6:4455&"
 				+ "shareChannel=true&";
 
@@ -83,7 +83,7 @@ public class DefaultConfigHandlerRefererTest {
 		url.addParameter("accessLog", "false");
 		url.addParameter("minWorkerThread", "20");
 		url.addParameter("group", "motan-demo-rpc");
-		url.addParameter("nodeType", "service");
+		url.addParameter("nodeType", "referer");
 		url.addParameter("shareChannel", "true");
 		url.addParameter("address", "10.12.104.6:4455");
 		

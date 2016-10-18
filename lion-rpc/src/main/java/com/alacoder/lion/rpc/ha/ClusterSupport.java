@@ -114,7 +114,7 @@ public class ClusterSupport<T> implements NotifyListener {
         }
         return directUrls;
     }
-	
+	 
     @SuppressWarnings("unchecked")
 	private void prepareCluster() {
         String clusterName = url.getParameter(URLParamType.cluster.getName(), URLParamType.cluster.getValue());

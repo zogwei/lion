@@ -67,45 +67,21 @@ public class DirectRegistry extends AbstractRegistry {
 		 LionURL url = new LionURL(LionConstants.REGISTRY_PROTOCOL_DIRECT,ip,port,"");
 	     directUrls.add(url);
 	}
-	
+
 	@Override
-	public LionURL getUrl() {
-		// TODO Auto-generated method stub
-		return null;
+	protected void doSubscribe(LionURL url, NotifyListener listener) {
+		subscribeUrl.putIfAbsent(url, 1);
+        listener.notify(this.getUrl(), doDiscover(url));
 	}
 
-	@Override
-	public void available(LionURL url) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void unavailable(LionURL url) {
-		// TODO Auto-generated method stub
-
-	}
+    @Override
+    protected void doUnsubscribe(LionURL url, NotifyListener listener) {
+    	subscribeUrl.remove(url);
+        listener.notify(this.getUrl(), doDiscover(url));
+    }
 
 	@Override
-	public Collection<LionURL> getRegisteredServiceUrls() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void subscribe(LionURL url, NotifyListener listener) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void unsubscribe(LionURL url, NotifyListener listener) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public List<LionURL> discover(LionURL url) {
+	protected List<LionURL> doDiscover(LionURL url) {
 		return createSubscribeUrl(url);
 	}
 	
@@ -122,43 +98,20 @@ public class DirectRegistry extends AbstractRegistry {
     }
 
 	@Override
-	protected void doRegister(LionURL url) {
-
-	}
-
-	@Override
-	protected void doUnregister(LionURL url) {
-		
-	}
-
-	@Override
-	protected void doSubscribe(LionURL url, NotifyListener listener) {
-		subscribeUrl.putIfAbsent(url, 1);
-        listener.notify(this.getUrl(), doDiscover(url));
-	}
-
-	@Override
-	protected void doUnsubscribe(LionURL url, NotifyListener listener) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	protected List<LionURL> doDiscover(LionURL url) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	protected void doAvailable(LionURL url) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	protected void doUnavailable(LionURL url) {
-		// TODO Auto-generated method stub
 		
 	}
+	
+	@Override
+	protected void doRegister(LionURL url) {
+	}
 
+	@Override
+	protected void doUnregister(LionURL url) {
+	}
 }

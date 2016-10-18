@@ -151,9 +151,7 @@ public class DefaultResponse implements Response{
 
 	@Override
 	public long getCreateTime() {
-		return this.createTimes;
+		return this.createTime;
 	}
-    
-    
 
 }
