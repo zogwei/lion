@@ -23,4 +23,14 @@ package com.alacoder.lion.config;
 
 public class BasicRefererInterfaceConfig extends AbstractRefererConfig {
 
+    /** 是否默认配置 */
+    private Boolean isDefault;
+
+    public void setDefault(boolean isDefault) {
+        this.isDefault = isDefault;
+    }
+
+    public Boolean isDefault() {
+        return isDefault;
+    }
 }
