@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~  Copyright 2009-2016 Weibo, Inc.
+  ~
+  ~    Licensed under the Apache License, Version 2.0 (the "License");
+  ~    you may not use this file except in compliance with the License.
+  ~    You may obtain a copy of the License at
+  ~
+  ~        http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~    Unless required by applicable law or agreed to in writing, software
+  ~    distributed under the License is distributed on an "AS IS" BASIS,
+  ~    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~    See the License for the specific language governing permissions and
+  ~    limitations under the License.
+  -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:lion="http://api.alacoder.com/schema/lion"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+       http://api.alacoder.com/schema/lion http://api.alacoder.com/schema/lion.xsd">
+
+    <!-- 注册中心配置 使用不同注册中心需要依赖对应的jar包。-->
+    <!--<lion:registry regProtocol="local" name="registry"/>-->
+    <!--<lion:registry regProtocol="consul" name="registry" address="127.0.0.1:8500"/>-->
+    <lion:registry regProtocol="direct" name="registry" connectTimeout="2000"/>
+
+    <!-- lion协议配置 -->
+    <lion:protocol default="true" name="lion" haStrategy="failover"
+                    loadbalance="activeWeight" maxClientConnection="10" minClientConnection="2"/>
+
+    <!-- 通用referer基础配置 -->
+    <lion:basicReferer requestTimeout="200" accessLog="false"
+                        retries="2" group="lion-demo-rpc" module="lion-demo-rpc"
+                        application="myLionDemo" protocol="lion" registry="registry"
+                        id="liontestClientBasicConfig" throwException="false" check="true"/>
+
+    <!-- 具体referer配置。使用方通过beanid使用服务接口类 -->
+    <lion:referer id="lionDemoReferer"
+                   interface="com.alacoder.lion.rpc.springsupport.DemoService"
+                   connectTimeout="300" requestTimeout="300" basicReferer="liontestClientBasicConfig"/>
+
+</beans>

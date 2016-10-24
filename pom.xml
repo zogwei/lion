@@ -12,6 +12,7 @@
     <module>lion-exchange</module>
     <module>lion-rpc</module>
     <module>lion-rpc-default</module>
+    <module>lion-rpc-springsupport</module>
   </modules>
   
       <properties>

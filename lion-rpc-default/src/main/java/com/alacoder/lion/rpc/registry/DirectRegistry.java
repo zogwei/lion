@@ -38,7 +38,7 @@ public class DirectRegistry extends AbstractRegistry {
 	public DirectRegistry(LionURL url) {
 		super(url);
 		String address = url.getParameter("address");
-		if(address.contains(",")) {
+		if(address!=null&&address.contains(",")) {
 			try {
 				String[] directUrlArray = address.split(",");
 				for(String directUrl : directUrlArray) {
@@ -87,8 +87,8 @@ public class DirectRegistry extends AbstractRegistry {
 	
     private List<LionURL> createSubscribeUrl(LionURL subscribeUrl) {
         LionURL url = this.getUrl();
-        List result = new ArrayList(directUrls.size());
-        for (LionURL directUrl : directUrls) {
+        List result = new ArrayList(registeredServiceUrls.size());
+        for (LionURL directUrl : registeredServiceUrls) {
             LionURL tmp = subscribeUrl.createCopy();
             tmp.setHost(directUrl.getHost());
             tmp.setPort(directUrl.getPort());

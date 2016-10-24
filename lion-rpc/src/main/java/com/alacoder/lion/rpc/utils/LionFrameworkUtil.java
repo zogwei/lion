@@ -18,6 +18,8 @@ import org.apache.commons.lang3.StringUtils;
 import com.alacoder.lion.common.LionConstants;
 import com.alacoder.lion.common.url.LionURL;
 import com.alacoder.lion.common.url.URLParamType;
+import com.alacoder.lion.config.ProtocolConfig;
+import com.alacoder.lion.config.RegistryConfig;
 import com.alacoder.lion.remote.transport.Request;
 
 /**
@@ -226,26 +228,26 @@ public class LionFrameworkUtil {
         return group + LionConstants.PATH_SEPARATOR + interfaceName + LionConstants.PATH_SEPARATOR + version;
     }
     
-//    /**
-//     * 获取默认motan协议配置
-//     * @return motan协议配置
-//     */
-//    public static ProtocolConfig getDefaultProtocolConfig(){
-//        ProtocolConfig pc = new ProtocolConfig();
-//        pc.setId("motan");
-//        pc.setName("motan");
-//        return pc;
-//    }
-//    
-//    /**
-//     * 默认本地注册中心
-//     * @return local registry
-//     */
-//    public static RegistryConfig getDefaultRegistryConfig(){
-//        RegistryConfig local = new RegistryConfig();
-//        local.setRegProtocol("local");
-//        return local;
-//    }
+    /**
+     * 获取默认motan协议配置
+     * @return motan协议配置
+     */
+    public static ProtocolConfig getDefaultProtocolConfig(){
+        ProtocolConfig pc = new ProtocolConfig();
+        pc.setId("lion");
+        pc.setName("lion");
+        return pc;
+    }
+    
+    /**
+     * 默认本地注册中心
+     * @return local registry
+     */
+    public static RegistryConfig getDefaultRegistryConfig(){
+        RegistryConfig local = new RegistryConfig();
+        local.setRegProtocol("local");
+        return local;
+    }
     
     
 }

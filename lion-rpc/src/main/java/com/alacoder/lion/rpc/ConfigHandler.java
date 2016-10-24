@@ -13,8 +13,11 @@
 
 package com.alacoder.lion.rpc;
 
+import java.util.Collection;
 import java.util.List;
 
+import com.alacoder.lion.common.extension.Spi;
+import com.alacoder.lion.common.extension.Scope;
 import com.alacoder.lion.common.url.LionURL;
 import com.alacoder.lion.rpc.ha.Cluster;
 import com.alacoder.lion.rpc.ha.ClusterSupport;
@@ -27,7 +30,7 @@ import com.alacoder.lion.rpc.ha.ClusterSupport;
  * @date 2016年9月26日 上午11:46:05
  *
  */
-
+@Spi(scope = Scope.SINGLETON)
 public interface ConfigHandler {
 	
     <T> ClusterSupport<T> buildClusterSupport(Class<T> interfaceClass, List<LionURL> registryUrls);
@@ -35,4 +38,6 @@ public interface ConfigHandler {
     <T> Exporter<T> export(Class<T> interfaceClass, T ref, List<LionURL> registryUrls);
     
     <T> T refer(Class<T> interfaceClass, List<Cluster<T>> cluster, String proxyType);
+    
+    <T> void unexport(List<Exporter<T>> exporters, Collection<LionURL> registryUrls);
 }

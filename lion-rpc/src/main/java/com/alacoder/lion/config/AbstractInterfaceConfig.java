@@ -13,8 +13,26 @@
 
 package com.alacoder.lion.config;
 
+import java.net.InetAddress;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import org.apache.commons.lang3.StringUtils;
+
+import com.alacoder.common.exception.LionErrorMsgConstant;
+import com.alacoder.common.exception.LionFrameworkException;
+import com.alacoder.common.exception.LionServiceException;
+import com.alacoder.lion.common.LionConstants;
+import com.alacoder.lion.common.url.LionURL;
+import com.alacoder.lion.common.url.URLParamType;
+import com.alacoder.lion.common.utils.NetUtils;
+import com.alacoder.lion.common.utils.ReflectUtil;
+import com.alacoder.lion.common.utils.UrlUtils;
+import com.alacoder.lion.rpc.ApplicationInfo;
+import com.alacoder.lion.rpc.registry.RegistryService;
 
 /**
  * @ClassName: AbstractInterfaceConfig
@@ -91,6 +109,110 @@ public abstract class AbstractInterfaceConfig extends AbstractConfig {
     protected Integer mingzSize;
 
     protected String codec;
+    
+    protected void checkInterfaceAndMethods(Class<?> interfaceClass, List<MethodConfig> methods) {
+        if (interfaceClass == null) {
+            throw new IllegalStateException("interface not allow null!");
+        }
+        if (!interfaceClass.isInterface()) {
+            throw new IllegalStateException("The interface class " + interfaceClass + " is not a interface!");
+        }
+        // 检查方法是否在接口中存在
+        if (methods != null && !methods.isEmpty()) {
+            for (MethodConfig methodBean : methods) {
+                String methodName = methodBean.getName();
+                if (methodName == null || methodName.length() == 0) {
+                    throw new IllegalStateException("<motan:method> name attribute is required! Please check: <motan:service interface=\""
+                            + interfaceClass.getName() + "\" ... ><motan:method name=\"\" ... /></<motan:referer>");
+                }
+                java.lang.reflect.Method hasMethod = null;
+                for (java.lang.reflect.Method method : interfaceClass.getMethods()) {
+                    if (method.getName().equals(methodName)) {
+                        if (methodBean.getArgumentTypes() != null
+                                && ReflectUtil.getMethodParamDesc(method).equals(methodBean.getArgumentTypes())) {
+                            hasMethod = method;
+                            break;
+                        }
+                        if (methodBean.getArgumentTypes() != null) {
+                            continue;
+                        }
+                        if (hasMethod != null) {
+                            throw new LionFrameworkException("The interface " + interfaceClass.getName() + " has more than one method "
+                                    + methodName + " , must set argumentTypes attribute.", LionErrorMsgConstant.FRAMEWORK_INIT_ERROR);
+                        }
+                        hasMethod = method;
+                    }
+                }
+                if (hasMethod == null) {
+                    throw new LionFrameworkException("The interface " + interfaceClass.getName() + " not found method " + methodName,
+                            LionErrorMsgConstant.FRAMEWORK_INIT_ERROR);
+                }
+                methodBean.setArgumentTypes(ReflectUtil.getMethodParamDesc(hasMethod));
+            }
+        }
+    }
+    
+    protected List<LionURL> loadRegistryUrls() {
+        List<LionURL> registryList = new ArrayList<LionURL>();
+        if (registries != null && !registries.isEmpty()) {
+            for (RegistryConfig config : registries) {
+                String address = config.getAddress();
+                if (StringUtils.isBlank(address)) {
+                    address = NetUtils.LOCALHOST + ":" + LionConstants.DEFAULT_INT_VALUE;
+                }
+                Map<String, String> map = new HashMap<String, String>();
+                config.appendConfigParams(map);
+
+                map.put(URLParamType.application.getName(), getApplication());
+                map.put(URLParamType.path.getName(), RegistryService.class.getName());
+                map.put(URLParamType.refreshTimestamp.getName(), String.valueOf(System.currentTimeMillis()));
+
+                // 设置默认的registry protocol，parse完protocol后，需要去掉该参数
+                if (!map.containsKey(URLParamType.protocol.getName())) {
+                    if (address.contains("://")) {
+                        map.put(URLParamType.protocol.getName(), address.substring(0, address.indexOf("://")));
+                    }
+                    map.put(URLParamType.protocol.getName(), LionConstants.REGISTRY_PROTOCOL_LOCAL);
+                }
+                // address内部可能包含多个注册中心地址
+                List<LionURL> urls = UrlUtils.parseURLs(address, map);
+                if (urls != null && !urls.isEmpty()) {
+                    for (LionURL url : urls) {
+                        url.removeParameter(URLParamType.protocol.getName());
+                        registryList.add(url);
+                    }
+                }
+            }
+        }
+        return registryList;
+    }
+    
+    protected String getLocalHostAddress(List<LionURL> registryURLs) {
+
+        String localAddress = null;
+
+        Map<String, Integer> regHostPorts = new HashMap<String, Integer>();
+        for (LionURL ru : registryURLs) {
+            if (StringUtils.isNotBlank(ru.getHost()) && ru.getPort() > 0) {
+                regHostPorts.put(ru.getHost(), ru.getPort());
+            }
+        }
+
+        InetAddress address = NetUtils.getLocalAddress(regHostPorts);
+        if (address != null) {
+            localAddress = address.getHostAddress();
+        }
+
+        if (NetUtils.isValidLocalHost(localAddress)) {
+            return localAddress;
+        }
+        throw new LionServiceException("Please config local server hostname with intranet IP first!",
+                LionErrorMsgConstant.FRAMEWORK_INIT_ERROR);
+    }
+    
+    protected void initLocalAppInfo(LionURL localUrl) {
+        ApplicationInfo.addService(localUrl);
+    }
 
     public Integer getRetries() {
         return retries;
@@ -295,5 +417,6 @@ public abstract class AbstractInterfaceConfig extends AbstractConfig {
         this.codec = codec;
     }
 	
+    
 	
 }

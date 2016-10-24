@@ -38,7 +38,7 @@ public abstract class AbstractRegistry implements Registry {
 	
 	 private ConcurrentHashMap<LionURL, Map<String, List<LionURL>>> subscribedCategoryResponses = new ConcurrentHashMap<LionURL, Map<String, List<LionURL>>>();
 	 private LionURL registryUrl;
-	 private Set<LionURL> registeredServiceUrls = new ConcurrentHashSet<LionURL>();
+	 protected Set<LionURL> registeredServiceUrls = new ConcurrentHashSet<LionURL>();
 	 protected String registryClassName = this.getClass().getSimpleName();
 	 
 	 public AbstractRegistry(LionURL url) {

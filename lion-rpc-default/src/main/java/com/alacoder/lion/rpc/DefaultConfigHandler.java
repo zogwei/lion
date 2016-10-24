@@ -13,6 +13,7 @@
 
 package com.alacoder.lion.rpc;
 
+import java.util.Collection;
 import java.util.List;
 
 import com.alacoder.common.exception.LionErrorMsg;
@@ -22,13 +23,14 @@ import com.alacoder.lion.common.extension.ExtensionLoader;
 import com.alacoder.lion.common.extension.SpiMeta;
 import com.alacoder.lion.common.url.LionURL;
 import com.alacoder.lion.common.url.URLParamType;
+import com.alacoder.lion.common.utils.LoggerUtil;
 import com.alacoder.lion.common.utils.StringTools;
 import com.alacoder.lion.rpc.ha.Cluster;
 import com.alacoder.lion.rpc.ha.ClusterSupport;
 import com.alacoder.lion.rpc.registry.Registry;
 import com.alacoder.lion.rpc.registry.RegistryFactory;
 import com.alacoder.lion.rpc.RefererInvocationHandler;
-
+import com.alacoder.lion.common.LionConstants;
 /**
  * @ClassName: DefaultConfigHandler
  * @Description: 
@@ -36,6 +38,7 @@ import com.alacoder.lion.rpc.RefererInvocationHandler;
  * @date 2016年9月26日 上午11:47:12
  *
  */
+@SpiMeta(name = LionConstants.DEFAULT_VALUE)
 public class DefaultConfigHandler implements ConfigHandler {
 	
     @Override
@@ -84,6 +87,38 @@ public class DefaultConfigHandler implements ConfigHandler {
     public<T> T refer(Class<T> interfaceClass, List<Cluster<T>> clusters, String proxyType) {
         ProxyFactory proxyFactory = ExtensionLoader.getExtensionLoader(ProxyFactory.class).getExtension(proxyType);
         return proxyFactory.getProxy(interfaceClass, new RefererInvocationHandler<T>(interfaceClass, clusters));
+    }
+
+    @Override
+    public <T> void unexport(List<Exporter<T>> exporters, Collection<LionURL> registryUrls) {
+        try {
+            unRegister(registryUrls);
+        } catch (Exception e1) {
+            LoggerUtil.warn("Exception when unregister urls:" + registryUrls);
+        }
+        try {
+            for (Exporter<T> exporter : exporters) {
+                exporter.unexport();
+            }
+        } catch (Exception e) {
+            LoggerUtil.warn("Exception when unexport exporters:" + exporters);
+        }
+    }
+    
+    private void unRegister(Collection<LionURL> registryUrls) {
+        for (LionURL url : registryUrls) {
+            // 不管check的设置如何，做完所有unregistry，做好清理工作
+            try {
+                String serviceStr = StringTools.urlDecode(url.getParameter(URLParamType.embed.getName()));
+                LionURL serviceUrl = LionURL.valueOf(serviceStr);
+
+                RegistryFactory registryFactory = ExtensionLoader.getExtensionLoader(RegistryFactory.class).getExtension(url.getProtocol());
+                Registry registry = registryFactory.getRegistry(url);
+                registry.unregister(serviceUrl);
+            } catch (Exception e) {
+                LoggerUtil.warn(String.format("unregister url false:%s", url), e);
+            }
+        }
     }
 
 }

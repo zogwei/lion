@@ -287,4 +287,25 @@ public class ClusterSupport<T> implements NotifyListener {
         return cluster;
     }
 
+    
+    public void destroy() {
+        LionURL subscribeUrl = toSubscribeUrl(url);
+        for (LionURL ru : registryUrls) {
+            try {
+                Registry registry = getRegistry(ru);
+                registry.unsubscribe(subscribeUrl, this);
+                if (!LionConstants.NODE_TYPE_REFERER.equals(url.getParameter(URLParamType.nodeType.getName()))) {
+                    registry.unregister(url);
+                }
+            } catch (Exception e) {
+                LoggerUtil.warn(String.format("Unregister or unsubscribe false for url (%s), registry= %s", url, ru.getIdentity()), e);
+            }
+
+        }
+        try {
+            getCluster().destroy();
+        } catch (Exception e) {
+            LoggerUtil.warn(String.format("Exception when destroy cluster: %s", getCluster().getUrl()));
+        }
+    }
 }
