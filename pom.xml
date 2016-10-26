@@ -13,6 +13,7 @@
     <module>lion-rpc</module>
     <module>lion-rpc-default</module>
     <module>lion-rpc-springsupport</module>
+    <module>lion-admin</module>
   </modules>
   
       <properties>
