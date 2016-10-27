@@ -122,8 +122,8 @@ public abstract class AbstractInterfaceConfig extends AbstractConfig {
             for (MethodConfig methodBean : methods) {
                 String methodName = methodBean.getName();
                 if (methodName == null || methodName.length() == 0) {
-                    throw new IllegalStateException("<motan:method> name attribute is required! Please check: <motan:service interface=\""
-                            + interfaceClass.getName() + "\" ... ><motan:method name=\"\" ... /></<motan:referer>");
+                    throw new IllegalStateException("<lion:method> name attribute is required! Please check: <lion:service interface=\""
+                            + interfaceClass.getName() + "\" ... ><lion:method name=\"\" ... /></<lion:referer>");
                 }
                 java.lang.reflect.Method hasMethod = null;
                 for (java.lang.reflect.Method method : interfaceClass.getMethods()) {

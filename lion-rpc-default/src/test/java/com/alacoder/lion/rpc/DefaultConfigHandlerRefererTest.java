@@ -34,37 +34,37 @@ public class DefaultConfigHandlerRefererTest {
 
 	public static void main(String[] args) {
 		
-		String serviceKey = "motan://10.12.104.6:8001/com.weibo.motan.demo.service.MotanDemoService?"
-				+ "protocol=motan&"
-				+ "export=demoMotan:8001&"
-				+ "application=myMotanDemo&"
-				+ "module=motan-demo-rpc&"
+		String serviceKey = "lion://10.12.104.6:8001/com.weibo.lion.demo.service.LionDemoService?"
+				+ "protocol=lion&"
+				+ "export=demoLion:8001&"
+				+ "application=myLionDemo&"
+				+ "module=lion-demo-rpc&"
 				+ "refreshTimestamp=1474862047591&"
 				+ "maxContentLength=1048576&"
-				+ "id=com.weibo.api.motan.config.springsupport.ServiceConfigBean&"
+				+ "id=com.weibo.api.lion.config.springsupport.ServiceConfigBean&"
 				+ "maxWorkerThread=800&"
 				+ "maxServerConnection=80000&"
 				+ "accessLog=false&"
 				+ "isDefault=true&"
 				+ "minWorkerThread=20&"
-				+ "group=motan-demo-rpc&"
+				+ "group=lion-demo-rpc&"
 				+ "nodeType=service&"
 				+ "shareChannel=true&";
 		
 		String embed = "lion://10.12.104.6:4455/com.alacoder.lion.rpc.DemoService?"
 				+ "protocol=lion&"
-				+ "export=demoMotan:8001&"
-				+ "application=myMotanDemo&"
-				+ "module=motan-demo-rpc&"
+				+ "export=demoLion:8001&"
+				+ "application=myLionDemo&"
+				+ "module=lion-demo-rpc&"
 				+ "refreshTimestamp=1474862047591&"
 				+ "maxContentLength=1048576&"
-				+ "id=com.weibo.api.motan.config.springsupport.ServiceConfigBean&"
+				+ "id=com.weibo.api.lion.config.springsupport.ServiceConfigBean&"
 				+ "maxWorkerThread=800&"
 				+ "maxServerConnection=80000&"
 				+ "accessLog=false&"
 				+ "isDefault=true&"
 				+ "minWorkerThread=20&"
-				+ "group=motan-demo-rpc&"
+				+ "group=lion-demo-rpc&"
 				+ "nodeType=referer&"
 				+ "address=10.12.104.6:4455&"
 				+ "shareChannel=true&";
@@ -72,17 +72,17 @@ public class DefaultConfigHandlerRefererTest {
 		LionURL url = new LionURL(LionConstants.REGISTRY_PROTOCOL_DIRECT, "10.12.104.6", 4455, "com.alacoder.lion.rpc.DemoService");
 		url.addParameter("embed", embed);
 		url.addParameter("protocol", LionConstants.REGISTRY_PROTOCOL_DIRECT);
-		url.addParameter("export", "demoMotan:8001");
-		url.addParameter("application", "myMotanDemo");
-		url.addParameter("module", "motan-demo-rpc");
+		url.addParameter("export", "demoLion:8001");
+		url.addParameter("application", "myLionDemo");
+		url.addParameter("module", "lion-demo-rpc");
 		url.addParameter("refreshTimestamp", "1474862047591");
 		url.addParameter("maxContentLength", "1048576");
-		url.addParameter("id", "com.weibo.api.motan.config.springsupport.ServiceConfigBean");
+		url.addParameter("id", "com.weibo.api.lion.config.springsupport.ServiceConfigBean");
 		url.addParameter("maxWorkerThread", "800");
 		url.addParameter("maxServerConnection", "80000");
 		url.addParameter("accessLog", "false");
 		url.addParameter("minWorkerThread", "20");
-		url.addParameter("group", "motan-demo-rpc");
+		url.addParameter("group", "lion-demo-rpc");
 		url.addParameter("nodeType", "referer");
 		url.addParameter("shareChannel", "true");
 		url.addParameter("address", "10.12.104.6:4455");

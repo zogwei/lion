@@ -25,16 +25,16 @@ package com.alacoder.common.exception;
 public abstract class LionAbstractException extends RuntimeException {
     private static final long serialVersionUID = -8742311167276890503L;
 
-    protected LionErrorMsg motanErrorMsg = LionMsgConstant.FRAMEWORK_DEFAULT_ERROR;
+    protected LionErrorMsg lionErrorMsg = LionMsgConstant.FRAMEWORK_DEFAULT_ERROR;
     protected String errorMsg = null;
 
     public LionAbstractException() {
         super();
     }
 
-    public LionAbstractException(LionErrorMsg motanErrorMsg) {
+    public LionAbstractException(LionErrorMsg lionErrorMsg) {
         super();
-        this.motanErrorMsg = motanErrorMsg;
+        this.lionErrorMsg = lionErrorMsg;
     }
 
     public LionAbstractException(String message) {
@@ -42,9 +42,9 @@ public abstract class LionAbstractException extends RuntimeException {
         this.errorMsg = message;
     }
 
-    public LionAbstractException(String message, LionErrorMsg motanErrorMsg) {
+    public LionAbstractException(String message, LionErrorMsg lionErrorMsg) {
         super(message);
-        this.motanErrorMsg = motanErrorMsg;
+        this.lionErrorMsg = lionErrorMsg;
         this.errorMsg = message;
     }
 
@@ -53,9 +53,9 @@ public abstract class LionAbstractException extends RuntimeException {
         this.errorMsg = message;
     }
 
-    public LionAbstractException(String message, Throwable cause, LionErrorMsg motanErrorMsg) {
+    public LionAbstractException(String message, Throwable cause, LionErrorMsg lionErrorMsg) {
         super(message, cause);
-        this.motanErrorMsg = motanErrorMsg;
+        this.lionErrorMsg = lionErrorMsg;
         this.errorMsg = message;
     }
 
@@ -63,14 +63,14 @@ public abstract class LionAbstractException extends RuntimeException {
         super(cause);
     }
 
-    public LionAbstractException(Throwable cause, LionErrorMsg motanErrorMsg) {
+    public LionAbstractException(Throwable cause, LionErrorMsg lionErrorMsg) {
         super(cause);
-        this.motanErrorMsg = motanErrorMsg;
+        this.lionErrorMsg = lionErrorMsg;
     }
 
     @Override
     public String getMessage() {
-        if (motanErrorMsg == null) {
+        if (lionErrorMsg == null) {
             return super.getMessage();
         }
 
@@ -79,23 +79,23 @@ public abstract class LionAbstractException extends RuntimeException {
         if (errorMsg != null && !"".equals(errorMsg)) {
             message = errorMsg;
         } else {
-            message = motanErrorMsg.getMessage();
+            message = lionErrorMsg.getMessage();
         }
 
         // TODO 统一上下文 requestid
-        return "error_message: " + message + ", status: " + motanErrorMsg.getStatus() + ", error_code: " + motanErrorMsg.getErrorCode()
+        return "error_message: " + message + ", status: " + lionErrorMsg.getStatus() + ", error_code: " + lionErrorMsg.getErrorCode()
                 + ",r=";
     }
 
     public int getStatus() {
-        return motanErrorMsg != null ? motanErrorMsg.getStatus() : 0;
+        return lionErrorMsg != null ? lionErrorMsg.getStatus() : 0;
     }
 
     public int getErrorCode() {
-        return motanErrorMsg != null ? motanErrorMsg.getErrorCode() : 0;
+        return lionErrorMsg != null ? lionErrorMsg.getErrorCode() : 0;
     }
 
     public LionErrorMsg getMotanErrorMsg() {
-        return motanErrorMsg;
+        return lionErrorMsg;
     }
 }

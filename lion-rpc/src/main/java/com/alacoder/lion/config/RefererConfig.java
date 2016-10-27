@@ -168,7 +168,7 @@ public class RefererConfig<T>  extends AbstractRefererConfig {
             if (registryUrls == null || registryUrls.isEmpty()) {
                 throw new IllegalStateException(
                         String.format(
-                                "No registry to reference %s on the consumer %s , please config <motan:registry address=\"...\" /> in your spring config.",
+                                "No registry to reference %s on the consumer %s , please config <lion:registry address=\"...\" /> in your spring config.",
                                 interfaceClass, NetUtils.LOCALHOST));
             }
             for (LionURL url : registryUrls) {

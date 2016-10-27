@@ -29,32 +29,32 @@ public class LionFrameworkException extends LionAbstractException {
         super(LionMsgConstant.FRAMEWORK_DEFAULT_ERROR);
     }
 
-    public LionFrameworkException(LionErrorMsg motanErrorMsg) {
-        super(motanErrorMsg);
+    public LionFrameworkException(LionErrorMsg lionErrorMsg) {
+        super(lionErrorMsg);
     }
 
     public LionFrameworkException(String message) {
         super(message, LionMsgConstant.FRAMEWORK_DEFAULT_ERROR);
     }
 
-    public LionFrameworkException(String message, LionErrorMsg motanErrorMsg) {
-        super(message, motanErrorMsg);
+    public LionFrameworkException(String message, LionErrorMsg lionErrorMsg) {
+        super(message, lionErrorMsg);
     }
 
     public LionFrameworkException(String message, Throwable cause) {
         super(message, cause, LionMsgConstant.FRAMEWORK_DEFAULT_ERROR);
     }
 
-    public LionFrameworkException(String message, Throwable cause, LionErrorMsg motanErrorMsg) {
-        super(message, cause, motanErrorMsg);
+    public LionFrameworkException(String message, Throwable cause, LionErrorMsg lionErrorMsg) {
+        super(message, cause, lionErrorMsg);
     }
 
     public LionFrameworkException(Throwable cause) {
         super(cause, LionMsgConstant.FRAMEWORK_DEFAULT_ERROR);
     }
 
-    public LionFrameworkException(Throwable cause, LionErrorMsg motanErrorMsg) {
-        super(cause, motanErrorMsg);
+    public LionFrameworkException(Throwable cause, LionErrorMsg lionErrorMsg) {
+        super(cause, lionErrorMsg);
     }
 
 }

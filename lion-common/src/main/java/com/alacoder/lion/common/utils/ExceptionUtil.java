@@ -48,7 +48,7 @@ public class ExceptionUtil {
      * @param e
      * @return
      */
-    public static boolean isMotanException(Exception e) {
+    public static boolean isLionException(Exception e) {
         return e instanceof LionAbstractException;
     }
 }

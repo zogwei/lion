@@ -43,8 +43,8 @@ public class DefaultCodecTest {
 		request.setInterfaceName("interfacename");
 		request.setMethodName("method");
 		
-        LionURL url = new LionURL("netty", "localhost", 18080, "com.weibo.api.motan.procotol.example.IHello");
-//        url.addParameter(URLParamType.serialize.getName(), "mockMotan");
+        LionURL url = new LionURL("netty", "localhost", 18080, "com.alacoder.api.lion.procotol.example.IHello");
+//        url.addParameter(URLParamType.serialize.getName(), "mockLion");
 //        url.addParameter(URLParamType.requestTimeout.getName(), "2000");
 		
 

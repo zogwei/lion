@@ -29,31 +29,31 @@ public class LionServiceException extends LionAbstractException {
         super(LionMsgConstant.SERVICE_DEFAULT_ERROR);
     }
 
-    public LionServiceException(LionErrorMsg motanErrorMsg) {
-        super(motanErrorMsg);
+    public LionServiceException(LionErrorMsg lionErrorMsg) {
+        super(lionErrorMsg);
     }
 
     public LionServiceException(String message) {
         super(message, LionMsgConstant.SERVICE_DEFAULT_ERROR);
     }
 
-    public LionServiceException(String message, LionErrorMsg motanErrorMsg) {
-        super(message, motanErrorMsg);
+    public LionServiceException(String message, LionErrorMsg lionErrorMsg) {
+        super(message, lionErrorMsg);
     }
 
     public LionServiceException(String message, Throwable cause) {
         super(message, cause, LionMsgConstant.SERVICE_DEFAULT_ERROR);
     }
 
-    public LionServiceException(String message, Throwable cause, LionErrorMsg motanErrorMsg) {
-        super(message, cause, motanErrorMsg);
+    public LionServiceException(String message, Throwable cause, LionErrorMsg lionErrorMsg) {
+        super(message, cause, lionErrorMsg);
     }
 
     public LionServiceException(Throwable cause) {
         super(cause, LionMsgConstant.SERVICE_DEFAULT_ERROR);
     }
 
-    public LionServiceException(Throwable cause, LionErrorMsg motanErrorMsg) {
-        super(cause, motanErrorMsg);
+    public LionServiceException(Throwable cause, LionErrorMsg lionErrorMsg) {
+        super(cause, lionErrorMsg);
     }
 }

@@ -229,8 +229,8 @@ public class LionFrameworkUtil {
     }
     
     /**
-     * 获取默认motan协议配置
-     * @return motan协议配置
+     * 获取默认lion协议配置
+     * @return lion协议配置
      */
     public static ProtocolConfig getDefaultProtocolConfig(){
         ProtocolConfig pc = new ProtocolConfig();

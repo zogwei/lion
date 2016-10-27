@@ -29,31 +29,31 @@ public class LionBizException extends LionAbstractException {
         super(LionMsgConstant.BIZ_DEFAULT_EXCEPTION);
     }
 
-    public LionBizException(LionErrorMsg motanErrorMsg) {
-        super(motanErrorMsg);
+    public LionBizException(LionErrorMsg lionErrorMsg) {
+        super(lionErrorMsg);
     }
 
     public LionBizException(String message) {
         super(message, LionMsgConstant.BIZ_DEFAULT_EXCEPTION);
     }
 
-    public LionBizException(String message, LionErrorMsg motanErrorMsg) {
-        super(message, motanErrorMsg);
+    public LionBizException(String message, LionErrorMsg lionErrorMsg) {
+        super(message, lionErrorMsg);
     }
 
     public LionBizException(String message, Throwable cause) {
         super(message, cause, LionMsgConstant.BIZ_DEFAULT_EXCEPTION);
     }
 
-    public LionBizException(String message, Throwable cause, LionErrorMsg motanErrorMsg) {
-        super(message, cause, motanErrorMsg);
+    public LionBizException(String message, Throwable cause, LionErrorMsg lionErrorMsg) {
+        super(message, cause, lionErrorMsg);
     }
 
     public LionBizException(Throwable cause) {
         super(cause, LionMsgConstant.BIZ_DEFAULT_EXCEPTION);
     }
 
-    public LionBizException(Throwable cause, LionErrorMsg motanErrorMsg) {
-        super(cause, motanErrorMsg);
+    public LionBizException(Throwable cause, LionErrorMsg lionErrorMsg) {
+        super(cause, lionErrorMsg);
     }
 }

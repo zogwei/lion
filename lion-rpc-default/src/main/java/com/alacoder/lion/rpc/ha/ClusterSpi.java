@@ -187,18 +187,18 @@ public class ClusterSpi<T> implements Cluster<T> {
             if (cause instanceof LionAbstractException) {
                 throw (LionAbstractException) cause;
             } else {
-                LionServiceException motanException =
+                LionServiceException lionException =
                         new LionServiceException(String.format("ClusterSpi Call false for request: %s", request), cause);
-                throw motanException;
+                throw lionException;
             }
         }
 
         return buildErrorResponse(request, cause);
     }
 
-    private Response buildErrorResponse(Request request, Exception motanException) {
+    private Response buildErrorResponse(Request request, Exception lionException) {
         DefaultResponse rs = new DefaultResponse();
-        rs.setException(motanException);
+        rs.setException(lionException);
         rs.setRequestId(request.getRequestId());
         return rs;
     }
