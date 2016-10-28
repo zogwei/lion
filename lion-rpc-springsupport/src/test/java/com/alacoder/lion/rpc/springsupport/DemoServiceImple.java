@@ -13,6 +13,8 @@
 
 package com.alacoder.lion.rpc.springsupport;
 
+import com.alacoder.lion.rpc.springsupport.annotation.LionService;
+
 /**
  * @ClassName: DemoServiceImple
  * @Description: 
@@ -20,7 +22,7 @@ package com.alacoder.lion.rpc.springsupport;
  * @date 2016年9月22日 上午10:50:01
  *
  */
-
+@LionService(export = "8002")
 public class DemoServiceImple implements DemoService {
 
 	@Override
