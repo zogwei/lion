@@ -28,26 +28,26 @@ public class ServiceConfigTest {
 
 
 	public static void main(String[] args) {
-        ServiceConfig<DemoService> serviceConfig = new ServiceConfig<DemoService>();
-        serviceConfig.setRef(new DemoServiceImple());
-        serviceConfig.setApplication("demoApplication");
-        serviceConfig.setModule("demoModule");
-        serviceConfig.setCheck("true");
-        serviceConfig.setInterface(DemoService.class);
-        serviceConfig.setGroup("demoGroup");
-        serviceConfig.setShareChannel(true);
-        
 		ProtocolConfig pc = new ProtocolConfig();
 		pc.setName("lion");
 		pc.setId(pc.getName());
 //		pc.setEndpointFactory("mockEndpoint");
 
 		RegistryConfig rc = new RegistryConfig();
+		rc.setId("directRc");
+		rc.setName("directRc");
 		rc.setRegProtocol("direct");
-		rc.setName("direct");
-		rc.setId(rc.getName());
 		rc.setAddress("127.0.0.1:6000");
 		
+        ServiceConfig<DemoService> serviceConfig = new ServiceConfig<DemoService>();
+        serviceConfig.setApplication("demoApplication");
+        serviceConfig.setModule("demoModule");
+        serviceConfig.setGroup("demoGroup");
+        serviceConfig.setCheck("true");
+        serviceConfig.setInterface(DemoService.class);
+        serviceConfig.setRef(new DemoServiceImple());
+        serviceConfig.setShareChannel(true);
+        
 		serviceConfig.setProtocol(pc);
 		serviceConfig.setRegistry(rc);
 		serviceConfig.setExport("lion:7080");
