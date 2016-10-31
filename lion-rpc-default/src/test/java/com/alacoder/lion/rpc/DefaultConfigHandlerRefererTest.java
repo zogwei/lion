@@ -34,23 +34,6 @@ public class DefaultConfigHandlerRefererTest {
 
 	public static void main(String[] args) {
 		
-//		String serviceKey = "lion://10.12.104.6:8001/com.weibo.lion.demo.service.LionDemoService?"
-//				+ "protocol=lion&"
-//				+ "export=demoLion:8001&"
-//				+ "application=myLionDemo&"
-//				+ "module=lion-demo-rpc&"
-//				+ "refreshTimestamp=1474862047591&"
-//				+ "maxContentLength=1048576&"
-//				+ "id=com.weibo.api.lion.config.springsupport.ServiceConfigBean&"
-//				+ "maxWorkerThread=800&"
-//				+ "maxServerConnection=80000&"
-//				+ "accessLog=false&"
-//				+ "isDefault=true&"
-//				+ "minWorkerThread=20&"
-//				+ "group=lion-demo-rpc&"
-//				+ "nodeType=service&"
-//				+ "shareChannel=true&";
-		
 		String embed = "lion://10.12.104.6:4455/com.alacoder.lion.rpc.DemoService?"
 //				+ "protocol=lion&"
 //				+ "export=demoLion:8001&"
