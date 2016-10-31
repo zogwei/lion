@@ -75,6 +75,7 @@ public class ServiceConfig<T> extends AbstractServiceConfig {
     	 if (registryUrls == null || registryUrls.size() == 0) {
              throw new IllegalStateException("Should set registry config for service:" + interfaceClass.getName());
          }
+    	 //TODO 不支持一个协议的多个端口？如果多个协议同一个端口会怎么样？
     	 Map<String, Integer> protocolPorts = getProtocolAndPort();
          for (ProtocolConfig protocolConfig : protocols) {
              Integer port = protocolPorts.get(protocolConfig.getId());
