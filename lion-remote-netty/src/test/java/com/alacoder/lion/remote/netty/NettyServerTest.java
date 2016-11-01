@@ -41,7 +41,7 @@ public class NettyServerTest {
 	 */
 
 	public static void main(String[] args) {
-		LionURL url = new LionURL("netty", "10.12.104.6", 4455, "IHello");
+		LionURL url = new LionURL("", "", 4455, "");
 		
 		NettyServer server = new NettyServer(url,new MessageHandler(){
 

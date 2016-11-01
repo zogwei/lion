@@ -58,16 +58,24 @@ public class NettyServer extends AbstractServer{
 
 //	private ConcurrentMap<String, io.netty.channel.Channel> channels = new ConcurrentHashMap<String, io.netty.channel.Channel>();
 	private io.netty.channel.Channel serverChannel;
-	private ConcurrentMap<String, Channel> channels = null;
+	// 连接到服务器的所有channel，key = remoteIp:remotePort - localIp:localPort作为连接的唯一标示
+	private ConcurrentMap<String, Channel> channels = new ConcurrentHashMap<String, Channel>();
 
 	private ServerBootstrap  server;
 	
 	EventLoopGroup bossGroup  = null;
 	EventLoopGroup workerGroup = null;
-	 
+	
+	/**
+	 * 
+	  * 创建一个新的实例 NettyServer. 
+	  * <p>Title: </p>
+	  * <p>Description: </p>
+	  * @param url   port 必须参数，
+	  * @param messagehandler
+	 */
 	public NettyServer(LionURL url,MessageHandler messagehandler) {
 		super(url,messagehandler);
-		this.channels = new ConcurrentHashMap<String, Channel>();
 	}
 	
 	public boolean open() {
@@ -78,24 +86,10 @@ public class NettyServer extends AbstractServer{
 		return true;
 	}
 	
-	@Override
-	public Response request(Request request) throws TransportException {
-		throw new LionFrameworkException("NettyServer request(Request request) method unsupport: url: " + url);
-	}
-	
-	@Override
-	public boolean send(TransportData transportData) throws TransportException {
-		throw new LionFrameworkException("NettyServer  send(TransportData transportData) method unsupport: url: " + url);
-	}
-	
-	@Override
-	public Collection<Channel> getChannels() {
-		throw new LionFrameworkException("NettyServer Collection<Channel> getChannels()  method unsupport: url: " + url);
-	}
 
 	@Override
-	public Channel getServerChannel() {
-		throw new LionFrameworkException("NettyServer Channel getServerChannel()  method unsupport: url: " + url);
+	public void close() {
+		close(0);
 	}
 	
 	@Override
@@ -138,12 +132,7 @@ public class NettyServer extends AbstractServer{
 		// 设置close状态
 		state = ChannelState.CLOSE;
 	}
-
-	@Override
-	public void close() {
-		close(0);
-	}
-
+	
 	private void init() {
 		if(state != ChannelState.UNINIT) {
 			LoggerUtil.error("NettyServer is not in uninit state, init error, url = {} ", url.getUri());
@@ -211,6 +200,7 @@ public class NettyServer extends AbstractServer{
 		}
 		
 		try {
+			//TODO 多本地ip
 			ChannelFuture channelFuture = server.bind(new InetSocketAddress(url.getPort())).sync();
 			serverChannel = channelFuture.channel();
 
@@ -228,6 +218,26 @@ public class NettyServer extends AbstractServer{
 				close() ;
 			}
 		}
+	}
+	
+	@Override
+	public Response request(Request request) throws TransportException {
+		throw new LionFrameworkException("NettyServer request(Request request) method unsupport: url: " + url);
+	}
+	
+	@Override
+	public boolean send(TransportData transportData) throws TransportException {
+		throw new LionFrameworkException("NettyServer  send(TransportData transportData) method unsupport: url: " + url);
+	}
+	
+	@Override
+	public Collection<Channel> getChannels() {
+		throw new LionFrameworkException("NettyServer Collection<Channel> getChannels()  method unsupport: url: " + url);
+	}
+
+	@Override
+	public Channel getServerChannel() {
+		throw new LionFrameworkException("NettyServer Channel getServerChannel()  method unsupport: url: " + url);
 	}
 	
 	@Override

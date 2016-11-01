@@ -43,7 +43,7 @@ public class NettyClientTest  extends TestCase {
 
     @Test
 	public void testClientSend() throws TransportException {
-		LionURL url = new LionURL("netty", "10.12.104.6", 4455, "IHello");
+		LionURL url = new LionURL("", "10.12.104.6", 4455, "");
 		url.addParameter(URLParamType.connectTimeout.getName(), "10000");
 		url.addParameter(URLParamType.requestTimeout.getName(), "10000");
 		Request request = new DefaultRequest();
@@ -78,7 +78,7 @@ public class NettyClientTest  extends TestCase {
     
     @Test
    	public void testClientRequest() throws TransportException {
-   		LionURL url = new LionURL("netty", "10.12.104.6", 4455, "IHello");
+   		LionURL url = new LionURL("", "10.12.104.6", 4455, "");
    		url.addParameter(URLParamType.connectTimeout.getName(), "10000");
    		Request request = new DefaultRequest();
    		NettyClient client = null;
