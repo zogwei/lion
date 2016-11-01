@@ -200,20 +200,24 @@ public class NettyServer extends AbstractServer{
 		}
 		
 		try {
-			//TODO 多本地ip
+			//TODO 多本地ip 
 			ChannelFuture channelFuture = server.bind(new InetSocketAddress(url.getPort())).sync();
-			serverChannel = channelFuture.channel();
-
-			state = ChannelState.ALIVE;
-			LoggerUtil.info("NettyServer open success , url = {}", url.getUri());
+			channelFuture.sync();
+			if(channelFuture.isSuccess()){
+				serverChannel =  channelFuture.channel();
+				state = ChannelState.ALIVE;
+				LoggerUtil.info("NettyServer open success , url = {}", url.getUri());
+			}
+			else {
+				LoggerUtil.info("NettyServer open bind error , url = {}", url.getUri());
+			}
 		} catch (InterruptedException e) {
 			LoggerUtil.warn("NettyServer close fail: interrupted url = {} ", url.getUri());
 			throw new LionServiceException("NettyServer failed to open , url: "+ getUrl().getUri(), e);
 		} catch (Throwable e) {
 			LoggerUtil.error("NettyServer error  ", e);
 			throw new LionServiceException("NettyServer failed to open , url: "+ getUrl().getUri(), e);
-		}
-		finally{
+		} finally{
 			if(!state.isAliveState()) {
 				close() ;
 			}
