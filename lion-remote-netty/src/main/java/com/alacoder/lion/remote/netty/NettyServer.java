@@ -29,6 +29,8 @@ import java.util.Collection;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.alacoder.common.exception.LionFrameworkException;
 import com.alacoder.common.exception.LionServiceException;
 import com.alacoder.lion.common.LionConstants;
@@ -200,9 +202,15 @@ public class NettyServer extends AbstractServer{
 		}
 		
 		try {
-			//TODO 多本地ip 
-			ChannelFuture channelFuture = server.bind(new InetSocketAddress(url.getPort())).sync();
-			channelFuture.sync();
+			InetSocketAddress bindAdd = null;
+			String host = url.getHost();
+			if(!StringUtils.isEmpty(host)) {
+				bindAdd = new InetSocketAddress(host,url.getPort());
+			}
+			else {
+				bindAdd = new InetSocketAddress(url.getPort());
+			}
+			ChannelFuture channelFuture = server.bind(bindAdd).sync();
 			if(channelFuture.isSuccess()){
 				serverChannel =  channelFuture.channel();
 				state = ChannelState.ALIVE;
