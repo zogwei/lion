@@ -34,7 +34,7 @@ public class DefaultRpcProtocol extends AbstractProtocol {
 
 	@Override
 	protected <T> Exporter<T> createExporter(Provider<T> provider, LionURL url) {
-		 return new DefaultRpcExporter<T>(provider, url,ipPort2RequestRouter);
+		 return new DefaultRpcExporter<T>(provider, url,ipPort2RequestRouter,this.exporterMap);
 	}
 	
     @Override

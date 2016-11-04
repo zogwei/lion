@@ -14,6 +14,7 @@
 package com.alacoder.lion.rpc;
 
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import com.alacoder.lion.common.extension.ExtensionLoader;
 import com.alacoder.lion.common.url.LionURL;
@@ -34,14 +35,17 @@ public class DefaultRpcExporter<T> extends AbstractExporter<T> {
 	private Server server;
 	private EndpointFactory endpointFactory;
 	private Map<String, DefaultMessageHandler> ipPort2RequestRouter;
+	private ConcurrentHashMap<String, Exporter<?>> exporterMap;
 
-	public DefaultRpcExporter(Provider<T> provider, LionURL url,  Map<String, DefaultMessageHandler> ipPort2RequestRouter) {
+	public DefaultRpcExporter(Provider<T> provider, LionURL url,  Map<String, DefaultMessageHandler> ipPort2RequestRouter,ConcurrentHashMap<String, Exporter<?>> exporterMap) {
 		super(provider, url);
 		DefaultMessageHandler messageHandler = getDefaultMessageHandler(ipPort2RequestRouter);
 		endpointFactory =
                  ExtensionLoader.getExtensionLoader(EndpointFactory.class).getExtension(
                          url.getParameter(URLParamType.endpointFactory.getName(), URLParamType.endpointFactory.getValue()));
         server = endpointFactory.createServer(url, messageHandler);
+        
+        this.exporterMap = exporterMap;
 	}
 	
 	public DefaultMessageHandler getDefaultMessageHandler(Map<String, DefaultMessageHandler> ipPort2RequestRouter){
