@@ -18,7 +18,9 @@ import java.util.Map;
 import com.alacoder.lion.common.extension.ExtensionLoader;
 import com.alacoder.lion.common.url.LionURL;
 import com.alacoder.lion.common.url.URLParamType;
+import com.alacoder.lion.common.utils.LoggerUtil;
 import com.alacoder.lion.remote.Server;
+import com.alacoder.lion.rpc.utils.LionFrameworkUtil;
 
 /**
  * @ClassName: DefaultRpcExporter
@@ -62,14 +64,30 @@ public class DefaultRpcExporter<T> extends AbstractExporter<T> {
 
 	@Override
 	public void unexport() {
-		// TODO Auto-generated method stub
+        String protocolKey = LionFrameworkUtil.getProtocolKey(url);
+        String ipPort = url.getServerPortStr();
 
+        Exporter<T> exporter = (Exporter<T>) exporterMap.remove(protocolKey);
+
+        if (exporter != null) {
+            exporter.destroy();
+        }
+
+        synchronized (ipPort2RequestRouter) {
+        	DefaultMessageHandler requestRouter = ipPort2RequestRouter.get(ipPort);
+
+            if (requestRouter != null) {
+                requestRouter.removeProvider(provider);
+            }
+        }
+
+        LoggerUtil.info("DefaultRpcExporter unexport Success: url={}", url);
 	}
 
 	@Override
 	public void destroy() {
-		// TODO Auto-generated method stub
-
+		  endpointFactory.safeReleaseResource(server, url);
+          LoggerUtil.info("DefaultRpcExporter destory Success: url={}", url);
 	}
 
 	@Override
