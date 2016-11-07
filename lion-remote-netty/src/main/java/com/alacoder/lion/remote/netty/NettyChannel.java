@@ -1,5 +1,5 @@
 /**
- * 版权声明：bee 版权所有 违者必究 2016
+ * 版权声明：lion 版权所有 违者必究 2016
  * Copyright: Copyright (c) 2016 
  * 
  * @project_name: lion-remote-netty
@@ -26,7 +26,6 @@ import com.alacoder.lion.common.url.URLParamType;
 import com.alacoder.lion.common.utils.ExceptionUtil;
 import com.alacoder.lion.common.utils.LoggerUtil;
 import com.alacoder.lion.remote.ChannelState;
-import com.alacoder.lion.remote.Client;
 import com.alacoder.lion.remote.Endpoint;
 import com.alacoder.lion.remote.Future;
 import com.alacoder.lion.remote.FutureListener;
@@ -44,7 +43,7 @@ import com.alacoder.lion.remote.transport.Response;
  *
  */
 
-public class NettyChannel implements com.alacoder.lion.remote.Channel{
+public class NettyChannel extends com.alacoder.lion.remote.AbstractChannel{
 	private volatile ChannelState state = ChannelState.UNINIT;
 	
 	private Endpoint endpoint;
@@ -60,21 +59,20 @@ public class NettyChannel implements com.alacoder.lion.remote.Channel{
 	public NettyChannel(Endpoint endpoint,io.netty.channel.Channel channel) {
 		this.endpoint = endpoint;
 		this.channel = channel;
-		open();
 	}
 	
 	@Override
 	public synchronized boolean open() {
+		ChannelFuture channelFuture = null;
 		if(isAvailable()) {
-			LoggerUtil.warn("the channel already open, local: " + localAddress + " remote: " + remoteAddress + " url: "
-					+ endpoint.getUrl().getUri());
+			LoggerUtil.warn("the channel already open, local: " + localAddress + " remote: " + remoteAddress + " url: " + endpoint.getUrl().getUri());
 			return true;
 		}
 		
 		if(endpoint instanceof NettyClient ){
 			NettyClient client = (NettyClient)endpoint;
 			try{
-				ChannelFuture channelFuture = client.getClient().connect(new InetSocketAddress(endpoint.getUrl().getHost(), endpoint.getUrl().getPort()));
+				channelFuture = client.getClient().connect(new InetSocketAddress(endpoint.getUrl().getHost(), endpoint.getUrl().getPort()));
 				
 				long start = System.currentTimeMillis();
 				
@@ -100,11 +98,11 @@ public class NettyChannel implements com.alacoder.lion.remote.Channel{
 				else {
 					boolean connected = false;
 		            if(channelFuture.channel() != null){
+		            	channel = channelFuture.channel();
 		                connected = channelFuture.channel().isActive();
 		            }
 		            throw new LionServiceException("NettyChannel connect to server timeout url: "
 	                        + endpoint.getUrl().getUri() + ", cost: " + (System.currentTimeMillis() - start) + ", result: " + result + ", success: " + success + ", connected: " + connected);
-		            
 				}
 			} catch (LionServiceException e) {
 				throw e;
@@ -113,6 +111,9 @@ public class NettyChannel implements com.alacoder.lion.remote.Channel{
 			} finally {
 				if (!state.isAliveState()) {
 					endpoint.incrErrorCount();
+					if(channelFuture.channel() != null){
+		            	channel.close();
+		            }
 				}
 			}
 		}
@@ -122,8 +123,6 @@ public class NettyChannel implements com.alacoder.lion.remote.Channel{
 			
 			return true;
 		}
-		
-		
 	}
 
 	@Override

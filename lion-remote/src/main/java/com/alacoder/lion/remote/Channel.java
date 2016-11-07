@@ -1,5 +1,5 @@
 /**
- * 版权声明：bee 版权所有 违者必究 2016
+ * 版权声明：lion 版权所有 违者必究 2016
  * Copyright: Copyright (c) 2016 
  * 
  * @project_name: lion-remote
@@ -38,7 +38,6 @@ public interface Channel {
 	void close();
 	
 	void close(int timeout);
-
 	
 	InetSocketAddress getLocalAddress();
 	

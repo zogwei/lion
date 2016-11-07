@@ -1,5 +1,5 @@
 /**
- * 版权声明：bee 版权所有 违者必究 2016
+ * 版权声明：lion 版权所有 违者必究 2016
  * Copyright: Copyright (c) 2016 
  * 
  * @project_name: lion-remote-netty
@@ -63,6 +63,7 @@ public class NettyServerChildChannelHandler extends SimpleChannelInboundHandler<
 		io.netty.channel.Channel channel = ctx.channel();
 		String channelKey = getChannelKey((InetSocketAddress) channel.localAddress(),(InetSocketAddress) channel.remoteAddress());
 		Channel nettyChannel = new NettyChannel(nettyServer,channel);
+		nettyChannel.open();
 		if( msg instanceof Request ) {
 			processRequest(nettyChannel , (Request) msg);
 		} else if ( msg instanceof Response ) {
@@ -94,6 +95,7 @@ public class NettyServerChildChannelHandler extends SimpleChannelInboundHandler<
     	io.netty.channel.Channel channel = ctx.channel();
 		String channelKey = getChannelKey((InetSocketAddress) channel.localAddress(),(InetSocketAddress) channel.remoteAddress());
 		Channel nettyChannel = new NettyChannel(nettyServer,channel);
+		nettyChannel.open();
 
 		if (channels.size() > MaxChannelNum) {
 			// 超过最大连接数限制，直接close连接

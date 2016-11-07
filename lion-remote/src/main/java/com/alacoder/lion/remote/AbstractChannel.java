@@ -1,5 +1,5 @@
 /**
- * 版权声明：bee 版权所有 违者必究 2016
+ * 版权声明：lion 版权所有 违者必究 2016
  * Copyright: Copyright (c) 2016 
  * 
  * @project_name: lion-remote
@@ -25,12 +25,4 @@ import com.alacoder.lion.common.url.LionURL;
 
 public abstract class AbstractChannel implements Channel {
 
-	private LionURL url;
-	
-	private MessageHandler handler;
-	
-	public AbstractChannel(LionURL url,MessageHandler handler){
-		this.url = url;
-		this.handler = handler;
-	}
 }
