@@ -58,9 +58,8 @@ import com.alacoder.lion.remote.transport.Response;
 
 public class NettyServer extends AbstractServer{
 
-//	private ConcurrentMap<String, io.netty.channel.Channel> channels = new ConcurrentHashMap<String, io.netty.channel.Channel>();
 	private io.netty.channel.Channel serverChannel;
-	// 连接到服务器的所有channel，key = remoteIp:remotePort - localIp:localPort作为连接的唯一标示
+	// 连接到服务器的所有channel，key = remoteIp:remotePort-localIp:localPort作为连接的唯一标示
 	private ConcurrentMap<String, Channel> channels = new ConcurrentHashMap<String, Channel>();
 
 	private ServerBootstrap  server;
@@ -96,12 +95,13 @@ public class NettyServer extends AbstractServer{
 	
 	@Override
 	public void close(int timeout) {
-		//判断系统server是否启动
+		//判断系统server是否关闭
 		if (state.isCloseState()) {
 			LoggerUtil.info("NettyServer close fail: already close, url={}", url.getUri());
 			return;
 		}
 
+		//是否初始化
 		if (state.isUnInitState()) {
 			LoggerUtil.info("NettyServer close Fail: don't need to close because node is unInit state: url={}", url.getUri());
 			return;

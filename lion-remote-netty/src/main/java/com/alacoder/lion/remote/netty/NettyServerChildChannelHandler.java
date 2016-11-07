@@ -141,7 +141,7 @@ public class NettyServerChildChannelHandler extends SimpleChannelInboundHandler<
 							nettyChannel.send(response);
 						}
             			catch (Exception e) {
-            				 response = new DefaultResponse();
+            				response = new DefaultResponse();
  							response.setRequestId(request.getRequestId());
  							response.setException(e);
  							response.setProcessTime(System.currentTimeMillis() - processStartTime);

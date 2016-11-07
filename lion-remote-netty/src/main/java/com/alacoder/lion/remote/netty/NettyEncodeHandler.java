@@ -46,16 +46,15 @@ public class NettyEncodeHandler extends MessageToByteEncoder {
 	protected void encode(ChannelHandlerContext ctx, Object msg, ByteBuf out) throws Exception {
 		byte[] data = null;
 		Long id = null;
+		id =  ((TransportData)msg).getRequestId();
 		if(msg instanceof Response) {
-			id = ((Response)msg).getRequestId();
 			try{
 				data = codec.encode(msg);
 			} catch (Exception e) {
 				Response response = buildExceptionResponse(id, e);
 				data = codec.encode(response);
 			}
-		} else if(msg instanceof Request) {
-			id =  ((Request)msg).getRequestId();
+		} else {
 			data = codec.encode(msg);
 		} 
 		
