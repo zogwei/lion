@@ -103,4 +103,14 @@ public class NettyClientChannelHandler extends SimpleChannelInboundHandler<Trans
         ctx.close();
     }
 
+	public MessageHandler getMessagehandler() {
+		return messagehandler;
+	}
+
+	public void setMessagehandler(MessageHandler messagehandler) {
+		this.messagehandler = messagehandler;
+	}
+    
+    
+
 }

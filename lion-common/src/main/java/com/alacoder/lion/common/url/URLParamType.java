@@ -38,6 +38,10 @@ public enum URLParamType {
     minWorkerThread("minWorkerThread", 20),
     /** service max worker threads **/
     maxWorkerThread("maxWorkerThread", 200),
+    /** client min worker threads **/
+    minClientWorkerThread("minClientWorkerThread", 4),
+    /** client max worker threads **/
+    maxClientWorkerThread("maxClientWorkerThread", 4),
     /** pool min conn number **/
     minClientConnection("minClientConnection", 2),
     /** pool max conn number **/

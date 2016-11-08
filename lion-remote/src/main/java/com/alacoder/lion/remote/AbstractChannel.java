@@ -13,7 +13,19 @@
 
 package com.alacoder.lion.remote;
 
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
+
+import com.alacoder.common.exception.LionErrorMsgConstant;
+import com.alacoder.common.exception.LionServiceException;
+import com.alacoder.lion.common.LionConstants;
 import com.alacoder.lion.common.url.LionURL;
+import com.alacoder.lion.common.utils.LoggerUtil;
 
 /**
  * @ClassName: AbstractChannel
@@ -25,4 +37,15 @@ import com.alacoder.lion.common.url.LionURL;
 
 public abstract class AbstractChannel implements Channel {
 
+	protected LionURL url;
+	
+
+	
+	public AbstractChannel(LionURL url) {
+		this.url = url;
+
+	}
+	
+
+	
 }

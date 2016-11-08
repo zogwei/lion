@@ -83,6 +83,10 @@ public class LionConstants {
     public static final int NETTY_SHARECHANNEL_MAX_WORKDER = 800;
     // share channel min worker thread
     public static final int NETTY_SHARECHANNEL_MIN_WORKDER = 40;
+    // client channel max worker thread
+    public static final int NETTY_CLIENT_MAX_WORKDER = 4;
+    // client channel min worker thread
+    public static final int NETTY_CLIENT_MIN_WORKDER = 4;
     // don't share channel max worker thread
     public static final int NETTY_NOT_SHARECHANNEL_MAX_WORKDER = 200;
     // don't share channel min worker thread

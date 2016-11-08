@@ -47,8 +47,6 @@ public class DefaultCodec implements Codec{
 	
 	Serialization serialization = null;
 	
-	
-	
 	@Override
 	public byte[] encode(Object message) throws IOException {
 		if(message instanceof Request) {

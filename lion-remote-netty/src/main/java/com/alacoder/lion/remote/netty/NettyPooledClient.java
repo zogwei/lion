@@ -14,13 +14,7 @@
 package com.alacoder.lion.remote.netty;
 
 
-import java.net.InetSocketAddress;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
-import java.util.concurrent.TimeUnit;
-
 import io.netty.bootstrap.Bootstrap;
-import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelOption;
 import io.netty.channel.ChannelPipeline;
@@ -28,20 +22,14 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
-import io.netty.util.concurrent.DefaultThreadFactory;
 
 import com.alacoder.common.exception.LionAbstractException;
-import com.alacoder.common.exception.LionErrorMsgConstant;
-import com.alacoder.common.exception.LionFrameworkException;
 import com.alacoder.common.exception.LionServiceException;
-import com.alacoder.lion.common.LionConstants;
 import com.alacoder.lion.common.url.LionURL;
 import com.alacoder.lion.common.url.URLParamType;
 import com.alacoder.lion.common.utils.LoggerUtil;
-import com.alacoder.lion.common.utils.StandardThreadExecutor;
 import com.alacoder.lion.remote.AbstractClient;
 import com.alacoder.lion.remote.Channel;
-import com.alacoder.lion.remote.ChannelState;
 import com.alacoder.lion.remote.EndpointState;
 import com.alacoder.lion.remote.Endpoint;
 import com.alacoder.lion.remote.MessageHandler;
@@ -61,46 +49,23 @@ import com.alacoder.lion.remote.transport.Response;
  *TODO heartbeat支持 、客户端重连、JMX
  */
 
-public class NettyClient extends AbstractClient {
+public class NettyPooledClient extends AbstractClient {
 
 	private Channel clientChannel;
 	private io.netty.bootstrap.Bootstrap client;
 	private EventLoopGroup group;
 	
-	// 连接到服务器的所有channel，key = remoteIp:remotePort-localIp:localPort作为连接的唯一标示
-	private ConcurrentMap<String, Channel> channels = new ConcurrentHashMap<String, Channel>();
-	protected StandardThreadExecutor standardThreadExecutor = null;
-	
-	public NettyClient(LionURL url,MessageHandler messageHandler) {
+	public NettyPooledClient(LionURL url,MessageHandler messageHandler) {
 		super(url,messageHandler);
 		this.maxClientConnection = 1;
 	}
 	
 	@Override
 	public boolean open() {
-		
-		init();
-		doOpen();
-		
-		return true;
-	}
-	
-	private void init() {
-		int workerQueueSize = url.getIntParameter(URLParamType.workerQueueSize.getName(),
-				URLParamType.workerQueueSize.getIntValue());
-
-		int minClientWorkerThread = 0, maxClientWorkerThread = 0;
-		minClientWorkerThread = url.getIntParameter(URLParamType.minClientWorkerThread.getName(),
-				LionConstants.NETTY_CLIENT_MIN_WORKDER);
-		maxClientWorkerThread = url.getIntParameter(URLParamType.maxClientWorkerThread.getName(),
-				LionConstants.NETTY_CLIENT_MAX_WORKDER);
-		
-		standardThreadExecutor = (standardThreadExecutor != null && !standardThreadExecutor.isShutdown()) ? standardThreadExecutor
-				: new StandardThreadExecutor(minClientWorkerThread, maxClientWorkerThread, workerQueueSize,
-						new DefaultThreadFactory("Nettyclient-" + url.getServerPortStr(), true));
-		standardThreadExecutor.prestartAllCoreThreads();
-		
 		final int maxContentLength = url.getIntParameter(URLParamType.maxContentLength.getName(), URLParamType.maxContentLength.getIntValue());
+		
+		String host = url.getHost(); 
+		int port = url.getPort();
 		
 		group = new NioEventLoopGroup();
 		client = new Bootstrap();
@@ -115,20 +80,16 @@ public class NettyClient extends AbstractClient {
                 	 ChannelPipeline pipeline = ch.pipeline();
                 	 pipeline.addLast("decoder", new NettyDecodeHandler(codec,maxContentLength));
          	         pipeline.addLast("encoder", new NettyEncodeHandler(codec));
-         	         
-         	        NettyChannelHandler nettyChannelHandler = new NettyChannelHandler(standardThreadExecutor, channels ,1, NettyClient.this);
          	        
          	         if(messageHandler != null) {
-         	        	nettyChannelHandler.setMessagehandler(messageHandler);
-         	        	pipeline.addLast("handler", nettyChannelHandler);
-//         	        	pipeline.addLast("handler", new NettyClientChannelHandler( NettyClient.this,  messageHandler));
+         	        	pipeline.addLast("handler", new NettyClientChannelHandler( NettyPooledClient.this,  messageHandler));
          	         }
          	         else {
-         	        	nettyChannelHandler.setMessagehandler(new MessageHandler() {
+         	        	pipeline.addLast("handler", new NettyClientChannelHandler( NettyPooledClient.this, new MessageHandler() {
         					@Override
         					public Object handle(com.alacoder.lion.remote.Channel channel, Object message) {
         						Response response = (Response) message;
-        						Endpoint endpoint = NettyClient.this;
+        						Endpoint endpoint = NettyPooledClient.this;
         						ResponseFuture responseFuture = endpoint.removeCallback(response.getRequestId());
 
         						if (responseFuture == null) {
@@ -144,61 +105,26 @@ public class NettyClient extends AbstractClient {
 
         						return null;
         					}
-        				}); 
-         	        	pipeline.addLast("handler",nettyChannelHandler); 
+        				})); 
          	         }
                  }
              });
-	}
-	
-	private void doOpen() {
-		
-		ChannelFuture channelFuture = null;
-		io.netty.channel.Channel nettychannel = null;
-		try{
-			channelFuture = client.connect(new InetSocketAddress(url.getHost(), url.getPort()));
-			
-			long start = System.currentTimeMillis();
-			
-			int timeout = url.getIntParameter(URLParamType.connectTimeout.getName(), URLParamType.connectTimeout.getIntValue());
-			if (timeout <= 0) {
-	            throw new LionFrameworkException("NettyClient init Error: timeout(" + timeout + ") <= 0 is forbid.",
-	                    LionErrorMsgConstant.FRAMEWORK_INIT_ERROR);
-			}
-			
-			boolean result = channelFuture.awaitUninterruptibly(timeout, TimeUnit.MILLISECONDS);
-			boolean success = channelFuture.isSuccess();
-			
-			if (result && success) {
-				nettychannel = channelFuture.channel();
-				if (nettychannel.localAddress() != null && nettychannel.localAddress() instanceof InetSocketAddress) {
-					localAddress = (InetSocketAddress) nettychannel.localAddress();
-					this.remoteAddress =  new InetSocketAddress(url.getHost(), url.getPort());
-				}
 
-				this.state = EndpointState.ALIVE;
-			}
-			else {
-				boolean connected = false;
-	            if(channelFuture.channel() != null){
-	            	nettychannel = channelFuture.channel();
-	                connected = channelFuture.channel().isActive();
-	            }
-	            throw new LionServiceException("NettyChannel connect to server timeout url: "
-                        + url.getUri() + ", cost: " + (System.currentTimeMillis() - start) + ", result: " + result + ", success: " + success + ", connected: " + connected);
-			}
-		} catch (LionServiceException e) {
-			throw e;
+		try {
+			NettyChannel nettyChannel = new NettyChannel(this);
+			nettyChannel.open();
+			clientChannel = nettyChannel;
+			this.state = EndpointState.ALIVE;
+			return state.isAliveState();
 		} catch (Exception e) {
-			throw new LionServiceException("NettyChannel failed to connect to server, url: " + url.getUri(), e);
+			LoggerUtil.error("NettyClient open fail:  url =  "+ url.getUri(), e);
+			throw new LionServiceException("NettyClient failed to open , url: "+ getUrl().getUri(), e);
 		} finally {
-			if (!state.isAliveState() && channelFuture.channel() != null) {
-				nettychannel.close();
+			if(!clientChannel.isAvailable()) {
+				clientChannel.close();
 			}
 		}
-	
 	}
-	
 	
 	@Override
 	public Response request(Request request) throws TransportException {
@@ -309,4 +235,5 @@ public class NettyClient extends AbstractClient {
 	public io.netty.bootstrap.Bootstrap getClient() {
 		return client;
 	}
+	
 }

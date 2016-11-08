@@ -44,25 +44,37 @@ import io.netty.channel.socket.nio.NioSocketChannel;
  *
  */
 
-public class NettyServerChildChannelHandler extends SimpleChannelInboundHandler<TransportData> {
+public class NettyChannelHandler extends SimpleChannelInboundHandler<TransportData> {
 
 	private MessageHandler messagehandler;
 	private ThreadPoolExecutor threadPoolExecutor;
 	private ConcurrentMap<String, Channel> channels = null;
 	private int MaxChannelNum = 0;
-	private NettyServer nettyServer;
+	private Endpoint endpoint;
 
-	public NettyServerChildChannelHandler(MessageHandler messagehandler,
+	public NettyChannelHandler(MessageHandler messagehandler,
 			ThreadPoolExecutor executor,
 			ConcurrentMap<String, Channel> channels,
 			int MaxChannelNum,
-			NettyServer nettyServer) {
+			Endpoint endpoint) {
 		this.messagehandler = messagehandler;
 		this.threadPoolExecutor = executor;
 		this.channels = channels;
 		this.MaxChannelNum = MaxChannelNum;
-		this.nettyServer = nettyServer;
+		this.endpoint = endpoint;
 	}
+	
+	public NettyChannelHandler(
+			ThreadPoolExecutor executor,
+			ConcurrentMap<String, Channel> channels,
+			int MaxChannelNum,
+			Endpoint endpoint) {
+		this.threadPoolExecutor = executor;
+		this.channels = channels;
+		this.MaxChannelNum = MaxChannelNum;
+		this.endpoint = endpoint;
+	}
+	
 
 	@Override
 	public void channelActive(ChannelHandlerContext ctx) throws Exception {
@@ -71,12 +83,12 @@ public class NettyServerChildChannelHandler extends SimpleChannelInboundHandler<
 		String channelKey = getChannelKey(
 				(InetSocketAddress) channel.localAddress(),
 				(InetSocketAddress) channel.remoteAddress());
-		Channel nettyChannel = new NettyChannel(nettyServer, channel);
+		Channel nettyChannel = new NettyChannel(endpoint, channel);
 		nettyChannel.open();
 
 		if (channels.size() > MaxChannelNum) {
 			// 超过最大连接数限制，直接close连接
-			LoggerUtil.warn("NettyServerChannelManage channelConnected channel size out of limit: limit={} current={}",
+			LoggerUtil.warn("Netty channelConnected channel size out of limit: limit={} current={}",
 							MaxChannelNum, channels.size());
 			channel.close();
 		} else {
@@ -90,7 +102,7 @@ public class NettyServerChildChannelHandler extends SimpleChannelInboundHandler<
 	// TODO 跟clientchannelhandler 整合
 	protected void channelRead0(ChannelHandlerContext ctx, TransportData msg) throws Exception {
 		io.netty.channel.Channel channel = ctx.channel();
-		Channel nettyChannel = new NettyChannel(nettyServer, channel);
+		Channel nettyChannel = new NettyChannel(endpoint, channel);
 		nettyChannel.open();
 		if (msg instanceof Request) {
 			processRequest(nettyChannel, (Request) msg);
@@ -122,7 +134,6 @@ public class NettyServerChildChannelHandler extends SimpleChannelInboundHandler<
 	private void processResponse(Channel channel, final Response response) {
 //		messagehandler.handle(channel, response);
 		
-		Endpoint endpoint = nettyServer;
 		ResponseFuture responseFuture = endpoint.removeCallback(response.getRequestId());
 
 		if (responseFuture == null) {
@@ -240,5 +251,15 @@ public class NettyServerChildChannelHandler extends SimpleChannelInboundHandler<
 	public Map<String, Channel> getChannels() {
 		return channels;
 	}
+
+	public MessageHandler getMessagehandler() {
+		return messagehandler;
+	}
+
+	public void setMessagehandler(MessageHandler messagehandler) {
+		this.messagehandler = messagehandler;
+	}
+	
+	
 
 }

@@ -53,12 +53,16 @@ public class NettyChannel extends com.alacoder.lion.remote.AbstractChannel{
 	private InetSocketAddress localAddress = null;
 
 	public NettyChannel(Endpoint endpoint) {
+		super(endpoint.getUrl());
 		this.endpoint = endpoint;
+		state = ChannelState.INIT;
 	}
 	
 	public NettyChannel(Endpoint endpoint,io.netty.channel.Channel channel) {
+		super(endpoint.getUrl());
 		this.endpoint = endpoint;
 		this.channel = channel;
+		state = ChannelState.INIT;
 	}
 	
 	@Override
@@ -69,60 +73,10 @@ public class NettyChannel extends com.alacoder.lion.remote.AbstractChannel{
 			return true;
 		}
 		
-		if(endpoint instanceof NettyClient ){
-			NettyClient client = (NettyClient)endpoint;
-			try{
-				channelFuture = client.getClient().connect(new InetSocketAddress(endpoint.getUrl().getHost(), endpoint.getUrl().getPort()));
-				
-				long start = System.currentTimeMillis();
-				
-				int timeout = endpoint.getUrl().getIntParameter(URLParamType.connectTimeout.getName(), URLParamType.connectTimeout.getIntValue());
-				if (timeout <= 0) {
-		            throw new LionFrameworkException("NettyClient init Error: timeout(" + timeout + ") <= 0 is forbid.",
-		                    LionErrorMsgConstant.FRAMEWORK_INIT_ERROR);
-				}
-				
-				boolean result = channelFuture.awaitUninterruptibly(timeout, TimeUnit.MILLISECONDS);
-				boolean success = channelFuture.isSuccess();
-				
-				if (result && success) {
-					channel = channelFuture.channel();
-					if (channel.localAddress() != null && channel.localAddress() instanceof InetSocketAddress) {
-						localAddress = (InetSocketAddress) channel.localAddress();
-						this.remoteAddress =  new InetSocketAddress(endpoint.getUrl().getHost(), endpoint.getUrl().getPort());
-					}
-
-					state = ChannelState.ALIVE;
-					return true;
-				}
-				else {
-					boolean connected = false;
-		            if(channelFuture.channel() != null){
-		            	channel = channelFuture.channel();
-		                connected = channelFuture.channel().isActive();
-		            }
-		            throw new LionServiceException("NettyChannel connect to server timeout url: "
-	                        + endpoint.getUrl().getUri() + ", cost: " + (System.currentTimeMillis() - start) + ", result: " + result + ", success: " + success + ", connected: " + connected);
-				}
-			} catch (LionServiceException e) {
-				throw e;
-			} catch (Exception e) {
-				throw new LionServiceException("NettyChannel failed to connect to server, url: " + endpoint.getUrl().getUri(), e);
-			} finally {
-				if (!state.isAliveState()) {
-					endpoint.incrErrorCount();
-					if(channelFuture.channel() != null){
-		            	channel.close();
-		            }
-				}
-			}
-		}
-		else {
-			state = ChannelState.ALIVE;
-			LoggerUtil.debug("NettyChannel server connect: " + endpoint.getUrl().getUri() + " local=" + localAddress);
-			
-			return true;
-		}
+		state = ChannelState.ALIVE;
+		LoggerUtil.debug("NettyChannel server connect: " + endpoint.getUrl().getUri() + " local=" + localAddress);
+		
+		return true;
 	}
 
 	@Override

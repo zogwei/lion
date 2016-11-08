@@ -40,12 +40,7 @@ import com.alacoder.lion.common.utils.LoggerUtil;
 public abstract class AbstractEndpoint implements Endpoint {
 	
     protected volatile EndpointState state = EndpointState.UNINIT;
-	
-	// 连续失败次数
-	private AtomicLong errorCount = new AtomicLong(0);
-	// 最大连接数
-	protected int maxClientConnection = 0;
-	
+    
 	protected LionURL url;
 	
 	// 异步的request，需要注册callback future
@@ -57,11 +52,15 @@ public abstract class AbstractEndpoint implements Endpoint {
 	
 	protected ScheduledFuture<?> timeMonitorFuture = null;
 	
+	// 连续失败次数
+	private AtomicLong errorCount = new AtomicLong(0);
+	// 最大连接数
+	protected int maxClientConnection = 0;
+	
 	public AbstractEndpoint(LionURL url){
 		this.url = url;
 		maxClientConnection = url.getIntParameter(URLParamType.maxClientConnection.getName(),
 				URLParamType.maxClientConnection.getIntValue());
-
 		timeMonitorFuture = scheduledExecutor.scheduleWithFixedDelay(
 				new TimeoutMonitor("timeout_monitor_" + url.getHost() + "_" + url.getPort()),
 				LionConstants.NETTY_TIMEOUT_TIMER_PERIOD, LionConstants.NETTY_TIMEOUT_TIMER_PERIOD,
@@ -128,7 +127,6 @@ public abstract class AbstractEndpoint implements Endpoint {
 	}
 	
 
-
 	public void registerCallback(long requestId, ResponseFuture nettyResponseFuture) {
 		if (this.callbackMap.size() >= LionConstants.NETTY_CLIENT_MAX_REQUEST) {
 			// reject request, prevent from OutOfMemoryError
@@ -190,5 +188,6 @@ public abstract class AbstractEndpoint implements Endpoint {
 			LoggerUtil.error("close scheduledExecutor error ", e);
 		}
 	}
+
 
 }

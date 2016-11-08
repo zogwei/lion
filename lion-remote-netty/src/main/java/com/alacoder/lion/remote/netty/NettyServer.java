@@ -59,6 +59,7 @@ import com.alacoder.lion.remote.transport.Response;
 public class NettyServer extends AbstractServer{
 
 	private io.netty.channel.Channel serverChannel;
+	
 	// 连接到服务器的所有channel，key = remoteIp:remotePort-localIp:localPort作为连接的唯一标示
 	private ConcurrentMap<String, Channel> channels = new ConcurrentHashMap<String, Channel>();
 
@@ -183,7 +184,7 @@ public class NettyServer extends AbstractServer{
         	        
         	        pipeline.addLast("decoder", new NettyDecodeHandler(codec,maxContentLength));
         	        pipeline.addLast("encoder", new NettyEncodeHandler(codec));
-        	        pipeline.addLast("handler", new NettyServerChildChannelHandler(messagehandler,standardThreadExecutor,channels,maxServerConnection,NettyServer.this));
+        	        pipeline.addLast("handler", new NettyChannelHandler(messagehandler,standardThreadExecutor,channels,maxServerConnection,NettyServer.this));
         	    }
          })
          .childOption(ChannelOption.TCP_NODELAY, true)
@@ -218,13 +219,19 @@ public class NettyServer extends AbstractServer{
 			}
 			else {
 				LoggerUtil.info("NettyServer open bind error , url = {}", url.getUri());
+				if(channelFuture.cause() != null) {
+					throw new LionServiceException("NettyServer bind fail url: "+ url.getUri(),channelFuture.cause());
+				}
+				else {
+					throw new LionServiceException("NettyServer bind fail url: "+ url.getUri());
+				}
 			}
 		} catch (InterruptedException e) {
 			LoggerUtil.warn("NettyServer close fail: interrupted url = {} ", url.getUri());
-			throw new LionServiceException("NettyServer failed to open , url: "+ getUrl().getUri(), e);
+			throw new LionServiceException("NettyServer failed to bind , url: "+ getUrl().getUri(), e);
 		} catch (Throwable e) {
 			LoggerUtil.error("NettyServer error  ", e);
-			throw new LionServiceException("NettyServer failed to open , url: "+ getUrl().getUri(), e);
+			throw new LionServiceException("NettyServer failed to bind , url: "+ getUrl().getUri(), e);
 		} finally{
 			if(!state.isAliveState()) {
 				close() ;

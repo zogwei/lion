@@ -87,7 +87,7 @@ public class NettyClientTest  extends TestCase {
    		 client = new NettyClient(url,null);
    	     client.open();
    		
-		for (int i = 0; i < 3; i++) {
+		for (int i = 0; i < 1; i++) {
 			request.setRequestId(System.currentTimeMillis());
 			Response response = client.request(request);
 			LoggerUtil.info(" client reciver request() response ： "
