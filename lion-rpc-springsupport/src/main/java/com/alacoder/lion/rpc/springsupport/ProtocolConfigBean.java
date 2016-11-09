@@ -16,18 +16,7 @@
 
 package com.alacoder.lion.rpc.springsupport;
 
-import java.util.ArrayList;
-
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.BeanFactory;
-import org.springframework.beans.factory.BeanFactoryAware;
 import org.springframework.beans.factory.BeanNameAware;
-import org.springframework.beans.factory.DisposableBean;
-import org.springframework.beans.factory.InitializingBean;
-import org.springframework.beans.factory.config.BeanPostProcessor;
-import org.springframework.context.ApplicationListener;
-import org.springframework.context.event.ContextRefreshedEvent;
 
 import com.alacoder.lion.config.ProtocolConfig;
 import com.alacoder.lion.rpc.springsupport.namespace.handler.LionNamespaceHandler;
@@ -39,7 +28,9 @@ import com.alacoder.lion.rpc.springsupport.namespace.handler.LionNamespaceHandle
  */
 public class ProtocolConfigBean extends ProtocolConfig implements BeanNameAware {
 
-    @Override
+	private static final long serialVersionUID = 1L;
+
+	@Override
     public void setBeanName(String name) {
         setId(name);
         LionNamespaceHandler.protocolDefineNames.add(name);

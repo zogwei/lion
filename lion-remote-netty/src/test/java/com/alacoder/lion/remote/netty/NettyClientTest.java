@@ -13,22 +13,17 @@
 
 package com.alacoder.lion.remote.netty;
 
-import junit.framework.Assert;
 import junit.framework.TestCase;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 
 import com.alacoder.lion.common.url.LionURL;
 import com.alacoder.lion.common.url.URLParamType;
 import com.alacoder.lion.common.utils.LoggerUtil;
 import com.alacoder.lion.remote.Channel;
-import com.alacoder.lion.remote.MessageHandler;
 import com.alacoder.lion.remote.MessageHandlerAdpter;
 import com.alacoder.lion.remote.TransportException;
 import com.alacoder.lion.remote.transport.DefaultRequest;
-import com.alacoder.lion.remote.transport.DefaultResponse;
 import com.alacoder.lion.remote.transport.Request;
 import com.alacoder.lion.remote.transport.Response;
 

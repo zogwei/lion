@@ -46,7 +46,9 @@ import com.alacoder.lion.rpc.registry.RegistryService;
 
 public class RefererConfig<T>  extends AbstractRefererConfig {
 
-    private Class<T> interfaceClass;
+	private static final long serialVersionUID = 1L;
+
+	private Class<T> interfaceClass;
 
     // 具体到方法的配置
     protected List<MethodConfig> methods;

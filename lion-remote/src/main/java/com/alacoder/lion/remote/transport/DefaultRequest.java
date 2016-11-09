@@ -29,6 +29,7 @@ import com.alacoder.lion.remote.codec.RemoteProtocolVersion;
 
 public class DefaultRequest implements Request{
 
+	private static final long serialVersionUID = 1L;
 	private Long id;
 	private String interfaceName;
 	private String method;

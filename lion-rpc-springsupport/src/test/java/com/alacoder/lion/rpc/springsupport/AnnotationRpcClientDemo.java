@@ -31,7 +31,8 @@ public class AnnotationRpcClientDemo {
 
     public static void main(String[] args) throws InterruptedException {
 
-        ApplicationContext ctx = new ClassPathXmlApplicationContext(new
+        @SuppressWarnings("resource")
+		ApplicationContext ctx = new ClassPathXmlApplicationContext(new
                 String[]{"classpath:lion_demo_client_annotation.xml"});
 
 

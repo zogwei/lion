@@ -30,7 +30,8 @@ import com.alacoder.lion.remote.codec.RemoteProtocolVersion;
 
 public class DefaultResponse implements Response{
 
-    private Object value;
+	private static final long serialVersionUID = 1L;
+	private Object value;
     private Exception exception;
     private long id;
     private long processTime;

@@ -38,7 +38,6 @@ public class ConfigUtil {
      * @param export
      * @return
      */
-    @SuppressWarnings("unchecked")
     public static Map<String, Integer> parseExport(String export) {
         if (StringUtils.isBlank(export)) {
             return Collections.emptyMap();

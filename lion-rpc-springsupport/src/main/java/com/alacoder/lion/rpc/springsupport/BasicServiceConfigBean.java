@@ -39,9 +39,9 @@ import java.util.List;
 public class BasicServiceConfigBean extends BasicServiceInterfaceConfig implements BeanNameAware,
         InitializingBean, BeanFactoryAware {
 
-    private String registryNames;
+	private static final long serialVersionUID = 1L;
 
-
+	private String registryNames;
     BeanFactory beanFactory;
 
     @Override

@@ -36,7 +36,8 @@ import com.alacoder.lion.common.utils.LoggerUtil;
 
 public abstract class AbstractConfig implements Serializable {
 
-    protected String id;
+	private static final long serialVersionUID = 1L;
+	protected String id;
 
     public String getId() {
         return id;

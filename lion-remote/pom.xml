@@ -7,9 +7,7 @@
     <artifactId>lion</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <groupId>com.alacoder</groupId>
   <artifactId>lion-remote</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
   <name>lion-remote</name>
   <url>http://maven.apache.org</url>
   <properties>

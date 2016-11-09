@@ -71,7 +71,8 @@ public class DefaultRpcExporter<T> extends AbstractExporter<T> {
         String protocolKey = LionFrameworkUtil.getProtocolKey(url);
         String ipPort = url.getServerPortStr();
 
-        Exporter<T> exporter = (Exporter<T>) exporterMap.remove(protocolKey);
+        @SuppressWarnings("unchecked")
+		Exporter<T> exporter = (Exporter<T>) exporterMap.remove(protocolKey);
 
         if (exporter != null) {
             exporter.destroy();

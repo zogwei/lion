@@ -14,7 +14,6 @@
 package com.alacoder.lion.rpc.registry;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -32,6 +31,7 @@ import com.alacoder.lion.common.url.LionURL;
  */
 @SpiMeta(name = "direct")
 public class DirectRegistry extends AbstractRegistry {
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private ConcurrentHashMap<LionURL,Object> subscribeUrl = new ConcurrentHashMap();
 	private List<LionURL> directUrls = new ArrayList<LionURL>();
 
@@ -85,7 +85,8 @@ public class DirectRegistry extends AbstractRegistry {
 		return createSubscribeUrl(url);
 	}
 	
-    private List<LionURL> createSubscribeUrl(LionURL subscribeUrl) {
+    @SuppressWarnings({ "rawtypes", "unchecked", "unused" })
+	private List<LionURL> createSubscribeUrl(LionURL subscribeUrl) {
         LionURL url = this.getUrl();
         List result = new ArrayList(registeredServiceUrls.size());
         for (LionURL directUrl : registeredServiceUrls) {

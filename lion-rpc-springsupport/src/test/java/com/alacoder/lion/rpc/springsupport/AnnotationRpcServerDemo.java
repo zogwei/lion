@@ -31,7 +31,8 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 @ComponentScan
 public class AnnotationRpcServerDemo {
 
-    public static void main(String[] args) throws InterruptedException {
+    @SuppressWarnings({ "unused", "resource" })
+	public static void main(String[] args) throws InterruptedException {
         ApplicationContext applicationContext = new ClassPathXmlApplicationContext(new
                 String[]{"classpath*:lion_demo_server_annotation.xml"});
 //        LionSwitcherUtil.setSwitcherValue(LionConstants.REGISTRY_HEARTBEAT_SWITCHER, true);

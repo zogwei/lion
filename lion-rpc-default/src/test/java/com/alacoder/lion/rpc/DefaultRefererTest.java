@@ -31,6 +31,7 @@ import com.alacoder.lion.remote.transport.Response;
 public class DefaultRefererTest {
 
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public static void main(String[] args) {
 		LionURL refererUrl = new LionURL("netty", "10.12.104.6", 4455, "com.alacoder.lion.rpc.DemoService");
 		LionURL serviceUrl = new LionURL("netty", "10.12.104.6", 4455, "com.alacoder.lion.rpc.DemoService");

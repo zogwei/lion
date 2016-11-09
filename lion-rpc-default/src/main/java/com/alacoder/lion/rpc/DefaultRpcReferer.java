@@ -59,7 +59,8 @@ public class DefaultRpcReferer<T> extends AbstractReferer<T>{
          }
      }
 
-     @Override
+     @SuppressWarnings({ "rawtypes", "unchecked" })
+	@Override
      protected void decrActiveCount(Request request, Response response) {
          if (response == null || !(response instanceof Future)) {
              activeRefererCount.decrementAndGet();

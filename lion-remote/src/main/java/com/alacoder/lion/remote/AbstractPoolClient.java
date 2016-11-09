@@ -1,5 +1,4 @@
 /**
- * 版权声明：lion 版权所有 违者必究 2016
  * Copyright: Copyright (c) 2016 
  * 
  * @project_name: lion-remote
@@ -34,9 +33,11 @@ public abstract class AbstractPoolClient extends AbstractClient{
     protected static long defaultMinEvictableIdleTimeMillis = (long) 1000 * 60 * 60;//默认链接空闲时间
     protected static long defaultSoftMinEvictableIdleTimeMillis = (long) 1000 * 60 * 10;//
     protected static long defaultTimeBetweenEvictionRunsMillis = (long) 1000 * 60 * 10;//默认回收周期
-    protected GenericObjectPool pool;
+    @SuppressWarnings("rawtypes")
+	protected GenericObjectPool pool;
     protected GenericObjectPool.Config poolConfig;
-    protected PoolableObjectFactory factory;
+    @SuppressWarnings("rawtypes")
+	protected PoolableObjectFactory factory;
 	
 
 	public AbstractPoolClient(LionURL url, MessageHandler messageHandler) {
@@ -58,7 +59,8 @@ public abstract class AbstractPoolClient extends AbstractClient{
         factory = createChannelFactory();
 	}
 	
-    protected abstract BasePoolableObjectFactory createChannelFactory();
+    @SuppressWarnings("rawtypes")
+	protected abstract BasePoolableObjectFactory createChannelFactory();
     
     protected Channel borrowObject() throws Exception {
         Channel nettyChannel = (Channel) pool.borrowObject();
@@ -74,7 +76,8 @@ public abstract class AbstractPoolClient extends AbstractClient{
         throw new LionServiceException(errorMsg);
     }
 
-    protected void invalidateObject(Channel nettyChannel) {
+    @SuppressWarnings("unchecked")
+	protected void invalidateObject(Channel nettyChannel) {
         if (nettyChannel == null) {
             return;
         }
@@ -85,7 +88,8 @@ public abstract class AbstractPoolClient extends AbstractClient{
         }
     }
 
-    protected void returnObject(Channel channel) {
+    @SuppressWarnings("unchecked")
+	protected void returnObject(Channel channel) {
         if (channel == null) {
             return;
         }

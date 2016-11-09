@@ -9,7 +9,6 @@
   </parent>
   <groupId>com.alacoder.lion</groupId>
   <artifactId>lion-rpc-springsupport</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
   <name>lion-rpc-springsupport</name>
   <url>http://maven.apache.org</url>
   <properties>

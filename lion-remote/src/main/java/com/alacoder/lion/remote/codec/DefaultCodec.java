@@ -23,7 +23,6 @@ import com.alacoder.lion.common.extension.SpiMeta;
 import com.alacoder.lion.common.url.URLParamType;
 import com.alacoder.lion.common.utils.ByteUtil;
 import com.alacoder.lion.common.utils.LoggerUtil;
-import com.alacoder.lion.remote.Channel;
 import com.alacoder.lion.remote.Codec;
 import com.alacoder.lion.remote.Serialization;
 import com.alacoder.lion.remote.transport.DefaultRequest;

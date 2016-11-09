@@ -14,14 +14,10 @@
 package com.alacoder.lion.remote.codec;
 
 import java.io.IOException;
-import java.net.InetSocketAddress;
 
 import com.alacoder.lion.common.extension.ExtensionLoader;
 import com.alacoder.lion.common.url.LionURL;
-import com.alacoder.lion.common.url.URLParamType;
-import com.alacoder.lion.remote.Channel;
 import com.alacoder.lion.remote.Codec;
-import com.alacoder.lion.remote.Serialization;
 import com.alacoder.lion.remote.transport.DefaultRequest;
 import com.alacoder.lion.remote.transport.DefaultResponse;
 import com.alacoder.lion.remote.transport.Request;
@@ -43,7 +39,8 @@ public class DefaultCodecTest {
 		request.setInterfaceName("interfacename");
 		request.setMethodName("method");
 		
-        LionURL url = new LionURL("netty", "localhost", 18080, "com.alacoder.api.lion.procotol.example.IHello");
+        @SuppressWarnings("unused")
+		LionURL url = new LionURL("netty", "localhost", 18080, "com.alacoder.api.lion.procotol.example.IHello");
 //        url.addParameter(URLParamType.serialize.getName(), "mockLion");
 //        url.addParameter(URLParamType.requestTimeout.getName(), "2000");
 		

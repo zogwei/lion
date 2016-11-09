@@ -47,7 +47,9 @@ import com.alacoder.lion.rpc.registry.RegistryService;
 
 public class ServiceConfig<T> extends AbstractServiceConfig {
 
-    private AtomicBoolean exported = new AtomicBoolean(false);
+	private static final long serialVersionUID = 1L;
+
+	private AtomicBoolean exported = new AtomicBoolean(false);
     
 	private T ref;
 	private Class<T> interfaceClass;
@@ -103,7 +105,6 @@ public class ServiceConfig<T> extends AbstractServiceConfig {
         }
     }
 
-    @SuppressWarnings("unchecked")
     private void doExport(ProtocolConfig protocolConfig, int port, List<LionURL> registryURLs) {
         String protocolName = protocolConfig.getName();
         if (protocolName == null || protocolName.length() == 0) {

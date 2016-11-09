@@ -21,7 +21,8 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class DemoRpcServer {
 
-    public static void main(String[] args) throws InterruptedException {
+    @SuppressWarnings({ "unused", "resource" })
+	public static void main(String[] args) throws InterruptedException {
         ApplicationContext applicationContext = new ClassPathXmlApplicationContext(new String[] {"classpath*:lion_demo_server.xml"});
         System.out.println("server start...");
     }

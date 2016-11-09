@@ -61,7 +61,8 @@ public class AnnotationBean implements DisposableBean, BeanFactoryPostProcessor,
 
     private final Set<ServiceConfigBean<?>> serviceConfigs = new ConcurrentHashSet<ServiceConfigBean<?>>();
 
-    private final ConcurrentMap<String, RefererConfigBean> referenceConfigs = new ConcurrentHashMap<String, RefererConfigBean>();
+    @SuppressWarnings("rawtypes")
+	private final ConcurrentMap<String, RefererConfigBean> referenceConfigs = new ConcurrentHashMap<String, RefererConfigBean>();
 
 
     /**
@@ -166,7 +167,8 @@ public class AnnotationBean implements DisposableBean, BeanFactoryPostProcessor,
      * @return
      * @throws BeansException
      */
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
         if (!isMatchPackage(bean)) {
             return bean;
@@ -348,7 +350,8 @@ public class AnnotationBean implements DisposableBean, BeanFactoryPostProcessor,
      * @param <T>
      * @return
      */
-    private <T> Object refer(LionReferer reference, Class<?> referenceClass) {
+    @SuppressWarnings("unchecked")
+	private <T> Object refer(LionReferer reference, Class<?> referenceClass) {
         String interfaceName;
         if (!void.class.equals(reference.interfaceClass())) {
             interfaceName = reference.interfaceClass().getName();
@@ -509,7 +512,8 @@ public class AnnotationBean implements DisposableBean, BeanFactoryPostProcessor,
     }
 
 
-    private boolean isMatchPackage(Object bean) {
+    @SuppressWarnings("rawtypes")
+	private boolean isMatchPackage(Object bean) {
         if (annotationPackages == null || annotationPackages.length == 0) {
             return true;
         }

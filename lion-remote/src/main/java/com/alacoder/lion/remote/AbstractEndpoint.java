@@ -53,6 +53,7 @@ public abstract class AbstractEndpoint implements Endpoint {
 	protected ScheduledFuture<?> timeMonitorFuture = null;
 	
 	// 连续失败次数
+	@SuppressWarnings("unused")
 	private AtomicLong errorCount = new AtomicLong(0);
 	// 最大连接数
 	protected int maxClientConnection = 0;

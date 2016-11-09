@@ -16,7 +16,6 @@ package com.alacoder.lion.remote.netty;
 import com.alacoder.lion.common.url.LionURL;
 import com.alacoder.lion.common.utils.LoggerUtil;
 import com.alacoder.lion.remote.Channel;
-import com.alacoder.lion.remote.MessageHandler;
 import com.alacoder.lion.remote.MessageHandlerAdpter;
 import com.alacoder.lion.remote.transport.DefaultResponse;
 import com.alacoder.lion.remote.transport.Request;
@@ -63,7 +62,6 @@ public class NettyServerTest {
         try {
 			Thread.sleep(1000000);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
         

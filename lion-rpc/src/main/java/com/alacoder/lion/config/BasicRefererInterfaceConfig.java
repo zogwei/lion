@@ -22,8 +22,9 @@ package com.alacoder.lion.config;
  */
 
 public class BasicRefererInterfaceConfig extends AbstractRefererConfig {
-
-    /** 是否默认配置 */
+	
+	private static final long serialVersionUID = 1L;
+	/** 是否默认配置 */
     private Boolean isDefault;
 
     public void setDefault(boolean isDefault) {

@@ -23,7 +23,8 @@ package com.alacoder.lion.config;
 
 public abstract class AbstractRefererConfig extends AbstractInterfaceConfig {
 
-	   // 服务接口的mock类SLA
+	private static final long serialVersionUID = 1L;
+	// 服务接口的mock类SLA
     protected String mean;
     protected String p90;
     protected String p99;

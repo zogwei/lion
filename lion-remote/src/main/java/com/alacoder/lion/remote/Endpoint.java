@@ -13,7 +13,6 @@
 
 package com.alacoder.lion.remote;
 
-import com.alacoder.lion.remote.transport.Response;
 
 /**
  * @ClassName: Endpoint

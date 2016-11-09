@@ -15,7 +15,6 @@ package com.alacoder.lion.remote;
 
 import java.net.InetSocketAddress;
 import java.util.Collection;
-import java.util.Map;
 
 import com.alacoder.lion.remote.transport.Request;
 import com.alacoder.lion.remote.transport.Response;

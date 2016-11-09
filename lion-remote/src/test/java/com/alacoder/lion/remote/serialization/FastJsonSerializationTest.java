@@ -16,8 +16,6 @@ package com.alacoder.lion.remote.serialization;
 import java.io.IOException;
 
 import com.alacoder.lion.common.extension.ExtensionLoader;
-import com.alacoder.lion.common.url.URLParamType;
-import com.alacoder.lion.remote.Codec;
 import com.alacoder.lion.remote.Serialization;
 import com.alacoder.lion.remote.transport.DefaultRequest;
 import com.alacoder.lion.remote.transport.DefaultResponse;

@@ -24,7 +24,9 @@ import java.util.Map;
  */
 
 public class ProtocolConfig extends AbstractConfig {
-	   // 服务协议
+	
+	private static final long serialVersionUID = 1L;
+	// 服务协议
     private String name;
     // 序列化方式
     private String serialization;

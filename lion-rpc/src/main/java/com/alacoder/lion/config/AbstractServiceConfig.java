@@ -22,8 +22,10 @@ package com.alacoder.lion.config;
  */
 
 public abstract class AbstractServiceConfig extends AbstractInterfaceConfig {
+	
+	private static final long serialVersionUID = 1L;
 
-    /**
+	/**
      * 一个service可以按多个protocol提供服务，不同protocol使用不同port 利用export来设置protocol和port，格式如下：
      * protocol1:port1,protocol2:port2
      **/

@@ -30,6 +30,7 @@ import com.alacoder.lion.remote.transport.Response;
 public class DefaultProviderTest {
 
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public static void main(String[] args) {
 		LionURL url = new LionURL("netty", "10.12.104.6", 4455, "com.alacoder.lion.rpc.DemoService");
 		DefaultProvider provider = new DefaultProvider(new DemoServiceImple(), url , DemoService.class);

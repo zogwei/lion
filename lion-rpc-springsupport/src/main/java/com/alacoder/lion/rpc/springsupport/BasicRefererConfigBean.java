@@ -27,7 +27,6 @@ import com.alacoder.lion.config.ProtocolConfig;
 import com.alacoder.lion.config.RegistryConfig;
 import com.alacoder.lion.rpc.springsupport.namespace.handler.LionNamespaceHandler;
 
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -37,7 +36,8 @@ import java.util.List;
  */
 public class BasicRefererConfigBean extends BasicRefererInterfaceConfig implements BeanNameAware, InitializingBean, BeanFactoryAware {
 
-    private String protocolNames;
+	private static final long serialVersionUID = 1L;
+	private String protocolNames;
     private String registryNames;
     private BeanFactory beanFactory;
 

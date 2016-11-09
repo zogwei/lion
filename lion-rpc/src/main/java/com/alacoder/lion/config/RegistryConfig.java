@@ -23,7 +23,9 @@ package com.alacoder.lion.config;
 
 public class RegistryConfig extends AbstractRefererConfig {
 	
-    // 注册配置名称
+	private static final long serialVersionUID = 1L;
+
+	// 注册配置名称
     private String name;
 
     // 注册协议
