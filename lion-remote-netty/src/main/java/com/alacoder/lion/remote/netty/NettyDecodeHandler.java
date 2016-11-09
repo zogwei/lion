@@ -38,7 +38,7 @@ import com.alacoder.lion.remote.transport.Response;
 public class NettyDecodeHandler extends ByteToMessageDecoder {
 	
 	private Codec codec = null;
-	
+	 
 	private int maxContentLength = 0;
 
 	public NettyDecodeHandler(Codec codec, int maxContentLength){

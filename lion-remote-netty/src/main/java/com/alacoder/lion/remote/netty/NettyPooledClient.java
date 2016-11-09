@@ -64,9 +64,6 @@ public class NettyPooledClient extends AbstractClient {
 	public boolean open() {
 		final int maxContentLength = url.getIntParameter(URLParamType.maxContentLength.getName(), URLParamType.maxContentLength.getIntValue());
 		
-		String host = url.getHost(); 
-		int port = url.getPort();
-		
 		group = new NioEventLoopGroup();
 		client = new Bootstrap();
 		client.group(group)
@@ -82,30 +79,10 @@ public class NettyPooledClient extends AbstractClient {
          	         pipeline.addLast("encoder", new NettyEncodeHandler(codec));
          	        
          	         if(messageHandler != null) {
-         	        	pipeline.addLast("handler", new NettyClientChannelHandler( NettyPooledClient.this,  messageHandler));
+//         	        	pipeline.addLast("handler", new NettyClientChannelHandler( NettyPooledClient.this,  messageHandler));
          	         }
          	         else {
-         	        	pipeline.addLast("handler", new NettyClientChannelHandler( NettyPooledClient.this, new MessageHandler() {
-        					@Override
-        					public Object handle(com.alacoder.lion.remote.Channel channel, Object message) {
-        						Response response = (Response) message;
-        						Endpoint endpoint = NettyPooledClient.this;
-        						ResponseFuture responseFuture = endpoint.removeCallback(response.getRequestId());
-
-        						if (responseFuture == null) {
-        							LoggerUtil.warn("NettyClient has response from server, but responseFuture not exist,  requestId={}", response.getRequestId());
-        							return null;
-        						}
-
-        						if (response.getException() != null) {
-        							responseFuture.onFailure(response);
-        						} else {
-        							responseFuture.onSuccess(response);
-        						}
-
-        						return null;
-        					}
-        				})); 
+//         	        	pipeline.addLast("handler", new NettyClientChannelHandler( NettyPooledClient.this, new NettyMessageHandler(NettyPooledClient.this))); 
          	         }
                  }
              });
@@ -166,7 +143,7 @@ public class NettyPooledClient extends AbstractClient {
 		boolean result = false;
 		try{
 			result = clientChannel.send(transportData);
-			return true;
+			return result;
 		}
 		catch(Exception e) {
 			LoggerUtil.error("NettyClient send Error: url=" + url.getUri() + " " + transportData, e);

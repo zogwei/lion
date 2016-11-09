@@ -31,6 +31,7 @@ import java.util.concurrent.ConcurrentMap;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.alacoder.common.exception.LionAbstractException;
 import com.alacoder.common.exception.LionFrameworkException;
 import com.alacoder.common.exception.LionServiceException;
 import com.alacoder.lion.common.LionConstants;
@@ -41,10 +42,10 @@ import com.alacoder.lion.common.utils.StandardThreadExecutor;
 import com.alacoder.lion.remote.AbstractServer;
 import com.alacoder.lion.remote.Channel;
 import com.alacoder.lion.remote.ChannelState;
-import com.alacoder.lion.remote.Future;
 import com.alacoder.lion.remote.MessageHandler;
 import com.alacoder.lion.remote.TransportData;
 import com.alacoder.lion.remote.TransportException;
+import com.alacoder.lion.remote.transport.DefaultResponse;
 import com.alacoder.lion.remote.transport.Request;
 import com.alacoder.lion.remote.transport.Response;
 
@@ -58,7 +59,7 @@ import com.alacoder.lion.remote.transport.Response;
 
 public class NettyServer extends AbstractServer{
 
-	private io.netty.channel.Channel serverChannel;
+	private Channel serverChannel;
 	
 	// 连接到服务器的所有channel，key = remoteIp:remotePort-localIp:localPort作为连接的唯一标示
 	private ConcurrentMap<String, Channel> channels = new ConcurrentHashMap<String, Channel>();
@@ -68,19 +69,11 @@ public class NettyServer extends AbstractServer{
 	EventLoopGroup bossGroup  = null;
 	EventLoopGroup workerGroup = null;
 	
-	/**
-	 * 
-	  * 创建一个新的实例 NettyServer. 
-	  * <p>Title: </p>
-	  * <p>Description: </p>
-	  * @param url   port 必须参数，
-	  * @param messagehandler
-	 */
 	public NettyServer(LionURL url,MessageHandler messagehandler) {
 		super(url,messagehandler);
 	}
 	
-	public boolean open() {
+	public synchronized boolean open() {
 		init() ;
 		
 		doOpen();
@@ -90,12 +83,12 @@ public class NettyServer extends AbstractServer{
 	
 
 	@Override
-	public void close() {
+	public synchronized void close() {
 		close(0);
 	}
 	
 	@Override
-	public void close(int timeout) {
+	public synchronized void close(int timeout) {
 		//判断系统server是否关闭
 		if (state.isCloseState()) {
 			LoggerUtil.info("NettyServer close fail: already close, url={}", url.getUri());
@@ -136,7 +129,7 @@ public class NettyServer extends AbstractServer{
 		state = ChannelState.CLOSE;
 	}
 	
-	private void init() {
+	private synchronized void init() {
 		if(state != ChannelState.UNINIT) {
 			LoggerUtil.error("NettyServer is not in uninit state, init error, url = {} ", url.getUri());
 			return ;
@@ -176,7 +169,7 @@ public class NettyServer extends AbstractServer{
         server = new ServerBootstrap();
     	server.group(bossGroup, workerGroup)
          .channel(NioServerSocketChannel.class)
-         .handler(new NettyServerChannelHandler(maxServerConnection, channels))
+//         .handler(new NettyServerChannelHandler(maxServerConnection, channels))
          .childHandler(new  ChannelInitializer<SocketChannel>(){
         	 @Override
         	    public void initChannel(SocketChannel ch) throws Exception {
@@ -195,8 +188,7 @@ public class NettyServer extends AbstractServer{
     	
 	}
 	
-	private void doOpen() {
-		
+	private synchronized void doOpen() {
 		if(state != ChannelState.INIT) {
 			LoggerUtil.error("NettyServer is not in init state, open error, url = {} ", url.getUri());
 			return ;
@@ -213,7 +205,10 @@ public class NettyServer extends AbstractServer{
 			}
 			ChannelFuture channelFuture = server.bind(bindAdd).sync();
 			if(channelFuture.isSuccess()){
-				serverChannel =  channelFuture.channel();
+				serverChannel =  new NettyChannel(this, channelFuture.channel());
+				serverChannel.open();
+				this.remoteAddress = bindAdd;
+				
 				state = ChannelState.ALIVE;
 				LoggerUtil.info("NettyServer open success , url = {}", url.getUri());
 			}
@@ -246,17 +241,116 @@ public class NettyServer extends AbstractServer{
 	
 	@Override
 	public boolean send(TransportData transportData) throws TransportException {
-		throw new LionFrameworkException("NettyServer  send(TransportData transportData) method unsupport: url: " + url);
+		throw new LionFrameworkException("NettyServer send(TransportData transportData) method unsupport: url: " + url);
+	}
+	
+	@Override
+	public Response request(Request request, InetSocketAddress clientAdd) throws TransportException {
+		String channelKey = NettyChannelHandler.getChannelKey(clientAdd , this.remoteAddress);
+		Channel channel = channels.get(channelKey);
+		if(channel == null) {
+			throw new LionServiceException("NettyChannel is null: url= " + url.getUri() + " request= " + request);
+		}
+		if(!channel.isAvailable()){
+			throw new LionServiceException("NettyChannel is unavaliable: url= " + url.getUri() + " request= " + request);
+		}
+		
+		boolean async = url.getMethodParameter(request.getMethodName(), request.getParamtersDesc()
+		        , URLParamType.async.getName(), URLParamType.async.getBooleanValue());
+		
+		return request(request,async,channel);
+	}
+
+	@Override
+	public boolean send(TransportData transportData, InetSocketAddress clientAdd) throws TransportException {
+		String channelKey = NettyChannelHandler.getChannelKey(clientAdd , this.remoteAddress);
+		Channel channel = channels.get(channelKey);
+		if(channel == null) {
+			throw new LionServiceException("NettyChannel is null: url= " + url.getUri() + " request= " + transportData);
+		}
+		if(!channel.isAvailable()){
+			throw new LionServiceException("NettyChannel is unavaliable: url= " + url.getUri() + " request= " + transportData);
+		}
+		
+		return send(transportData,channel);
+	}
+
+	private Response request(Request request, boolean async,Channel channel) throws TransportException {
+		Response response = null;
+		
+		try {
+			if(channel.isAvailable()){
+				response = channel.request(request);
+			}
+			else {
+				LoggerUtil.error("NettyClient request Error, channel is not availbale: url=" + url.getUri() 
+						+ " channel local:  "  + channel.getLocalAddress() 
+						+ " channel remote:  "  + channel.getRemoteAddress()
+						+ " request " + request);
+				throw new LionServiceException("NettyClient request Error, channel is not availbale: url=" + url.getUri() 
+						+ " channel local:  "  + channel.getLocalAddress() 
+						+ " channel remote:  "  + channel.getRemoteAddress()
+						+ " request " + request);
+			}
+		} catch (LionServiceException e) {
+			throw e;
+		} catch (Exception e) {
+			LoggerUtil.error("NettyClient request Error: url=" + url.getUri() + " " + request, e);
+			if (e instanceof LionAbstractException) {
+				throw (LionAbstractException) e;
+			} else {
+				throw new LionServiceException("NettyClient request Error: url=" + url.getUri() + " " + request, e);
+			}
+		}
+
+		if (async || !(response instanceof NettyResponseFuture)) {
+			return response;
+		}
+
+		//new DefaultResponse(response) 的getvalue 会 syn 结果
+		return new DefaultResponse(response);
+	}
+	
+	private  boolean send(TransportData transportData ,Channel channel) throws TransportException {
+		boolean result = false;
+		try{
+			if(channel.isAvailable()){
+				channel.send(transportData);
+			}
+			else {
+				LoggerUtil.error("NettyClient request Error, channel is not availbale: url=" + url.getUri() 
+						+ " channel local:  "  + channel.getLocalAddress() 
+						+ " channel remote:  "  + channel.getRemoteAddress()
+						+ " request " + transportData);
+				throw new LionServiceException("NettyClient request Error, channel is not availbale: url=" + url.getUri() 
+						+ " channel local:  "  + channel.getLocalAddress() 
+						+ " channel remote:  "  + channel.getRemoteAddress()
+						+ " request " + transportData);
+			}
+			result = true;
+		} catch (LionServiceException e) {
+			throw e;
+		}
+		catch(Exception e) {
+			LoggerUtil.error("NettyClient send Error: url=" + url.getUri() + " " + transportData, e);
+			if (e instanceof LionAbstractException) {
+				throw (LionAbstractException) e;
+			} else {
+				throw new LionServiceException("NettyClient send Error: url=" + url.getUri() + " "+ transportData, e);
+			}
+		}
+		
+		return result;
 	}
 	
 	@Override
 	public Collection<Channel> getChannels() {
-		throw new LionFrameworkException("NettyServer Collection<Channel> getChannels()  method unsupport: url: " + url);
+		return channels.values();
 	}
 
 	@Override
 	public Channel getServerChannel() {
-		throw new LionFrameworkException("NettyServer Channel getServerChannel()  method unsupport: url: " + url);
+		return serverChannel;
 	}
 	
 	@Override
@@ -273,5 +367,6 @@ public class NettyServer extends AbstractServer{
 	public boolean isClosed() {
 		return state.isCloseState();
 	}
+
 }
 

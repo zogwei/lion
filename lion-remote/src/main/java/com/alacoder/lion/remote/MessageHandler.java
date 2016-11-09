@@ -13,6 +13,9 @@
 
 package com.alacoder.lion.remote;
 
+import com.alacoder.lion.remote.transport.Request;
+import com.alacoder.lion.remote.transport.Response;
+
 
 /**
  * @ClassName: MessageHandler
@@ -24,5 +27,9 @@ package com.alacoder.lion.remote;
 
 public interface MessageHandler {
 
-	public Object handle(Channel channel, Object message);
+	public Response handle(Channel channel, Request request);
+	
+	public Object handle(Channel channel, Response response);
+	
+	public Object handle(Channel channel, TransportData response);
 }

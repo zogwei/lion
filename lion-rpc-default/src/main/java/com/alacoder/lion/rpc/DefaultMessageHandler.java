@@ -53,7 +53,7 @@ public class DefaultMessageHandler extends AbstractMessageHandler {
 	    }
 
 	    @Override
-	    public Object handle(Channel channel, Object message) {
+	    public Response handle(Channel channel, Request message) {
 	        if (channel == null || message == null) {
 	            throw new LionFrameworkException("RequestRouter handler(channel, message) params is null");
 	        }

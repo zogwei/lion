@@ -20,7 +20,6 @@ import java.util.Map;
 
 import com.alacoder.lion.common.utils.LoggerUtil;
 import com.alacoder.lion.remote.Channel;
-import com.alacoder.lion.remote.Future;
 import com.alacoder.lion.remote.FutureListener;
 import com.alacoder.lion.remote.FutureState;
 import com.alacoder.lion.remote.ResponseFuture;
@@ -38,6 +37,8 @@ import com.alacoder.common.exception.LionServiceException;
  */
 
 public class NettyResponseFuture extends ResponseFuture{
+
+	private static final long serialVersionUID = 1L;
 
 	private volatile FutureState state = FutureState.DOING;
 	
@@ -277,6 +278,7 @@ public class NettyResponseFuture extends ResponseFuture{
 		return this.timeout;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public Map<String, String> getAttachments() {
 		  // 不需要使用

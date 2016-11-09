@@ -13,7 +13,12 @@
 
 package com.alacoder.lion.remote;
 
+import java.net.InetSocketAddress;
 import java.util.Collection;
+import java.util.Map;
+
+import com.alacoder.lion.remote.transport.Request;
+import com.alacoder.lion.remote.transport.Response;
 
 /**
  * @ClassName: Server
@@ -24,9 +29,13 @@ import java.util.Collection;
  */
 
 public interface Server extends Endpoint{
-	
 
 	Collection<Channel> getChannels();
 	
 	Channel getServerChannel();
+	
+    Response request(Request request,InetSocketAddress clientAdd) throws TransportException;
+    
+    boolean send(TransportData transportData,InetSocketAddress clientAdd) throws TransportException;
+    
 }

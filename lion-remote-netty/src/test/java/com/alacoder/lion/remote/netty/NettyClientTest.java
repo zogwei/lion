@@ -25,6 +25,7 @@ import com.alacoder.lion.common.url.URLParamType;
 import com.alacoder.lion.common.utils.LoggerUtil;
 import com.alacoder.lion.remote.Channel;
 import com.alacoder.lion.remote.MessageHandler;
+import com.alacoder.lion.remote.MessageHandlerAdpter;
 import com.alacoder.lion.remote.TransportException;
 import com.alacoder.lion.remote.transport.DefaultRequest;
 import com.alacoder.lion.remote.transport.DefaultResponse;
@@ -50,13 +51,11 @@ public class NettyClientTest  extends TestCase {
 		NettyClient client = null;
 
 		LoggerUtil.info(" client send() begin ： ");
-		client = new NettyClient(url, new MessageHandler() {
+		client = new NettyClient(url, new MessageHandlerAdpter() {
 			@Override
-			public Object handle(Channel channel, Object message) {
-				if (message instanceof Response) {
-					Response response = (Response) message;
-					LoggerUtil.info(" client reciver send response ： " + response.getRequestId());
-				}
+			public Object handle(Channel channel, Response message) {
+				Response response = (Response) message;
+				LoggerUtil.info(" client reciver send response ： " + response.getRequestId());
 				return null;
 			}
 		});
@@ -87,14 +86,14 @@ public class NettyClientTest  extends TestCase {
    		 client = new NettyClient(url,null);
    	     client.open();
    		
-		for (int i = 0; i < 1; i++) {
+		for (int i = 0; i < 10000; i++) {
 			request.setRequestId(System.currentTimeMillis());
 			Response response = client.request(request);
 			LoggerUtil.info(" client reciver request() response ： "
 					+ response.getRequestId() + " value: "
 					+ response.getValue());
 			try {
-				Thread.sleep(1000);
+				Thread.sleep(10000000);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}

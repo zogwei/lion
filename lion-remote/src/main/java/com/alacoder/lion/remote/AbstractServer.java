@@ -15,6 +15,7 @@ package com.alacoder.lion.remote;
 
 import java.net.InetSocketAddress;
 
+import com.alacoder.common.exception.LionFrameworkException;
 import com.alacoder.lion.common.extension.ExtensionLoader;
 import com.alacoder.lion.common.url.LionURL;
 import com.alacoder.lion.common.url.URLParamType;
@@ -30,7 +31,7 @@ import com.alacoder.lion.common.utils.StandardThreadExecutor;
 
 public abstract class AbstractServer extends AbstractEndpoint implements Server {
 
-	protected InetSocketAddress localAddress ;
+//	protected InetSocketAddress localAddress ;
 	protected InetSocketAddress remoteAddress;
 	
 	protected LionURL url;
@@ -56,7 +57,7 @@ public abstract class AbstractServer extends AbstractEndpoint implements Server 
 	public abstract boolean open();
 	
 	public InetSocketAddress getLocalAddress() {
-		return localAddress;
+		throw new LionFrameworkException("Server  getLocalAddress() method unsupport: url: " + url);
 	}
 	
 	public InetSocketAddress getRemoteAddress() {

@@ -41,10 +41,10 @@ import com.alacoder.lion.common.utils.LoggerUtil;
 import com.alacoder.lion.common.utils.StandardThreadExecutor;
 import com.alacoder.lion.remote.AbstractClient;
 import com.alacoder.lion.remote.Channel;
-import com.alacoder.lion.remote.ChannelState;
 import com.alacoder.lion.remote.EndpointState;
 import com.alacoder.lion.remote.Endpoint;
 import com.alacoder.lion.remote.MessageHandler;
+import com.alacoder.lion.remote.MessageHandlerAdpter;
 import com.alacoder.lion.remote.ResponseFuture;
 import com.alacoder.lion.remote.TransportData;
 import com.alacoder.lion.remote.TransportException;
@@ -73,19 +73,18 @@ public class NettyClient extends AbstractClient {
 	
 	public NettyClient(LionURL url,MessageHandler messageHandler) {
 		super(url,messageHandler);
-		this.maxClientConnection = 1;
 	}
 	
 	@Override
-	public boolean open() {
-		
+	public synchronized boolean open() {
 		init();
+		
 		doOpen();
 		
 		return true;
 	}
 	
-	private void init() {
+	private synchronized void init() {
 		int workerQueueSize = url.getIntParameter(URLParamType.workerQueueSize.getName(),
 				URLParamType.workerQueueSize.getIntValue());
 
@@ -116,42 +115,20 @@ public class NettyClient extends AbstractClient {
                 	 pipeline.addLast("decoder", new NettyDecodeHandler(codec,maxContentLength));
          	         pipeline.addLast("encoder", new NettyEncodeHandler(codec));
          	         
-         	        NettyChannelHandler nettyChannelHandler = new NettyChannelHandler(standardThreadExecutor, channels ,1, NettyClient.this);
+         	        NettyChannelHandler nettyChannelHandler = new NettyChannelHandler(standardThreadExecutor, channels , NettyClient.this);
          	        
          	         if(messageHandler != null) {
          	        	nettyChannelHandler.setMessagehandler(messageHandler);
          	        	pipeline.addLast("handler", nettyChannelHandler);
-//         	        	pipeline.addLast("handler", new NettyClientChannelHandler( NettyClient.this,  messageHandler));
          	         }
          	         else {
-         	        	nettyChannelHandler.setMessagehandler(new MessageHandler() {
-        					@Override
-        					public Object handle(com.alacoder.lion.remote.Channel channel, Object message) {
-        						Response response = (Response) message;
-        						Endpoint endpoint = NettyClient.this;
-        						ResponseFuture responseFuture = endpoint.removeCallback(response.getRequestId());
-
-        						if (responseFuture == null) {
-        							LoggerUtil.warn("NettyClient has response from server, but responseFuture not exist,  requestId={}", response.getRequestId());
-        							return null;
-        						}
-
-        						if (response.getException() != null) {
-        							responseFuture.onFailure(response);
-        						} else {
-        							responseFuture.onSuccess(response);
-        						}
-
-        						return null;
-        					}
-        				}); 
          	        	pipeline.addLast("handler",nettyChannelHandler); 
          	         }
                  }
              });
 	}
 	
-	private void doOpen() {
+	private synchronized void doOpen() {
 		
 		ChannelFuture channelFuture = null;
 		io.netty.channel.Channel nettychannel = null;
@@ -176,6 +153,8 @@ public class NettyClient extends AbstractClient {
 					this.remoteAddress =  new InetSocketAddress(url.getHost(), url.getPort());
 				}
 
+				clientChannel = new NettyChannel(this, nettychannel);
+				clientChannel.open();
 				this.state = EndpointState.ALIVE;
 			}
 			else {
@@ -240,7 +219,7 @@ public class NettyClient extends AbstractClient {
 		boolean result = false;
 		try{
 			result = clientChannel.send(transportData);
-			return true;
+			return result;
 		}
 		catch(Exception e) {
 			LoggerUtil.error("NettyClient send Error: url=" + url.getUri() + " " + transportData, e);
@@ -253,12 +232,12 @@ public class NettyClient extends AbstractClient {
 	}
 	
 	@Override
-	public void close() {
+	public synchronized void close() {
 		close(0);
 	}
 
 	@Override
-	public void close(int timeout) {
+	public synchronized void close(int timeout) {
 		if(state.isCloseState()){
 			LoggerUtil.info("NettyClient close fail: already close, url={}", url.getUri());
 			return;

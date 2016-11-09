@@ -34,7 +34,6 @@ import com.alacoder.lion.remote.transport.Response;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
-import io.netty.channel.socket.nio.NioSocketChannel;
 
 /**
  * @ClassName: NettyChannelHandler
@@ -49,7 +48,7 @@ public class NettyChannelHandler extends SimpleChannelInboundHandler<TransportDa
 	private MessageHandler messagehandler;
 	private ThreadPoolExecutor threadPoolExecutor;
 	private ConcurrentMap<String, Channel> channels = null;
-	private int MaxChannelNum = 0;
+	private int MaxChannelNum = 1;
 	private Endpoint endpoint;
 
 	public NettyChannelHandler(MessageHandler messagehandler,
@@ -72,6 +71,15 @@ public class NettyChannelHandler extends SimpleChannelInboundHandler<TransportDa
 		this.threadPoolExecutor = executor;
 		this.channels = channels;
 		this.MaxChannelNum = MaxChannelNum;
+		this.endpoint = endpoint;
+	}
+	
+	public NettyChannelHandler(
+			ThreadPoolExecutor executor,
+			ConcurrentMap<String, Channel> channels,
+			Endpoint endpoint) {
+		this.threadPoolExecutor = executor;
+		this.channels = channels;
 		this.endpoint = endpoint;
 	}
 	
@@ -99,7 +107,6 @@ public class NettyChannelHandler extends SimpleChannelInboundHandler<TransportDa
 	}
 
 	@Override
-	// TODO 跟clientchannelhandler 整合
 	protected void channelRead0(ChannelHandlerContext ctx, TransportData msg) throws Exception {
 		io.netty.channel.Channel channel = ctx.channel();
 		Channel nettyChannel = new NettyChannel(endpoint, channel);
@@ -114,6 +121,7 @@ public class NettyChannelHandler extends SimpleChannelInboundHandler<TransportDa
 		}
 	}
 
+	//TODO 关闭连接是没有 日志
 	@Override
 	public void channelInactive(ChannelHandlerContext ctx) throws Exception {
 		LoggerUtil.debug("chanel inactive " + ctx.channel().toString());
@@ -132,7 +140,9 @@ public class NettyChannelHandler extends SimpleChannelInboundHandler<TransportDa
 	}
 
 	private void processResponse(Channel channel, final Response response) {
-//		messagehandler.handle(channel, response);
+		if(messagehandler != null) {
+			messagehandler.handle(channel, response);
+		}
 		
 		ResponseFuture responseFuture = endpoint.removeCallback(response.getRequestId());
 
@@ -150,12 +160,17 @@ public class NettyChannelHandler extends SimpleChannelInboundHandler<TransportDa
 	private void processRequest(final Channel nettyChannel, final Request request) {
 		final long processStartTime = System.currentTimeMillis();
 		LoggerUtil.debug("processRequest , request = {} ", request);
+		if(messagehandler == null) {
+			LoggerUtil.warn("messagehandler is null ");
+			return ;
+		}
 
 		// 使用线程池方式处理
 		try {
 			threadPoolExecutor.execute(new Runnable() {
 				@Override
 				public void run() {
+					//TODO 如果messagehandler.handler 处理时间非常长，会导致线程阻塞 
 					Object result = messagehandler.handle(nettyChannel, request);
 					DefaultResponse response = null;
 
@@ -179,6 +194,9 @@ public class NettyChannelHandler extends SimpleChannelInboundHandler<TransportDa
 							response.setProcessTime(System.currentTimeMillis() - processStartTime);
 						}
 					}
+					else {
+						LoggerUtil.error("processRequest error, channel is not available , response = {} ", response);
+					}
 				}
 			});
 		} catch (RejectedExecutionException rejectException) {
@@ -201,6 +219,9 @@ public class NettyChannelHandler extends SimpleChannelInboundHandler<TransportDa
 					response.setException(e);
 					response.setProcessTime(System.currentTimeMillis() - processStartTime);
 				}
+			}
+			else {
+				LoggerUtil.error("processRequest error, channel is not available , response = {} ", response);
 			}
 
 			LoggerUtil.debug("process thread pool is full, reject, active={} poolSize={} corePoolSize={} maxPoolSize={} taskCount={} requestId={}",
@@ -228,8 +249,7 @@ public class NettyChannelHandler extends SimpleChannelInboundHandler<TransportDa
 	 * @param remote
 	 * @return
 	 */
-	private String getChannelKey(InetSocketAddress local,
-			InetSocketAddress remote) {
+	public static String getChannelKey(InetSocketAddress local,InetSocketAddress remote) {
 		String key = "";
 		if (local == null || local.getAddress() == null) {
 			key += "null-";
@@ -259,7 +279,13 @@ public class NettyChannelHandler extends SimpleChannelInboundHandler<TransportDa
 	public void setMessagehandler(MessageHandler messagehandler) {
 		this.messagehandler = messagehandler;
 	}
-	
-	
+
+	public int getMaxChannelNum() {
+		return MaxChannelNum;
+	}
+
+	public void setMaxChannelNum(int maxChannelNum) {
+		MaxChannelNum = maxChannelNum;
+	}
 
 }

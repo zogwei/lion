@@ -17,6 +17,7 @@ import com.alacoder.lion.common.url.LionURL;
 import com.alacoder.lion.common.utils.LoggerUtil;
 import com.alacoder.lion.remote.Channel;
 import com.alacoder.lion.remote.MessageHandler;
+import com.alacoder.lion.remote.MessageHandlerAdpter;
 import com.alacoder.lion.remote.transport.DefaultResponse;
 import com.alacoder.lion.remote.transport.Request;
 
@@ -43,19 +44,16 @@ public class NettyServerTest {
 	public static void main(String[] args) {
 		LionURL url = new LionURL("", "", 4455, "");
 		
-		NettyServer server = new NettyServer(url,new MessageHandler(){
+		NettyServer server = new NettyServer(url,new MessageHandlerAdpter(){
 
 			@Override
-			public Object handle(Channel channel, Object message) {
-				if( message instanceof Request) {
+			public DefaultResponse handle(Channel channel, Request message) {
 					Request request = (Request)message;
 					LoggerUtil.info(" server reciver request ： " + request.getRequestId() );
 					DefaultResponse reponse = new DefaultResponse();
 					reponse.setRequestId(request.getRequestId() );
 					reponse.setValue("response value : " + request.getRequestId() );
 					return reponse;
-				}
-				return null;
 			}
 			
 		});

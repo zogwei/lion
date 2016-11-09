@@ -22,7 +22,6 @@ import com.alacoder.lion.remote.transport.Request;
 import com.alacoder.lion.remote.transport.Response;
 
 import io.netty.buffer.ByteBuf;
-import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToByteEncoder;
 
@@ -34,7 +33,7 @@ import io.netty.handler.codec.MessageToByteEncoder;
  *
  */
 
-public class NettyEncodeHandler extends MessageToByteEncoder {
+public class NettyEncodeHandler extends MessageToByteEncoder<TransportData> {
 	
 	private Codec codec = null;
 	
@@ -43,7 +42,7 @@ public class NettyEncodeHandler extends MessageToByteEncoder {
 	}
 
 	@Override
-	protected void encode(ChannelHandlerContext ctx, Object msg, ByteBuf out) throws Exception {
+	protected void encode(ChannelHandlerContext ctx, TransportData msg, ByteBuf out) throws Exception {
 		byte[] data = null;
 		Long id = null;
 		id =  ((TransportData)msg).getRequestId();

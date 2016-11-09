@@ -26,7 +26,7 @@ import com.alacoder.lion.common.utils.LoggerUtil;
  *
  */
 
-public class NettyClientChannelFactory extends BasePoolableObjectFactory {
+public class NettyClientChannelFactory extends BasePoolableObjectFactory<NettyChannel> {
 	private String factoryName = "";
 	private NettyClient nettyClient;
 
@@ -48,7 +48,7 @@ public class NettyClientChannelFactory extends BasePoolableObjectFactory {
 	}
 
 	@Override
-	public Object makeObject() throws Exception {
+	public NettyChannel makeObject() throws Exception {
 		NettyChannel nettyChannel = new NettyChannel(nettyClient);
 		nettyChannel.open();
 
@@ -56,7 +56,7 @@ public class NettyClientChannelFactory extends BasePoolableObjectFactory {
 	}
 
 	@Override
-	public void destroyObject(final Object obj) throws Exception {
+	public void destroyObject(final NettyChannel obj) throws Exception {
 		if (obj instanceof NettyChannel) {
 			NettyChannel client = (NettyChannel) obj;
 			LionURL url = nettyClient.getUrl();
@@ -72,7 +72,7 @@ public class NettyClientChannelFactory extends BasePoolableObjectFactory {
 	}
 
 	@Override
-	public boolean validateObject(final Object obj) {
+	public boolean validateObject(final NettyChannel obj) {
 		if (obj instanceof NettyChannel) {
 			final NettyChannel client = (NettyChannel) obj;
 			try {
@@ -86,7 +86,7 @@ public class NettyClientChannelFactory extends BasePoolableObjectFactory {
 	}
 
 	@Override
-	public void activateObject(Object obj) throws Exception {
+	public void activateObject(NettyChannel obj) throws Exception {
 		if (obj instanceof NettyChannel) {
 			final NettyChannel client = (NettyChannel) obj;
 			if (!client.isAvailable()) {
@@ -96,7 +96,7 @@ public class NettyClientChannelFactory extends BasePoolableObjectFactory {
 	}
 
 	@Override
-	public void passivateObject(Object obj) throws Exception {
+	public void passivateObject(NettyChannel obj) throws Exception {
 		
 	}
 }

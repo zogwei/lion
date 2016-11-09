@@ -67,14 +67,17 @@ public class NettyChannel extends com.alacoder.lion.remote.AbstractChannel{
 	
 	@Override
 	public synchronized boolean open() {
-		ChannelFuture channelFuture = null;
 		if(isAvailable()) {
 			LoggerUtil.warn("the channel already open, local: " + localAddress + " remote: " + remoteAddress + " url: " + endpoint.getUrl().getUri());
 			return true;
 		}
-		
-		state = ChannelState.ALIVE;
-		LoggerUtil.debug("NettyChannel server connect: " + endpoint.getUrl().getUri() + " local=" + localAddress);
+		if(state.isInitState()){
+			state = ChannelState.ALIVE;
+			LoggerUtil.debug("NettyChannel server connect: " + endpoint.getUrl().getUri() + " local=" + localAddress);
+		}
+		else {
+			throw new LionFrameworkException("NettyChannel is not  init,can not  open,now state is : " + state);
+		}
 		
 		return true;
 	}
@@ -129,7 +132,12 @@ public class NettyChannel extends com.alacoder.lion.remote.AbstractChannel{
 		
 		ChannelFuture writeFuture = this.channel.writeAndFlush(transportData);
 		boolean result = writeFuture.awaitUninterruptibly(timeout, TimeUnit.MILLISECONDS);
-		
+		if(result && writeFuture.isSuccess()) {
+			LoggerUtil.debug("NettyChannel send success: " + endpoint.getUrl().getUri() + " local=" + localAddress);
+		}
+		else {
+			LoggerUtil.debug("NettyChannel send fail: " + endpoint.getUrl().getUri() + " local=" + localAddress);
+		}
 		return result;
 	}
 	
@@ -175,6 +183,5 @@ public class NettyChannel extends com.alacoder.lion.remote.AbstractChannel{
 	public boolean isClosed() {
 		return state.isCloseState();
 	}
-
 
 }

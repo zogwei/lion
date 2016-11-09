@@ -76,20 +76,20 @@ public abstract class AbstractEndpoint implements Endpoint {
 	 * 
 	 */
 	public void incrErrorCount() {
-		long count = errorCount.incrementAndGet();
-
-		// 如果节点是可用状态，同时当前连续失败的次数超过限制maxClientConnection次，那么把该节点标示为不可用
-		if (count >= maxClientConnection && state.isAliveState()) {
-			synchronized (this) {
-				count = errorCount.longValue();
-
-				if (count >= maxClientConnection && state.isAliveState()) {
-					LoggerUtil.error("NettyClient unavailable Error: url=" + url.getIdentity() + " "
-							+ url.getServerPortStr());
-					state = EndpointState.UNALIVE;
-				}
-			}
-		}
+//		long count = errorCount.incrementAndGet();
+//
+//		// 如果节点是可用状态，同时当前连续失败的次数超过限制maxClientConnection次，那么把该节点标示为不可用
+//		if (count >= maxClientConnection && state.isAliveState()) {
+//			synchronized (this) {
+//				count = errorCount.longValue();
+//
+//				if (count >= maxClientConnection && state.isAliveState()) {
+//					LoggerUtil.error("NettyClient unavailable Error: url=" + url.getIdentity() + " "
+//							+ url.getServerPortStr());
+//					state = EndpointState.UNALIVE;
+//				}
+//			}
+//		}
 	}
 	
 	/**
@@ -101,29 +101,29 @@ public abstract class AbstractEndpoint implements Endpoint {
 	 * 
 	 */
 	public void resetErrorCount() {
-		errorCount.set(0);
-
-		if (state.isAliveState()) {
-			return;
-		}
-
-		synchronized (this) {
-			if (state.isAliveState()) {
-				return;
-			}
-
-			// 如果节点是unalive才进行设置，而如果是 close 或者 uninit，那么直接忽略
-			if (state.isUnAliveState()) {
-				long count = errorCount.longValue();
-
-				// 过程中有其他并发更新errorCount的，因此这里需要进行一次判断
-				if (count < maxClientConnection) {
-					state = EndpointState.ALIVE;
-					LoggerUtil.info("NettyClient recover available: url=" + url.getIdentity() + " "
-							+ url.getServerPortStr());
-				}
-			}
-		}
+//		errorCount.set(0);
+//
+//		if (state.isAliveState()) {
+//			return;
+//		}
+//
+//		synchronized (this) {
+//			if (state.isAliveState()) {
+//				return;
+//			}
+//
+//			// 如果节点是unalive才进行设置，而如果是 close 或者 uninit，那么直接忽略
+//			if (state.isUnAliveState()) {
+//				long count = errorCount.longValue();
+//
+//				// 过程中有其他并发更新errorCount的，因此这里需要进行一次判断
+//				if (count < maxClientConnection) {
+//					state = EndpointState.ALIVE;
+//					LoggerUtil.info("NettyClient recover available: url=" + url.getIdentity() + " "
+//							+ url.getServerPortStr());
+//				}
+//			}
+//		}
 	}
 	
 
