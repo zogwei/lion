@@ -43,7 +43,7 @@ public class NettyClientTest  extends TestCase {
 		url.addParameter(URLParamType.connectTimeout.getName(), "10000");
 		url.addParameter(URLParamType.requestTimeout.getName(), "10000");
 		Request request = new DefaultRequest();
-		NettyClient client = null;
+		NettyClient client = null; 
 
 		LoggerUtil.info(" client send() begin ： ");
 		client = new NettyClient(url, new MessageHandlerAdpter() {
