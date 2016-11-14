@@ -1,1 +1,1 @@
-default=com.alacoder.lion.remote.codec.DefaultCodec
+com.alacoder.lion.remote.codec.DefaultCodec

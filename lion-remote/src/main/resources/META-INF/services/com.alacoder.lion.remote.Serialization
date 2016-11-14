@@ -1,2 +1,2 @@
-hessian2=com.alacoder.lion.remote.serialization.Hessian2Serialization
-fastJson=com.alacoder.lion.remote.serialization.FastJsonSerialization
+com.alacoder.lion.remote.serialization.Hessian2Serialization
+com.alacoder.lion.remote.serialization.FastJsonSerialization

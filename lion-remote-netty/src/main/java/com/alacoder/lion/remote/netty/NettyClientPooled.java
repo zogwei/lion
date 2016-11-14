@@ -41,7 +41,6 @@ import com.alacoder.lion.common.url.LionURL;
 import com.alacoder.lion.common.url.URLParamType;
 import com.alacoder.lion.common.utils.LoggerUtil;
 import com.alacoder.lion.common.utils.StandardThreadExecutor;
-import com.alacoder.lion.remote.AbstractClient;
 import com.alacoder.lion.remote.AbstractPoolClient;
 import com.alacoder.lion.remote.Channel;
 import com.alacoder.lion.remote.EndpointState;
@@ -92,7 +91,7 @@ public class NettyClientPooled extends AbstractPoolClient {
 	}
 	
 	private synchronized void init() {
-		if(!state.isInitState()){
+		if(!state.isUnInitState()){
 			return ;
 		}
 		int workerQueueSize = url.getIntParameter(URLParamType.workerQueueSize.getName(),
@@ -326,9 +325,9 @@ public class NettyClientPooled extends AbstractPoolClient {
 		return client;
 	}
 
+	@SuppressWarnings("rawtypes")
 	@Override
 	protected BasePoolableObjectFactory createChannelFactory() {
-		// TODO Auto-generated method stub
-		return null;
+		return new NettyClientChannelFactory(this);
 	}
 }

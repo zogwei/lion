@@ -44,6 +44,7 @@ public abstract class AbstractPoolClient extends AbstractClient{
 		super(url, messageHandler);
 	}
 
+	@SuppressWarnings("rawtypes")
 	protected void initPool() {
         poolConfig = new GenericObjectPool.Config();
         poolConfig.minIdle =
@@ -57,6 +58,20 @@ public abstract class AbstractPoolClient extends AbstractClient{
         poolConfig.softMinEvictableIdleTimeMillis = defaultSoftMinEvictableIdleTimeMillis;
         poolConfig.timeBetweenEvictionRunsMillis = defaultTimeBetweenEvictionRunsMillis;
         factory = createChannelFactory();
+        
+        pool = new GenericObjectPool(factory, poolConfig);
+
+        boolean lazyInit = url.getBooleanParameter(URLParamType.lazyInit.getName(), URLParamType.lazyInit.getBooleanValue());
+
+        if (!lazyInit) {
+            for (int i = 0; i < poolConfig.minIdle; i++) {
+                try {
+                    pool.addObject();
+                } catch (Exception e) {
+                    LoggerUtil.error("NettyClient init pool create connect Error: url=" + url.getUri(), e);
+                }
+            }   
+        }
 	}
 	
     @SuppressWarnings("rawtypes")
