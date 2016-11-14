@@ -17,6 +17,8 @@ import org.apache.commons.pool.BasePoolableObjectFactory;
 
 import com.alacoder.lion.common.url.LionURL;
 import com.alacoder.lion.common.utils.LoggerUtil;
+import com.alacoder.lion.remote.AbstractPoolClient;
+import com.alacoder.lion.remote.Channel;
 
 /**
  * @ClassName: NettyChannelFactory
@@ -26,11 +28,11 @@ import com.alacoder.lion.common.utils.LoggerUtil;
  *
  */
 
-public class NettyClientChannelFactory extends BasePoolableObjectFactory<NettyChannel> {
+public class NettyClientChannelFactory extends BasePoolableObjectFactory<Channel> {
 	private String factoryName = "";
-	private NettyClient nettyClient;
+	private AbstractPoolClient nettyClient;
 
-	public NettyClientChannelFactory(NettyClient nettyClient) {
+	public NettyClientChannelFactory(AbstractPoolClient nettyClient) {
 		super();
 
 		this.nettyClient = nettyClient;
@@ -48,16 +50,14 @@ public class NettyClientChannelFactory extends BasePoolableObjectFactory<NettyCh
 	}
 
 	@Override
-	public NettyChannel makeObject() throws Exception {
-		NettyChannel nettyChannel = new NettyChannel(nettyClient);
-		nettyChannel.open();
+	public Channel makeObject() throws Exception {
 
-		return nettyChannel;
+		return nettyClient.getChannel();
 	}
 
 	@Override
-	public void destroyObject(final NettyChannel obj) throws Exception {
-		if (obj instanceof NettyChannel) {
+	public void destroyObject(final Channel obj) throws Exception {
+		if (obj instanceof Channel) {
 			NettyChannel client = (NettyChannel) obj;
 			LionURL url = nettyClient.getUrl();
 
@@ -70,11 +70,26 @@ public class NettyClientChannelFactory extends BasePoolableObjectFactory<NettyCh
 			}
 		}
 	}
-
+	
 	@Override
-	public boolean validateObject(final NettyChannel obj) {
+	public void activateObject(Channel obj) throws Exception {
 		if (obj instanceof NettyChannel) {
 			final NettyChannel client = (NettyChannel) obj;
+			if (!client.isAvailable()) {
+				client.open();
+			}
+		}
+	}
+
+	@Override
+	public void passivateObject(Channel obj) throws Exception {
+		
+	}
+
+	@Override
+	public boolean validateObject(final Channel obj) {
+		if (obj instanceof NettyChannel) {
+			final Channel client = (Channel) obj;
 			try {
 				return client.isAvailable();
 			} catch (final Exception e) {
@@ -85,18 +100,5 @@ public class NettyClientChannelFactory extends BasePoolableObjectFactory<NettyCh
 		}
 	}
 
-	@Override
-	public void activateObject(NettyChannel obj) throws Exception {
-		if (obj instanceof NettyChannel) {
-			final NettyChannel client = (NettyChannel) obj;
-			if (!client.isAvailable()) {
-				client.open();
-			}
-		}
-	}
 
-	@Override
-	public void passivateObject(NettyChannel obj) throws Exception {
-		
-	}
 }

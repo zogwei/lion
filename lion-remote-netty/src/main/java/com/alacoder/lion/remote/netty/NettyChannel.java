@@ -65,12 +65,15 @@ public class NettyChannel extends com.alacoder.lion.remote.AbstractChannel{
 		state = ChannelState.INIT;
 	}
 	
+	
+	
 	@Override
 	public synchronized boolean open() {
 		if(isAvailable()) {
 			LoggerUtil.warn("the channel already open, local: " + localAddress + " remote: " + remoteAddress + " url: " + endpoint.getUrl().getUri());
 			return true;
 		}
+		
 		if(state.isInitState()){
 			state = ChannelState.ALIVE;
 			LoggerUtil.debug("NettyChannel server connect: " + endpoint.getUrl().getUri() + " local=" + localAddress);

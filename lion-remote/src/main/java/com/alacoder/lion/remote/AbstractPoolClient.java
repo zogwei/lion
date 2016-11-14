@@ -62,6 +62,8 @@ public abstract class AbstractPoolClient extends AbstractClient{
     @SuppressWarnings("rawtypes")
 	protected abstract BasePoolableObjectFactory createChannelFactory();
     
+    public abstract Channel getChannel() ;
+    
     protected Channel borrowObject() throws Exception {
         Channel nettyChannel = (Channel) pool.borrowObject();
 
@@ -74,6 +76,19 @@ public abstract class AbstractPoolClient extends AbstractClient{
         String errorMsg = this.getClass().getSimpleName() + " borrowObject Error: url=" + url.getUri();
         LoggerUtil.error(errorMsg);
         throw new LionServiceException(errorMsg);
+    }
+    
+    @SuppressWarnings("unchecked")
+	protected void returnObject(Channel channel) {
+        if (channel == null) {
+            return;
+        }
+
+        try {
+            pool.returnObject(channel);
+        } catch (Exception ie) {
+            LoggerUtil.error(this.getClass().getSimpleName() + " return client Error: url=" + url.getUri(), ie);
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -88,17 +103,6 @@ public abstract class AbstractPoolClient extends AbstractClient{
         }
     }
 
-    @SuppressWarnings("unchecked")
-	protected void returnObject(Channel channel) {
-        if (channel == null) {
-            return;
-        }
 
-        try {
-            pool.returnObject(channel);
-        } catch (Exception ie) {
-            LoggerUtil.error(this.getClass().getSimpleName() + " return client Error: url=" + url.getUri(), ie);
-        }
-    }
 	
 }
