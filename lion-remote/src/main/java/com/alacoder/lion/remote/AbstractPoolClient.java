@@ -74,6 +74,14 @@ public abstract class AbstractPoolClient extends AbstractClient{
         }
 	}
 	
+	protected void closePool() {
+        try {
+			pool.close();
+		} catch (Exception e) {
+			 LoggerUtil.error("pool close error", e);
+		}
+	}
+	
     @SuppressWarnings("rawtypes")
 	protected abstract BasePoolableObjectFactory createChannelFactory();
     

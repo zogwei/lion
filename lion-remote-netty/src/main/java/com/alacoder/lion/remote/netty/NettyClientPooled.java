@@ -62,7 +62,6 @@ import com.alacoder.lion.remote.transport.Response;
 
 public class NettyClientPooled extends AbstractPoolClient {
 
-//	private Channel clientChannel;
 	private io.netty.bootstrap.Bootstrap client;
 	private EventLoopGroup group;
 	
@@ -77,7 +76,7 @@ public class NettyClientPooled extends AbstractPoolClient {
 	@Override
 	public synchronized boolean open() {
 		//初始化client
-		init();
+		initClient();
 		
 		// 初始化连接池
 		initPool();
@@ -86,11 +85,11 @@ public class NettyClientPooled extends AbstractPoolClient {
 	}
 	
 	public synchronized Channel getChannel() {
-		init();
+		initClient();
 		return doOpen();
 	}
 	
-	private synchronized void init() {
+	private synchronized void initClient() {
 		if(!state.isUnInitState()){
 			return ;
 		}
@@ -291,9 +290,9 @@ public class NettyClientPooled extends AbstractPoolClient {
 			// 清空callback
 			callbackMap.clear();
 			
-			super.close();
-			
 			group.shutdownGracefully();
+			
+			closePool();
 			
 			// 设置close状态
 			state = EndpointState.CLOSE;
