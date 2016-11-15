@@ -138,7 +138,7 @@ public class NettyClientPooled extends AbstractPoolClient {
 	}
 	
 	private synchronized Channel doOpen() {
-		Channel clientChannel;
+		Channel clientChannel = null;
 		ChannelFuture channelFuture = null;
 		io.netty.channel.Channel nettychannel = null;
 		try{
@@ -180,8 +180,8 @@ public class NettyClientPooled extends AbstractPoolClient {
 		} catch (Exception e) {
 			throw new LionServiceException("NettyChannel failed to connect to server, url: " + url.getUri(), e);
 		} finally {
-			if (!state.isAliveState() && channelFuture.channel() != null) {
-				nettychannel.close();
+			if (channelFuture.channel() != null&&clientChannel!=null&&  clientChannel.isAvailable()) {
+				clientChannel.close();
 			}
 		}
 	    return clientChannel;
@@ -191,7 +191,6 @@ public class NettyClientPooled extends AbstractPoolClient {
 	@Override
 	public Response request(Request request) throws TransportException {
 		Channel channel = null;
-			// return channel or throw exception(timeout or connection_fail)
 		try {
 			channel = borrowObject();
 			if(!channel.isAvailable()){
@@ -206,11 +205,12 @@ public class NettyClientPooled extends AbstractPoolClient {
 			returnObject(channel);
 			
 			return response;
+		} catch (TransportException e) {
+			invalidateObject(channel);
+			throw e;
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LoggerUtil.error("NettyClient request Error: url=" + url.getUri() + " " + request, e);
 			
-			//TODO 对特定的异常回收channel
 			invalidateObject(channel);
 		}
 		
@@ -222,15 +222,17 @@ public class NettyClientPooled extends AbstractPoolClient {
 		Response response = null;
 		try {
 			response = channel.request(request);
+		} catch (TransportException e) {
+			LoggerUtil.error("NettyClient request Error: url=" + url.getUri() + " " + request, e);
+			
+			invalidateObject(channel);
+			throw e;
 		} catch (Exception e) {
-			LoggerUtil.error("NettyClient request Error: url=" + url.getUri()
-					+ " " + request, e);
+			LoggerUtil.error("NettyClient request Error: url=" + url.getUri() + " " + request, e);
 			if (e instanceof LionAbstractException) {
 				throw (LionAbstractException) e;
 			} else {
-				throw new LionServiceException(
-						"NettyClient request Error: url=" + url.getUri() + " "
-								+ request, e);
+				throw new LionServiceException("NettyClient request Error: url=" + url.getUri() + " " + request, e);
 			}
 		}
 
@@ -254,7 +256,6 @@ public class NettyClientPooled extends AbstractPoolClient {
 			return result;
 		}
 		catch(Exception e) {
-			//TODO 对特定的异常回收channel
 			invalidateObject(channel);
 			
 			LoggerUtil.error("NettyClient send Error: url=" + url.getUri() + " " + transportData, e);
@@ -303,8 +304,6 @@ public class NettyClientPooled extends AbstractPoolClient {
 		}
 	}
 	
-
-
 	@Override
 	public LionURL getUrl() {
 		return url;
