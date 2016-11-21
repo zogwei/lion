@@ -14,6 +14,7 @@
     <module>lion-rpc-default</module>
     <module>lion-rpc-springsupport</module>
     <module>lion-admin</module>
+    <module>lion-rpc-registry-zk</module>
   </modules>
   
       <properties>

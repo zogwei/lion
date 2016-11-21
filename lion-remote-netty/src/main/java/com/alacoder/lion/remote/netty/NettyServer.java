@@ -73,33 +73,15 @@ public class NettyServer extends AbstractServer{
 		super(url,messagehandler);
 	}
 	
-	public synchronized boolean open() {
+	protected synchronized void doOpen() {
 		init() ;
 		
-		doOpen();
+		doOpen1();
 		
-		return true;
 	}
 	
+	protected synchronized void doClose(int timeout) {
 
-	@Override
-	public synchronized void close() {
-		close(0);
-	}
-	
-	@Override
-	public synchronized void close(int timeout) {
-		//判断系统server是否关闭
-		if (state.isCloseState()) {
-			LoggerUtil.info("NettyServer close fail: already close, url={}", url.getUri());
-			return;
-		}
-
-		//是否初始化
-		if (state.isUnInitState()) {
-			LoggerUtil.info("NettyServer close Fail: don't need to close because node is unInit state: url={}", url.getUri());
-			return;
-		}
 		
 		//关闭 serverchannel
 		try{
@@ -117,16 +99,6 @@ public class NettyServer extends AbstractServer{
 		} catch(Throwable e) {
 			LoggerUtil.info("NettyServer close Fail: close error: url=" + url.getUri(),e);
 		}
-		
-		//关闭threadpool相关资源
-		try{
-			standardThreadExecutor.shutdownNow();
-		} catch(Throwable e) {
-			LoggerUtil.info("NettyServer close Fail: close error: url=" + url.getUri(),e);
-		}
-		
-		// 设置close状态
-		state = ChannelState.CLOSE;
 	}
 	
 	private synchronized void init() {
@@ -188,12 +160,13 @@ public class NettyServer extends AbstractServer{
     	
 	}
 	
-	private synchronized void doOpen() {
+	private synchronized void doOpen1() {
 		if(state != ChannelState.INIT) {
 			LoggerUtil.error("NettyServer is not in init state, open error, url = {} ", url.getUri());
-			return ;
+			return;
 		}
 		
+		ChannelFuture channelFuture = null;
 		try {
 			InetSocketAddress bindAdd = null;
 			String host = url.getHost();
@@ -203,14 +176,11 @@ public class NettyServer extends AbstractServer{
 			else {
 				bindAdd = new InetSocketAddress(url.getPort());
 			}
-			ChannelFuture channelFuture = server.bind(bindAdd).sync();
+			channelFuture = server.bind(bindAdd).sync();
 			if(channelFuture.isSuccess()){
 				serverChannel =  new NettyChannel(this, channelFuture.channel());
 				serverChannel.open();
 				this.remoteAddress = bindAdd;
-				
-				state = ChannelState.ALIVE;
-				LoggerUtil.info("NettyServer open success , url = {}", url.getUri());
 			}
 			else {
 				LoggerUtil.info("NettyServer open bind error , url = {}", url.getUri());
@@ -228,7 +198,7 @@ public class NettyServer extends AbstractServer{
 			LoggerUtil.error("NettyServer error  ", e);
 			throw new LionServiceException("NettyServer failed to bind , url: "+ getUrl().getUri(), e);
 		} finally{
-			if(!state.isAliveState()) {
+			if(!channelFuture.isSuccess()) {
 				close() ;
 			}
 		}

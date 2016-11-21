@@ -19,6 +19,7 @@ import com.alacoder.common.exception.LionFrameworkException;
 import com.alacoder.lion.common.extension.ExtensionLoader;
 import com.alacoder.lion.common.url.LionURL;
 import com.alacoder.lion.common.url.URLParamType;
+import com.alacoder.lion.common.utils.LoggerUtil;
 import com.alacoder.lion.common.utils.StandardThreadExecutor;
 
 /**
@@ -54,7 +55,9 @@ public abstract class AbstractServer extends AbstractEndpoint implements Server 
 		this.messagehandler = messagehandler;
 	}
 	
-	public abstract boolean open();
+	protected abstract void doOpen();
+	
+	protected abstract void doClose(int timeout);
 	
 	public InetSocketAddress getLocalAddress() {
 		throw new LionFrameworkException("Server  getLocalAddress() method unsupport: url: " + url);
@@ -62,6 +65,51 @@ public abstract class AbstractServer extends AbstractEndpoint implements Server 
 	
 	public InetSocketAddress getRemoteAddress() {
 		return remoteAddress;
+	}
+	
+	public synchronized boolean open() {
+		if(state != ChannelState.UNINIT) {
+			LoggerUtil.error("NettyServer is not in init state, open error, url = {} ", url.getUri());
+			return false;
+		}
+		 doOpen();
+		 
+		state = ChannelState.ALIVE;
+		LoggerUtil.info("NettyServer open success , url = {}", url.getUri());
+
+		return true;
+	}
+	
+	public void close() {
+		close(0);
+		
+	}
+	
+	public void close(int timeout) {
+		//判断系统server是否关闭
+		if (state.isCloseState()) {
+			LoggerUtil.info("NettyServer close fail: already close, url={}", url.getUri());
+			return;
+		}
+
+		//是否初始化
+		if (state.isUnInitState()) {
+			LoggerUtil.info("NettyServer close Fail: don't need to close because node is unInit state: url={}", url.getUri());
+			return;
+		}
+		
+		//关闭threadpool相关资源
+		try{
+			standardThreadExecutor.shutdownNow();
+		} catch(Throwable e) {
+			LoggerUtil.info("NettyServer close Fail: close error: url=" + url.getUri(),e);
+		}
+		
+		doClose(timeout);
+		
+		// 设置close状态
+		state = ChannelState.CLOSE;
+
 	}
 
 }
