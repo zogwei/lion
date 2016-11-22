@@ -28,6 +28,11 @@
         <artifactId>curator-recipes</artifactId>
         <version>2.7.0</version>
     </dependency>
+    	<dependency>
+        <groupId>org.apache.curator</groupId>
+        <artifactId>curator-test</artifactId>
+        <version>2.7.0</version>
+    </dependency>
 	<dependency>
 		<groupId>com.alacoder</groupId>
 		<artifactId>lion-rpc</artifactId>
