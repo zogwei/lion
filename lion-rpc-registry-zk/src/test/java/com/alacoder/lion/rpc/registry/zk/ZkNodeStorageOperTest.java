@@ -25,7 +25,7 @@ public class ZkNodeStorageOperTest {
 
 
 	public static void main(String[] args) {
-		ZkConfiguration zkconf = new ZkConfiguration("localhost:2181","/rpc/zk",1000,1000,3);
+		ZkConfiguration zkconf = new ZkConfiguration("localhost:2181","rpc/zk",1000,1000,3);
 		ZkNodeStorageOper zkOper = new ZkNodeStorageOper(zkconf);
 		
 		//新增
