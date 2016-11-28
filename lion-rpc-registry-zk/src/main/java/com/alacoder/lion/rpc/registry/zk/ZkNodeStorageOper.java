@@ -42,7 +42,7 @@ import com.google.common.base.Strings;
  * @param <ZkConfiguration>
  * @date 2016年11月21日 下午8:34:29
  *  
- *  TODO 变更 操作（persist， update 等）并发问题 
+ *  TODO 变更 操作（persist， update 等）并发问题  
  */
 
 public class ZkNodeStorageOper {
