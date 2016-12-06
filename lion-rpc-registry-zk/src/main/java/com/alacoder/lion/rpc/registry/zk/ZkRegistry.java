@@ -26,6 +26,7 @@ import com.alacoder.lion.common.extension.SpiMeta;
 import com.alacoder.lion.common.url.LionURL;
 import com.alacoder.lion.common.url.URLParamType;
 import com.alacoder.lion.common.utils.ConcurrentHashSet;
+import com.alacoder.lion.common.utils.LoggerUtil;
 import com.alacoder.lion.rpc.registry.AbstractRegistry;
 import com.alacoder.lion.rpc.registry.NotifyListener;
 
@@ -36,7 +37,7 @@ import com.alacoder.lion.rpc.registry.NotifyListener;
  * @date 2016年11月21日 下午7:14:44
  *
  */
-@SpiMeta(name = "zk")
+@SpiMeta(name = "zookeeper")
 public class ZkRegistry extends AbstractRegistry {
 
 	private CuratorOper zkOper = null;
@@ -107,9 +108,10 @@ public class ZkRegistry extends AbstractRegistry {
 				}
 			};
 			
-			 zkOper.watchChildrenChange(path, watcher);
+			zkOper.watchChildrenChange(path, watcher);
 		}
 		catch(Exception e){
+			LoggerUtil.error(" zk doSubscribe error,url  " + url );
 			throw new LionFrameworkException(String.format("Failed to doSubscribe %s to zookeeper(%s), cause: %s", url, getUrl(), e.getMessage()), e);
 		}
 		finally{
