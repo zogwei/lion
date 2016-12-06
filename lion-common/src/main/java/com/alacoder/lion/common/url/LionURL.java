@@ -13,7 +13,9 @@
 
 package com.alacoder.lion.common.url;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -56,6 +58,17 @@ public class LionURL {
         this.port = port;
         this.path = path;
         this.parameters = parameters;
+    }
+    
+    public static List<LionURL> valueOf(List<String> urls){
+    	if(urls == null || urls.size() == 0){
+    		return null;
+    	}
+    	List<LionURL> returnList = new ArrayList<LionURL>(urls.size());
+    	for(String url : urls){
+    		returnList.add(valueOf(url));
+    	}
+    	return returnList;
     }
 
     public static LionURL valueOf(String url) {

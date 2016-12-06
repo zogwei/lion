@@ -26,13 +26,17 @@ public class ZkNodeStorageOperTest {
 
 	public static void main(String[] args) {
 		ZkConfiguration zkconf = new ZkConfiguration("localhost:2181","rpc/zk",1000,1000,3);
-		ZkNodeStorageOper zkOper = new ZkNodeStorageOper(zkconf);
+		CuratorOper zkOper = new CuratorOper(zkconf);
 		
 		//新增
 		zkOper.persist("/keyPersisit", "valuePersisit");
 		zkOper.persistSequential("/sequential/persistSequential", "valuepersistSequential");
+		
 		zkOper.persist("/keyPersisit/subpath1", "valueSubPersisit");
 		zkOper.persist("/keyPersisit/subpath2", "valueSubPersisit");
+		zkOper.persist("/keyPersisit/subpath1/subsub", "valueSubPersisit");
+		System.out.println("key : /keyPersisit" + " value  list: " +  zkOper.getChildrenKeys("/keyPersisit"));
+		
 		zkOper.persist("/keyPersisit/subpath2/subsubkey", "valueSubsubPersisit");
 		zkOper.persistEphemeral("/keypersistEphemeral-1", "valuepersistEphemeral-1");
 		zkOper.persistEphemeralSequential("/EphemeralSequential-value/keypersistEphemeralSequential","value");
@@ -52,7 +56,7 @@ public class ZkNodeStorageOperTest {
 		
 		zkOper.close();
 		
-		zkOper = new ZkNodeStorageOper(zkconf);
+		zkOper = new CuratorOper(zkconf);
 		System.out.println("key : /keyPersisit" + " value : " +  zkOper.get("/keyPersisit"));
 		System.out.println("key : /keyPersisit" + " child value  : " +  zkOper.getChildrenKeys("/keyPersisit"));
 		

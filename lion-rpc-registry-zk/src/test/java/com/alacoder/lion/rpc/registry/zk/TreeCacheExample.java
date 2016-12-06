@@ -162,9 +162,28 @@ public class TreeCacheExample {
 			client.create().creatingParentsIfNeeded().forPath(path, bytes);
 		}
 	}
+	private static void create(CuratorFramework client, String command, String[] args) throws Exception {
+		if (args.length != 2) {
+			System.err.println("syntax error (expected create <path> <value>): " + command);
+			return;
+		}
+		String name = args[0];
+
+		String path = ZKPaths.makePath(PATH, name);
+		byte[] bytes = args[1].getBytes();
+		try {
+		      client.create()
+	            .creatingParentsIfNeeded()
+	            .forPath(path, bytes);
+	        
+		} catch (KeeperException.NoNodeException e) {
+			client.create().creatingParentsIfNeeded().forPath(path, bytes);
+		}
+	}
 	private static void printHelp() {
 		System.out.println("An example of using PathChildrenCache. This example is driven by entering commands at the prompt:\n");
 		System.out.println("set <name> <value>: Adds or updates a node with the given name");
+		System.out.println("create <name> <value>: Adds or updates a node with the given name");
 		System.out.println("remove <name>: Deletes the node with the given name");
 		System.out.println("list: List the nodes/values in the cache");
 		System.out.println("quit: Quit the example");

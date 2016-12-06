@@ -17,6 +17,9 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.locks.ReentrantLock;
 
+import org.apache.curator.framework.api.CuratorWatcher;
+import org.apache.zookeeper.WatchedEvent;
+
 import com.alacoder.common.exception.LionFrameworkException;
 import com.alacoder.lion.common.LionConstants;
 import com.alacoder.lion.common.extension.SpiMeta;
@@ -36,7 +39,7 @@ import com.alacoder.lion.rpc.registry.NotifyListener;
 @SpiMeta(name = "zk")
 public class ZkRegistry extends AbstractRegistry {
 
-	private ZkNodeStorageOper zkOper = null;
+	private CuratorOper zkOper = null;
     private Set<LionURL> availableServices = new ConcurrentHashSet<LionURL>();
 	
     private final ReentrantLock clientLock = new ReentrantLock();
@@ -44,7 +47,7 @@ public class ZkRegistry extends AbstractRegistry {
     
 	public ZkRegistry(LionURL url) {
 		super(url);
-		zkOper = new ZkNodeStorageOper(getZkconf(url));
+		zkOper = new CuratorOper(getZkconf(url));
 	}
 	
 	private ZkConfiguration getZkconf(LionURL url) {
@@ -91,10 +94,29 @@ public class ZkRegistry extends AbstractRegistry {
 	}
 
 	@Override
-	protected void doSubscribe(LionURL url, NotifyListener listener) {
-		// TODO Auto-generated method stub
-		
+	protected void doSubscribe(final LionURL url, final NotifyListener listener) {
+		try{
+			clientLock.lock();
+			String path = ZkUtils.toNodeTypePath(url, ZkNodeType.AVAILABLE_SERVER);
+			
+			CuratorWatcher watcher = new CuratorWatcher(){
+				@Override
+				public void process(WatchedEvent event) throws Exception {
+					String parentPath = event.getPath().substring(0,event.getPath().lastIndexOf("/"));
+					listener.notify(url, LionURL.valueOf(zkOper.getChildrenKeys(parentPath)));
+				}
+			};
+			
+			 zkOper.watchChildrenChange(path, watcher);
+		}
+		catch(Exception e){
+			throw new LionFrameworkException(String.format("Failed to doSubscribe %s to zookeeper(%s), cause: %s", url, getUrl(), e.getMessage()), e);
+		}
+		finally{
+			clientLock.unlock();
+		}
 	}
+	
 
 	@Override
 	protected void doUnsubscribe(LionURL url, NotifyListener listener) {
@@ -152,6 +174,8 @@ public class ZkRegistry extends AbstractRegistry {
 		}
 	}
 	
+	//TODO why没有版本信息，如何处理版本
+	//key : /lion/'group'/'path'/command/'type[server,client,unavailableServer]'/ServerPort , value : urlfullStr
     private void createNode(LionURL url, ZkNodeType nodeType) {
         String nodeTypePath = ZkUtils.toNodeTypePath(url, nodeType);
         if (!zkOper.isExisted(nodeTypePath)) {

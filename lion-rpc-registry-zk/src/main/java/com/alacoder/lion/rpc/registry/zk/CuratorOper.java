@@ -21,11 +21,16 @@ import java.util.List;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;
 import org.apache.curator.framework.api.ACLProvider;
+import org.apache.curator.framework.api.BackgroundPathable;
+import org.apache.curator.framework.api.CuratorWatcher;
+import org.apache.curator.framework.api.Watchable;
 import org.apache.curator.framework.recipes.cache.ChildData;
 import org.apache.curator.framework.recipes.cache.TreeCache;
 import org.apache.curator.retry.ExponentialBackoffRetry;
 import org.apache.curator.utils.CloseableUtils;
 import org.apache.zookeeper.CreateMode;
+import org.apache.zookeeper.Watcher;
+import org.apache.zookeeper.KeeperException.NoNodeException;
 import org.apache.zookeeper.ZooDefs;
 import org.apache.zookeeper.data.ACL;
 import org.apache.curator.framework.CuratorFrameworkFactory.Builder;
@@ -43,16 +48,17 @@ import com.google.common.base.Strings;
  * @date 2016年11月21日 下午8:34:29
  *  
  *  TODO 变更 操作（persist， update 等）并发问题  
+ *  TODO 连接断开监听处理
  */
 
-public class ZkNodeStorageOper {
+public class CuratorOper {
 	
 	private volatile LifeCycleState state = LifeCycleState.UNINIT;
 	
     private CuratorFramework client;
     private TreeCache cache;
 
-	public ZkNodeStorageOper(ZkConfiguration zkConfig){
+	public CuratorOper(ZkConfiguration zkConfig){
 		LoggerUtil.debug(" ZkNodeStorageOper init begin");
 		try {
 			LoggerUtil.debug("Elastic job: zookeeper registry center init, server lists is: {}.",zkConfig.getServerLists());
@@ -259,6 +265,37 @@ public class ZkNodeStorageOper {
 			throw new LionFrameworkException(" zk isExisted error,key  "  + key, ex);
 		}
     }
+    
+	public List<String> addTargetChildListener(String path, CuratorWatcher listener) {
+		try {
+			return client.getChildren().usingWatcher(listener).forPath(path);
+		} catch (NoNodeException e) {
+			LoggerUtil.warn(" zk addTargetChildListener no exit , key  "  + path, e);
+			return null;
+		} catch (Exception e) {
+			LoggerUtil.error(" zk addTargetChildListener error,key  "  + path, e);
+			throw new LionFrameworkException(" zk addTargetChildListener error,key  "  + path, e);
+		}
+	}
+	
+    
+    public void watchChildrenChange(String path,CuratorWatcher watcher){
+    	 try {
+    		 client.getChildren().usingWatcher(watcher).forPath(path);
+         } catch (final Exception ex) {
+         	LoggerUtil.error(" zk watchChildrenChange error,key  " + path );
+ 			throw new LionFrameworkException(" zk isExisted error,path  "  + path, ex);
+ 		}
+    }
+    
+//    public void UnwatchChildrenChange(String path,CuratorWatcher watcher){
+//   	 try {
+//   		 client.getChildren().
+//        } catch (final Exception ex) {
+//        	LoggerUtil.error(" zk update error,key  " + path );
+//			throw new LionFrameworkException(" zk isExisted error,path  "  + path, ex);
+//		}
+//   }
 	
 	public void close(){
 		CloseableUtils.closeQuietly(cache);
