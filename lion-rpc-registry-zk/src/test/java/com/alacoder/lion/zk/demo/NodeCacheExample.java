@@ -11,7 +11,7 @@
  * @version V1.0
  */
 
-package com.alacoder.lion.rpc.registry.zk;
+package com.alacoder.lion.zk.demo;
 
 /**
  * @ClassName: NodeCacheExample
