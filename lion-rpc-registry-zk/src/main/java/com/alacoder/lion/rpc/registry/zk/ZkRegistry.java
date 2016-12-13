@@ -13,6 +13,7 @@
 
 package com.alacoder.lion.rpc.registry.zk;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -101,13 +102,19 @@ public class ZkRegistry extends AbstractRegistry {
 	protected void doSubscribe(final LionURL url, final NotifyListener listener) {
 		try{
 			clientLock.lock();
-			String path = ZkUtils.toNodeTypePath(url, ZkNodeType.AVAILABLE_SERVER);
 			
+			LionURL urlCopy = url.createCopy();
+			String path = ZkUtils.toNodeTypePath(url, ZkNodeType.AVAILABLE_SERVER);
 			LionCuratorWatcher lionCuratorWatcher = new LionCuratorWatcher(listener,url,zkOper);
 			
 			//TODO 考虑一个path 多个 listener
 			zkOper.watchChildrenChange(path, lionCuratorWatcher);
 			watcherMap.put(url, lionCuratorWatcher);
+			
+			 List<LionURL> urls = doDiscover(urlCopy);
+		     if (urls != null && urls.size() > 0) {
+		    	 listener.notify(urlCopy, urls);
+		     }
 		}
 		catch(Exception e){
 			LoggerUtil.error(" zk doSubscribe error,url  " + url );
@@ -140,9 +147,34 @@ public class ZkRegistry extends AbstractRegistry {
 
 	@Override
 	protected List<LionURL> doDiscover(LionURL url) {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+            String parentPath = ZkUtils.toNodeTypePath(url, ZkNodeType.AVAILABLE_SERVER);
+            List<String> currentChilds = new ArrayList<String>();
+            if (zkOper.isExisted(parentPath)) {
+                currentChilds = zkOper.getChildrenKeys(parentPath);
+            }
+            return nodeChildsToUrls(parentPath, currentChilds);
+        } catch (Throwable e) {
+            throw new LionFrameworkException(String.format("Failed to discover service %s from zookeeper(%s), cause: %s", url, getUrl(), e.getMessage()), e);
+        }
 	}
+	
+    private List<LionURL> nodeChildsToUrls(String parentPath, List<String> currentChilds) {
+        List<LionURL> urls = new ArrayList<LionURL>();
+        if (currentChilds != null) {
+            for (String node : currentChilds) {
+                String nodePath = parentPath + LionConstants.PATH_SEPARATOR + node;
+                String data = zkOper.getDirectly(nodePath);
+                try {
+                	LionURL url = LionURL.valueOf(data);
+                    urls.add(url);
+                } catch (Exception e) {
+                    LoggerUtil.warn(String.format("Found malformed urls from ZookeeperRegistry, path=%s", nodePath), e);
+                }
+            }
+        }
+        return urls;
+    }
 
 	@Override
 	protected void doAvailable(LionURL url) {

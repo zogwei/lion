@@ -25,5 +25,16 @@ public class ZkRegistryTest {
 
 	public static void main(String[] args) {
 		
+		System.out.println("----------register-----------");
+		
+		
+		System.out.println("----------unregister-----------");
+		
+		
+		System.out.println("----------subscribe----------");
+		
+		
+		System.out.println("----------unsubscribe----------");
+		
 	}
 }
