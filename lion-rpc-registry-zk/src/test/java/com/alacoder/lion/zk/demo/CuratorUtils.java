@@ -89,22 +89,22 @@ public class CuratorUtils {
         });  
         zkclient.delete().guaranteed().deletingChildrenIfNeeded().inBackground().forPath(path);  
     }      
-    public void addChildWatcher(String path) throws Exception{  
+    public void addChildWatcher(String path,final String type) throws Exception{  
         final PathChildrenCache pc = new PathChildrenCache(zkclient, path, true);  
         pc.start(StartMode.POST_INITIALIZED_EVENT);  
         System.out.println("节点个数===>" + pc.getCurrentData().size());  
         pc.getListenable().addListener(new  PathChildrenCacheListener() {  
               
             public void childEvent(CuratorFramework client, PathChildrenCacheEvent event) throws Exception {  
-                System.out.println("事件监听到"  + event.getData().getPath());  
+                System.out.println("事件监听到" +" type " + type  + event.getData().getPath());  
                 if(event.getType().equals(PathChildrenCacheEvent.Type.INITIALIZED)){  
-                    System.out.println("客户端初始化节点完成"  + event.getData().getPath() + " , value :" + new String(event.getData().getData()));  
+                    System.out.println("客户端初始化节点完成" +" type " + type  + event.getData().getPath() + " , value :" + new String(event.getData().getData()));  
                 }else if(event.getType().equals(PathChildrenCacheEvent.Type.CHILD_ADDED)){  
-                    System.out.println("添加节点完成"  + event.getData().getPath()+ " , value :" +new String(event.getData().getData()));  
+                    System.out.println("添加节点完成" +" type " + type  + event.getData().getPath()+ " , value :" +new String(event.getData().getData()));  
                 }else if(event.getType().equals(PathChildrenCacheEvent.Type.CHILD_REMOVED)){  
-                    System.out.println("删除节点完成"  + event.getData().getPath());  
+                    System.out.println("删除节点完成" +" type " + type  + event.getData().getPath());  
                 }else if(event.getType().equals(PathChildrenCacheEvent.Type.CHILD_UPDATED)){  
-                    System.out.println("修改节点完成"  + event.getData().getPath()+ " , value :" +new String(event.getData().getData()));  
+                    System.out.println("修改节点完成" +" type " + type + event.getData().getPath()+ " , value :" +new String(event.getData().getData()));  
                 }  
             }  
         });  
@@ -126,13 +126,23 @@ public class CuratorUtils {
         
 //        Thread.sleep(500);
         
-        cu.addChildWatcher("/aa");  
+        cu.addChildWatcher("/aa" ,"1");  
         
 //        Thread.sleep(50);
         
-        for(int i = 0 ; i<1000 ;i++){
-            cu.zkclient.setData().forPath("/aa/sub", ("/aa/sub-value-new" + i + "").getBytes()); 
+        for(int i = 0 ; i<100 ;i++){
+            cu.zkclient.setData().forPath("/aa/sub", ("/aa/sub-value-new-" + i + "").getBytes()); 
         }
+        
+        
+        cu.addChildWatcher("/aa" ,"2");  
+        
+      Thread.sleep(50);
+      
+      for(int i = 0 ; i<100 ;i++){
+          cu.zkclient.setData().forPath("/aa/sub", ("/aa/sub-value-new-2-" + i + "").getBytes()); 
+      }
+      
         cu.zkclient.setData().forPath("/aa/sub", "/aa/sub-value-new".getBytes());  
         cu.zkclient.setData().forPath("/aa", "love is new".getBytes()); 
         

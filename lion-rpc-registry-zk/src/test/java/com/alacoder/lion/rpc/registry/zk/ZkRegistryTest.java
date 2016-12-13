@@ -24,8 +24,6 @@ package com.alacoder.lion.rpc.registry.zk;
 public class ZkRegistryTest {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+		
 	}
-
 }

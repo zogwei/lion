@@ -13,6 +13,12 @@
 
 package com.alacoder.lion.rpc.registry.zk;
 
+import java.util.List;
+
+import com.alacoder.lion.common.LionConstants;
+import com.alacoder.lion.common.url.LionURL;
+import com.alacoder.lion.rpc.registry.NotifyListener;
+
 /**
  * @ClassName: ZkNodeStorageOperTest
  * @Description: 
@@ -24,7 +30,7 @@ package com.alacoder.lion.rpc.registry.zk;
 public class ZkNodeStorageOperTest {
 
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InterruptedException {
 		ZkConfiguration zkconf = new ZkConfiguration("localhost:2181","rpc/zk",1000,1000,3);
 		CuratorOper zkOper = new CuratorOper(zkconf);
 		
@@ -47,6 +53,29 @@ public class ZkNodeStorageOperTest {
 		System.out.println("key : /EphemeralSequential" + " value  list: " +  zkOper.getChildrenKeys("/EphemeralSequential"));
 		
 		
+		System.out.println("----------watch-----------");
+		zkOper.persist("/keyPersisit/watch", "valuewatch");
+		
+		LionURL url = new LionURL(LionConstants.REGISTRY_PROTOCOL_DIRECT, "10.12.104.6", 4455, "com.alacoder.lion.rpc.DemoService");
+		url.addParameter("embed", "lion://10.12.104.6:4455/com.alacoder.lion.rpc.DemoService?");
+		
+		NotifyListener listener = new NotifyListener(){
+
+			@Override
+			public void notify(LionURL registryUrl, List<LionURL> urls) {
+				System.out.println("registryUrl : " +  registryUrl.toFullStr());
+				for(LionURL suburl : urls){
+					System.out.println("suburl : " +  suburl.toFullStr());
+				}
+			}
+		};
+		LionCuratorWatcher lionCuratorWatcher = new LionCuratorWatcher(listener, url ,zkOper);
+		zkOper.watchChildrenChange("/keyPersisit/watch", lionCuratorWatcher);
+		
+		zkOper.persist("/keyPersisit/watch/sub1", "valuewatch-sub1");
+		zkOper.persist("/keyPersisit/watch/sub2", "valuewatch-sub2");
+		Thread.sleep(1000);
+		zkOper.persist("/keyPersisit/watch/sub3", "valuewatch-sub3");
 		try {
 			Thread.sleep(1000000);
 		} catch (InterruptedException e) {

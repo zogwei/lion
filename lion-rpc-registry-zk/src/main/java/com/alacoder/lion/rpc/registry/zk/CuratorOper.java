@@ -279,9 +279,9 @@ public class CuratorOper {
 	}
 	
     
-    public void watchChildrenChange(String path,CuratorWatcher watcher){
+    public void watchChildrenChange(String path,LionCuratorWatcher lionCuratorWatcher){
     	 try {
-    		 client.getChildren().usingWatcher(watcher).forPath(path);
+    		 client.getChildren().usingWatcher(lionCuratorWatcher).forPath(path);
          } catch (final Exception ex) {
          	LoggerUtil.error(" zk watchChildrenChange error,key  " + path );
  			throw new LionFrameworkException(" zk isExisted error,path  "  + path, ex);

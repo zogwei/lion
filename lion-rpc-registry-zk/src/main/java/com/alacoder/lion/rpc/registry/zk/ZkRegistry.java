@@ -14,7 +14,9 @@
 package com.alacoder.lion.rpc.registry.zk;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.locks.ReentrantLock;
 
 import org.apache.curator.framework.api.CuratorWatcher;
@@ -42,6 +44,7 @@ public class ZkRegistry extends AbstractRegistry {
 
 	private CuratorOper zkOper = null;
     private Set<LionURL> availableServices = new ConcurrentHashSet<LionURL>();
+    private Map<LionURL,LionCuratorWatcher> watcherMap = new ConcurrentHashMap<LionURL,LionCuratorWatcher>();
 	
     private final ReentrantLock clientLock = new ReentrantLock();
     private final ReentrantLock serverLock = new ReentrantLock();
@@ -100,15 +103,11 @@ public class ZkRegistry extends AbstractRegistry {
 			clientLock.lock();
 			String path = ZkUtils.toNodeTypePath(url, ZkNodeType.AVAILABLE_SERVER);
 			
-			CuratorWatcher watcher = new CuratorWatcher(){
-				@Override
-				public void process(WatchedEvent event) throws Exception {
-					String parentPath = event.getPath().substring(0,event.getPath().lastIndexOf("/"));
-					listener.notify(url, LionURL.valueOf(zkOper.getChildrenKeys(parentPath)));
-				}
-			};
+			LionCuratorWatcher lionCuratorWatcher = new LionCuratorWatcher(listener,url,zkOper);
 			
-			zkOper.watchChildrenChange(path, watcher);
+			//TODO 考虑一个path 多个 listener
+			zkOper.watchChildrenChange(path, lionCuratorWatcher);
+			watcherMap.put(url, lionCuratorWatcher);
 		}
 		catch(Exception e){
 			LoggerUtil.error(" zk doSubscribe error,url  " + url );
@@ -122,7 +121,20 @@ public class ZkRegistry extends AbstractRegistry {
 
 	@Override
 	protected void doUnsubscribe(LionURL url, NotifyListener listener) {
-		// TODO Auto-generated method stub
+		try{
+			clientLock.lock();
+			LionCuratorWatcher lionCuratorWatcher = watcherMap.get(url);
+			if(lionCuratorWatcher !=null ) {
+				lionCuratorWatcher.setListener(null);
+			}
+		}
+		catch(Exception e){
+			LoggerUtil.error(" zk doUnsubscribe error,url  " + url );
+			throw new LionFrameworkException(String.format("Failed to doUnsubscribe %s to zookeeper(%s), cause: %s", url, getUrl(), e.getMessage()), e);
+		}
+		finally{
+			clientLock.unlock();
+		}
 		
 	}
 
