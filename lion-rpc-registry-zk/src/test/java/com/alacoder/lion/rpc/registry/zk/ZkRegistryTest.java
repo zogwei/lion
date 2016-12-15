@@ -36,5 +36,6 @@ public class ZkRegistryTest {
 		
 		System.out.println("----------unsubscribe----------");
 		
+		
 	}
 }
