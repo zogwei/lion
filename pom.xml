@@ -9,7 +9,7 @@
     <module>lion-remote</module>
     <module>lion-remote-netty</module>
     <module>lion-common</module>
-    <module>lion-exchange</module>
+    
     <module>lion-rpc</module>
     <module>lion-rpc-default</module>
     <module>lion-rpc-springsupport</module>
