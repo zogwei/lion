@@ -31,7 +31,7 @@ public class ZkRegistryTest {
 		System.out.println("----------unregister-----------");
 		
 		
-		System.out.println("----------subscribe----------");
+		System.out.println("----------subscribe-----------------");
 		
 		
 		System.out.println("----------unsubscribe----------");
