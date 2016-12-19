@@ -62,8 +62,6 @@ public class ZkRegistryTest {
 		zkRegistry = new ZkRegistry(url);
 		zkRegistry.register(url);
 		zkRegistry.available(url);
-		
-		
 
 		Thread.sleep(1000);
 		System.out.println("----------unregister-----------");
