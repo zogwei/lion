@@ -17,6 +17,8 @@ import java.nio.charset.Charset;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;
@@ -25,7 +27,11 @@ import org.apache.curator.framework.api.BackgroundPathable;
 import org.apache.curator.framework.api.CuratorWatcher;
 import org.apache.curator.framework.api.Watchable;
 import org.apache.curator.framework.recipes.cache.ChildData;
+import org.apache.curator.framework.recipes.cache.PathChildrenCache;
+import org.apache.curator.framework.recipes.cache.PathChildrenCacheEvent;
+import org.apache.curator.framework.recipes.cache.PathChildrenCacheListener;
 import org.apache.curator.framework.recipes.cache.TreeCache;
+import org.apache.curator.framework.recipes.cache.PathChildrenCache.StartMode;
 import org.apache.curator.retry.ExponentialBackoffRetry;
 import org.apache.curator.utils.CloseableUtils;
 import org.apache.zookeeper.CreateMode;
@@ -57,6 +63,8 @@ public class CuratorOper {
 	
     private CuratorFramework client;
     private TreeCache cache;
+    
+    private ExecutorService pool = Executors.newFixedThreadPool(2);
 
 	public CuratorOper(ZkConfiguration zkConfig){
 		LoggerUtil.debug(" ZkNodeStorageOper init begin");
@@ -267,6 +275,9 @@ public class CuratorOper {
     }
     
 	public List<String> addTargetChildListener(String path, CuratorWatcher listener) {
+		
+		
+		
 		try {
 			return client.getChildren().usingWatcher(listener).forPath(path);
 		} catch (NoNodeException e) {
@@ -279,9 +290,23 @@ public class CuratorOper {
 	}
 	
     
-    public void watchChildrenChange(String path,LionCuratorWatcher lionCuratorWatcher){
+    public void watchChildrenChange(String path,final LionCuratorWatcher lionCuratorWatcher){
     	 try {
-    		 client.getChildren().usingWatcher(lionCuratorWatcher).forPath(path);
+    		 final PathChildrenCache childrenCache = new PathChildrenCache(client, path, false);
+    	        childrenCache.start(StartMode.NORMAL);
+    	        childrenCache.getListenable().addListener(
+    	            new PathChildrenCacheListener() {
+    	                @Override
+    	                public void childEvent(CuratorFramework client, PathChildrenCacheEvent event)
+    	                        throws Exception {
+    	                		LoggerUtil.info(" get event " + event );
+    	                		lionCuratorWatcher.process(client , event);
+    	                }
+    	            },
+    	            pool
+    	        );
+    	        
+//    		 client.getChildren().usingWatcher(lionCuratorWatcher).forPath(path);
          } catch (final Exception ex) {
          	LoggerUtil.error(" zk watchChildrenChange error,key  " + path );
  			throw new LionFrameworkException(" zk isExisted error,path  "  + path, ex);

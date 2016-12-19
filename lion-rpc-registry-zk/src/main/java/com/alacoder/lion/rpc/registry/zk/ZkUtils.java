@@ -29,7 +29,8 @@ import com.alacoder.lion.common.url.LionURL;
 public class ZkUtils {
 
     public static String toGroupPath(LionURL url) {
-        return LionConstants.ZOOKEEPER_REGISTRY_NAMESPACE + LionConstants.PATH_SEPARATOR + url.getGroup();
+//        return LionConstants.ZOOKEEPER_REGISTRY_NAMESPACE + LionConstants.PATH_SEPARATOR + url.getGroup();
+    	return LionConstants.PATH_SEPARATOR + url.getGroup();
     }
 
     public static String toServicePath(LionURL url) {

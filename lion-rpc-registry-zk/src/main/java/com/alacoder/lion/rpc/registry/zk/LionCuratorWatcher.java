@@ -13,10 +13,17 @@
 
 package com.alacoder.lion.rpc.registry.zk;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.api.CuratorWatcher;
+import org.apache.curator.framework.recipes.cache.PathChildrenCacheEvent;
 import org.apache.zookeeper.WatchedEvent;
 
+import com.alacoder.lion.common.LionConstants;
 import com.alacoder.lion.common.url.LionURL;
+import com.alacoder.lion.common.utils.LoggerUtil;
 import com.alacoder.lion.rpc.registry.NotifyListener;
 
 /**
@@ -27,7 +34,7 @@ import com.alacoder.lion.rpc.registry.NotifyListener;
  *
  */
 
-public class LionCuratorWatcher implements CuratorWatcher {
+public class LionCuratorWatcher  {
 	
 	NotifyListener listener = null;
 	LionURL url = null;
@@ -38,11 +45,25 @@ public class LionCuratorWatcher implements CuratorWatcher {
 		this.zkOper = zkOper;
 	}
 
-	@Override
-	public void process(WatchedEvent event) throws Exception {
-		String parentPath = event.getPath().substring(0,event.getPath().lastIndexOf("/"));
+	public void process(CuratorFramework client, PathChildrenCacheEvent event) throws Exception {
 		if(listener != null){
-			listener.notify(url, LionURL.valueOf(zkOper.getChildrenKeys(parentPath)));
+			String childPath = event.getData().getPath();
+			String path = childPath.substring(0,childPath.lastIndexOf("/"));
+			List<LionURL> urls = new ArrayList<LionURL>();
+			List<String> childKeys = zkOper.getChildrenKeys(path);
+			if(childKeys!=null && childKeys.size() >0){
+				for (String node : childKeys) {
+	                String nodePath = path+ LionConstants.PATH_SEPARATOR + node;
+	                String data = zkOper.getDirectly(nodePath);
+	                try {
+	                	LionURL url = LionURL.valueOf(data);
+	                    urls.add(url);
+	                } catch (Exception e) {
+	                    LoggerUtil.warn(String.format("Found malformed urls from ZookeeperRegistry, path=%s", nodePath), e);
+	                }
+	            }
+			}
+			listener.notify(url, urls);
 		}
 	}
 

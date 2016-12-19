@@ -58,7 +58,7 @@ public class ZkRegistry extends AbstractRegistry {
 	private ZkConfiguration getZkconf(LionURL url) {
 		ZkConfiguration ret = null;
 		String serverLists = url.getParameter("address");
-		String namespace = LionConstants.ZOOKEEPER_REGISTRY_NAMESPACE;
+		String namespace = LionConstants.ZOOKEEPER_REGISTRY_NAMESPACE.substring(1);
 		int baseSleepTimeMilliseconds = url.getIntParameter(URLParamType.connectTimeout.getName(), URLParamType.connectTimeout.getIntValue());
 		int maxSleepTimeMilliseconds = url.getIntParameter(URLParamType.connectTimeout.getName(), URLParamType.connectTimeout.getIntValue());
 		int maxRetries = url.getIntParameter(URLParamType.retries.getName(), URLParamType.retries.getIntValue());

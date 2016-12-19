@@ -41,65 +41,81 @@ public class CrudExample {
 		TestingServer server = new TestingServer();
 		CuratorFramework client = null;
 		NodeCache cache = null;
+		String creatKey = null;
 		try {
 			client = CuratorFrameworkFactory.newClient("localhost:2181", new ExponentialBackoffRetry(1000, 3));
 			client.start();
 			cache = new NodeCache(client, PATH);
 			cache.start();
 			
-			CuratorListener listener = new CuratorListener() {
-				@Override
-				public void eventReceived(CuratorFramework client, CuratorEvent event) throws Exception {
-					System.out.println("eventReceived " + event);
-				}
-			};
-			client.getCuratorListenable().addListener(listener);
-			
-
-			System.out.println(">>  watchedGetChildren ");
-			String creatKey = PATH+"/"+"setDataAsync"+"/sub";
-			if(null != client.checkExists().forPath(creatKey)){
-				guaranteedDelete(client,creatKey);
-			}
-			create(client,creatKey, "value".getBytes());
-			
-			watchedGetChildren(client,PATH+"/"+"setDataAsync");
-			
+//			CuratorListener listener = new CuratorListener() {
+//				@Override
+//				public void eventReceived(CuratorFramework client, CuratorEvent event) throws Exception {
+//					System.out.println(" CuratorListenable event Received " + event);
+//				}
+//			};
+//			Thread.sleep(1*1000);
+//			client.getCuratorListenable().addListener(listener);
+//			
+//
+//			Thread.sleep(1*1000);
+//			System.out.println(">>  watchedGetChildren ");
+//			creatKey = PATH+"/"+"setDataAsync"+"/sub";
+//			if(null != client.checkExists().forPath(creatKey)){
+//				guaranteedDelete(client,creatKey);
+//			}
+//			Thread.sleep(1*1000);
+//			create(client,creatKey, "value".getBytes());
+//			
+//			watchedGetChildren(client,PATH+"/"+"setDataAsync");
+//			Thread.sleep(1*1000);
+////			setDataAsync(client,PATH+"/"+"setDataAsync", "value".getBytes());
+////			setDataAsync(client,PATH+"/"+"setDataAsync"+"/sub", "value".getBytes());
+////			setDataAsync(client,PATH+"/"+"setDataAsync"+"/sub", "value".getBytes());
+//			
+//			Thread.sleep(1*1000);
 //			setDataAsync(client,PATH+"/"+"setDataAsync", "value".getBytes());
-//			setDataAsync(client,PATH+"/"+"setDataAsync"+"/sub", "value".getBytes());
-//			setDataAsync(client,PATH+"/"+"setDataAsync"+"/sub", "value".getBytes());
+//			Thread.sleep(1*1000);
+//			setData(client,PATH+"/"+"setDataAsync"+"/sub", "value".getBytes());
+//			
+//			System.out.println(">>  setDataAsyncWithCallback ");
+//			BackgroundCallback callback = new BackgroundCallback(){
+//				@Override
+//				public void processResult(CuratorFramework client, CuratorEvent event) throws Exception {
+//					System.out.println(">> callback  processResult " + event.getPath() + " type " + event.getType());
+//				}
+//				
+//			};
+//			Thread.sleep(1*1000);
+//			setDataAsyncWithCallback(client,callback,PATH+"/"+"setDataAsync", "value".getBytes());
 			
-			setDataAsync(client,PATH+"/"+"setDataAsync", "value".getBytes());
-			setData(client,PATH+"/"+"setDataAsync"+"/sub", "value".getBytes());
-			
-			System.out.println(">>  setDataAsyncWithCallback ");
-			BackgroundCallback callback = new BackgroundCallback(){
-				@Override
-				public void processResult(CuratorFramework client, CuratorEvent event) throws Exception {
-					System.out.println(">>  processResult ");
-				}
-				
-			};
-			setDataAsyncWithCallback(client,callback,PATH+"/"+"setDataAsync", "value".getBytes());
 			
 			
 			System.out.println(">>  watchedGetChildren ");
 			creatKey = PATH+"/"+"watchedGetChildren"+"/sub";
 			if(null != client.checkExists().forPath(creatKey)){
+				Thread.sleep(1*1000);
 				guaranteedDelete(client,creatKey);
 			}
+			Thread.sleep(1*1000);
 			create(client,creatKey, "value".getBytes());
+			
 			Watcher watcher = new Watcher(){
 				@Override
 				public void process(WatchedEvent event) {
-					System.out.println(">>  process ");
+					System.out.println(">>  process , event type :"+event.getType() + " path " + event.getPath() );
 				}
 			};
+			Thread.sleep(1*1000);
 			watchedGetChildren(client,PATH+"/"+"watchedGetChildren",watcher);
 			
+			Thread.sleep(1*1000);
 			setData(client,PATH+"/"+"watchedGetChildren", "value-new".getBytes());
+			Thread.sleep(1*1000);
 			setData(client,PATH+"/"+"watchedGetChildren"+"/sub", "value-new".getBytes());
+			create(client,PATH+"/"+"watchedGetChildren"+"/sub-2", "value-new-2".getBytes());
 			if(null != client.checkExists().forPath(PATH+"/"+"watchedGetChildren"+"/sub")){
+				Thread.sleep(1*1000);
 				guaranteedDelete(client,PATH+"/"+"watchedGetChildren"+"/sub");
 			}
 
