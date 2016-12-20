@@ -25,7 +25,7 @@ import com.alacoder.lion.rpc.registry.Registry;
  * @date 2016年11月21日 下午7:16:14
  *
  */
-@SpiMeta(name = "zk")
+@SpiMeta(name = "zookeeper")
 public class ZkRegistryFactory extends AbstractRegistryFactory {
 
 	@Override
