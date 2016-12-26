@@ -4,7 +4,7 @@ a RPC framework
 
 Todo list
 
-spring 支持
+spring 支持 DONE
 
 
 管控控制台
@@ -23,7 +23,7 @@ CUP
 
 other
 1、熟悉（过程，主键，及关系），学习spring 自定义标签、自定义注解开发 
-2、支持zk注册
+2、支持zk注册 DONE
 3、拆解成组件：网络通信、注册、
 4、网络层支持心跳
 
