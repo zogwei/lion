@@ -6,15 +6,12 @@
   <version>0.0.1-SNAPSHOT</version>
   <packaging>pom</packaging>
   <modules>
-    <module>lion-remote</module>
-    <module>lion-remote-netty</module>
-    <module>lion-common</module>
-    
-    <module>lion-rpc</module>
-    <module>lion-rpc-default</module>
-    <module>lion-rpc-springsupport</module>
     <module>lion-admin</module>
-    <module>lion-rpc-registry-zk</module>
+    <module>lion-registry</module>
+    <module>lion-monitor</module>
+    <module>lion-remote</module>
+    <module>lion-rpc</module>
+    <module>lion-common</module>
   </modules>
   
       <properties>

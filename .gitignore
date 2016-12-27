@@ -5,3 +5,6 @@
 **/.settings/
 **/.DS_Store
 /.settings/
+**/.settings
+**/.setting/*
+/.DS_Store
