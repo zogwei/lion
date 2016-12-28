@@ -21,8 +21,9 @@ import io.netty.handler.codec.ByteToMessageDecoder;
 
 import com.alacoder.common.exception.LionFrameworkException;
 import com.alacoder.common.exception.LionServiceException;
+import com.alacoder.common.log.LogFactory;
+import com.alacoder.common.log.LogService;
 import com.alacoder.lion.common.LionConstants;
-import com.alacoder.lion.common.utils.LoggerUtil;
 import com.alacoder.lion.remote.Codec;
 import com.alacoder.lion.remote.transport.DefaultResponse;
 import com.alacoder.lion.remote.transport.Response;
@@ -36,6 +37,8 @@ import com.alacoder.lion.remote.transport.Response;
  */
 
 public class NettyDecodeHandler extends ByteToMessageDecoder {
+	
+	private final static LogService logger = LogFactory.getLogService(NettyDecodeHandler.class);
 	
 	private Codec codec = null;
 	 
@@ -73,7 +76,7 @@ public class NettyDecodeHandler extends ByteToMessageDecoder {
 		}
 		
 		if (maxContentLength > 0 && dataLength > maxContentLength) {
-			LoggerUtil.warn(
+			logger.warn(
 					"NettyDecoder transport data content length over of limit, size: {}  > {}. remote={} local={}",
 					dataLength, maxContentLength, ch.remoteAddress(), ch.localAddress());
 			Exception e = new LionServiceException("NettyDecoder transport data content length over of limit, size: " + dataLength + " > " + maxContentLength);

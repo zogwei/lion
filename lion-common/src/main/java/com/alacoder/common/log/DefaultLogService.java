@@ -16,115 +16,108 @@
 
 package com.alacoder.common.log;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 public class DefaultLogService implements LogService {
-    private static Logger trace = LoggerFactory.getLogger("trace");
-    private static Logger debug = LoggerFactory.getLogger("debug");
-    private static Logger info = LoggerFactory.getLogger("info");
-    private static Logger warn = LoggerFactory.getLogger("warn");
-    private static Logger error = LoggerFactory.getLogger("error");
-    private static Logger access = LoggerFactory.getLogger("accessLog");
-    private static Logger serviceStats = LoggerFactory.getLogger("serviceStatsLog");
-    private static Logger profileLogger = LoggerFactory.getLogger("profile");
-
+    private com.aben.cup.log.logging.Log log = null;
+    
+    public DefaultLogService(com.aben.cup.log.logging.Log log){
+    	this.log = log;
+    }
 
     public void trace(String msg) {
-        trace.trace(msg);
+    	log.trace(msg);
     }
 
     @Override
     public void trace(String format, Object... argArray) {
-        trace.trace(format, argArray);
+    	log.trace(format, argArray);
     }
 
     public void debug(String msg) {
-        debug.debug(msg);
+    	log.debug(msg);
     }
 
     public void debug(String format, Object... argArray) {
-        debug.debug(format, argArray);
+    	log.debug(format, argArray);
     }
 
     public void debug(String msg, Throwable t) {
-        debug.debug(msg, t);
+    	log.debug(msg, t);
     }
 
     public void info(String msg) {
-        info.info(msg);
+    	log.info(msg);
     }
 
     public void info(String format, Object... argArray) {
-        info.info(format, argArray);
+    	log.info(format, argArray);
     }
 
     public void info(String msg, Throwable t) {
-        info.info(msg, t);
+    	log.info(msg, t);
     }
 
     public void warn(String msg) {
-        warn.warn(msg);
+    	log.warn(msg);
     }
 
     public void warn(String format, Object... argArray) {
-        warn.warn(format, argArray);
+    	log.warn(format, argArray);
     }
 
     public void warn(String msg, Throwable t) {
-        warn.warn(msg, t);
+    	log.warn(msg, t);
     }
 
     public void error(String msg) {
-        error.error(msg);
+    	log.error(msg);
     }
 
     public void error(String format, Object... argArray) {
-        error.error(format, argArray);
+    	log.error(format, argArray);
     }
 
     public void error(String msg, Throwable t) {
-        error.error(msg, t);
+    	log.error(msg, t);
     }
 
     public void accessLog(String msg) {
-        access.info(msg);
+    	log.info(msg);
     }
 
     public void accessStatsLog(String msg) {
-        serviceStats.info(msg);
+    	log.info(msg);
     }
 
     public void accessStatsLog(String format, Object... argArray) {
-        serviceStats.info(format, argArray);
+    	log.info(format, argArray);
     }
 
     public void accessProfileLog(String format, Object... argArray) {
-        profileLogger.info(format, argArray);
+    	log.info(format, argArray);
     }
 
     @Override
     public boolean isTraceEnabled() {
-        return trace.isTraceEnabled();
+        return log.isTraceEnabled();
     }
 
     @Override
     public boolean isDebugEnabled() {
-        return debug.isDebugEnabled();
+        return log.isDebugEnabled();
     }
 
     @Override
     public boolean isWarnEnabled() {
-        return warn.isWarnEnabled();
+        return log.isWarnEnabled();
     }
 
     @Override
     public boolean isErrorEnabled() {
-        return error.isErrorEnabled();
+        return log.isErrorEnabled();
     }
 
     @Override
     public boolean isStatsEnabled() {
-        return serviceStats.isInfoEnabled();
+        return log.isInfoEnabled();
     }
 }

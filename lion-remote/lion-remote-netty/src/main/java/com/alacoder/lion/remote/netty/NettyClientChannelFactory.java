@@ -15,8 +15,9 @@ package com.alacoder.lion.remote.netty;
 
 import org.apache.commons.pool.BasePoolableObjectFactory;
 
+import com.alacoder.common.log.LogFactory;
+import com.alacoder.common.log.LogService;
 import com.alacoder.lion.common.url.LionURL;
-import com.alacoder.lion.common.utils.LoggerUtil;
 import com.alacoder.lion.remote.AbstractPoolClient;
 import com.alacoder.lion.remote.Channel;
 
@@ -29,6 +30,9 @@ import com.alacoder.lion.remote.Channel;
  */
 
 public class NettyClientChannelFactory extends BasePoolableObjectFactory<Channel> {
+	
+	private final static LogService logger = LogFactory.getLogService(NettyClientChannelFactory.class);
+	
 	private String factoryName = "";
 	private AbstractPoolClient nettyClient;
 
@@ -64,9 +68,9 @@ public class NettyClientChannelFactory extends BasePoolableObjectFactory<Channel
 			try {
 				client.close();
 
-				LoggerUtil.info(factoryName + " client disconnect Success: " + url.getUri());
+				logger.info(factoryName + " client disconnect Success: " + url.getUri());
 			} catch (Exception e) {
-				LoggerUtil.error(factoryName + " client disconnect Error: " + url.getUri(), e);
+				logger.error(factoryName + " client disconnect Error: " + url.getUri(), e);
 			}
 		}
 	}

@@ -18,9 +18,10 @@ import java.lang.reflect.Method;
 import com.alacoder.common.exception.LionBizException;
 import com.alacoder.common.exception.LionErrorMsgConstant;
 import com.alacoder.common.exception.LionServiceException;
+import com.alacoder.common.log.LogFactory;
+import com.alacoder.common.log.LogService;
 import com.alacoder.lion.common.extension.SpiMeta;
 import com.alacoder.lion.common.url.LionURL;
-import com.alacoder.lion.common.utils.LoggerUtil;
 import com.alacoder.lion.remote.transport.DefaultResponse;
 import com.alacoder.lion.remote.transport.Request;
 import com.alacoder.lion.remote.transport.Response;
@@ -34,6 +35,8 @@ import com.alacoder.lion.remote.transport.Response;
  */
 @SpiMeta(name = "lion")
 public class DefaultProvider<T> extends AbstractProvider<T> {
+	
+	private final static LogService logger = LogFactory.getLogService(DefaultProvider.class);
 
 	protected T proxyImpl;
 
@@ -60,7 +63,7 @@ public class DefaultProvider<T> extends AbstractProvider<T> {
 		}
 		catch(Exception e){
 			if (e.getCause() != null) {
-                LoggerUtil.error("Exception caught when method invoke: " + e.getCause());
+                logger.error("Exception caught when method invoke: " + e.getCause());
                 response.setException(new LionBizException("provider call process error", e.getCause()));
             } else {
                 response.setException(new LionBizException("provider call process error", e));

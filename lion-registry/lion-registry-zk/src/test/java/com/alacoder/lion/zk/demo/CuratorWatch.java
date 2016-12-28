@@ -68,7 +68,8 @@ public class CuratorWatch {
         /**
          * 监听数据节点的变化情况
          */
-        final NodeCache nodeCache = new NodeCache(client, "/zk-huey/cnode", false);
+        @SuppressWarnings("resource")
+		final NodeCache nodeCache = new NodeCache(client, "/zk-huey/cnode", false);
         nodeCache.start(true);
         nodeCache.getListenable().addListener(
             new NodeCacheListener() {
@@ -88,7 +89,8 @@ public class CuratorWatch {
         /**
          * 监听子节点的变化情况
          */
-        final PathChildrenCache childrenCache = new PathChildrenCache(client, "/zk-huey/cnodechild", true);
+        @SuppressWarnings("resource")
+		final PathChildrenCache childrenCache = new PathChildrenCache(client, "/zk-huey/cnodechild", true);
         childrenCache.start(StartMode.NORMAL);
         childrenCache.getListenable().addListener(
             new PathChildrenCacheListener() {

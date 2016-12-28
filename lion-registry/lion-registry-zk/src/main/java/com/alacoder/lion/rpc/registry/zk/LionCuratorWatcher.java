@@ -17,13 +17,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.curator.framework.CuratorFramework;
-import org.apache.curator.framework.api.CuratorWatcher;
 import org.apache.curator.framework.recipes.cache.PathChildrenCacheEvent;
-import org.apache.zookeeper.WatchedEvent;
 
+import com.alacoder.common.log.LogFactory;
+import com.alacoder.common.log.LogService;
 import com.alacoder.lion.common.LionConstants;
 import com.alacoder.lion.common.url.LionURL;
-import com.alacoder.lion.common.utils.LoggerUtil;
 import com.alacoder.lion.registry.api.NotifyListener;
 
 /**
@@ -35,6 +34,8 @@ import com.alacoder.lion.registry.api.NotifyListener;
  */
 
 public class LionCuratorWatcher  {
+	
+	private final static LogService logger = LogFactory.getLogService(LionCuratorWatcher.class);
 	
 	NotifyListener listener = null;
 	LionURL url = null;
@@ -59,7 +60,7 @@ public class LionCuratorWatcher  {
 	                	LionURL url = LionURL.valueOf(data);
 	                    urls.add(url);
 	                } catch (Exception e) {
-	                    LoggerUtil.warn(String.format("Found malformed urls from ZookeeperRegistry, path=%s", nodePath), e);
+	                    logger.warn(String.format("Found malformed urls from ZookeeperRegistry, path=%s", nodePath), e);
 	                }
 	            }
 			}

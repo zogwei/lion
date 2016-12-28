@@ -17,8 +17,9 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import com.alacoder.common.exception.LionErrorMsgConstant;
 import com.alacoder.common.exception.LionFrameworkException;
+import com.alacoder.common.log.LogFactory;
+import com.alacoder.common.log.LogService;
 import com.alacoder.lion.common.url.LionURL;
-import com.alacoder.lion.common.utils.LoggerUtil;
 import com.alacoder.lion.rpc.utils.LionFrameworkUtil;
 
 /**
@@ -30,6 +31,9 @@ import com.alacoder.lion.rpc.utils.LionFrameworkUtil;
  */
 
 public abstract class AbstractProtocol implements Protocol {
+	
+	private final static LogService logger = LogFactory.getLogService(AbstractProtocol.class);
+	
 	protected ConcurrentHashMap<String, Exporter<?>> exporterMap = new ConcurrentHashMap<String, Exporter<?>>();
 
 	@Override
@@ -48,14 +52,14 @@ public abstract class AbstractProtocol implements Protocol {
 			@SuppressWarnings("unchecked")
 			Exporter<T> exporter = (Exporter<T>)exporterMap.get(protocolKey);
 			if( exporter != null) {
-				LoggerUtil.warn(" export Error: service already exist, url= " + url);
+				logger.warn(" export Error: service already exist, url= " + url);
 				return exporter;
 			}
 			exporter = createExporter(provider,url);
 			exporter.init();
 			exporterMap.put(protocolKey, exporter);
 			 
-   		    LoggerUtil.info(this.getClass().getSimpleName() + " export Success: url=" + url);
+   		    logger.info(this.getClass().getSimpleName() + " export Success: url=" + url);
 
 	       return exporter;
 		}
@@ -79,7 +83,7 @@ public abstract class AbstractProtocol implements Protocol {
         Referer<T> referer = createReferer(clz, url, serviceUrl);
         referer.init();
 
-        LoggerUtil.info(this.getClass().getSimpleName() + " refer Success: url=" + url);
+        logger.info(this.getClass().getSimpleName() + " refer Success: url=" + url);
 
         return referer;
     }
@@ -96,9 +100,9 @@ public abstract class AbstractProtocol implements Protocol {
                 try {
                     node.destroy();
 
-                    LoggerUtil.info(this.getClass().getSimpleName() + " destroy node Success: " + node);
+                    logger.info(this.getClass().getSimpleName() + " destroy node Success: " + node);
                 } catch (Throwable t) {
-                    LoggerUtil.error(this.getClass().getSimpleName() + " destroy Error", t);
+                    logger.error(this.getClass().getSimpleName() + " destroy Error", t);
                 }
             }
         }

@@ -18,7 +18,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import com.alacoder.lion.common.utils.LoggerUtil;
 import com.alacoder.lion.remote.Channel;
 import com.alacoder.lion.remote.FutureListener;
 import com.alacoder.lion.remote.FutureState;
@@ -27,6 +26,8 @@ import com.alacoder.lion.remote.transport.Request;
 import com.alacoder.lion.remote.transport.Response;
 import com.alacoder.common.exception.LionErrorMsgConstant;
 import com.alacoder.common.exception.LionServiceException;
+import com.alacoder.common.log.LogFactory;
+import com.alacoder.common.log.LogService;
 
 /**
  * @ClassName: NettyResponseFuture
@@ -37,6 +38,8 @@ import com.alacoder.common.exception.LionServiceException;
  */
 
 public class NettyResponseFuture extends ResponseFuture{
+	
+	private final static LogService logger = LogFactory.getLogService(NettyResponseFuture.class);
 
 	private static final long serialVersionUID = 1L;
 
@@ -132,7 +135,7 @@ public class NettyResponseFuture extends ResponseFuture{
 		try {
 			listener.operationComplete(this);
 		} catch (Throwable t) {
-			LoggerUtil.error("NettyResponseFuture notifyListener Error: " + listener.getClass().getSimpleName(), t);
+			logger.error("NettyResponseFuture notifyListener Error: " + listener.getClass().getSimpleName(), t);
 		}
 	}
 	

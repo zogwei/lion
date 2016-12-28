@@ -17,9 +17,10 @@ import junit.framework.TestCase;
 
 import org.junit.Test;
 
+import com.alacoder.common.log.LogFactory;
+import com.alacoder.common.log.LogService;
 import com.alacoder.lion.common.url.LionURL;
 import com.alacoder.lion.common.url.URLParamType;
-import com.alacoder.lion.common.utils.LoggerUtil;
 import com.alacoder.lion.remote.Channel;
 import com.alacoder.lion.remote.MessageHandlerAdpter;
 import com.alacoder.lion.remote.TransportException;
@@ -36,21 +37,23 @@ import com.alacoder.lion.remote.transport.Response;
  */
 
 public class NettyClientTest  extends TestCase {
+	
+	private final static LogService logger = LogFactory.getLogService(NettyClientTest.class);
 
     @Test
 	public void testClientSend() throws TransportException {
-		LionURL url = new LionURL("", "10.12.104.6", 4455, "");
+		LionURL url = new LionURL("", "127.0.0.1", 4455, "");
 		url.addParameter(URLParamType.connectTimeout.getName(), "10000");
 		url.addParameter(URLParamType.requestTimeout.getName(), "10000");
 		Request request = new DefaultRequest();
 		NettyClient client = null; 
 
-		LoggerUtil.info(" client send() begin ： ");
+		logger.info(" client send() begin ： ");
 		client = new NettyClient(url, new MessageHandlerAdpter() {
 			@Override
 			public Object handle(Channel channel, Response message) {
 				Response response = (Response) message;
-				LoggerUtil.info(" client reciver send response ： " + response.getRequestId());
+				logger.info(" client reciver send response ： " + response.getRequestId());
 				return null;
 			}
 		});
@@ -72,19 +75,19 @@ public class NettyClientTest  extends TestCase {
     
     @Test
    	public void testClientRequest() throws TransportException {
-   		LionURL url = new LionURL("", "10.12.104.6", 4455, "");
+   		LionURL url = new LionURL("", "127.0.0.1", 4455, "");
    		url.addParameter(URLParamType.connectTimeout.getName(), "10000");
    		Request request = new DefaultRequest();
    		NettyClient client = null;
    		
-   		LoggerUtil.info(" client request() begin ： " );
+   		logger.info(" client request() begin ： " );
    		 client = new NettyClient(url,null);
    	     client.open();
    		
 		for (int i = 0; i < 10000; i++) {
 			request.setRequestId(System.currentTimeMillis());
 			Response response = client.request(request);
-			LoggerUtil.info(" client reciver request() response ： "
+			logger.info(" client reciver request() response ： "
 					+ response.getRequestId() + " value: "
 					+ response.getValue());
 			try {

@@ -56,8 +56,8 @@ public class ZkNodeStorageOperTest {
 		System.out.println("----------watch-----------");
 		zkOper.persist("/keyPersisit/watch", "valuewatch");
 		
-		LionURL url = new LionURL(LionConstants.REGISTRY_PROTOCOL_DIRECT, "10.12.104.6", 4455, "com.alacoder.lion.rpc.DemoService");
-		url.addParameter("embed", "lion://10.12.104.6:4455/com.alacoder.lion.rpc.DemoService?");
+		LionURL url = new LionURL(LionConstants.REGISTRY_PROTOCOL_DIRECT, "127.0.0.1", 4455, "com.alacoder.lion.rpc.DemoService");
+		url.addParameter("embed", "lion://127.0.0.1:4455/com.alacoder.lion.rpc.DemoService?");
 		
 		NotifyListener listener = new NotifyListener(){
 

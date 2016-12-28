@@ -17,10 +17,11 @@ import io.netty.util.concurrent.Future;
 import io.netty.util.concurrent.FutureListener;
 
 import com.alacoder.common.exception.LionServiceException;
+import com.alacoder.common.log.LogFactory;
+import com.alacoder.common.log.LogService;
 import com.alacoder.lion.common.extension.ExtensionLoader;
 import com.alacoder.lion.common.url.LionURL;
 import com.alacoder.lion.common.url.URLParamType;
-import com.alacoder.lion.common.utils.LoggerUtil;
 import com.alacoder.lion.remote.Client;
 import com.alacoder.lion.remote.TransportException;
 import com.alacoder.lion.remote.transport.Request;
@@ -35,6 +36,9 @@ import com.alacoder.lion.remote.transport.Response;
  */
 
 public class DefaultRpcReferer<T> extends AbstractReferer<T>{
+
+	private final static LogService logger = LogFactory.getLogService(DefaultRpcReferer.class);
+	
 	private Client client;
     private EndpointFactory endpointFactory;
 
@@ -92,7 +96,7 @@ public class DefaultRpcReferer<T> extends AbstractReferer<T>{
      @Override
      public void destroy() {
          endpointFactory.safeReleaseResource(client, url);
-         LoggerUtil.info("DefaultRpcReferer destory client: url={}" + url);
+         logger.info("DefaultRpcReferer destory client: url={}" + url);
      }
  }
 

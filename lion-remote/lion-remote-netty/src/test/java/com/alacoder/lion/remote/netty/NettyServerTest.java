@@ -13,8 +13,9 @@
 
 package com.alacoder.lion.remote.netty;
 
+import com.alacoder.common.log.LogFactory;
+import com.alacoder.common.log.LogService;
 import com.alacoder.lion.common.url.LionURL;
-import com.alacoder.lion.common.utils.LoggerUtil;
 import com.alacoder.lion.remote.Channel;
 import com.alacoder.lion.remote.MessageHandlerAdpter;
 import com.alacoder.lion.remote.transport.DefaultResponse;
@@ -30,16 +31,8 @@ import com.alacoder.lion.remote.transport.Request;
 
 public class NettyServerTest {
 
-	/**
-	 * main(这里用一句话描述这个方法的作用)
-	 *
-	 * @Title: main
-	 * @Description: 
-	 * @param @param args    设定文件
-	 * @return void    返回类型
-	 * @throws
-	 */
-
+	private final static LogService logger = LogFactory.getLogService(NettyServerTest.class);
+	
 	public static void main(String[] args) {
 		LionURL url = new LionURL("", "", 4455, "");
 		
@@ -48,7 +41,7 @@ public class NettyServerTest {
 			@Override
 			public DefaultResponse handle(Channel channel, Request message) {
 					Request request = (Request)message;
-					LoggerUtil.info(" server reciver request ： " + request.getRequestId() );
+					logger.info(" server reciver request ： " + request.getRequestId() );
 					DefaultResponse reponse = new DefaultResponse();
 					reponse.setRequestId(request.getRequestId() );
 					reponse.setValue("response value : " + request.getRequestId() );

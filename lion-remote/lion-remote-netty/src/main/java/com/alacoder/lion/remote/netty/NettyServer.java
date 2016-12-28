@@ -34,10 +34,11 @@ import org.apache.commons.lang3.StringUtils;
 import com.alacoder.common.exception.LionAbstractException;
 import com.alacoder.common.exception.LionFrameworkException;
 import com.alacoder.common.exception.LionServiceException;
+import com.alacoder.common.log.LogFactory;
+import com.alacoder.common.log.LogService;
 import com.alacoder.lion.common.LionConstants;
 import com.alacoder.lion.common.url.LionURL;
 import com.alacoder.lion.common.url.URLParamType;
-import com.alacoder.lion.common.utils.LoggerUtil;
 import com.alacoder.lion.common.utils.StandardThreadExecutor;
 import com.alacoder.lion.remote.AbstractServer;
 import com.alacoder.lion.remote.Channel;
@@ -58,6 +59,8 @@ import com.alacoder.lion.remote.transport.Response;
  */
 
 public class NettyServer extends AbstractServer{
+	
+	private final static LogService logger = LogFactory.getLogService(NettyServer.class);
 
 	private Channel serverChannel;
 	
@@ -89,7 +92,7 @@ public class NettyServer extends AbstractServer{
 				serverChannel.close();
 			}
 		} catch(Throwable e) {
-			LoggerUtil.info("NettyServer close Fail: close error: url=" + url.getUri(),e);
+			logger.info("NettyServer close Fail: close error: url=" + url.getUri(),e);
 		}
 		
 		//关闭netty 相关资源
@@ -97,13 +100,13 @@ public class NettyServer extends AbstractServer{
             bossGroup.shutdownGracefully();
             workerGroup.shutdownGracefully();
 		} catch(Throwable e) {
-			LoggerUtil.info("NettyServer close Fail: close error: url=" + url.getUri(),e);
+			logger.info("NettyServer close Fail: close error: url=" + url.getUri(),e);
 		}
 	}
 	
 	private synchronized void init() {
 		if(state != ChannelState.UNINIT) {
-			LoggerUtil.error("NettyServer is not in uninit state, init error, url = {} ", url.getUri());
+			logger.error("NettyServer is not in uninit state, init error, url = {} ", url.getUri());
 			return ;
 		}
 		
@@ -156,13 +159,13 @@ public class NettyServer extends AbstractServer{
          .childOption(ChannelOption.SO_KEEPALIVE, true);
     	
     	state = ChannelState.INIT;
-    	LoggerUtil.info("NettyServer init success : url={}", url.getUri());
+    	logger.info("NettyServer init success : url={}", url.getUri());
     	
 	}
 	
 	private synchronized void doOpen1() {
 		if(state != ChannelState.INIT) {
-			LoggerUtil.error("NettyServer is not in init state, open error, url = {} ", url.getUri());
+			logger.error("NettyServer is not in init state, open error, url = {} ", url.getUri());
 			return;
 		}
 		
@@ -183,7 +186,7 @@ public class NettyServer extends AbstractServer{
 				this.remoteAddress = bindAdd;
 			}
 			else {
-				LoggerUtil.info("NettyServer open bind error , url = {}", url.getUri());
+				logger.info("NettyServer open bind error , url = {}", url.getUri());
 				if(channelFuture.cause() != null) {
 					throw new LionServiceException("NettyServer bind fail url: "+ url.getUri(),channelFuture.cause());
 				}
@@ -192,10 +195,10 @@ public class NettyServer extends AbstractServer{
 				}
 			}
 		} catch (InterruptedException e) {
-			LoggerUtil.warn("NettyServer close fail: interrupted url = {} ", url.getUri());
+			logger.warn("NettyServer close fail: interrupted url = {} ", url.getUri());
 			throw new LionServiceException("NettyServer failed to bind , url: "+ getUrl().getUri(), e);
 		} catch (Throwable e) {
-			LoggerUtil.error("NettyServer error  ", e);
+			logger.error("NettyServer error  ", e);
 			throw new LionServiceException("NettyServer failed to bind , url: "+ getUrl().getUri(), e);
 		} finally{
 			if(!channelFuture.isSuccess()) {
@@ -253,7 +256,7 @@ public class NettyServer extends AbstractServer{
 				response = channel.request(request);
 			}
 			else {
-				LoggerUtil.error("NettyClient request Error, channel is not availbale: url=" + url.getUri() 
+				logger.error("NettyClient request Error, channel is not availbale: url=" + url.getUri() 
 						+ " channel local:  "  + channel.getLocalAddress() 
 						+ " channel remote:  "  + channel.getRemoteAddress()
 						+ " request " + request);
@@ -265,7 +268,7 @@ public class NettyServer extends AbstractServer{
 		} catch (LionServiceException e) {
 			throw e;
 		} catch (Exception e) {
-			LoggerUtil.error("NettyClient request Error: url=" + url.getUri() + " " + request, e);
+			logger.error("NettyClient request Error: url=" + url.getUri() + " " + request, e);
 			if (e instanceof LionAbstractException) {
 				throw (LionAbstractException) e;
 			} else {
@@ -288,7 +291,7 @@ public class NettyServer extends AbstractServer{
 				channel.send(transportData);
 			}
 			else {
-				LoggerUtil.error("NettyClient request Error, channel is not availbale: url=" + url.getUri() 
+				logger.error("NettyClient request Error, channel is not availbale: url=" + url.getUri() 
 						+ " channel local:  "  + channel.getLocalAddress() 
 						+ " channel remote:  "  + channel.getRemoteAddress()
 						+ " request " + transportData);
@@ -302,7 +305,7 @@ public class NettyServer extends AbstractServer{
 			throw e;
 		}
 		catch(Exception e) {
-			LoggerUtil.error("NettyClient send Error: url=" + url.getUri() + " " + transportData, e);
+			logger.error("NettyClient send Error: url=" + url.getUri() + " " + transportData, e);
 			if (e instanceof LionAbstractException) {
 				throw (LionAbstractException) e;
 			} else {

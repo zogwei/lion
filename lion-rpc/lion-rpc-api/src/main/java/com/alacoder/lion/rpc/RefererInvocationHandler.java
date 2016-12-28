@@ -22,9 +22,10 @@ import java.util.Map;
 
 import com.alacoder.common.exception.LionErrorMsgConstant;
 import com.alacoder.common.exception.LionServiceException;
+import com.alacoder.common.log.LogFactory;
+import com.alacoder.common.log.LogService;
 import com.alacoder.lion.common.url.URLParamType;
 import com.alacoder.lion.common.utils.ExceptionUtil;
-import com.alacoder.lion.common.utils.LoggerUtil;
 import com.alacoder.lion.common.utils.ReflectUtil;
 import com.alacoder.lion.common.utils.RequestIdGenerator;
 import com.alacoder.lion.remote.transport.DefaultRequest;
@@ -41,6 +42,8 @@ import com.alacoder.lion.rpc.utils.LionFrameworkUtil;
  */
 
 public class RefererInvocationHandler<T> implements InvocationHandler {
+
+	private final static LogService logger = LogFactory.getLogService(RefererInvocationHandler.class);
 	
 	private List<Cluster<T>> clusters;
 	private Class<T> clz;
@@ -108,11 +111,11 @@ public class RefererInvocationHandler<T> implements InvocationHandler {
                         throw new LionServiceException(msg, LionErrorMsgConstant.SERVICE_DEFAULT_ERROR);
                     }
                 } else if (!throwException) {
-                    LoggerUtil.warn("RefererInvocationHandler invoke false, so return default value: uri=" + cluster.getUrl().getUri()
+                    logger.warn("RefererInvocationHandler invoke false, so return default value: uri=" + cluster.getUrl().getUri()
                             + " " + LionFrameworkUtil.toString(request), e);
                     return getDefaultReturnValue(method.getReturnType());
                 } else {
-                    LoggerUtil.error(
+                    logger.error(
                             "RefererInvocationHandler invoke Error: uri=" + cluster.getUrl().getUri() + " "
                                     + LionFrameworkUtil.toString(request), e);
                     throw e;

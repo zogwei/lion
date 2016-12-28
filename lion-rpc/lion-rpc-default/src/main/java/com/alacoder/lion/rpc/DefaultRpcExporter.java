@@ -16,10 +16,11 @@ package com.alacoder.lion.rpc;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import com.alacoder.common.log.LogFactory;
+import com.alacoder.common.log.LogService;
 import com.alacoder.lion.common.extension.ExtensionLoader;
 import com.alacoder.lion.common.url.LionURL;
 import com.alacoder.lion.common.url.URLParamType;
-import com.alacoder.lion.common.utils.LoggerUtil;
 import com.alacoder.lion.remote.Server;
 import com.alacoder.lion.rpc.utils.LionFrameworkUtil;
 
@@ -32,6 +33,9 @@ import com.alacoder.lion.rpc.utils.LionFrameworkUtil;
  */
 
 public class DefaultRpcExporter<T> extends AbstractExporter<T> {
+
+	private final static LogService logger = LogFactory.getLogService(DefaultRpcExporter.class);
+	
 	private Server server;
 	private EndpointFactory endpointFactory;
 	private Map<String, DefaultMessageHandler> ipPort2RequestRouter;
@@ -86,13 +90,13 @@ public class DefaultRpcExporter<T> extends AbstractExporter<T> {
             }
         }
 
-        LoggerUtil.info("DefaultRpcExporter unexport Success: url={}", url);
+        logger.info("DefaultRpcExporter unexport Success: url={}", url);
 	}
 
 	@Override
 	public void destroy() {
 		  endpointFactory.safeReleaseResource(server, url);
-          LoggerUtil.info("DefaultRpcExporter destory Success: url={}", url);
+          logger.info("DefaultRpcExporter destory Success: url={}", url);
 	}
 
 	@Override

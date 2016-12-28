@@ -31,8 +31,7 @@ public class DefaultConfigHandlerExportTest {
 
 	public static void main(String[] args) {
 		
-		
-		String embed = "lion://10.12.104.6:4455/com.alacoder.lion.rpc.DemoService?"
+		String embed = "lion://127.0.0.1:4455/com.alacoder.lion.rpc.DemoService?"
 //				+ "protocol=lion&"
 //				+ "export=demoMotan:8001&"
 //				+ "application=myMotanDemo&"
@@ -47,11 +46,11 @@ public class DefaultConfigHandlerExportTest {
 //				+ "minWorkerThread=20&"
 //				+ "group=lion-demo-rpc&"
 //				+ "nodeType=service&"
-//				+ "address=10.12.104.6:4455&"
+//				+ "address=127.0.0.1:4455&"
 //				+ "shareChannel=true&"
 					;
 
-		LionURL url = new LionURL(LionConstants.REGISTRY_PROTOCOL_DIRECT, "10.12.104.6", 4455, "com.alacoder.lion.rpc.DemoService");
+		LionURL url = new LionURL(LionConstants.REGISTRY_PROTOCOL_DIRECT, "127.0.0.1", 4455, "com.alacoder.lion.rpc.DemoService");
 		url.addParameter("embed", embed);
 		url.addParameter("protocol", LionConstants.REGISTRY_PROTOCOL_DIRECT);
 //		url.addParameter("export", "demoMotan:8001");
@@ -67,7 +66,7 @@ public class DefaultConfigHandlerExportTest {
 //		url.addParameter("group", "lion-demo-rpc");
 //		url.addParameter("nodeType", "service");
 //		url.addParameter("shareChannel", "true");
-//		url.addParameter("address", "10.12.104.6:4455")
+//		url.addParameter("address", "127.0.0.1:4455")
 		;
 		
 		List<LionURL> protocolURL = new ArrayList<LionURL>();

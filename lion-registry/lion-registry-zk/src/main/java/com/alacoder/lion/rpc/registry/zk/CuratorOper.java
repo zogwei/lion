@@ -23,9 +23,7 @@ import java.util.concurrent.Executors;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;
 import org.apache.curator.framework.api.ACLProvider;
-import org.apache.curator.framework.api.BackgroundPathable;
 import org.apache.curator.framework.api.CuratorWatcher;
-import org.apache.curator.framework.api.Watchable;
 import org.apache.curator.framework.recipes.cache.ChildData;
 import org.apache.curator.framework.recipes.cache.PathChildrenCache;
 import org.apache.curator.framework.recipes.cache.PathChildrenCacheEvent;
@@ -35,15 +33,15 @@ import org.apache.curator.framework.recipes.cache.PathChildrenCache.StartMode;
 import org.apache.curator.retry.ExponentialBackoffRetry;
 import org.apache.curator.utils.CloseableUtils;
 import org.apache.zookeeper.CreateMode;
-import org.apache.zookeeper.Watcher;
 import org.apache.zookeeper.KeeperException.NoNodeException;
 import org.apache.zookeeper.ZooDefs;
 import org.apache.zookeeper.data.ACL;
 import org.apache.curator.framework.CuratorFrameworkFactory.Builder;
 
 import com.alacoder.common.exception.LionFrameworkException;
+import com.alacoder.common.log.LogFactory;
+import com.alacoder.common.log.LogService;
 import com.alacoder.lion.common.utils.LifeCycleState;
-import com.alacoder.lion.common.utils.LoggerUtil;
 import com.google.common.base.Strings;
 
 /**
@@ -59,6 +57,8 @@ import com.google.common.base.Strings;
 
 public class CuratorOper {
 	
+	private final static LogService logger = LogFactory.getLogService(CuratorOper.class);
+	
 	private volatile LifeCycleState state = LifeCycleState.UNINIT;
 	
     private CuratorFramework client;
@@ -67,9 +67,9 @@ public class CuratorOper {
     private ExecutorService pool = Executors.newFixedThreadPool(2);
 
 	public CuratorOper(ZkConfiguration zkConfig){
-		LoggerUtil.debug(" ZkNodeStorageOper init begin");
+		logger.debug(" ZkNodeStorageOper init begin");
 		try {
-			LoggerUtil.debug("Elastic job: zookeeper registry center init, server lists is: {}.",zkConfig.getServerLists());
+			logger.debug("Elastic job: zookeeper registry center init, server lists is: {}.",zkConfig.getServerLists());
 			Builder builder = CuratorFrameworkFactory
 					.builder()
 					.connectString(zkConfig.getServerLists())
@@ -111,9 +111,9 @@ public class CuratorOper {
 	        cache.start();
 	        
 			state = LifeCycleState.INIT;
-			LoggerUtil.debug(" ZkNodeStorageOper init success");
+			logger.debug(" ZkNodeStorageOper init success");
 		} catch (Exception e) {
-			LoggerUtil.error(" ZkNodeStorageOper error", e);
+			logger.error(" ZkNodeStorageOper error", e);
 			throw new LionFrameworkException(" ZkNodeStorageOper error " , e);
 		} finally {
 			if(!state.isInitState()){
@@ -132,7 +132,7 @@ public class CuratorOper {
 			}
 		}
 		catch(Exception ex) {
-			LoggerUtil.error(" zk syn error  " );
+			logger.error(" zk syn error  " );
 			throw new LionFrameworkException(" zk syn error " ,ex);
 		}
 	}
@@ -142,21 +142,21 @@ public class CuratorOper {
 			return null != client.checkExists().forPath(key);
 		}
 		catch(Exception ex) {
-			LoggerUtil.error(" zk isExisted error,key  " + key);
+			logger.error(" zk isExisted error,key  " + key);
 			throw new LionFrameworkException(" zk isExisted error,key  " + key,ex);
 		}
 	}
 	
 	public void persist(final String key, final String value) {
 		if(isExisted(key)){
-			LoggerUtil.warn(" zk key is already existed, key  " + key);
+			logger.warn(" zk key is already existed, key  " + key);
 			update(key,value);
 		}
 		else {
 			try {
 				client.create().creatingParentsIfNeeded().withMode(CreateMode.PERSISTENT).forPath(key, value.getBytes(Charset.forName("UTF-8")));
 			} catch (Exception ex) {
-				LoggerUtil.error(" zk create error,key  " + key +" ,value " + value);
+				logger.error(" zk create error,key  " + key +" ,value " + value);
 				throw new LionFrameworkException(" zk create error,key  "  + key +" ,value " + value, ex);
 			}
 		}
@@ -164,14 +164,14 @@ public class CuratorOper {
 	
 	public void persistSequential(final String key, final String value) {
 		if(isExisted(key)){
-			LoggerUtil.warn(" zk key is already existed, key  " + key);
+			logger.warn(" zk key is already existed, key  " + key);
 			update(key,value);
 		}
 		else {
 			try {
 				client.create().creatingParentsIfNeeded().withMode(CreateMode.PERSISTENT_SEQUENTIAL).forPath(key, value.getBytes(Charset.forName("UTF-8")));
 			} catch (Exception ex) {
-				LoggerUtil.error(" zk create error,key  " + key +" ,value " + value);
+				logger.error(" zk create error,key  " + key +" ,value " + value);
 				throw new LionFrameworkException(" zk create error,key  "  + key +" ,value " + value, ex);
 			}
 		}
@@ -184,7 +184,7 @@ public class CuratorOper {
             }
             client.create().creatingParentsIfNeeded().withMode(CreateMode.EPHEMERAL).forPath(key, value.getBytes(Charset.forName("UTF-8")));
         } catch (final Exception ex) {
-        	LoggerUtil.error(" zk persistEphemeral error,key  " + key );
+        	logger.error(" zk persistEphemeral error,key  " + key );
 			throw new LionFrameworkException(" zk persistEphemeral error,key  "  + key, ex);
         }
     }
@@ -196,7 +196,7 @@ public class CuratorOper {
             }
             client.create().creatingParentsIfNeeded().withMode(CreateMode.EPHEMERAL_SEQUENTIAL).forPath(key);
         } catch (final Exception ex) {
-        	LoggerUtil.error(" zk persistEphemeralSequential error,key  " + key );
+        	logger.error(" zk persistEphemeralSequential error,key  " + key );
 			throw new LionFrameworkException(" zk persistEphemeralSequential error,key  "  + key, ex);
         }
     }
@@ -208,7 +208,7 @@ public class CuratorOper {
             }
             client.create().creatingParentsIfNeeded().withMode(CreateMode.EPHEMERAL_SEQUENTIAL).forPath(key, value.getBytes(Charset.forName("UTF-8")));
         } catch (final Exception ex) {
-        	LoggerUtil.error(" zk persistEphemeralSequential error,key  " + key );
+        	logger.error(" zk persistEphemeralSequential error,key  " + key );
 			throw new LionFrameworkException(" zk persistEphemeralSequential error,key  "  + key, ex);
         }
     }
@@ -220,7 +220,7 @@ public class CuratorOper {
 					.forPath(key, value.getBytes(Charset.forName("UTF-8")))
 					.and().commit();
 		} catch (final Exception ex) {
-			LoggerUtil.error(" zk update error,key  " + key +" ,value " + value);
+			logger.error(" zk update error,key  " + key +" ,value " + value);
 			throw new LionFrameworkException(" zk isExisted error,key  "  + key +" ,value " + value, ex);
 		}
 	}
@@ -243,7 +243,7 @@ public class CuratorOper {
 			return new String(client.getData().forPath(key),
 					Charset.forName("UTF-8"));
 		} catch (final Exception ex) {
-			LoggerUtil.error(" zk getDirectly error,key  " + key );
+			logger.error(" zk getDirectly error,key  " + key );
 			throw new LionFrameworkException(" zk getDirectly error,key  "  + key, ex);
 		}
 	}
@@ -260,7 +260,7 @@ public class CuratorOper {
 			});
 			return result;
 		} catch (final Exception ex) {
-			LoggerUtil.error(" zk getChildrenKeys error,key  " + key );
+			logger.error(" zk getChildrenKeys error,key  " + key );
 			throw new LionFrameworkException(" zk getChildrenKeys error,key  "  + key, ex);
 		}
 	}
@@ -269,7 +269,7 @@ public class CuratorOper {
         try {
             client.delete().deletingChildrenIfNeeded().forPath(key);
         } catch (final Exception ex) {
-        	LoggerUtil.error(" zk update error,key  " + key );
+        	logger.error(" zk update error,key  " + key );
 			throw new LionFrameworkException(" zk isExisted error,key  "  + key, ex);
 		}
     }
@@ -281,10 +281,10 @@ public class CuratorOper {
 		try {
 			return client.getChildren().usingWatcher(listener).forPath(path);
 		} catch (NoNodeException e) {
-			LoggerUtil.warn(" zk addTargetChildListener no exit , key  "  + path, e);
+			logger.warn(" zk addTargetChildListener no exit , key  "  + path, e);
 			return null;
 		} catch (Exception e) {
-			LoggerUtil.error(" zk addTargetChildListener error,key  "  + path, e);
+			logger.error(" zk addTargetChildListener error,key  "  + path, e);
 			throw new LionFrameworkException(" zk addTargetChildListener error,key  "  + path, e);
 		}
 	}
@@ -292,14 +292,15 @@ public class CuratorOper {
     
     public void watchChildrenChange(String path,final LionCuratorWatcher lionCuratorWatcher){
     	 try {
-    		 final PathChildrenCache childrenCache = new PathChildrenCache(client, path, false);
+    		 @SuppressWarnings("resource")
+			final PathChildrenCache childrenCache = new PathChildrenCache(client, path, false);
     	        childrenCache.start(StartMode.NORMAL);
     	        childrenCache.getListenable().addListener(
     	            new PathChildrenCacheListener() {
     	                @Override
     	                public void childEvent(CuratorFramework client, PathChildrenCacheEvent event)
     	                        throws Exception {
-    	                		LoggerUtil.info(" get event " + event );
+    	                		logger.info(" get event " + event );
     	                		lionCuratorWatcher.process(client , event);
     	                }
     	            },
@@ -308,7 +309,7 @@ public class CuratorOper {
     	        
 //    		 client.getChildren().usingWatcher(lionCuratorWatcher).forPath(path);
          } catch (final Exception ex) {
-         	LoggerUtil.error(" zk watchChildrenChange error,key  " + path );
+         	logger.error(" zk watchChildrenChange error,key  " + path );
  			throw new LionFrameworkException(" zk isExisted error,path  "  + path, ex);
  		}
     }
@@ -317,7 +318,7 @@ public class CuratorOper {
 //   	 try {
 //   		 client.getChildren().
 //        } catch (final Exception ex) {
-//        	LoggerUtil.error(" zk update error,key  " + path );
+//        	logger.error(" zk update error,key  " + path );
 //			throw new LionFrameworkException(" zk isExisted error,path  "  + path, ex);
 //		}
 //   }

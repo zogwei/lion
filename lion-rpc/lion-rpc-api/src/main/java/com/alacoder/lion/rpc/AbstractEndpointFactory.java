@@ -22,9 +22,10 @@ import java.util.concurrent.ConcurrentMap;
 
 import com.alacoder.common.exception.LionErrorMsgConstant;
 import com.alacoder.common.exception.LionFrameworkException;
+import com.alacoder.common.log.LogFactory;
+import com.alacoder.common.log.LogService;
 import com.alacoder.lion.common.url.LionURL;
 import com.alacoder.lion.common.url.URLParamType;
-import com.alacoder.lion.common.utils.LoggerUtil;
 import com.alacoder.lion.remote.Client;
 import com.alacoder.lion.remote.MessageHandler;
 import com.alacoder.lion.remote.Server;
@@ -39,6 +40,8 @@ import com.alacoder.lion.rpc.utils.LionFrameworkUtil;
  */
 
 public abstract class AbstractEndpointFactory implements EndpointFactory {
+	
+	private final static LogService logger = LogFactory.getLogService(AbstractEndpointFactory.class);
 
 	protected Map<String, Server> ipPort2ShareServer = new HashMap<String, Server>();
 	protected ConcurrentMap<Server, Set<String>> server2Url = new ConcurrentHashMap<Server, Set<String>>();
@@ -57,11 +60,11 @@ public abstract class AbstractEndpointFactory implements EndpointFactory {
 			 
 			 if(!shareChannel) {
 				 //独享端口
-				 LoggerUtil.info(this.getClass().getSimpleName() + " create no_share_channel server: url={}", url);
+				 logger.info(this.getClass().getSimpleName() + " create no_share_channel server: url={}", url);
 				 server = innerCreateServer(url, messageHandler);
 			 }
 			 
-			 LoggerUtil.info(this.getClass().getSimpleName() + " create share_channel server: url={}", url);
+			 logger.info(this.getClass().getSimpleName() + " create share_channel server: url={}", url);
 			 
 			 server = ipPort2ShareServer.get(ipPort);
 			 if(server != null) {

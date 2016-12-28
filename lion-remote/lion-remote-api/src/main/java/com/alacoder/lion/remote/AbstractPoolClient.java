@@ -17,9 +17,10 @@ import org.apache.commons.pool.PoolableObjectFactory;
 import org.apache.commons.pool.impl.GenericObjectPool;
 
 import com.alacoder.common.exception.LionServiceException;
+import com.alacoder.common.log.LogFactory;
+import com.alacoder.common.log.LogService;
 import com.alacoder.lion.common.url.LionURL;
 import com.alacoder.lion.common.url.URLParamType;
-import com.alacoder.lion.common.utils.LoggerUtil;
 
 /**
  * @ClassName: AbstractPoolClient
@@ -30,6 +31,10 @@ import com.alacoder.lion.common.utils.LoggerUtil;
  */
 
 public abstract class AbstractPoolClient extends AbstractClient{
+	
+	private final static LogService logger = LogFactory.getLogService(AbstractPoolClient.class);
+	
+	
     protected static long defaultMinEvictableIdleTimeMillis = (long) 1000 * 60 * 60;//默认链接空闲时间
     protected static long defaultSoftMinEvictableIdleTimeMillis = (long) 1000 * 60 * 10;//
     protected static long defaultTimeBetweenEvictionRunsMillis = (long) 1000 * 60 * 10;//默认回收周期
@@ -44,7 +49,7 @@ public abstract class AbstractPoolClient extends AbstractClient{
 		super(url, messageHandler);
 	}
 
-	@SuppressWarnings("rawtypes")
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	protected void initPool() {
         poolConfig = new GenericObjectPool.Config();
         poolConfig.minIdle =
@@ -68,7 +73,7 @@ public abstract class AbstractPoolClient extends AbstractClient{
                 try {
                     pool.addObject();
                 } catch (Exception e) {
-                    LoggerUtil.error("NettyClient init pool create connect Error: url=" + url.getUri(), e);
+                    logger.error("NettyClient init pool create connect Error: url=" + url.getUri(), e);
                 }
             }   
         }
@@ -78,7 +83,7 @@ public abstract class AbstractPoolClient extends AbstractClient{
         try {
 			pool.close();
 		} catch (Exception e) {
-			 LoggerUtil.error("pool close error", e);
+			 logger.error("pool close error", e);
 		}
 	}
 	
@@ -97,7 +102,7 @@ public abstract class AbstractPoolClient extends AbstractClient{
         invalidateObject(nettyChannel);
 
         String errorMsg = this.getClass().getSimpleName() + " borrowObject Error: url=" + url.getUri();
-        LoggerUtil.error(errorMsg);
+        logger.error(errorMsg);
         throw new LionServiceException(errorMsg);
     }
     
@@ -110,7 +115,7 @@ public abstract class AbstractPoolClient extends AbstractClient{
         try {
             pool.returnObject(channel);
         } catch (Exception ie) {
-            LoggerUtil.error(this.getClass().getSimpleName() + " return client Error: url=" + url.getUri(), ie);
+            logger.error(this.getClass().getSimpleName() + " return client Error: url=" + url.getUri(), ie);
         }
     }
 
@@ -122,7 +127,7 @@ public abstract class AbstractPoolClient extends AbstractClient{
         try {
             pool.invalidateObject(nettyChannel);
         } catch (Exception ie) {
-            LoggerUtil.error(this.getClass().getSimpleName() + " invalidate client Error: url=" + url.getUri(), ie);
+            logger.error(this.getClass().getSimpleName() + " invalidate client Error: url=" + url.getUri(), ie);
         }
     }
 

@@ -21,7 +21,8 @@ import java.util.concurrent.ThreadPoolExecutor;
 
 import com.alacoder.common.exception.LionErrorMsgConstant;
 import com.alacoder.common.exception.LionServiceException;
-import com.alacoder.lion.common.utils.LoggerUtil;
+import com.alacoder.common.log.LogFactory;
+import com.alacoder.common.log.LogService;
 import com.alacoder.lion.remote.Channel;
 import com.alacoder.lion.remote.Endpoint;
 import com.alacoder.lion.remote.MessageHandler;
@@ -44,6 +45,8 @@ import io.netty.channel.SimpleChannelInboundHandler;
  */
 
 public class NettyChannelHandler extends SimpleChannelInboundHandler<TransportData> {
+	
+	private final static LogService logger = LogFactory.getLogService(NettyChannelHandler.class);
 
 	private MessageHandler messagehandler;
 	private ThreadPoolExecutor threadPoolExecutor;
@@ -86,7 +89,7 @@ public class NettyChannelHandler extends SimpleChannelInboundHandler<TransportDa
 
 	@Override
 	public void channelActive(ChannelHandlerContext ctx) throws Exception {
-		LoggerUtil.info("chanel active " + ctx.channel().toString());
+		logger.info("chanel active " + ctx.channel().toString());
 		io.netty.channel.Channel channel = ctx.channel();
 		String channelKey = getChannelKey(
 				(InetSocketAddress) channel.localAddress(),
@@ -96,12 +99,12 @@ public class NettyChannelHandler extends SimpleChannelInboundHandler<TransportDa
 
 		if (channels.size() > MaxChannelNum) {
 			// 超过最大连接数限制，直接close连接
-			LoggerUtil.warn("Netty channelConnected channel size out of limit: limit={} current={}",
+			logger.warn("Netty channelConnected channel size out of limit: limit={} current={}",
 							MaxChannelNum, channels.size());
 			channel.close();
 		} else {
 			channels.put(channelKey, nettyChannel);
-			LoggerUtil.debug("chanel add  , socket = {}, size = {} ", ctx.channel().toString(), channels.size());
+			logger.debug("chanel add  , socket = {}, size = {} ", ctx.channel().toString(), channels.size());
 		}
 		ctx.fireChannelActive();
 	}
@@ -124,7 +127,7 @@ public class NettyChannelHandler extends SimpleChannelInboundHandler<TransportDa
 	//TODO 关闭连接是没有 日志
 	@Override
 	public void channelInactive(ChannelHandlerContext ctx) throws Exception {
-		LoggerUtil.debug("chanel inactive " + ctx.channel().toString());
+		logger.debug("chanel inactive " + ctx.channel().toString());
 		removeChannel(ctx);
 		ctx.fireChannelInactive();
 	}
@@ -136,7 +139,7 @@ public class NettyChannelHandler extends SimpleChannelInboundHandler<TransportDa
 				(InetSocketAddress) channel.remoteAddress());
 
 		channels.remove(channelKey);
-		LoggerUtil.debug("chanel remove  " + channelKey);
+		logger.debug("chanel remove  " + channelKey);
 	}
 
 	private void processResponse(Channel channel, final Response response) {
@@ -147,7 +150,7 @@ public class NettyChannelHandler extends SimpleChannelInboundHandler<TransportDa
 		ResponseFuture responseFuture = endpoint.removeCallback(response.getRequestId());
 
 		if (responseFuture == null) {
-			LoggerUtil.warn("NettyClient has response from server, but responseFuture not exist,  requestId={}", response.getRequestId());
+			logger.warn("NettyClient has response from server, but responseFuture not exist,  requestId={}", response.getRequestId());
 		}
 
 		if (response.getException() != null) {
@@ -159,9 +162,9 @@ public class NettyChannelHandler extends SimpleChannelInboundHandler<TransportDa
 
 	private void processRequest(final Channel nettyChannel, final Request request) {
 		final long processStartTime = System.currentTimeMillis();
-		LoggerUtil.debug("processRequest , request = {} ", request);
+		logger.debug("processRequest , request = {} ", request);
 		if(messagehandler == null) {
-			LoggerUtil.warn("messagehandler is null ");
+			logger.warn("messagehandler is null ");
 			return ;
 		}
 
@@ -185,7 +188,7 @@ public class NettyChannelHandler extends SimpleChannelInboundHandler<TransportDa
 
 					if (nettyChannel.isAvailable()) {
 						try {
-							LoggerUtil.debug("processRequest , response = {} ", response);
+							logger.debug("processRequest , response = {} ", response);
 							nettyChannel.send(response);
 						} catch (Exception e) {
 							response = new DefaultResponse();
@@ -195,7 +198,7 @@ public class NettyChannelHandler extends SimpleChannelInboundHandler<TransportDa
 						}
 					}
 					else {
-						LoggerUtil.error("processRequest error, channel is not available , response = {} ", response);
+						logger.error("processRequest error, channel is not available , response = {} ", response);
 					}
 				}
 			});
@@ -206,7 +209,7 @@ public class NettyChannelHandler extends SimpleChannelInboundHandler<TransportDa
 			response.setProcessTime(System.currentTimeMillis() - processStartTime);
 			if (nettyChannel.isAvailable()) {
 				try {
-					LoggerUtil.debug("processRequest , response = {} ",	response);
+					logger.debug("processRequest , response = {} ",	response);
 					nettyChannel.send(response);
 				} catch (TransportException e) {
 					response = new DefaultResponse();
@@ -221,10 +224,10 @@ public class NettyChannelHandler extends SimpleChannelInboundHandler<TransportDa
 				}
 			}
 			else {
-				LoggerUtil.error("processRequest error, channel is not available , response = {} ", response);
+				logger.error("processRequest error, channel is not available , response = {} ", response);
 			}
 
-			LoggerUtil.debug("process thread pool is full, reject, active={} poolSize={} corePoolSize={} maxPoolSize={} taskCount={} requestId={}",
+			logger.debug("process thread pool is full, reject, active={} poolSize={} corePoolSize={} maxPoolSize={} taskCount={} requestId={}",
 							threadPoolExecutor.getActiveCount(),
 							threadPoolExecutor.getPoolSize(),
 							threadPoolExecutor.getCorePoolSize(),
@@ -237,7 +240,7 @@ public class NettyChannelHandler extends SimpleChannelInboundHandler<TransportDa
 	@Override
 	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause)
 			throws Exception {
-		LoggerUtil.warn("netty error", cause);
+		logger.warn("netty error", cause);
 		removeChannel(ctx);
 		ctx.close();
 	}

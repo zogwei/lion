@@ -15,8 +15,9 @@ package com.alacoder.lion.rpc;
 
 import com.alacoder.common.exception.LionErrorMsgConstant;
 import com.alacoder.common.exception.LionFrameworkException;
+import com.alacoder.common.log.LogFactory;
+import com.alacoder.common.log.LogService;
 import com.alacoder.lion.common.url.LionURL;
-import com.alacoder.lion.common.utils.LoggerUtil;
 
 /**
  * @ClassName: AbstractNode
@@ -27,6 +28,8 @@ import com.alacoder.lion.common.utils.LoggerUtil;
  */
 
 public abstract class AbstractNode implements Node {
+	
+	private final static LogService logger = LogFactory.getLogService(AbstractNode.class);
 
 	protected LionURL url;
 	
@@ -40,18 +43,18 @@ public abstract class AbstractNode implements Node {
 	@Override
 	public synchronized void init() {
 		if(init) {
-			LoggerUtil.warn(this.getClass().getSimpleName() + " node already init: " + desc());
+			logger.warn(this.getClass().getSimpleName() + " node already init: " + desc());
 			return;
 		}
 		
 		boolean result = doInit();
 		if(!result) {
-			 LoggerUtil.error(this.getClass().getSimpleName() + " node init Error: " + desc());
+			 logger.error(this.getClass().getSimpleName() + " node init Error: " + desc());
 	            throw new LionFrameworkException(this.getClass().getSimpleName() + " node init Error: " + desc(),
 	                    LionErrorMsgConstant.FRAMEWORK_INIT_ERROR);
 		}
 		else {
-			LoggerUtil.info(this.getClass().getSimpleName() + " node init Success: " + desc());
+			logger.info(this.getClass().getSimpleName() + " node init Success: " + desc());
 
             init = true;
             available = true;

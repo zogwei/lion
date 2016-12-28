@@ -20,16 +20,14 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.locks.ReentrantLock;
 
-import org.apache.curator.framework.api.CuratorWatcher;
-import org.apache.zookeeper.WatchedEvent;
-
 import com.alacoder.common.exception.LionFrameworkException;
+import com.alacoder.common.log.LogFactory;
+import com.alacoder.common.log.LogService;
 import com.alacoder.lion.common.LionConstants;
 import com.alacoder.lion.common.extension.SpiMeta;
 import com.alacoder.lion.common.url.LionURL;
 import com.alacoder.lion.common.url.URLParamType;
 import com.alacoder.lion.common.utils.ConcurrentHashSet;
-import com.alacoder.lion.common.utils.LoggerUtil;
 import com.alacoder.lion.registry.api.AbstractRegistry;
 import com.alacoder.lion.registry.api.NotifyListener;
 
@@ -42,6 +40,8 @@ import com.alacoder.lion.registry.api.NotifyListener;
  */
 @SpiMeta(name = "zookeeper")
 public class ZkRegistry extends AbstractRegistry {
+	
+	private final static LogService logger = LogFactory.getLogService(ZkRegistry.class);
 
 	private CuratorOper zkOper = null;
     private Set<LionURL> availableServices = new ConcurrentHashSet<LionURL>();
@@ -117,7 +117,7 @@ public class ZkRegistry extends AbstractRegistry {
 		     }
 		}
 		catch(Exception e){
-			LoggerUtil.error(" zk doSubscribe error,url  " + url );
+			logger.error(" zk doSubscribe error,url  " + url );
 			throw new LionFrameworkException(String.format("Failed to doSubscribe %s to zookeeper(%s), cause: %s", url, getUrl(), e.getMessage()), e);
 		}
 		finally{
@@ -136,7 +136,7 @@ public class ZkRegistry extends AbstractRegistry {
 			}
 		}
 		catch(Exception e){
-			LoggerUtil.error(" zk doUnsubscribe error,url  " + url );
+			logger.error(" zk doUnsubscribe error,url  " + url );
 			throw new LionFrameworkException(String.format("Failed to doUnsubscribe %s to zookeeper(%s), cause: %s", url, getUrl(), e.getMessage()), e);
 		}
 		finally{
@@ -169,7 +169,7 @@ public class ZkRegistry extends AbstractRegistry {
                 	LionURL url = LionURL.valueOf(data);
                     urls.add(url);
                 } catch (Exception e) {
-                    LoggerUtil.warn(String.format("Found malformed urls from ZookeeperRegistry, path=%s", nodePath), e);
+                    logger.warn(String.format("Found malformed urls from ZookeeperRegistry, path=%s", nodePath), e);
                 }
             }
         }

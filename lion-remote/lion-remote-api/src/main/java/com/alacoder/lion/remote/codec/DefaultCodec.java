@@ -17,12 +17,13 @@ import java.io.IOException;
 
 import com.alacoder.common.exception.LionErrorMsgConstant;
 import com.alacoder.common.exception.LionFrameworkException;
+import com.alacoder.common.log.LogFactory;
+import com.alacoder.common.log.LogService;
 import com.alacoder.lion.common.LionConstants;
 import com.alacoder.lion.common.extension.ExtensionLoader;
 import com.alacoder.lion.common.extension.SpiMeta;
 import com.alacoder.lion.common.url.URLParamType;
 import com.alacoder.lion.common.utils.ByteUtil;
-import com.alacoder.lion.common.utils.LoggerUtil;
 import com.alacoder.lion.remote.Codec;
 import com.alacoder.lion.remote.Serialization;
 import com.alacoder.lion.remote.transport.DefaultRequest;
@@ -39,6 +40,8 @@ import com.alacoder.lion.remote.transport.Response;
  */
 @SpiMeta(name = "lion")
 public class DefaultCodec implements Codec{
+	
+	private final static LogService logger = LogFactory.getLogService(DefaultCodec.class);
 
 	private static final short MAGIC = (short)0xF0F0;
 	private static final byte VERSION = RemoteProtocolVersion.VERSION_1.getVersion();
@@ -53,7 +56,7 @@ public class DefaultCodec implements Codec{
 		} else if ( message instanceof Response ) {
 			return encodeResponse((Response)message);
 		} else {
-			LoggerUtil.warn(" error message type message is : ", message);
+			logger.warn(" error message type message is : ", message);
 		}
 		
 		return null;

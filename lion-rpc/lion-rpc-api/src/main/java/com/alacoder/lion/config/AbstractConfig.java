@@ -23,8 +23,10 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.alacoder.common.exception.LionErrorMsgConstant;
 import com.alacoder.common.exception.LionFrameworkException;
+import com.alacoder.common.log.LogFactory;
+import com.alacoder.common.log.LogService;
 import com.alacoder.lion.common.LionConstants;
-import com.alacoder.lion.common.utils.LoggerUtil;
+import com.alacoder.lion.registry.api.AbstractRegistry;
 
 /**
  * @ClassName: AbstractConfig
@@ -35,6 +37,8 @@ import com.alacoder.lion.common.utils.LoggerUtil;
  */
 
 public abstract class AbstractConfig implements Serializable {
+	
+	private final static LogService logger = LogFactory.getLogService(AbstractRegistry.class);
 
 	private static final long serialVersionUID = 1L;
 	protected String id;
@@ -170,13 +174,13 @@ public abstract class AbstractConfig implements Serializable {
                         }
                     }
                 } catch (Exception e) {
-                    LoggerUtil.warn(e.getMessage(), e);
+                    logger.warn(e.getMessage(), e);
                 }
             }
             buf.append(" />");
             return buf.toString();
         } catch (Throwable t) { // 防御性容错
-            LoggerUtil.warn(t.getMessage(), t);
+            logger.warn(t.getMessage(), t);
             return super.toString();
         }
     }

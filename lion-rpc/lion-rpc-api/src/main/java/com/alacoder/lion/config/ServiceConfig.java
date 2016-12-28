@@ -25,12 +25,13 @@ import org.apache.commons.lang3.StringUtils;
 import com.alacoder.common.exception.LionErrorMsgConstant;
 import com.alacoder.common.exception.LionFrameworkException;
 import com.alacoder.common.exception.LionServiceException;
+import com.alacoder.common.log.LogFactory;
+import com.alacoder.common.log.LogService;
 import com.alacoder.lion.common.LionConstants;
 import com.alacoder.lion.common.extension.ExtensionLoader;
 import com.alacoder.lion.common.url.LionURL;
 import com.alacoder.lion.common.url.URLParamType;
 import com.alacoder.lion.common.utils.ConcurrentHashSet;
-import com.alacoder.lion.common.utils.LoggerUtil;
 import com.alacoder.lion.common.utils.NetUtils;
 import com.alacoder.lion.common.utils.StringTools;
 import com.alacoder.lion.registry.api.RegistryService;
@@ -46,6 +47,8 @@ import com.alacoder.lion.rpc.Exporter;
  */
 
 public class ServiceConfig<T> extends AbstractServiceConfig {
+	
+	private final static LogService logger = LogFactory.getLogService(ServiceConfig.class);
 
 	private static final long serialVersionUID = 1L;
 
@@ -67,7 +70,7 @@ public class ServiceConfig<T> extends AbstractServiceConfig {
     
     public synchronized void  export() {
     	 if (exported.get()) {
-             LoggerUtil.warn(String.format("%s has already been expoted, so ignore the export request!", interfaceClass.getName()));
+             logger.warn(String.format("%s has already been expoted, so ignore the export request!", interfaceClass.getName()));
              return;
          }
     	 
@@ -130,7 +133,7 @@ public class ServiceConfig<T> extends AbstractServiceConfig {
         LionURL serviceUrl = new LionURL(protocolName, hostAddress, port, interfaceClass.getName(), map);
 
         if (serviceExists(serviceUrl)) {
-            LoggerUtil.warn(String.format("%s configService is malformed, for same service (%s) already exists ", interfaceClass.getName(),
+            logger.warn(String.format("%s configService is malformed, for same service (%s) already exists ", interfaceClass.getName(),
                     serviceUrl.getIdentity()));
             throw new LionFrameworkException(String.format("%s configService is malformed, for same service (%s) already exists ",
                     interfaceClass.getName(), serviceUrl.getIdentity()), LionErrorMsgConstant.FRAMEWORK_INIT_ERROR);

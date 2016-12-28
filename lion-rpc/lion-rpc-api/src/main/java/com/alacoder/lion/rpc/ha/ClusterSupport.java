@@ -22,12 +22,13 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.alacoder.common.exception.LionErrorMsgConstant;
 import com.alacoder.common.exception.LionFrameworkException;
+import com.alacoder.common.log.LogFactory;
+import com.alacoder.common.log.LogService;
 import com.alacoder.lion.common.LionConstants;
 import com.alacoder.lion.common.extension.ExtensionLoader;
 import com.alacoder.lion.common.url.LionURL;
 import com.alacoder.lion.common.url.URLParamType;
 import com.alacoder.lion.common.utils.CollectionUtil;
-import com.alacoder.lion.common.utils.LoggerUtil;
 import com.alacoder.lion.common.utils.StringTools;
 import com.alacoder.lion.filter.ProtocolFilterDecorator;
 import com.alacoder.lion.registry.api.NotifyListener;
@@ -45,6 +46,8 @@ import com.alacoder.lion.rpc.Referer;
  */
 
 public class ClusterSupport<T> implements NotifyListener {
+
+	private final static LogService logger = LogFactory.getLogService(ClusterSupport.class);
 	
 	private static ConcurrentHashMap<String, Protocol> protocols = new ConcurrentHashMap<String, Protocol>();
 	private Cluster<T> cluster;
@@ -74,7 +77,7 @@ public class ClusterSupport<T> implements NotifyListener {
 				List<LionURL> directUrls = parseDirectUrls(directUrlStr);
 				if (!directUrls.isEmpty()) {
 					notify(ru, directUrls);
-					LoggerUtil.info("Use direct urls, refUrl={}, directUrls={}", url,directUrls);
+					logger.info("Use direct urls, refUrl={}, directUrls={}", url,directUrls);
 					continue;
 				}
 			}
@@ -88,7 +91,7 @@ public class ClusterSupport<T> implements NotifyListener {
 	     if (!CollectionUtil.isEmpty(cluster.getReferers()) || !check) {
 			 cluster.init();
 			 if (CollectionUtil.isEmpty(cluster.getReferers()) && !check) {
-				LoggerUtil.warn(String.format("refer:%s", this.url.getPath() + "/" + this.url.getVersion()), "No services");
+				logger.warn(String.format("refer:%s", this.url.getPath() + "/" + this.url.getVersion()), "No services");
 			 }
 			 return;
 	     }
@@ -159,12 +162,12 @@ public class ClusterSupport<T> implements NotifyListener {
 		// TODO Auto-generated method stub
 		if(CollectionUtil.isEmpty(registryUrls)) {
 			onRegistryEmpty(registryUrl);
-            LoggerUtil.warn("ClusterSupport config change notify, urls is empty: registry={} service={} urls=[]", registryUrl.getUri(), url.getIdentity());
+            logger.warn("ClusterSupport config change notify, urls is empty: registry={} service={} urls=[]", registryUrl.getUri(), url.getIdentity());
 
             return;
 		}
 		
-		 LoggerUtil.info("ClusterSupport config change notify: registry={} service={} urls={}", registryUrl.getUri(), url.getIdentity(), getIdentities(urls));
+		 logger.info("ClusterSupport config change notify: registry={} service={} urls={}", registryUrl.getUri(), url.getIdentity(), getIdentities(urls));
 		 
 	     // 通知都是全量通知，在设入新的referer后，cluster内部需要把不再使用的referer进行回收，避免资源泄漏
          //////////////////////////////////////////////////////////////////////////////////
@@ -240,7 +243,7 @@ public class ClusterSupport<T> implements NotifyListener {
                 weights = ruleUrl.getParameter(URLParamType.weights.getName(), URLParamType.weights.getValue());
                 urls.remove(0);
             }
-            LoggerUtil.info("refresh weight. weight=" + weights);
+            logger.info("refresh weight. weight=" + weights);
             this.cluster.getLoadBalance().setWeightString(weights);
         }
     }
@@ -265,7 +268,7 @@ public class ClusterSupport<T> implements NotifyListener {
 	private void onRegistryEmpty(LionURL excludeRegistryUrl) {
 		boolean noMoreOtherRefers = registryReferers.size() == 1 && registryReferers.contains(excludeRegistryUrl);
 		if(noMoreOtherRefers) {
-			LoggerUtil.warn(String.format("Ignore notify for no more referers in this cluster, registry: %s, cluster=%s", excludeRegistryUrl, getUrl()));
+			logger.warn(String.format("Ignore notify for no more referers in this cluster, registry: %s, cluster=%s", excludeRegistryUrl, getUrl()));
 		}
 		else {
 			registryReferers.remove(excludeRegistryUrl);
@@ -298,14 +301,14 @@ public class ClusterSupport<T> implements NotifyListener {
                     registry.unregister(url);
                 }
             } catch (Exception e) {
-                LoggerUtil.warn(String.format("Unregister or unsubscribe false for url (%s), registry= %s", url, ru.getIdentity()), e);
+                logger.warn(String.format("Unregister or unsubscribe false for url (%s), registry= %s", url, ru.getIdentity()), e);
             }
 
         }
         try {
             getCluster().destroy();
         } catch (Exception e) {
-            LoggerUtil.warn(String.format("Exception when destroy cluster: %s", getCluster().getUrl()));
+            logger.warn(String.format("Exception when destroy cluster: %s", getCluster().getUrl()));
         }
     }
 }

@@ -78,7 +78,8 @@ public class CuratorUtils {
         zkclient.delete().guaranteed().deletingChildrenIfNeeded().inBackground().forPath(path);  
     }      
     public void dataChanges(String path) throws Exception{  
-        final NodeCache  dataWatch =  new NodeCache(zkclient, path);  
+        @SuppressWarnings("resource")
+		final NodeCache  dataWatch =  new NodeCache(zkclient, path);  
         dataWatch.start(true);  
         dataWatch.getListenable().addListener(new NodeCacheListener(){  
   
@@ -90,7 +91,8 @@ public class CuratorUtils {
         zkclient.delete().guaranteed().deletingChildrenIfNeeded().inBackground().forPath(path);  
     }      
     public void addChildWatcher(String path,final String type) throws Exception{  
-        final PathChildrenCache pc = new PathChildrenCache(zkclient, path, true);  
+        @SuppressWarnings("resource")
+		final PathChildrenCache pc = new PathChildrenCache(zkclient, path, true);  
         pc.start(StartMode.POST_INITIALIZED_EVENT);  
         System.out.println("节点个数===>" + pc.getCurrentData().size());  
         pc.getListenable().addListener(new  PathChildrenCacheListener() {  

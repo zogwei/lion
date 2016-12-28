@@ -32,7 +32,7 @@ public class ZkRegistryTest {
 	public static void main(String[] args) throws InterruptedException {
 		
 		System.out.println("----------register-----------");
-		LionURL url = new LionURL(LionConstants.REGISTRY_PROTOCOL_DIRECT, "10.12.104.6", 4455, "com.alacoder.lion.rpc.DemoService");
+		LionURL url = new LionURL(LionConstants.REGISTRY_PROTOCOL_DIRECT, "127.0.0.1", 4455, "com.alacoder.lion.rpc.DemoService");
 		
 		url.addParameter("address", "127.0.0.1:2181");
 		ZkRegistry zkRegistry = new ZkRegistry(url);
@@ -56,7 +56,7 @@ public class ZkRegistryTest {
 		
 		Thread.sleep(1000);
 		System.out.println("----------register another----------");
-	    url = new LionURL(LionConstants.REGISTRY_PROTOCOL_DIRECT, "10.12.104.6", 4466, "com.alacoder.lion.rpc.DemoService");
+	    url = new LionURL(LionConstants.REGISTRY_PROTOCOL_DIRECT, "127.0.0.1", 4466, "com.alacoder.lion.rpc.DemoService");
 		
 		url.addParameter("address", "127.0.0.1:2181");
 		zkRegistry = new ZkRegistry(url);
@@ -69,7 +69,7 @@ public class ZkRegistryTest {
 		
 		Thread.sleep(1000);
 		System.out.println("----------unsubscribe----------");
-		url = new LionURL(LionConstants.REGISTRY_PROTOCOL_DIRECT, "10.12.104.6", 4455, "com.alacoder.lion.rpc.DemoService");
+		url = new LionURL(LionConstants.REGISTRY_PROTOCOL_DIRECT, "127.0.0.1", 4455, "com.alacoder.lion.rpc.DemoService");
 		
 		url.addParameter("address", "127.0.0.1:2181");
 		subReg.unsubscribe(url, listener);
@@ -77,7 +77,7 @@ public class ZkRegistryTest {
 		
 		Thread.sleep(2*1000);
 		System.out.println("----------register another----------");
-	    url = new LionURL(LionConstants.REGISTRY_PROTOCOL_DIRECT, "10.12.104.6", 4477, "com.alacoder.lion.rpc.DemoService");
+	    url = new LionURL(LionConstants.REGISTRY_PROTOCOL_DIRECT, "127.0.0.1", 4477, "com.alacoder.lion.rpc.DemoService");
 		
 		url.addParameter("address", "127.0.0.1:2181");
 		zkRegistry = new ZkRegistry(url);

@@ -18,11 +18,12 @@ import java.util.List;
 
 import com.alacoder.common.exception.LionFrameworkException;
 import com.alacoder.common.exception.LionServiceException;
+import com.alacoder.common.log.LogFactory;
+import com.alacoder.common.log.LogService;
 import com.alacoder.lion.common.extension.SpiMeta;
 import com.alacoder.lion.common.url.LionURL;
 import com.alacoder.lion.common.url.URLParamType;
 import com.alacoder.lion.common.utils.ExceptionUtil;
-import com.alacoder.lion.common.utils.LoggerUtil;
 import com.alacoder.lion.remote.transport.Request;
 import com.alacoder.lion.remote.transport.Response;
 import com.alacoder.lion.rpc.Referer;
@@ -37,6 +38,8 @@ import com.alacoder.lion.rpc.Referer;
 
 @SpiMeta(name = "failover")
 public class FailoverHaStrategy<T> extends AbstractHaStrategy<T> {
+	
+	private final static LogService logger = LogFactory.getLogService(FailoverHaStrategy.class);
 
     protected ThreadLocal<List<Referer<T>>> referersHolder = new ThreadLocal<List<Referer<T>>>() {
         @Override
@@ -75,7 +78,7 @@ public class FailoverHaStrategy<T> extends AbstractHaStrategy<T> {
                 } else if (i >= tryCount) {
                     throw e;
                 }
-                LoggerUtil.warn(String.format("FailoverHaStrategy Call false for request:%s error=%s", request, e.getMessage()));
+                logger.warn(String.format("FailoverHaStrategy Call false for request:%s error=%s", request, e.getMessage()));
             }
         }
 

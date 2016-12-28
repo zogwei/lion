@@ -19,11 +19,12 @@ import java.util.List;
 import com.alacoder.common.exception.LionErrorMsg;
 import com.alacoder.common.exception.LionErrorMsgConstant;
 import com.alacoder.common.exception.LionFrameworkException;
+import com.alacoder.common.log.LogFactory;
+import com.alacoder.common.log.LogService;
 import com.alacoder.lion.common.extension.ExtensionLoader;
 import com.alacoder.lion.common.extension.SpiMeta;
 import com.alacoder.lion.common.url.LionURL;
 import com.alacoder.lion.common.url.URLParamType;
-import com.alacoder.lion.common.utils.LoggerUtil;
 import com.alacoder.lion.common.utils.StringTools;
 import com.alacoder.lion.registry.api.Registry;
 import com.alacoder.lion.registry.api.RegistryFactory;
@@ -41,6 +42,8 @@ import com.alacoder.lion.common.LionConstants;
 @SpiMeta(name = LionConstants.DEFAULT_VALUE)
 public class DefaultConfigHandler implements ConfigHandler {
 	
+	private final static LogService logger = LogFactory.getLogService(DefaultConfigHandler.class);
+
     @Override
     public <T> ClusterSupport<T> buildClusterSupport(Class<T> interfaceClass, List<LionURL> registryUrls) {
         ClusterSupport<T> clusterSupport = new ClusterSupport<T>(interfaceClass, registryUrls);
@@ -94,14 +97,14 @@ public class DefaultConfigHandler implements ConfigHandler {
         try {
             unRegister(registryUrls);
         } catch (Exception e1) {
-            LoggerUtil.warn("Exception when unregister urls:" + registryUrls);
+            logger.warn("Exception when unregister urls:" + registryUrls);
         }
         try {
             for (Exporter<T> exporter : exporters) {
                 exporter.unexport();
             }
         } catch (Exception e) {
-            LoggerUtil.warn("Exception when unexport exporters:" + exporters);
+            logger.warn("Exception when unexport exporters:" + exporters);
         }
     }
     
@@ -116,7 +119,7 @@ public class DefaultConfigHandler implements ConfigHandler {
                 Registry registry = registryFactory.getRegistry(url);
                 registry.unregister(serviceUrl);
             } catch (Exception e) {
-                LoggerUtil.warn(String.format("unregister url false:%s", url), e);
+                logger.warn(String.format("unregister url false:%s", url), e);
             }
         }
     }

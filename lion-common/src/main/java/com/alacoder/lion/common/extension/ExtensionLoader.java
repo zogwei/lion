@@ -46,10 +46,13 @@ import java.util.concurrent.ConcurrentMap;
 import org.apache.commons.lang3.StringUtils;
 
 import com.alacoder.common.exception.LionFrameworkException;
+import com.alacoder.common.log.LogFactory;
+import com.alacoder.common.log.LogService;
 import com.alacoder.lion.common.LionConstants;
-import com.alacoder.lion.common.utils.LoggerUtil;
 
 public class ExtensionLoader<T> {
+	
+	private final static LogService logger = LogFactory.getLogService(ExtensionLoader.class);
 
     private static ConcurrentMap<Class<?>, ExtensionLoader<?>> extensionLoaders = new ConcurrentHashMap<Class<?>, ExtensionLoader<?>>();
 
@@ -451,7 +454,7 @@ public class ExtensionLoader<T> {
     }
 
     private static <T> void failLog(Class<T> type, String msg, Throwable cause) {
-        LoggerUtil.error(type.getName() + ": " + msg, cause);
+        logger.error(type.getName() + ": " + msg, cause);
     }
 
     private static <T> void failThrows(Class<T> type, String msg, Throwable cause) {

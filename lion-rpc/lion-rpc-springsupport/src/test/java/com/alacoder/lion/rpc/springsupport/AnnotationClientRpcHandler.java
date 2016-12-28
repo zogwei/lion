@@ -15,7 +15,8 @@ package com.alacoder.lion.rpc.springsupport;
 
 import org.springframework.stereotype.Component;
 
-import com.alacoder.lion.common.utils.LoggerUtil;
+import com.alacoder.common.log.LogFactory;
+import com.alacoder.common.log.LogService;
 import com.alacoder.lion.rpc.springsupport.annotation.LionReferer;
 
 /**
@@ -28,13 +29,16 @@ import com.alacoder.lion.rpc.springsupport.annotation.LionReferer;
 @Component
 public class AnnotationClientRpcHandler {
 
+	private final static LogService logger = LogFactory.getLogService(AnnotationClientRpcHandler.class);
+	
+	
     @LionReferer
     private DemoService lionDemoService;
 
     public void test() {
         for (int i = 0; i < 10; i++) {
             System.out.println(lionDemoService.hello("lion handler" + i));
-            LoggerUtil.info("lion handler" + i);
+            logger.info("lion handler" + i);
         }
     }
 }

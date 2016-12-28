@@ -36,10 +36,11 @@ import com.alacoder.common.exception.LionAbstractException;
 import com.alacoder.common.exception.LionErrorMsgConstant;
 import com.alacoder.common.exception.LionFrameworkException;
 import com.alacoder.common.exception.LionServiceException;
+import com.alacoder.common.log.LogFactory;
+import com.alacoder.common.log.LogService;
 import com.alacoder.lion.common.LionConstants;
 import com.alacoder.lion.common.url.LionURL;
 import com.alacoder.lion.common.url.URLParamType;
-import com.alacoder.lion.common.utils.LoggerUtil;
 import com.alacoder.lion.common.utils.StandardThreadExecutor;
 import com.alacoder.lion.remote.AbstractPoolClient;
 import com.alacoder.lion.remote.Channel;
@@ -61,6 +62,8 @@ import com.alacoder.lion.remote.transport.Response;
  */
 
 public class NettyClientPooled extends AbstractPoolClient {
+	
+	private final static LogService logger = LogFactory.getLogService(NettyClientPooled.class);
 
 	private io.netty.bootstrap.Bootstrap client;
 	private EventLoopGroup group;
@@ -209,7 +212,7 @@ public class NettyClientPooled extends AbstractPoolClient {
 			invalidateObject(channel);
 			throw e;
 		} catch (Exception e) {
-			LoggerUtil.error("NettyClient request Error: url=" + url.getUri() + " " + request, e);
+			logger.error("NettyClient request Error: url=" + url.getUri() + " " + request, e);
 			
 			invalidateObject(channel);
 		}
@@ -223,12 +226,12 @@ public class NettyClientPooled extends AbstractPoolClient {
 		try {
 			response = channel.request(request);
 		} catch (TransportException e) {
-			LoggerUtil.error("NettyClient request Error: url=" + url.getUri() + " " + request, e);
+			logger.error("NettyClient request Error: url=" + url.getUri() + " " + request, e);
 			
 			invalidateObject(channel);
 			throw e;
 		} catch (Exception e) {
-			LoggerUtil.error("NettyClient request Error: url=" + url.getUri() + " " + request, e);
+			logger.error("NettyClient request Error: url=" + url.getUri() + " " + request, e);
 			if (e instanceof LionAbstractException) {
 				throw (LionAbstractException) e;
 			} else {
@@ -258,7 +261,7 @@ public class NettyClientPooled extends AbstractPoolClient {
 		catch(Exception e) {
 			invalidateObject(channel);
 			
-			LoggerUtil.error("NettyClient send Error: url=" + url.getUri() + " " + transportData, e);
+			logger.error("NettyClient send Error: url=" + url.getUri() + " " + transportData, e);
 			if (e instanceof LionAbstractException) {
 				throw (LionAbstractException) e;
 			} else {
@@ -275,13 +278,13 @@ public class NettyClientPooled extends AbstractPoolClient {
 	@Override
 	public synchronized void close(int timeout) {
 		if(state.isCloseState()){
-			LoggerUtil.info("NettyClient close fail: already close, url={}", url.getUri());
+			logger.info("NettyClient close fail: already close, url={}", url.getUri());
 			return;
 		}
 		
 		// 如果当前nettyClient还没有初始化，那么就没有close的理由。
 		if (state.isUnInitState()) {
-			LoggerUtil.info("NettyClient close Fail: don't need to close because node is unInit state: url={}", url.getUri());
+			logger.info("NettyClient close Fail: don't need to close because node is unInit state: url={}", url.getUri());
 			return;
 		}
 		
@@ -297,10 +300,10 @@ public class NettyClientPooled extends AbstractPoolClient {
 			
 			// 设置close状态
 			state = EndpointState.CLOSE;
-			LoggerUtil.info("NettyClient close :  url = {} ", url.getUri());
+			logger.info("NettyClient close :  url = {} ", url.getUri());
 		}
 		catch(Exception e) {
-			LoggerUtil.error("NettyClient close Error: url=" + url.getUri(), e);
+			logger.error("NettyClient close Error: url=" + url.getUri(), e);
 		}
 	}
 	

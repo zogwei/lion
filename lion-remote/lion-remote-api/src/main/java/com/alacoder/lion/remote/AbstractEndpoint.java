@@ -24,10 +24,11 @@ import java.util.concurrent.atomic.AtomicLong;
 
 import com.alacoder.common.exception.LionErrorMsgConstant;
 import com.alacoder.common.exception.LionServiceException;
+import com.alacoder.common.log.LogFactory;
+import com.alacoder.common.log.LogService;
 import com.alacoder.lion.common.LionConstants;
 import com.alacoder.lion.common.url.LionURL;
 import com.alacoder.lion.common.url.URLParamType;
-import com.alacoder.lion.common.utils.LoggerUtil;
 
 /**
  * @ClassName: AbstractEndpoint
@@ -38,6 +39,8 @@ import com.alacoder.lion.common.utils.LoggerUtil;
  */
 
 public abstract class AbstractEndpoint implements Endpoint {
+	
+	private final static LogService logger = LogFactory.getLogService(AbstractEndpoint.class);
 	
     protected volatile EndpointState state = EndpointState.UNINIT;
     
@@ -85,7 +88,7 @@ public abstract class AbstractEndpoint implements Endpoint {
 //				count = errorCount.longValue();
 //
 //				if (count >= maxClientConnection && state.isAliveState()) {
-//					LoggerUtil.error("NettyClient unavailable Error: url=" + url.getIdentity() + " "
+//					logger.error("NettyClient unavailable Error: url=" + url.getIdentity() + " "
 //							+ url.getServerPortStr());
 //					state = EndpointState.UNALIVE;
 //				}
@@ -120,7 +123,7 @@ public abstract class AbstractEndpoint implements Endpoint {
 //				// 过程中有其他并发更新errorCount的，因此这里需要进行一次判断
 //				if (count < maxClientConnection) {
 //					state = EndpointState.ALIVE;
-//					LoggerUtil.info("NettyClient recover available: url=" + url.getIdentity() + " "
+//					logger.info("NettyClient recover available: url=" + url.getIdentity() + " "
 //							+ url.getServerPortStr());
 //				}
 //			}
@@ -170,12 +173,12 @@ public abstract class AbstractEndpoint implements Endpoint {
 
 					if (future.getCreateTime() + future.getTimeout() > currentTime) {
 						// timeout: remove from callback list, and then cancel
-						LoggerUtil.warn(" clear ResponseFuture : requestId=" + entry.getKey() );
+						logger.warn(" clear ResponseFuture : requestId=" + entry.getKey() );
 						removeCallback(entry.getKey());
 						future.cancel();
 					} 
 				} catch (Exception e) {
-					LoggerUtil.error(name + " clear timeout future Error: uri=" + url.getUri() + " requestId=" + entry.getKey(), e);
+					logger.error(name + " clear timeout future Error: uri=" + url.getUri() + " requestId=" + entry.getKey(), e);
 				}
 			}
 		}
@@ -186,7 +189,7 @@ public abstract class AbstractEndpoint implements Endpoint {
 		try {
 			scheduledExecutor.awaitTermination(1000,  TimeUnit.MILLISECONDS);
 		} catch (InterruptedException e) {
-			LoggerUtil.error("close scheduledExecutor error ", e);
+			logger.error("close scheduledExecutor error ", e);
 		}
 	}
 

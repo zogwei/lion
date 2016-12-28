@@ -22,7 +22,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 import com.alacoder.common.exception.LionBizException;
 import com.alacoder.common.exception.LionFrameworkException;
 import com.alacoder.common.exception.LionServiceException;
-import com.alacoder.lion.common.utils.LoggerUtil;
+import com.alacoder.common.log.LogFactory;
+import com.alacoder.common.log.LogService;
 import com.alacoder.lion.common.utils.ReflectUtil;
 import com.alacoder.lion.remote.Channel;
 import com.alacoder.lion.remote.transport.DefaultResponse;
@@ -39,6 +40,9 @@ import com.alacoder.lion.rpc.utils.LionFrameworkUtil;
  */
 
 public class DefaultMessageHandler extends AbstractMessageHandler {
+	
+	private final static LogService logger = LogFactory.getLogService(DefaultMessageHandler.class);
+
 	 private Map<String, Provider<?>> providers = new HashMap<String, Provider<?>>();
 
 	    // 所有暴露出去的方法计数
@@ -69,7 +73,7 @@ public class DefaultMessageHandler extends AbstractMessageHandler {
 	        Provider<?> provider = providers.get(serviceKey);
 
 	        if (provider == null) {
-	            LoggerUtil.error(this.getClass().getSimpleName() + " handler Error: provider not exist serviceKey=" + serviceKey + " "
+	            logger.error(this.getClass().getSimpleName() + " handler Error: provider not exist serviceKey=" + serviceKey + " "
 	                    + LionFrameworkUtil.toString(request));
 	            LionServiceException exception =
 	                    new LionServiceException(this.getClass().getSimpleName() + " handler Error: provider not exist serviceKey="
@@ -108,7 +112,7 @@ public class DefaultMessageHandler extends AbstractMessageHandler {
 	        int publicMethodCount = methods.size();
 	        methodCounter.addAndGet(publicMethodCount);
 
-	        LoggerUtil.info("RequestRouter addProvider: url=" + provider.getUrl() + " all_public_method_count=" + methodCounter.get());
+	        logger.info("RequestRouter addProvider: url=" + provider.getUrl() + " all_public_method_count=" + methodCounter.get());
 	    }
 
 	    public synchronized void removeProvider(Provider<?> provider) {
@@ -119,7 +123,7 @@ public class DefaultMessageHandler extends AbstractMessageHandler {
 	        int publicMethodCount = methods.size();
 	        methodCounter.getAndSet(methodCounter.get() - publicMethodCount);
 
-	        LoggerUtil.info("RequestRouter removeProvider: url=" + provider.getUrl() + " all_public_method_count=" + methodCounter.get());
+	        logger.info("RequestRouter removeProvider: url=" + provider.getUrl() + " all_public_method_count=" + methodCounter.get());
 	    }
 
 	    public int getPublicMethodCount() {

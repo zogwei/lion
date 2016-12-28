@@ -16,7 +16,8 @@ package com.alacoder.lion.rpc;
 import java.util.concurrent.ConcurrentHashMap;
 
 import com.alacoder.common.exception.LionFrameworkException;
-import com.alacoder.lion.common.utils.LoggerUtil;
+import com.alacoder.common.log.LogFactory;
+import com.alacoder.common.log.LogService;
 import com.alacoder.lion.remote.Channel;
 import com.alacoder.lion.remote.MessageHandler;
 import com.alacoder.lion.remote.TransportData;
@@ -34,6 +35,9 @@ import com.alacoder.lion.rpc.utils.LionFrameworkUtil;
  */
 
 public abstract class AbstractMessageHandler implements MessageHandler {
+	
+	private final static LogService logger = LogFactory.getLogService(AbstractMessageHandler.class);
+
 	protected ConcurrentHashMap<String,Provider<?>> providers = new ConcurrentHashMap<String,Provider<?>>();
 	
 	@Override
@@ -44,7 +48,7 @@ public abstract class AbstractMessageHandler implements MessageHandler {
 		@SuppressWarnings("rawtypes")
 		Provider provider = providers.get(serviceKey);
 		if(provider == null) {
-			LoggerUtil.error(" handler error, provider not find ,serviceKey " + serviceKey);
+			logger.error(" handler error, provider not find ,serviceKey " + serviceKey);
 			LionFrameworkException exception =  new LionFrameworkException(" handler error, provider not find ,serviceKey " + serviceKey);
 			DefaultResponse response = new DefaultResponse();
 			response.setException(exception);
@@ -73,13 +77,13 @@ public abstract class AbstractMessageHandler implements MessageHandler {
 		}
 		
 		providers.put(serviceKey, provider);
-		LoggerUtil.debug(" add service key " + serviceKey);
+		logger.debug(" add service key " + serviceKey);
 	}
 	
 	public void removeProvider(Provider<?> provider) {
 		String serviceKey = LionFrameworkUtil.getServiceKey(provider.getUrl());
 		providers.remove(serviceKey);
-		LoggerUtil.debug(" remove service key " + serviceKey);
+		logger.debug(" remove service key " + serviceKey);
 	}
 
 }

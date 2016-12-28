@@ -21,10 +21,11 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
+import com.alacoder.common.log.LogFactory;
+import com.alacoder.common.log.LogService;
 import com.alacoder.lion.common.url.LionURL;
 import com.alacoder.lion.common.url.URLParamType;
 import com.alacoder.lion.common.utils.ConcurrentHashSet;
-import com.alacoder.lion.common.utils.LoggerUtil;
 
 /**
  * @ClassName: AbstractRegistry
@@ -35,6 +36,8 @@ import com.alacoder.lion.common.utils.LoggerUtil;
  */
 
 public abstract class AbstractRegistry implements Registry {
+	
+	private final static LogService logger = LogFactory.getLogService(AbstractRegistry.class);
 	
 	 private ConcurrentHashMap<LionURL, Map<String, List<LionURL>>> subscribedCategoryResponses = new ConcurrentHashMap<LionURL, Map<String, List<LionURL>>>();
 	 private LionURL registryUrl;
@@ -49,10 +52,10 @@ public abstract class AbstractRegistry implements Registry {
 	 @Override
 	 public void register(LionURL url) {
 		if (url == null) {
-			LoggerUtil.warn("[{}] register with malformed param, url is null", registryClassName);
+			logger.warn("[{}] register with malformed param, url is null", registryClassName);
 			return;
 		}
-		LoggerUtil.info("[{}] Url ({}) will register to Registry [{}]", registryClassName, url, registryUrl.getIdentity());
+		logger.info("[{}] Url ({}) will register to Registry [{}]", registryClassName, url, registryUrl.getIdentity());
 		doRegister(removeUnnecessaryParmas(url.createCopy()));
 		registeredServiceUrls.add(url);
 	 }
@@ -71,10 +74,10 @@ public abstract class AbstractRegistry implements Registry {
 	@Override
 	public void unregister(LionURL url) {
 		if( url == null) {
-			 LoggerUtil.warn("[{}] unregister with malformed param, url is null", registryClassName);
+			 logger.warn("[{}] unregister with malformed param, url is null", registryClassName);
 	            return;
 		}
-		LoggerUtil.info("[{}] Url ({}) will unregister to Registry [{}]", registryClassName, url, registryUrl.getIdentity());
+		logger.info("[{}] Url ({}) will unregister to Registry [{}]", registryClassName, url, registryUrl.getIdentity());
 		doUnregister(removeUnnecessaryParmas(url.createCopy()));
 		registeredServiceUrls.remove(url);
 		 
@@ -83,10 +86,10 @@ public abstract class AbstractRegistry implements Registry {
     @Override
     public void subscribe(LionURL url, NotifyListener listener) {
         if (url == null || listener == null) {
-            LoggerUtil.warn("[{}] subscribe with malformed param, url:{}, listener:{}", registryClassName, url, listener);
+            logger.warn("[{}] subscribe with malformed param, url:{}, listener:{}", registryClassName, url, listener);
             return;
         }
-        LoggerUtil.info("[{}] Listener ({}) will subscribe to url ({}) in Registry [{}]", registryClassName, listener, url,
+        logger.info("[{}] Listener ({}) will subscribe to url ({}) in Registry [{}]", registryClassName, listener, url,
                 registryUrl.getIdentity());
         doSubscribe(url.createCopy(), listener);
     }
@@ -94,17 +97,17 @@ public abstract class AbstractRegistry implements Registry {
     @Override
     public void unsubscribe(LionURL url, NotifyListener listener) {
         if (url == null || listener == null) {
-            LoggerUtil.warn("[{}] unsubscribe with malformed param, url:{}, listener:{}", registryClassName, url, listener);
+            logger.warn("[{}] unsubscribe with malformed param, url:{}, listener:{}", registryClassName, url, listener);
             return;
         }
-        LoggerUtil.info("[{}] Listener ({}) will unsubscribe from url ({}) in Registry [{}]", registryClassName, listener, url,
+        logger.info("[{}] Listener ({}) will unsubscribe from url ({}) in Registry [{}]", registryClassName, listener, url,
                 registryUrl.getIdentity());
         doUnsubscribe(url.createCopy(), listener);
     }
     
     @Override
     public void available(LionURL url) {
-        LoggerUtil.info("[{}] Url ({}) will set to available to Registry [{}]", registryClassName, url, registryUrl.getIdentity());
+        logger.info("[{}] Url ({}) will set to available to Registry [{}]", registryClassName, url, registryUrl.getIdentity());
         if (url != null) {
             doAvailable(removeUnnecessaryParmas(url.createCopy()));
         } else {
@@ -114,7 +117,7 @@ public abstract class AbstractRegistry implements Registry {
 
     @Override
     public void unavailable(LionURL url) {
-        LoggerUtil.info("[{}] Url ({}) will set to unavailable to Registry [{}]", registryClassName, url, registryUrl.getIdentity());
+        logger.info("[{}] Url ({}) will set to unavailable to Registry [{}]", registryClassName, url, registryUrl.getIdentity());
         if (url != null) {
             doUnavailable(removeUnnecessaryParmas(url.createCopy()));
         } else {
@@ -132,7 +135,7 @@ public abstract class AbstractRegistry implements Registry {
     @Override
     public List<LionURL> discover(LionURL url) {
         if (url == null) {
-            LoggerUtil.warn("[{}] discover with malformed param, refUrl is null", registryClassName);
+            logger.warn("[{}] discover with malformed param, refUrl is null", registryClassName);
             return Collections.EMPTY_LIST;
         }
         url = url.createCopy();

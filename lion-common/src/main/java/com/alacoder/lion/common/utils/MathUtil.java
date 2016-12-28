@@ -16,18 +16,24 @@
 
 package com.alacoder.lion.common.utils;
 
+
+import com.alacoder.common.log.LogFactory;
+import com.alacoder.common.log.LogService;
+
 /**
  * @author fishermen
  * @version V1.0 created at: 2013-6-20
  */
 
 public class MathUtil {
+	
+	private final static LogService log = LogFactory.getLogService(MathUtil.class);
 
     public static int parseInt(String intStr, int defaultValue) {
         try {
             return Integer.parseInt(intStr);
         } catch (NumberFormatException e) {
-            LoggerUtil.debug("ParseInt false, for malformed intStr:" + intStr);
+        	log.debug("ParseInt false, for malformed intStr:" + intStr);
             return defaultValue;
         }
     }

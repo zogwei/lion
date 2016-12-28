@@ -13,8 +13,9 @@ import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.util.ClassUtils;
 
+import com.alacoder.common.log.LogFactory;
+import com.alacoder.common.log.LogService;
 import com.alacoder.lion.common.utils.ConcurrentHashSet;
-import com.alacoder.lion.common.utils.LoggerUtil;
 import com.alacoder.lion.config.BasicRefererInterfaceConfig;
 import com.alacoder.lion.config.BasicServiceInterfaceConfig;
 import com.alacoder.lion.config.ConfigUtil;
@@ -44,7 +45,8 @@ import java.util.concurrent.ConcurrentMap;
  */
 public class AnnotationBean implements DisposableBean, BeanFactoryPostProcessor, BeanPostProcessor, BeanFactoryAware {
 
-
+	private final static LogService logger = LogFactory.getLogService(AnnotationBean.class);
+	
     private String id;
 
     private String annotationPackage;
@@ -330,14 +332,14 @@ public class AnnotationBean implements DisposableBean, BeanFactoryPostProcessor,
             try {
                 serviceConfig.unexport();
             } catch (Throwable e) {
-                LoggerUtil.error(e.getMessage(), e);
+                logger.error(e.getMessage(), e);
             }
         }
         for (RefererConfigBean<?> referenceConfig : referenceConfigs.values()) {
             try {
                 referenceConfig.destroy();
             } catch (Throwable e) {
-                LoggerUtil.error(e.getMessage(), e);
+                logger.error(e.getMessage(), e);
             }
         }
     }
