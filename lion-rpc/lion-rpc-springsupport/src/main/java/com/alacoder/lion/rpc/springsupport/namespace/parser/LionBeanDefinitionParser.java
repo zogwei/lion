@@ -34,12 +34,12 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import com.alacoder.lion.common.url.URLParamType;
-import com.alacoder.lion.config.BasicRefererInterfaceConfig;
-import com.alacoder.lion.config.BasicServiceInterfaceConfig;
-import com.alacoder.lion.config.ConfigUtil;
-import com.alacoder.lion.config.MethodConfig;
-import com.alacoder.lion.config.ProtocolConfig;
-import com.alacoder.lion.config.RegistryConfig;
+import com.alacoder.lion.rpc.config.BasicRefererInterfaceConfig;
+import com.alacoder.lion.rpc.config.BasicServiceInterfaceConfig;
+import com.alacoder.lion.rpc.config.ConfigUtil;
+import com.alacoder.lion.rpc.config.MethodConfig;
+import com.alacoder.lion.rpc.config.ProtocolConfig;
+import com.alacoder.lion.rpc.config.RegistryConfig;
 import com.alacoder.lion.rpc.springsupport.ServiceConfigBean;
 import com.alacoder.lion.rpc.springsupport.namespace.handler.LionNamespaceHandler;
 

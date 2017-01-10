@@ -1,4 +1,4 @@
-package com.alacoder.lion.config;
+package com.alacoder.lion.rpc.config;
 
 import java.util.Collections;
 import java.util.HashMap;

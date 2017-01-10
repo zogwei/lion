@@ -18,9 +18,9 @@ import org.apache.commons.lang3.StringUtils;
 import com.alacoder.lion.common.LionConstants;
 import com.alacoder.lion.common.url.LionURL;
 import com.alacoder.lion.common.url.URLParamType;
-import com.alacoder.lion.config.ProtocolConfig;
-import com.alacoder.lion.config.RegistryConfig;
-import com.alacoder.lion.remote.transport.Request;
+import com.alacoder.lion.rpc.config.ProtocolConfig;
+import com.alacoder.lion.rpc.config.RegistryConfig;
+import com.alacoder.lion.rpc.remote.RpcRequest;
 
 /**
  * @ClassName: LionFrameworkUtil
@@ -38,22 +38,22 @@ public class LionFrameworkUtil {
      * @return
      */
 
-    public static String getServiceKey(Request request) {
+    public static String getServiceKey(RpcRequest request) {
         String version = getVersionFromRequest(request);
         String group = getGroupFromRequest(request);
 
         return getServiceKey(group, request.getInterfaceName(), version);
     }
 
-    public static String getGroupFromRequest(Request request) {
+    public static String getGroupFromRequest(RpcRequest request) {
         return getValueFromRequest(request, URLParamType.group.name(), URLParamType.group.getValue());
     }
 
-    public static String getVersionFromRequest(Request request) {
+    public static String getVersionFromRequest(RpcRequest request) {
         return getValueFromRequest(request, URLParamType.version.name(), URLParamType.version.getValue());
     }
 
-    public static String getValueFromRequest(Request request, String key, String defaultValue) {
+    public static String getValueFromRequest(RpcRequest request, String key, String defaultValue) {
         String value = defaultValue;
         if (request.getAttachments() != null && request.getAttachments().containsKey(key)) {
             value = request.getAttachments().get(key);
@@ -88,7 +88,7 @@ public class LionFrameworkUtil {
      * @param request
      * @return
      */
-    public static String toString(Request request) {
+    public static String toString(RpcRequest request) {
         return "requestId=" + request.getRequestId() + " interface=" + request.getInterfaceName() + " method=" + request.getMethodName()
                 + "(" + request.getParamtersDesc() + ")";
     }
@@ -108,7 +108,7 @@ public class LionFrameworkUtil {
      * @param request
      * @return
      */
-    public static String getFullMethodString(Request request) {
+    public static String getFullMethodString(RpcRequest request) {
         return getGroupFromRequest(request) + "_" + request.getInterfaceName() + "." + request.getMethodName() + "("
                 + request.getParamtersDesc() + ")";
     }

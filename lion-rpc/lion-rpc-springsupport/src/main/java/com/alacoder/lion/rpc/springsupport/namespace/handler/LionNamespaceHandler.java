@@ -18,10 +18,10 @@ import java.util.Set;
 import org.springframework.beans.factory.xml.NamespaceHandlerSupport;
 
 import com.alacoder.lion.common.utils.ConcurrentHashSet;
-import com.alacoder.lion.config.BasicRefererInterfaceConfig;
-import com.alacoder.lion.config.BasicServiceInterfaceConfig;
-import com.alacoder.lion.config.ProtocolConfig;
-import com.alacoder.lion.config.RegistryConfig;
+import com.alacoder.lion.rpc.config.BasicRefererInterfaceConfig;
+import com.alacoder.lion.rpc.config.BasicServiceInterfaceConfig;
+import com.alacoder.lion.rpc.config.ProtocolConfig;
+import com.alacoder.lion.rpc.config.RegistryConfig;
 import com.alacoder.lion.rpc.springsupport.AnnotationBean;
 import com.alacoder.lion.rpc.springsupport.RefererConfigBean;
 import com.alacoder.lion.rpc.springsupport.ServiceConfigBean;

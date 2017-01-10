@@ -11,7 +11,7 @@
  * @version V1.0
  */
 
-package com.alacoder.lion.filter;
+package com.alacoder.lion.rpc.filter;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -28,13 +28,13 @@ import com.alacoder.lion.common.extension.ExtensionLoader;
 import com.alacoder.lion.common.extension.SpiMeta;
 import com.alacoder.lion.common.url.LionURL;
 import com.alacoder.lion.common.url.URLParamType;
-import com.alacoder.lion.remote.transport.Request;
-import com.alacoder.lion.remote.transport.Response;
 import com.alacoder.lion.rpc.Exporter;
 import com.alacoder.lion.rpc.Filter;
 import com.alacoder.lion.rpc.Protocol;
 import com.alacoder.lion.rpc.Provider;
 import com.alacoder.lion.rpc.Referer;
+import com.alacoder.lion.rpc.remote.RpcRequest;
+import com.alacoder.lion.rpc.remote.RpcResponse;
 
 /**
  * @ClassName: ProtocolFilterDecorator
@@ -79,7 +79,7 @@ public class ProtocolFilterDecorator implements Protocol {
             final Referer<T> lf = lastRef;
             lastRef = new Referer<T>() {
                 @Override
-                public Response call(Request request) {
+                public RpcResponse call(RpcRequest request) {
                     Activation activation = f.getClass().getAnnotation(Activation.class);
                     if (activation != null && !activation.retry() && request.getRetries() != 0) {
                         return lf.call(request);
@@ -143,7 +143,7 @@ public class ProtocolFilterDecorator implements Protocol {
             final Provider<T> lp = lastProvider;
             lastProvider = new Provider<T>() {
                 @Override
-                public Response call(Request request) {
+                public RpcResponse call(RpcRequest request) {
                     return f.filter(lp, request);
                 }
 

@@ -22,9 +22,9 @@ import org.springframework.beans.factory.BeanFactoryAware;
 import org.springframework.beans.factory.BeanNameAware;
 import org.springframework.beans.factory.InitializingBean;
 
-import com.alacoder.lion.config.BasicRefererInterfaceConfig;
-import com.alacoder.lion.config.ProtocolConfig;
-import com.alacoder.lion.config.RegistryConfig;
+import com.alacoder.lion.rpc.config.BasicRefererInterfaceConfig;
+import com.alacoder.lion.rpc.config.ProtocolConfig;
+import com.alacoder.lion.rpc.config.RegistryConfig;
 import com.alacoder.lion.rpc.springsupport.namespace.handler.LionNamespaceHandler;
 
 import java.util.List;

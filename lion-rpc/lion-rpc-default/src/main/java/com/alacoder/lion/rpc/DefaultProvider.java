@@ -22,9 +22,9 @@ import com.alacoder.common.log.LogFactory;
 import com.alacoder.common.log.LogService;
 import com.alacoder.lion.common.extension.SpiMeta;
 import com.alacoder.lion.common.url.LionURL;
-import com.alacoder.lion.remote.transport.DefaultResponse;
-import com.alacoder.lion.remote.transport.Request;
-import com.alacoder.lion.remote.transport.Response;
+import com.alacoder.lion.rpc.remote.DefaultRpcResponse;
+import com.alacoder.lion.rpc.remote.RpcRequest;
+import com.alacoder.lion.rpc.remote.RpcResponse;
 
 /**
  * @ClassName: DefaultProvider
@@ -46,8 +46,8 @@ public class DefaultProvider<T> extends AbstractProvider<T> {
 	}
 
 	@Override
-	protected Response invoke(Request request) {
-		DefaultResponse response = new DefaultResponse();
+	protected RpcResponse invoke(RpcRequest request) {
+		DefaultRpcResponse response = new DefaultRpcResponse();
 		
 		Method method = lookup(request);
 		if(method == null) {

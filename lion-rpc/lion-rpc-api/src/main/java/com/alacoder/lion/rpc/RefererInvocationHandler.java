@@ -28,9 +28,9 @@ import com.alacoder.lion.common.url.URLParamType;
 import com.alacoder.lion.common.utils.ExceptionUtil;
 import com.alacoder.lion.common.utils.ReflectUtil;
 import com.alacoder.lion.common.utils.RequestIdGenerator;
-import com.alacoder.lion.remote.transport.DefaultRequest;
-import com.alacoder.lion.remote.transport.Response;
 import com.alacoder.lion.rpc.ha.Cluster;
+import com.alacoder.lion.rpc.remote.DefaultRpcRequest;
+import com.alacoder.lion.rpc.remote.RpcResponse;
 import com.alacoder.lion.rpc.utils.LionFrameworkUtil;
 
 /**
@@ -66,7 +66,7 @@ public class RefererInvocationHandler<T> implements InvocationHandler {
     }
 
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-        DefaultRequest request = new DefaultRequest();
+        DefaultRpcRequest request = new DefaultRpcRequest();
 
         request.setRequestId(RequestIdGenerator.getRequestId());
         request.setArguments(args);
@@ -91,7 +91,7 @@ public class RefererInvocationHandler<T> implements InvocationHandler {
             // 带上client的application和module
             request.setAttachment(URLParamType.application.getName(), ApplicationInfo.getApplication(cluster.getUrl()).getApplication());
             request.setAttachment(URLParamType.module.getName(), ApplicationInfo.getApplication(cluster.getUrl()).getModule());
-            Response response = null;
+            RpcResponse response = null;
             boolean throwException =
                     Boolean.parseBoolean(cluster.getUrl().getParameter(URLParamType.throwException.getName(),
                             URLParamType.throwException.getValue()));

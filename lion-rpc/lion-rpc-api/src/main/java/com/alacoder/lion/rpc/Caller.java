@@ -13,8 +13,8 @@
 
 package com.alacoder.lion.rpc;
 
-import com.alacoder.lion.remote.transport.Request;
-import com.alacoder.lion.remote.transport.Response;
+import com.alacoder.lion.rpc.remote.RpcRequest;
+import com.alacoder.lion.rpc.remote.RpcResponse;
 
 /**
  * @ClassName: Caller
@@ -28,5 +28,5 @@ public interface Caller<T> extends Node {
 
     Class<T> getInterface();
 
-    Response call(Request request);
+    RpcResponse call(RpcRequest request);
 }

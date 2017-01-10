@@ -19,8 +19,8 @@ import java.util.Map;
 
 import com.alacoder.lion.common.url.LionURL;
 import com.alacoder.lion.common.utils.ReflectUtil;
-import com.alacoder.lion.remote.transport.Request;
-import com.alacoder.lion.remote.transport.Response;
+import com.alacoder.lion.rpc.remote.RpcRequest;
+import com.alacoder.lion.rpc.remote.RpcResponse;
 
 /**
  * @ClassName: AbstractProvider
@@ -54,14 +54,14 @@ public abstract class AbstractProvider<T> implements Provider<T> {
 	}
 
 	@Override
-	public Response call(Request request) {
-		Response response = invoke(request);
+	public RpcResponse call(RpcRequest request) {
+		RpcResponse response = invoke(request);
 		return response;
 	}
 	
-	protected abstract Response invoke(Request reqeust);
+	protected abstract RpcResponse invoke(RpcRequest reqeust);
 	
-    protected Method lookup(Request request) {
+    protected Method lookup(RpcRequest request) {
         String methodDesc = ReflectUtil.getMethodDesc(request.getMethodName(), request.getParamtersDesc());
 
         return methodMap.get(methodDesc);

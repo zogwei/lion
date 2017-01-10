@@ -24,8 +24,8 @@ import com.alacoder.lion.common.url.LionURL;
 import com.alacoder.lion.common.url.URLParamType;
 import com.alacoder.lion.remote.Client;
 import com.alacoder.lion.remote.TransportException;
-import com.alacoder.lion.remote.transport.Request;
-import com.alacoder.lion.remote.transport.Response;
+import com.alacoder.lion.rpc.remote.RpcRequest;
+import com.alacoder.lion.rpc.remote.RpcResponse;
 
 /**
  * @ClassName: DefaultRpcReferer
@@ -53,11 +53,11 @@ public class DefaultRpcReferer<T> extends AbstractReferer<T>{
      }
 
      @Override
-     protected Response doCall(Request request) {
+     protected RpcResponse doCall(RpcRequest request) {
          try {
              // 为了能够实现跨group请求，需要使用server端的group。
              request.setAttachment(URLParamType.group.getName(), serviceUrl.getGroup());
-             return client.request(request);
+             return (RpcResponse)client.request(request);
          } catch (TransportException exception) {
              throw new LionServiceException("DefaultRpcReferer call Error: url=" + url.getUri(), exception);
          }
@@ -65,7 +65,7 @@ public class DefaultRpcReferer<T> extends AbstractReferer<T>{
 
      @SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override
-     protected void decrActiveCount(Request request, Response response) {
+     protected void decrActiveCount(RpcRequest request, RpcResponse response) {
          if (response == null || !(response instanceof Future)) {
              activeRefererCount.decrementAndGet();
              return;

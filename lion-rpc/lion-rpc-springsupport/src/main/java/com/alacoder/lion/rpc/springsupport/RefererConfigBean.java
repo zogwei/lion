@@ -25,10 +25,10 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.ListableBeanFactory;
 
 import com.alacoder.lion.common.utils.CollectionUtil;
-import com.alacoder.lion.config.BasicRefererInterfaceConfig;
-import com.alacoder.lion.config.ProtocolConfig;
-import com.alacoder.lion.config.RefererConfig;
-import com.alacoder.lion.config.RegistryConfig;
+import com.alacoder.lion.rpc.config.BasicRefererInterfaceConfig;
+import com.alacoder.lion.rpc.config.ProtocolConfig;
+import com.alacoder.lion.rpc.config.RefererConfig;
+import com.alacoder.lion.rpc.config.RegistryConfig;
 import com.alacoder.lion.rpc.springsupport.namespace.handler.LionNamespaceHandler;
 import com.alacoder.lion.rpc.utils.LionFrameworkUtil;
 

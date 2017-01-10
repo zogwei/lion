@@ -35,10 +35,10 @@ import com.alacoder.common.exception.LionFrameworkException;
 import com.alacoder.lion.common.LionConstants;
 import com.alacoder.lion.common.utils.CollectionUtil;
 import com.alacoder.lion.common.utils.MathUtil;
-import com.alacoder.lion.config.BasicServiceInterfaceConfig;
-import com.alacoder.lion.config.ProtocolConfig;
-import com.alacoder.lion.config.RegistryConfig;
-import com.alacoder.lion.config.ServiceConfig;
+import com.alacoder.lion.rpc.config.BasicServiceInterfaceConfig;
+import com.alacoder.lion.rpc.config.ProtocolConfig;
+import com.alacoder.lion.rpc.config.RegistryConfig;
+import com.alacoder.lion.rpc.config.ServiceConfig;
 import com.alacoder.lion.rpc.springsupport.namespace.handler.LionNamespaceHandler;
 import com.alacoder.lion.rpc.utils.LionFrameworkUtil;
 

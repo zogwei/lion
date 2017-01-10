@@ -1,19 +1,17 @@
 /**
- * 版权声明：lion 版权所有 违者必究 2016
+ * 版权声明：bee 版权所有 违者必究 2016
  * Copyright: Copyright (c) 2016 
  * 
- * @project_name: lion-remote
+ * @project_name: lion-remote-api
  * @Title: Response.java
- * @Package com.alacoder.lion.remote
+ * @Package com.alacoder.lion.remote.transport
  * @Description: 
  * @author jimmy.zhong
- * @date 2016年8月9日 上午11:08:53
+ * @date 2017年1月10日 下午5:46:19
  * @version V1.0
  */
 
 package com.alacoder.lion.remote.transport;
-
-import java.util.Map;
 
 import com.alacoder.lion.remote.TransportData;
 
@@ -21,13 +19,13 @@ import com.alacoder.lion.remote.TransportData;
  * @ClassName: Response
  * @Description: 
  * @author jimmy.zhong
- * @date 2016年8月9日 上午11:08:53
+ * @date 2017年1月10日 下午5:46:19
  *
  */
 
-public interface Response extends TransportData{
+public interface Response extends TransportData {
 
-    /**
+	  /**
      * <pre>
 	 * 		如果 request 正常处理，那么会返回 Object value，而如果 request 处理有异常，那么 getValue 会抛出异常
 	 * </pre>
@@ -66,12 +64,5 @@ public interface Response extends TransportData{
 
     int getTimeout();
 
-    Map<String, String> getAttachments();
-
-    void setAttachment(String key, String value);
-
-    // 获取rpc协议版本，可以依据协议版本做返回值兼容
-    void setRpcProtocolVersion(byte rpcProtocolVersion);
-
-    byte getRpcProtocolVersion();
+    
 }

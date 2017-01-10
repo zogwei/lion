@@ -47,8 +47,8 @@ public class FastJsonSerializationTest {
 		Serialization ser = ExtensionLoader.getExtensionLoader(Serialization.class).getExtension("fastJson");
 		Request request = new DefaultRequest();
 		request.setRequestId(1111L);
-		request.setInterfaceName("interfacename");
-		request.setMethodName("method");
+//		request.setInterfaceName("interfacename");
+//		request.setMethodName("method");
 		
 		byte[] bytes = ser.serialize(request);
 		

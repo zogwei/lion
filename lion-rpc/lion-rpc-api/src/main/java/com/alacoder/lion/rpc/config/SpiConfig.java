@@ -11,7 +11,7 @@
  * @version V1.0
  */
 
-package com.alacoder.lion.config;
+package com.alacoder.lion.rpc.config;
 
 /**
  * @ClassName: SpiConfig

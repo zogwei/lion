@@ -36,8 +36,8 @@ public class DefaultCodecTest {
 	public static void main(String[] args) throws IOException {
 		Request request = new DefaultRequest();
 		request.setRequestId(1111L);
-		request.setInterfaceName("interfacename");
-		request.setMethodName("method");
+//		request.setInterfaceName("interfacename");
+//		request.setMethodName("method");
 		
         @SuppressWarnings("unused")
 		LionURL url = new LionURL("netty", "localhost", 18080, "com.alacoder.api.lion.procotol.example.IHello");

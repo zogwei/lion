@@ -19,7 +19,7 @@ package com.alacoder.lion.rpc.springsupport;
 import org.springframework.beans.factory.InitializingBean;
 
 import com.alacoder.lion.common.extension.ExtensionLoader;
-import com.alacoder.lion.config.SpiConfig;
+import com.alacoder.lion.rpc.config.SpiConfig;
 
 public class SpiConfigBean<T> extends SpiConfig<T> implements InitializingBean {
 

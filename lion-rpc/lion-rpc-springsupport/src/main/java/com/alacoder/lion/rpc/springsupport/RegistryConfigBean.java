@@ -18,7 +18,7 @@ package com.alacoder.lion.rpc.springsupport;
 
 import org.springframework.beans.factory.BeanNameAware;
 
-import com.alacoder.lion.config.RegistryConfig;
+import com.alacoder.lion.rpc.config.RegistryConfig;
 import com.alacoder.lion.rpc.springsupport.namespace.handler.LionNamespaceHandler;
 
 /**

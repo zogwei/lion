@@ -11,7 +11,7 @@
  * @version V1.0
  */
 
-package com.alacoder.lion.remote.transport;
+package com.alacoder.lion.rpc.remote;
 
 import com.alacoder.lion.remote.TransportData;
 

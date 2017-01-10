@@ -15,6 +15,9 @@ package com.alacoder.lion.config;
 
 import com.alacoder.lion.rpc.DemoService;
 import com.alacoder.lion.rpc.DemoServiceImple;
+import com.alacoder.lion.rpc.config.ProtocolConfig;
+import com.alacoder.lion.rpc.config.RegistryConfig;
+import com.alacoder.lion.rpc.config.ServiceConfig;
 
 /**
  * @ClassName: ServiceConfigTest

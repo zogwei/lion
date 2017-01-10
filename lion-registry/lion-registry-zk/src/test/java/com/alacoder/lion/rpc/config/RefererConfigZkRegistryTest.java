@@ -13,10 +13,10 @@
 
 package com.alacoder.lion.rpc.config;
 
-import com.alacoder.lion.config.ProtocolConfig;
-import com.alacoder.lion.config.RefererConfig;
-import com.alacoder.lion.config.RegistryConfig;
-import com.alacoder.lion.config.ServiceConfig;
+import com.alacoder.lion.rpc.config.ProtocolConfig;
+import com.alacoder.lion.rpc.config.RefererConfig;
+import com.alacoder.lion.rpc.config.RegistryConfig;
+import com.alacoder.lion.rpc.config.ServiceConfig;
 
 /**
  * @ClassName: RefererConfigTest

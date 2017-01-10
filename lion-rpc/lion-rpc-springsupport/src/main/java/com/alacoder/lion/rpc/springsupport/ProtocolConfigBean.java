@@ -18,7 +18,7 @@ package com.alacoder.lion.rpc.springsupport;
 
 import org.springframework.beans.factory.BeanNameAware;
 
-import com.alacoder.lion.config.ProtocolConfig;
+import com.alacoder.lion.rpc.config.ProtocolConfig;
 import com.alacoder.lion.rpc.springsupport.namespace.handler.LionNamespaceHandler;
 
 /**

@@ -24,9 +24,9 @@ import com.alacoder.lion.common.extension.SpiMeta;
 import com.alacoder.lion.common.url.LionURL;
 import com.alacoder.lion.common.url.URLParamType;
 import com.alacoder.lion.common.utils.ExceptionUtil;
-import com.alacoder.lion.remote.transport.Request;
-import com.alacoder.lion.remote.transport.Response;
 import com.alacoder.lion.rpc.Referer;
+import com.alacoder.lion.rpc.remote.RpcRequest;
+import com.alacoder.lion.rpc.remote.RpcResponse;
 
 /**
  * @ClassName: FailoverHaStrategy
@@ -49,7 +49,7 @@ public class FailoverHaStrategy<T> extends AbstractHaStrategy<T> {
     };
 
     @Override
-    public Response call(Request request, LoadBalance<T> loadBalance) {
+    public RpcResponse call(RpcRequest request, LoadBalance<T> loadBalance) {
 
         List<Referer<T>> referers = selectReferers(request, loadBalance);
         if (referers.isEmpty()) {
@@ -85,7 +85,7 @@ public class FailoverHaStrategy<T> extends AbstractHaStrategy<T> {
         throw new LionFrameworkException("FailoverHaStrategy.call should not come here!");
     }
 
-    protected List<Referer<T>> selectReferers(Request request, LoadBalance<T> loadBalance) {
+    protected List<Referer<T>> selectReferers(RpcRequest request, LoadBalance<T> loadBalance) {
         List<Referer<T>> referers = referersHolder.get();
         referers.clear();
         loadBalance.selectToHolder(request, referers);
