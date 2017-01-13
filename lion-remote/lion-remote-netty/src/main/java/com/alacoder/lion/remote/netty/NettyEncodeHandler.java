@@ -45,7 +45,7 @@ public class NettyEncodeHandler extends MessageToByteEncoder<TransportData> {
 	protected void encode(ChannelHandlerContext ctx, TransportData msg, ByteBuf out) throws Exception {
 		byte[] data = null;
 		Long id = null;
-		id =  ((TransportData)msg).getRequestId();
+		id =  ((TransportData)msg).getId();
 		if(msg instanceof Response) {
 			try{
 				data = codec.encode(msg);
@@ -79,7 +79,7 @@ public class NettyEncodeHandler extends MessageToByteEncoder<TransportData> {
 
 	private Response buildExceptionResponse(long requestId, Exception e) {
 		DefaultResponse response = new DefaultResponse();
-		response.setRequestId(requestId);
+		response.setId(requestId);
 		response.setException(e);
 		return response;
 	}

@@ -208,21 +208,37 @@ public class LionURL {
         return value;
     }
 
-    public String getMethodParameter(String methodName, String paramDesc, String name) {
-        String value = getParameter(LionConstants.METHOD_CONFIG_PREFIX + methodName + "(" + paramDesc + ")." + name);
+//    public String getMethodParameter(String methodName, String paramDesc, String name) {
+//        String value = getParameter(LionConstants.METHOD_CONFIG_PREFIX + methodName + "(" + paramDesc + ")." + name);
+//        if (value == null || value.length() == 0) {
+//            return getParameter(name);
+//        }
+//        return value;
+//    }
+    
+    public String getIdentityParameter(String identity , String name) {
+        String value = getParameter(LionConstants.METHOD_CONFIG_PREFIX + identity + name);
         if (value == null || value.length() == 0) {
             return getParameter(name);
         }
         return value;
     }
-
-    public String getMethodParameter(String methodName, String paramDesc, String name, String defaultValue) {
-        String value = getMethodParameter(methodName, paramDesc, name);
-        if (value == null || value.length() == 0) {
-            return defaultValue;
-        }
-        return value;
-    }
+    
+    public String getIdentityParameter(String Identity, String name, String defaultValue) {
+	  String value = getIdentityParameter(Identity, name);
+	  if (value == null || value.length() == 0) {
+	      return defaultValue;
+	  }
+	  return value;
+	}
+    
+//    public String getMethodParameter(String methodName, String paramDesc, String name, String defaultValue) {
+//        String value = getMethodParameter(methodName, paramDesc, name);
+//        if (value == null || value.length() == 0) {
+//            return defaultValue;
+//        }
+//        return value;
+//    }
 
     public void addParameter(String name, String value) {
         if (StringUtils.isEmpty(name) || StringUtils.isEmpty(value)) {
@@ -257,13 +273,21 @@ public class LionURL {
         return Boolean.parseBoolean(value);
     }
 
-    public Boolean getMethodParameter(String methodName, String paramDesc, String name, boolean defaultValue) {
-        String value = getMethodParameter(methodName, paramDesc, name);
+    public Boolean getIdentityParameter(String identity, String name, boolean defaultValue) {
+        String value = getIdentityParameter(identity, name);
         if (value == null || value.length() == 0) {
             return defaultValue;
         }
         return Boolean.parseBoolean(value);
     }
+    
+//    public Boolean getIdentityParameter(String methodName, String paramDesc, String name, boolean defaultValue) {
+//        String value = getIdentityParameter(methodName, paramDesc, name);
+//        if (value == null || value.length() == 0) {
+//            return defaultValue;
+//        }
+//        return Boolean.parseBoolean(value);
+//    }
 
     public Integer getIntParameter(String name, int defaultValue) {
         Number n = getNumbers().get(name);
@@ -279,13 +303,28 @@ public class LionURL {
         return i;
     }
 
-    public Integer getMethodParameter(String methodName, String paramDesc, String name, int defaultValue) {
-        String key = methodName + "(" + paramDesc + ")." + name;
+//    public Integer getMethodParameter(String methodName, String paramDesc, String name, int defaultValue) {
+//        String key = methodName + "(" + paramDesc + ")." + name;
+//        Number n = getNumbers().get(key);
+//        if (n != null) {
+//            return n.intValue();
+//        }
+//        String value = getMethodParameter(methodName, paramDesc, name);
+//        if (value == null || value.length() == 0) {
+//            return defaultValue;
+//        }
+//        int i = Integer.parseInt(value);
+//        getNumbers().put(key, i);
+//        return i;
+//    }
+    
+    public Integer getIdentityParameter(String identity, String name, int defaultValue) {
+        String key = identity + name;
         Number n = getNumbers().get(key);
         if (n != null) {
             return n.intValue();
         }
-        String value = getMethodParameter(methodName, paramDesc, name);
+        String value = getIdentityParameter(identity, name);
         if (value == null || value.length() == 0) {
             return defaultValue;
         }
@@ -308,13 +347,13 @@ public class LionURL {
         return l;
     }
 
-    public Long getMethodParameter(String methodName, String paramDesc, String name, long defaultValue) {
-        String key = methodName + "(" + paramDesc + ")." + name;
+    public Long getIdentityParameter(String identity, String name, long defaultValue) {
+        String key = identity + name;
         Number n = getNumbers().get(key);
         if (n != null) {
             return n.longValue();
         }
-        String value = getMethodParameter(methodName, paramDesc, name);
+        String value = getIdentityParameter(identity, name);
         if (value == null || value.length() == 0) {
             return defaultValue;
         }
@@ -337,13 +376,13 @@ public class LionURL {
         return f;
     }
 
-    public Float getMethodParameter(String methodName, String paramDesc, String name, float defaultValue) {
-        String key = methodName + "(" + paramDesc + ")." + name;
+    public Float getIdentityParameter(String identity,  String name, float defaultValue) {
+        String key = identity + name;
         Number n = getNumbers().get(key);
         if (n != null) {
             return n.floatValue();
         }
-        String value = getMethodParameter(methodName, paramDesc, name);
+        String value = getIdentityParameter(identity, name);
         if (value == null || value.length() == 0) {
             return defaultValue;
         }

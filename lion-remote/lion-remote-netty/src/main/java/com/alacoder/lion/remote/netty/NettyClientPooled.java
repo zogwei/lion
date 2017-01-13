@@ -200,8 +200,7 @@ public class NettyClientPooled extends AbstractPoolClient {
 				throw new LionServiceException("NettyChannel is unavaliable: url= " + url.getUri() + " request= " + request);
 			}
 			
-			boolean async = url.getMethodParameter(request.getMethodName(), request.getParamtersDesc()
-			        , URLParamType.async.getName(), URLParamType.async.getBooleanValue());
+			boolean async = url.getIdentityParameter(request.getIdentity(), URLParamType.async.getName(), URLParamType.async.getBooleanValue());
 			
 			Response response =  request(request,async,channel);
 			

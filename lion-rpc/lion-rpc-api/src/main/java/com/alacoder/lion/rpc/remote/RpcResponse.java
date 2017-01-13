@@ -1,39 +1,29 @@
 /**
- * 版权声明：lion 版权所有 违者必究 2016
+ * 版权声明：bee 版权所有 违者必究 2016
  * Copyright: Copyright (c) 2016 
  * 
- * @project_name: lion-remote
- * @Title: Response.java
- * @Package com.alacoder.lion.remote
+ * @project_name: lion-remote-api
+ * @Title: DefaultResponse.java
+ * @Package com.alacoder.lion.remote.transport
  * @Description: 
  * @author jimmy.zhong
- * @date 2016年8月9日 上午11:08:53
+ * @date 2017年1月10日 下午5:48:11
  * @version V1.0
  */
 
 package com.alacoder.lion.rpc.remote;
 
-import java.util.Map;
-
-import com.alacoder.lion.remote.TransportData;
+import com.alacoder.lion.remote.transport.DefaultResponse;
 import com.alacoder.lion.remote.transport.Response;
 
 /**
- * @ClassName: Response
+ * @ClassName: DefaultResponse
  * @Description: 
  * @author jimmy.zhong
- * @date 2016年8月9日 上午11:08:53
+ * @date 2017年1月10日 下午5:48:11
  *
  */
 
-public interface RpcResponse extends Response{
+public class RpcResponse extends DefaultResponse {
 
-    Map<String, String> getAttachments();
-
-    void setAttachment(String key, String value);
-
-    // 获取rpc协议版本，可以依据协议版本做返回值兼容
-    void setRpcProtocolVersion(byte rpcProtocolVersion);
-
-    byte getRpcProtocolVersion();
 }

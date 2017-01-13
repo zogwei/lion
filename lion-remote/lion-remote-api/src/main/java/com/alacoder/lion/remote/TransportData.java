@@ -23,7 +23,7 @@ package com.alacoder.lion.remote;
 
 public interface TransportData extends java.io.Serializable {
 
-	public Long getRequestId();
+	public Long getId();
 	
-	public void setRequestId(Long id) ;
+	public void setId(Long id) ;
 }

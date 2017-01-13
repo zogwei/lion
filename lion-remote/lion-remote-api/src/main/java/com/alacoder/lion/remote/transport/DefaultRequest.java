@@ -21,16 +21,31 @@ package com.alacoder.lion.remote.transport;
  *
  */
 
-public class DefaultRequest implements Request {
+@SuppressWarnings("serial")
+public class DefaultRequest<T> implements Request<T> {
+	private Long id;
+	private T t;
 
-	@Override
-	public Long getRequestId() {
-		return null;
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	@Override
-	public void setRequestId(Long id) {
+	public String getIdentity() {
+		return String.valueOf(id);
+	}
 
+	@Override
+	public void setRequestMsg(T t) {
+		this.t = t;
+	}
+	
+	public T getRequestMsg() {
+		return t;
 	}
 
 }

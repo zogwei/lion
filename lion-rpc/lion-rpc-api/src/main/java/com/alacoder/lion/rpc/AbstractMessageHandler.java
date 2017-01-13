@@ -21,9 +21,9 @@ import com.alacoder.common.log.LogService;
 import com.alacoder.lion.remote.Channel;
 import com.alacoder.lion.remote.MessageHandler;
 import com.alacoder.lion.remote.TransportData;
+import com.alacoder.lion.remote.transport.DefaultResponse;
 import com.alacoder.lion.remote.transport.Request;
 import com.alacoder.lion.remote.transport.Response;
-import com.alacoder.lion.rpc.remote.DefaultRpcResponse;
 import com.alacoder.lion.rpc.remote.RpcRequest;
 import com.alacoder.lion.rpc.remote.RpcResponse;
 import com.alacoder.lion.rpc.utils.LionFrameworkUtil;
@@ -43,7 +43,7 @@ public abstract class AbstractMessageHandler implements MessageHandler {
 	protected ConcurrentHashMap<String,Provider<?>> providers = new ConcurrentHashMap<String,Provider<?>>();
 	
 	@Override
-	public RpcResponse handle(Channel channel, Request message) {
+	public Response handle(Channel channel, Request message) {
 		
 		RpcRequest request = (RpcRequest)message;
 		String serviceKey = LionFrameworkUtil.getServiceKey(request);
@@ -52,7 +52,7 @@ public abstract class AbstractMessageHandler implements MessageHandler {
 		if(provider == null) {
 			logger.error(" handler error, provider not find ,serviceKey " + serviceKey);
 			LionFrameworkException exception =  new LionFrameworkException(" handler error, provider not find ,serviceKey " + serviceKey);
-			DefaultRpcResponse response = new DefaultRpcResponse();
+			DefaultResponse response = new DefaultResponse();
 			response.setException(exception);
 			return response;
 		}

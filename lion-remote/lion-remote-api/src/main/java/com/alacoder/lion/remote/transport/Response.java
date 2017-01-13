@@ -24,6 +24,12 @@ import com.alacoder.lion.remote.TransportData;
  */
 
 public interface Response extends TransportData {
+	
+	public Long getRequestId();
+	
+	public void setRequestId(Long requestId);
+	
+	public void setId(Long id) ;
 
 	  /**
      * <pre>
@@ -63,6 +69,4 @@ public interface Response extends TransportData {
     void setProcessTime(long time);
 
     int getTimeout();
-
-    
 }

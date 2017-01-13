@@ -199,7 +199,7 @@ public class ClusterSpi<T> implements Cluster<T> {
     private RpcResponse buildErrorResponse(RpcRequest request, Exception lionException) {
         DefaultRpcResponse rs = new DefaultRpcResponse();
         rs.setException(lionException);
-        rs.setRequestId(request.getRequestId());
+        rs.setId(request.getRequestId());
         return rs;
     }
 

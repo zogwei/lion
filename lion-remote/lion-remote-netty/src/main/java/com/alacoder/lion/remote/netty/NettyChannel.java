@@ -91,14 +91,16 @@ public class NettyChannel extends com.alacoder.lion.remote.AbstractChannel{
 
 	@Override
 	public Response request(Request request) throws TransportException {
-		int timeout = endpoint.getUrl().getMethodParameter(request.getMethodName(), request.getParamtersDesc(),
-	            URLParamType.requestTimeout.getName(), URLParamType.requestTimeout.getIntValue());
+		
+		int timeout = endpoint.getUrl().getIdentityParameter(request.getIdentity(),URLParamType.requestTimeout.getName(), URLParamType.requestTimeout.getIntValue());
+		
 		if (timeout <= 0) {
                throw new LionFrameworkException("NettyClient init Error: timeout(" + timeout + ") <= 0 is forbid.", LionErrorMsgConstant.FRAMEWORK_INIT_ERROR);
         }
 		
 		ResponseFuture response = new NettyResponseFuture(request, timeout, this.endpoint);
-		this.endpoint.registerCallback(request.getRequestId(), response);
+		//TODO requestid is null
+		this.endpoint.registerCallback(request.getId(), response);
 		
 		ChannelFuture writeFuture = this.channel.writeAndFlush(request);
 		
@@ -120,7 +122,7 @@ public class NettyChannel extends com.alacoder.lion.remote.AbstractChannel{
 			return response;
 		}
 		else {
-			response = this.endpoint.removeCallback(request.getRequestId());
+			response = this.endpoint.removeCallback(request.getId());
 
 			if (response != null) {
 				response.cancel();

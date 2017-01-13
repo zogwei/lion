@@ -59,7 +59,7 @@ public class FailoverHaStrategy<T> extends AbstractHaStrategy<T> {
         LionURL refUrl = referers.get(0).getUrl();
         // 先使用method的配置
         int tryCount =
-                refUrl.getMethodParameter(request.getMethodName(), request.getParamtersDesc(), URLParamType.retries.getName(),
+                refUrl.getIdentityParameter(request.getIdentity(), URLParamType.retries.getName(),
                         URLParamType.retries.getIntValue());
         // 如果有问题，则设置为不重试
         if (tryCount < 0) {

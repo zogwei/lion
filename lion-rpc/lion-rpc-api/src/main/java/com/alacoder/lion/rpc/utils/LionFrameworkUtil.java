@@ -89,7 +89,7 @@ public class LionFrameworkUtil {
      * @return
      */
     public static String toString(RpcRequest request) {
-        return "requestId=" + request.getRequestId() + " interface=" + request.getInterfaceName() + " method=" + request.getMethodName()
+        return "requestId=" + request.getId() + " interface=" + request.getInterfaceName() + " method=" + request.getMethodName()
                 + "(" + request.getParamtersDesc() + ")";
     }
 

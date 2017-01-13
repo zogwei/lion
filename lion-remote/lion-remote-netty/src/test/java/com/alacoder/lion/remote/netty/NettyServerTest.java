@@ -41,11 +41,12 @@ public class NettyServerTest {
 			@Override
 			public DefaultResponse handle(Channel channel, Request message) {
 					Request request = (Request)message;
-					logger.info(" server reciver request ： " + request.getRequestId() );
-					DefaultResponse reponse = new DefaultResponse();
-					reponse.setRequestId(request.getRequestId() );
-					reponse.setValue("response value : " + request.getRequestId() );
-					return reponse;
+					logger.info(" server reciver request ： " + request.getId() );
+					DefaultResponse response = new DefaultResponse();
+					response.setId(request.getId());
+					response.setRequestId(request.getId());
+					response.setValue("response value : " + request.getId() );
+					return response;
 			}
 			
 		});

@@ -68,7 +68,7 @@ public class RefererInvocationHandler<T> implements InvocationHandler {
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
         DefaultRpcRequest request = new DefaultRpcRequest();
 
-        request.setRequestId(RequestIdGenerator.getRequestId());
+        request.setId(RequestIdGenerator.getRequestId());
         request.setArguments(args);
         request.setMethodName(method.getName());
         request.setParamtersDesc(ReflectUtil.getMethodParamDesc(method));

@@ -182,6 +182,17 @@ public class DefaultRpcRequest implements RpcRequest{
 	public void setRetries(int i) {
 		this.retrey = i;
 	}
-	
+	@Override
+	public String getIdentity() {
+		return method + "(" + parametersDesc + ")." ;
+	}
+	@Override
+	public Long getId() {
+		return id;
+	}
+	@Override
+	public void setId(Long id) {
+		this.id = id;
+	}
 	
 }

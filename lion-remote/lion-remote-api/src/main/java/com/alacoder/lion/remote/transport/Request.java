@@ -23,6 +23,9 @@ import com.alacoder.lion.remote.TransportData;
  *
  */
 
-public interface Request extends TransportData {
-
+public interface Request<T> extends TransportData {
+	
+	public String getIdentity();
+	
+	public void setRequestMsg(T t);
 }

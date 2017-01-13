@@ -124,7 +124,7 @@ public class DefaultCodec implements Codec{
 		
 		byte dataType = LionConstants.FLAG_REQUEST;
 		
-		return encode(body,dataType , request.getRequestId());
+		return encode(body,dataType , request.getId());
 		
 	}
 	

@@ -228,8 +228,7 @@ public class NettyServer extends AbstractServer{
 			throw new LionServiceException("NettyChannel is unavaliable: url= " + url.getUri() + " request= " + request);
 		}
 		
-		boolean async = url.getMethodParameter(request.getMethodName(), request.getParamtersDesc()
-		        , URLParamType.async.getName(), URLParamType.async.getBooleanValue());
+		boolean async = url.getIdentityParameter(request.getIdentity(), URLParamType.async.getName(), URLParamType.async.getBooleanValue());
 		
 		return request(request,async,channel);
 	}

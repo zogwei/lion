@@ -26,9 +26,12 @@ public class DefaultResponse implements Response {
 	private static final long serialVersionUID = 1L;
 	private Object value;
     private Exception exception;
-    private long id;
+    private Long id;
     private long processTime;
     private int timeout;
+    
+    private Long requestId;
+    
     private long createTime = System.currentTimeMillis();
     
     public DefaultResponse(Response response) {
@@ -47,52 +50,65 @@ public class DefaultResponse implements Response {
         this.value = value;
     }
 
-	@Override
-	public Long getRequestId() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setRequestId(Long id) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public long getCreateTime() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int getTimeout() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
 	public Object getValue() {
-		// TODO Auto-generated method stub
-		return null;
+		return value;
 	}
 
-	@Override
+	public void setValue(Object value) {
+		this.value = value;
+	}
+
 	public Exception getException() {
-		// TODO Auto-generated method stub
-		return null;
+		return exception;
 	}
 
-	@Override
+	public void setException(Exception exception) {
+		this.exception = exception;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 	public long getProcessTime() {
-		// TODO Auto-generated method stub
-		return 0;
+		return processTime;
+	}
+
+	public void setProcessTime(long processTime) {
+		this.processTime = processTime;
+	}
+
+	public int getTimeout() {
+		return timeout;
+	}
+
+	public void setTimeout(int timeout) {
+		this.timeout = timeout;
+	}
+
+	public Long getRequestId() {
+		return requestId;
+	}
+
+	public void setRequestId(long requestId) {
+		this.requestId = requestId;
+	}
+
+	public long getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(long createTime) {
+		this.createTime = createTime;
 	}
 
 	@Override
-	public void setProcessTime(long time) {
-		// TODO Auto-generated method stub
-		
+	public void setRequestId(Long requestId) {
+		this.requestId = requestId;
 	}
 
 }

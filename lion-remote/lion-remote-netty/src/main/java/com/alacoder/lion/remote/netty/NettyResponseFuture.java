@@ -93,11 +93,11 @@ public class NettyResponseFuture extends ResponseFuture{
 	
 	@Override
 	public Long getRequestId() {
-		return request.getRequestId();
+		return request.getId();
 	}
 
 	@Override
-	public void setRequestId(Long id) {
+	public void setId(Long id) {
 		
 	}
 
@@ -280,30 +280,19 @@ public class NettyResponseFuture extends ResponseFuture{
 	public int getTimeout() {
 		return this.timeout;
 	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public Map<String, String> getAttachments() {
-		  // 不需要使用
-        return Collections.EMPTY_MAP;
-	}
-
-	@Override
-	public void setAttachment(String key, String value) {
-	}
-
-	@Override
-	public void setRpcProtocolVersion(byte rpcProtocolVersion) {
-		
-	}
-
-	@Override
-	public byte getRpcProtocolVersion() {
-		return 0;
-	}
 	
 	public long getCreateTime() {
 		return this.createTime;
+	}
+
+	@Override
+	public void setRequestId(Long requestId) {
+		this.getRequestId();
+	}
+
+	@Override
+	public Long getId() {
+		return request.getId();
 	}
 	
 }

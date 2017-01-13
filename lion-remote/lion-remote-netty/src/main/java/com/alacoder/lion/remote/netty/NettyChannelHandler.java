@@ -183,7 +183,8 @@ public class NettyChannelHandler extends SimpleChannelInboundHandler<TransportDa
 						response = (DefaultResponse) result;
 					}
 
-					response.setRequestId(request.getRequestId());
+					response.setId(request.getId());
+					response.setRequestId(request.getId());
 					response.setProcessTime(System.currentTimeMillis() - processStartTime);
 
 					if (nettyChannel.isAvailable()) {
@@ -192,7 +193,8 @@ public class NettyChannelHandler extends SimpleChannelInboundHandler<TransportDa
 							nettyChannel.send(response);
 						} catch (Exception e) {
 							response = new DefaultResponse();
-							response.setRequestId(request.getRequestId());
+							response.setId(request.getId());
+							response.setRequestId(request.getId());
 							response.setException(e);
 							response.setProcessTime(System.currentTimeMillis() - processStartTime);
 						}
@@ -204,7 +206,8 @@ public class NettyChannelHandler extends SimpleChannelInboundHandler<TransportDa
 			});
 		} catch (RejectedExecutionException rejectException) {
 			DefaultResponse response = new DefaultResponse();
-			response.setRequestId(request.getRequestId());
+			response.setId(request.getId());
+			response.setRequestId(request.getId());
 			response.setException(new LionServiceException("process thread pool is full, reject", LionErrorMsgConstant.SERVICE_REJECT));
 			response.setProcessTime(System.currentTimeMillis() - processStartTime);
 			if (nettyChannel.isAvailable()) {
@@ -213,12 +216,14 @@ public class NettyChannelHandler extends SimpleChannelInboundHandler<TransportDa
 					nettyChannel.send(response);
 				} catch (TransportException e) {
 					response = new DefaultResponse();
-					response.setRequestId(request.getRequestId());
+					response.setId(request.getId());
+					response.setRequestId(request.getId());
 					response.setException(new LionServiceException("send error, "));
 					response.setProcessTime(System.currentTimeMillis() - processStartTime);
 				} catch (Exception e) {
 					response = new DefaultResponse();
-					response.setRequestId(request.getRequestId());
+					response.setId(request.getId());
+					response.setRequestId(request.getId());
 					response.setException(e);
 					response.setProcessTime(System.currentTimeMillis() - processStartTime);
 				}
@@ -233,7 +238,7 @@ public class NettyChannelHandler extends SimpleChannelInboundHandler<TransportDa
 							threadPoolExecutor.getCorePoolSize(),
 							threadPoolExecutor.getMaximumPoolSize(),
 							threadPoolExecutor.getTaskCount(),
-							request.getRequestId());
+							request.getId());
 		}
 	}
 

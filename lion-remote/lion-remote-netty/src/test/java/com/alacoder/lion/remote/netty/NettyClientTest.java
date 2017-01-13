@@ -45,7 +45,8 @@ public class NettyClientTest  extends TestCase {
 		LionURL url = new LionURL("", "127.0.0.1", 4455, "");
 		url.addParameter(URLParamType.connectTimeout.getName(), "10000");
 		url.addParameter(URLParamType.requestTimeout.getName(), "10000");
-		Request request = new DefaultRequest();
+		Request<String> request = new DefaultRequest<String>();
+		request.setRequestMsg("request value");
 		NettyClient client = null; 
 
 		logger.info(" client send() begin ： ");
@@ -61,7 +62,7 @@ public class NettyClientTest  extends TestCase {
 		client.open();
 
 		for (int i = 0; i < 3; i++) {
-			request.setRequestId(System.currentTimeMillis());
+			request.setId(System.currentTimeMillis());
 			client.send(request);
 			try {
 				Thread.sleep(1000);
@@ -77,7 +78,8 @@ public class NettyClientTest  extends TestCase {
    	public void testClientRequest() throws TransportException {
    		LionURL url = new LionURL("", "127.0.0.1", 4455, "");
    		url.addParameter(URLParamType.connectTimeout.getName(), "10000");
-   		Request request = new DefaultRequest();
+		Request<String> request = new DefaultRequest<String>();
+		request.setRequestMsg("request value");
    		NettyClient client = null;
    		
    		logger.info(" client request() begin ： " );
@@ -85,7 +87,7 @@ public class NettyClientTest  extends TestCase {
    	     client.open();
    		
 		for (int i = 0; i < 10000; i++) {
-			request.setRequestId(System.currentTimeMillis());
+			request.setId(System.currentTimeMillis());
 			Response response = client.request(request);
 			logger.info(" client reciver request() response ： "
 					+ response.getRequestId() + " value: "

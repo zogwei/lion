@@ -46,7 +46,7 @@ public class Hessian2SerializationTest {
 	public static void main(String[] args) throws IOException {
 		Serialization ser = ExtensionLoader.getExtensionLoader(Serialization.class).getExtension("hessian2");
 		Request request = new DefaultRequest();
-		request.setRequestId(1111L);
+		request.setId(1111L);
 //		request.setInterfaceName("interfacename");
 //		request.setMethodName("method");
 
@@ -58,7 +58,7 @@ public class Hessian2SerializationTest {
 		System.out.println("result : " + request );
 		
 		Response response = new DefaultResponse();
-		response.setRequestId(1111L);
+		response.setId(1111L);
 //		response.setInterfaceName("interfacename");
 //		response.setMethod("method");
 

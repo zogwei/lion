@@ -61,7 +61,7 @@ public class NettyClientPooledTest  extends TestCase {
 		client.open();
 
 		for (int i = 0; i < 3; i++) {
-			request.setRequestId(System.currentTimeMillis());
+			request.setId(System.currentTimeMillis());
 			client.send(request);
 			try {
 				Thread.sleep(1000);
@@ -85,7 +85,7 @@ public class NettyClientPooledTest  extends TestCase {
    	     client.open();
    		
 		for (int i = 0; i < 10000; i++) {
-			request.setRequestId(System.currentTimeMillis());
+			request.setId(System.currentTimeMillis());
 			Response response = client.request(request);
 			logger.info(" client reciver request() response ： "
 					+ response.getRequestId() + " value: "
