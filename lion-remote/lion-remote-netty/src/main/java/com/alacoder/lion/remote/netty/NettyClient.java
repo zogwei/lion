@@ -180,7 +180,7 @@ public class NettyClient extends AbstractClient {
 	
 	
 	@Override
-	public Response request(Request request) throws TransportException {
+	public Response<?> request(Request<?> request) throws TransportException {
 		if(!clientChannel.isAvailable()){
 			throw new LionServiceException("NettyChannel is unavaliable: url= " + url.getUri() + " request= " + request);
 		}
@@ -190,8 +190,9 @@ public class NettyClient extends AbstractClient {
 		return request(request,async);
 	}
 	
-	public Response request(Request request, boolean async) throws TransportException {
-		Response response = null;
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public Response<?> request(Request<?> request, boolean async) throws TransportException {
+		Response<?> response = null;
 		try {
 			response = clientChannel.request(request);
 		} catch (Exception e) {

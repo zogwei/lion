@@ -34,14 +34,16 @@ public class NettyServerTest {
 	private final static LogService logger = LogFactory.getLogService(NettyServerTest.class);
 	
 	public static void main(String[] args) {
-		LionURL url = new LionURL("", "", 4455, "");
+//		LionURL url = new LionURL("protcol", "host", 4455, "path");
+		LionURL url = new LionURL("", "", 4455, "path");
 		
 		NettyServer server = new NettyServer(url,new MessageHandlerAdpter(){
 
+			@SuppressWarnings({ "unchecked", "rawtypes" })
 			@Override
-			public DefaultResponse handle(Channel channel, Request message) {
-					Request request = (Request)message;
-					logger.info(" server reciver request ： " + request.getId() );
+			public DefaultResponse handle(Channel channel, Request<?> message) {
+					Request<String> request = (Request<String>)message;
+					logger.info(" server reciver request ： " + request.getId() +" msg； " + request.getRequestMsg());
 					DefaultResponse response = new DefaultResponse();
 					response.setId(request.getId());
 					response.setRequestId(request.getId());

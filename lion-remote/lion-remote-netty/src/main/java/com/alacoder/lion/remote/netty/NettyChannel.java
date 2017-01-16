@@ -90,7 +90,7 @@ public class NettyChannel extends com.alacoder.lion.remote.AbstractChannel{
 	}
 
 	@Override
-	public Response request(Request request) throws TransportException {
+	public Response<?> request(Request<?> request) throws TransportException {
 		
 		int timeout = endpoint.getUrl().getIdentityParameter(request.getIdentity(),URLParamType.requestTimeout.getName(), URLParamType.requestTimeout.getIntValue());
 		
@@ -139,6 +139,7 @@ public class NettyChannel extends com.alacoder.lion.remote.AbstractChannel{
 	public boolean send(TransportData transportData) throws TransportException {
 		int timeout = endpoint.getUrl().getIntParameter(URLParamType.timeout.getName(), URLParamType.timeout.getIntValue());
 		
+		//TODO requestid is null
 		ChannelFuture writeFuture = this.channel.writeAndFlush(transportData);
 		boolean result = writeFuture.awaitUninterruptibly(timeout, TimeUnit.MILLISECONDS);
 		if(result && writeFuture.isSuccess()) {

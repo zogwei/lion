@@ -25,6 +25,7 @@ import com.alacoder.lion.rpc.Caller;
 import com.alacoder.lion.rpc.Filter;
 import com.alacoder.lion.rpc.Provider;
 import com.alacoder.lion.rpc.remote.RpcRequest;
+import com.alacoder.lion.rpc.remote.RpcRequestInfo;
 import com.alacoder.lion.rpc.remote.RpcResponse;
 
 /**
@@ -67,28 +68,30 @@ public class AccessLogFilter implements Filter {
             String side = caller instanceof Provider ? LionConstants.NODE_TYPE_SERVICE : LionConstants.NODE_TYPE_REFERER;
             setSide(side);
         }
+        
+    	RpcRequestInfo rpcRequestInfo =  request.getRequestMsg();
 
         StringBuilder builder = new StringBuilder(128);
         append(builder, side);
         append(builder, caller.getUrl().getParameter(URLParamType.application.getName()));
         append(builder, caller.getUrl().getParameter(URLParamType.module.getName()));
         append(builder, NetUtils.getLocalAddress().getHostAddress());
-        append(builder, request.getInterfaceName());
-        append(builder, request.getMethodName());
-        append(builder, request.getParamtersDesc());
+        append(builder, rpcRequestInfo.getInterfaceName());
+        append(builder, rpcRequestInfo.getMethodName());
+        append(builder, rpcRequestInfo.getParamtersDesc());
         // 对于client，url中的remote ip, application, module,referer 和 service获取的地方不同
         if (LionConstants.NODE_TYPE_REFERER.equals(side)) {
             append(builder, caller.getUrl().getHost());
             append(builder, caller.getUrl().getParameter(URLParamType.application.getName()));
             append(builder, caller.getUrl().getParameter(URLParamType.module.getName()));
         } else {
-            append(builder, request.getAttachments().get(URLParamType.host.getName()));
-            append(builder, request.getAttachments().get(URLParamType.application.getName()));
-            append(builder, request.getAttachments().get(URLParamType.module.getName()));
+            append(builder, rpcRequestInfo.getAttachments().get(URLParamType.host.getName()));
+            append(builder, rpcRequestInfo.getAttachments().get(URLParamType.application.getName()));
+            append(builder, rpcRequestInfo.getAttachments().get(URLParamType.module.getName()));
         }
 
         append(builder, success);
-        append(builder, request.getAttachments().get(URLParamType.requestIdFromClient.getName()));
+        append(builder, rpcRequestInfo.getAttachments().get(URLParamType.requestIdFromClient.getName()));
         append(builder, consumeTime);
 
         logger.accessLog(builder.substring(0, builder.length() - 1));

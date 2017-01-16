@@ -26,6 +26,7 @@ import com.alacoder.lion.common.url.URLParamType;
 import com.alacoder.lion.common.utils.ExceptionUtil;
 import com.alacoder.lion.rpc.Referer;
 import com.alacoder.lion.rpc.remote.RpcRequest;
+import com.alacoder.lion.rpc.remote.RpcRequestInfo;
 import com.alacoder.lion.rpc.remote.RpcResponse;
 
 /**
@@ -51,6 +52,8 @@ public class FailoverHaStrategy<T> extends AbstractHaStrategy<T> {
     @Override
     public RpcResponse call(RpcRequest request, LoadBalance<T> loadBalance) {
 
+    	RpcRequestInfo rpcRequestInfo =  request.getRequestMsg();
+    	
         List<Referer<T>> referers = selectReferers(request, loadBalance);
         if (referers.isEmpty()) {
             throw new LionServiceException(String.format("FailoverHaStrategy No referers for request:%s, loadbalance:%s", request,
@@ -69,7 +72,7 @@ public class FailoverHaStrategy<T> extends AbstractHaStrategy<T> {
         for (int i = 0; i <= tryCount; i++) {
             Referer<T> refer = referers.get(i % referers.size());
             try {
-                request.setRetries(i);
+            	rpcRequestInfo.setRetries(i);
                 return refer.call(request);
             } catch (RuntimeException e) {
                 // 对于业务异常，直接抛出

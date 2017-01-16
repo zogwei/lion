@@ -28,4 +28,6 @@ public interface Request<T> extends TransportData {
 	public String getIdentity();
 	
 	public void setRequestMsg(T t);
+	
+	public T getRequestMsg();
 }

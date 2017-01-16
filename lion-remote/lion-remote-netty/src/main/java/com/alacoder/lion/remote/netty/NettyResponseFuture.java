@@ -54,23 +54,23 @@ public class NettyResponseFuture extends ResponseFuture{
 	private int timeout = 0;
 	private long processTime = 0;
 	
-	private Request request;
+	private Request<?> request;
 	private List<FutureListener> listeners;
 	private Channel channel;
 	
-	public NettyResponseFuture(Request requestObj, int timeout, Channel channel) {
+	public NettyResponseFuture(Request<?> requestObj, int timeout, Channel channel) {
 		this.request = requestObj;
 		this.channel = channel;
 	}
 
-	public void onSuccess(Response response) {
+	public void onSuccess(Response<?> response) {
 		this.result = response.getValue();
 		this.processTime = response.getProcessTime();
 
 		done();
 	}
 
-	public void onFailure(Response response) {
+	public void onFailure(Response<?> response) {
 		this.exception = response.getException();
 		this.processTime = response.getProcessTime();
 
@@ -294,5 +294,24 @@ public class NettyResponseFuture extends ResponseFuture{
 	public Long getId() {
 		return request.getId();
 	}
+
+    @Override
+    public Map<String, String> getAttachments() {
+        // 不需要使用
+        return Collections.EMPTY_MAP;
+    }
+
+    @Override
+    public void setAttachment(String key, String value) {}
+
+//	@Override
+//	public void setValue(Object t) {
+//
+//	}
+//
+//	@Override
+//	public void setException(Exception e) {
+//		
+//	}
 	
 }

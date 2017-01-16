@@ -25,6 +25,7 @@ import com.alacoder.lion.common.url.LionURL;
 import com.alacoder.lion.common.url.URLParamType;
 import com.alacoder.lion.common.utils.CollectionUtil;
 import com.alacoder.lion.common.utils.ExceptionUtil;
+import com.alacoder.lion.remote.transport.Request;
 import com.alacoder.lion.rpc.Referer;
 import com.alacoder.lion.rpc.remote.DefaultRpcResponse;
 import com.alacoder.lion.rpc.remote.RpcRequest;
@@ -199,7 +200,8 @@ public class ClusterSpi<T> implements Cluster<T> {
     private RpcResponse buildErrorResponse(RpcRequest request, Exception lionException) {
         DefaultRpcResponse rs = new DefaultRpcResponse();
         rs.setException(lionException);
-        rs.setId(request.getRequestId());
+        rs.setId(request.getId());
+        rs.setRequestId(request.getId());
         return rs;
     }
 

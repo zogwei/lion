@@ -33,8 +33,9 @@ import com.alacoder.lion.remote.transport.Response;
 
 public class DefaultCodecTest {
 
+	@SuppressWarnings("unchecked")
 	public static void main(String[] args) throws IOException {
-		Request request = new DefaultRequest();
+		Request<String> request = new DefaultRequest<String>();
 		request.setId(1111L);
 //		request.setInterfaceName("interfacename");
 //		request.setMethodName("method");
@@ -48,13 +49,13 @@ public class DefaultCodecTest {
 		Codec codec = ExtensionLoader.getExtensionLoader(Codec.class).getExtension("lion");
 		byte[] data = codec.encode( request);
 		
-		request = (Request)codec.decode(data);
+		request = (Request<String>)codec.decode(data);
 
 		System.out.println("result : " + request );
 		
 		
 		
-		Response response = new DefaultResponse();
+		Response<String> response = new DefaultResponse<String>();
 		response.setId(1111L);
 //		response.setInterfaceName("interfacename");
 //		response.setMethod("method");
@@ -63,7 +64,7 @@ public class DefaultCodecTest {
 		codec = ExtensionLoader.getExtensionLoader(Codec.class).getExtension("lion");
 		data = codec.encode(response);
 		
-		response = (Response)codec.decode(data);
+		response = (Response<String>)codec.decode(data);
 		
 		System.out.println("result Response : " + response );
 	}

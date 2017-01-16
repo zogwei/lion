@@ -30,6 +30,7 @@ import com.alacoder.lion.common.utils.ReflectUtil;
 import com.alacoder.lion.common.utils.RequestIdGenerator;
 import com.alacoder.lion.rpc.ha.Cluster;
 import com.alacoder.lion.rpc.remote.DefaultRpcRequest;
+import com.alacoder.lion.rpc.remote.RpcRequestInfo;
 import com.alacoder.lion.rpc.remote.RpcResponse;
 import com.alacoder.lion.rpc.utils.LionFrameworkUtil;
 
@@ -68,12 +69,15 @@ public class RefererInvocationHandler<T> implements InvocationHandler {
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
         DefaultRpcRequest request = new DefaultRpcRequest();
 
-        request.setId(RequestIdGenerator.getRequestId());
-        request.setArguments(args);
-        request.setMethodName(method.getName());
-        request.setParamtersDesc(ReflectUtil.getMethodParamDesc(method));
-        request.setInterfaceName(clz.getName());
-        request.setAttachment(URLParamType.requestIdFromClient.getName(), String.valueOf(RequestIdGenerator.getRequestIdFromClient()));
+    	RpcRequestInfo rpcRequestInfo =  new RpcRequestInfo();
+    	request.setRequestMsg(rpcRequestInfo);
+        
+    	request.setId(RequestIdGenerator.getRequestId());
+    	rpcRequestInfo.setArguments(args);
+    	rpcRequestInfo.setMethodName(method.getName());
+    	rpcRequestInfo.setParamtersDesc(ReflectUtil.getMethodParamDesc(method));
+    	rpcRequestInfo.setInterfaceName(clz.getName());
+    	rpcRequestInfo.setAttachment(URLParamType.requestIdFromClient.getName(), String.valueOf(RequestIdGenerator.getRequestIdFromClient()));
 
         // 当 referer配置多个protocol的时候，比如A,B,C，
         // 那么正常情况下只会使用A，如果A被开关降级，那么就会使用B，B也被降级，那么会使用C
@@ -86,11 +90,11 @@ public class RefererInvocationHandler<T> implements InvocationHandler {
 //                continue;
 //            }
 
-            request.setAttachment(URLParamType.version.getName(), cluster.getUrl().getVersion());
-            request.setAttachment(URLParamType.clientGroup.getName(), cluster.getUrl().getGroup());
+        	rpcRequestInfo.setAttachment(URLParamType.version.getName(), cluster.getUrl().getVersion());
+        	rpcRequestInfo.setAttachment(URLParamType.clientGroup.getName(), cluster.getUrl().getGroup());
             // 带上client的application和module
-            request.setAttachment(URLParamType.application.getName(), ApplicationInfo.getApplication(cluster.getUrl()).getApplication());
-            request.setAttachment(URLParamType.module.getName(), ApplicationInfo.getApplication(cluster.getUrl()).getModule());
+        	rpcRequestInfo.setAttachment(URLParamType.application.getName(), ApplicationInfo.getApplication(cluster.getUrl()).getApplication());
+        	rpcRequestInfo.setAttachment(URLParamType.module.getName(), ApplicationInfo.getApplication(cluster.getUrl()).getModule());
             RpcResponse response = null;
             boolean throwException =
                     Boolean.parseBoolean(cluster.getUrl().getParameter(URLParamType.throwException.getName(),

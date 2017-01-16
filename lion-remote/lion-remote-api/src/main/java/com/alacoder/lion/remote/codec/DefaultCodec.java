@@ -52,9 +52,9 @@ public class DefaultCodec implements Codec{
 	@Override
 	public byte[] encode(Object message) throws IOException {
 		if(message instanceof Request) {
-			return encodeRequest((Request)message);
+			return encodeRequest((Request<?>)message);
 		} else if ( message instanceof Response ) {
-			return encodeResponse((Response)message);
+			return encodeResponse((Response<?>)message);
 		} else {
 			logger.warn(" error message type message is : ", message);
 		}
@@ -101,16 +101,16 @@ public class DefaultCodec implements Codec{
 		return null;
 	}
 	
-	private Request decodeRequest( byte[] body, Long requestId) throws IOException {
+	private Request<?> decodeRequest( byte[] body, Long requestId) throws IOException {
 		return serialization.deserialize(body, DefaultRequest.class);
 	}
 	
-	private Response decodeResponse( byte[] body, Long requestId) throws IOException {
+	private Response<?> decodeResponse( byte[] body, Long requestId) throws IOException {
 		return serialization.deserialize(body, DefaultResponse.class);
 	}
 	
 	
-	private byte[] encodeResponse(Response response) throws IOException {
+	private byte[] encodeResponse(Response<?> response) throws IOException {
 		byte[] body = serialization.serialize(response);
 		byte dataType = LionConstants.FLAG_RESPONSE;
 		
@@ -119,7 +119,7 @@ public class DefaultCodec implements Codec{
 	}
 	
 	
-	private byte[] encodeRequest(Request request) throws IOException {
+	private byte[] encodeRequest(Request<?> request) throws IOException {
 		byte[] body = serialization.serialize(request);
 		
 		byte dataType = LionConstants.FLAG_REQUEST;

@@ -50,7 +50,7 @@ public class NettyEncodeHandler extends MessageToByteEncoder<TransportData> {
 			try{
 				data = codec.encode(msg);
 			} catch (Exception e) {
-				Response response = buildExceptionResponse(id, e);
+				Response<?> response = buildExceptionResponse(id, e);
 				data = codec.encode(response);
 			}
 		} else {
@@ -77,7 +77,8 @@ public class NettyEncodeHandler extends MessageToByteEncoder<TransportData> {
 		}
 	}
 
-	private Response buildExceptionResponse(long requestId, Exception e) {
+	private Response<?> buildExceptionResponse(long requestId, Exception e) {
+		@SuppressWarnings("rawtypes")
 		DefaultResponse response = new DefaultResponse();
 		response.setId(requestId);
 		response.setException(e);

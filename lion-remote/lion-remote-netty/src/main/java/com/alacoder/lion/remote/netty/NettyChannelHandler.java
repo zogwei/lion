@@ -115,9 +115,9 @@ public class NettyChannelHandler extends SimpleChannelInboundHandler<TransportDa
 		Channel nettyChannel = new NettyChannel(endpoint, channel);
 		nettyChannel.open();
 		if (msg instanceof Request) {
-			processRequest(nettyChannel, (Request) msg);
+			processRequest(nettyChannel, (Request<?>) msg);
 		} else if (msg instanceof Response) {
-			processResponse(nettyChannel, (Response) msg);
+			processResponse(nettyChannel, (Response<?>) msg);
 		}
 		else {
 			// TODO 支持 其他类型 例如：event
@@ -142,7 +142,7 @@ public class NettyChannelHandler extends SimpleChannelInboundHandler<TransportDa
 		logger.debug("chanel remove  " + channelKey);
 	}
 
-	private void processResponse(Channel channel, final Response response) {
+	private void processResponse(Channel channel, final Response<?> response) {
 		if(messagehandler != null) {
 			messagehandler.handle(channel, response);
 		}
@@ -160,7 +160,8 @@ public class NettyChannelHandler extends SimpleChannelInboundHandler<TransportDa
 		}
 	}
 
-	private void processRequest(final Channel nettyChannel, final Request request) {
+	@SuppressWarnings("rawtypes")
+	private void processRequest(final Channel nettyChannel, final Request<?> request) {
 		final long processStartTime = System.currentTimeMillis();
 		logger.debug("processRequest , request = {} ", request);
 		if(messagehandler == null) {
@@ -171,11 +172,12 @@ public class NettyChannelHandler extends SimpleChannelInboundHandler<TransportDa
 		// 使用线程池方式处理
 		try {
 			threadPoolExecutor.execute(new Runnable() {
+				@SuppressWarnings({ "unchecked" })
 				@Override
 				public void run() {
 					//TODO 如果messagehandler.handler 处理时间非常长，会导致线程阻塞 
 					Object result = messagehandler.handle(nettyChannel, request);
-					DefaultResponse response = null;
+					DefaultResponse<?> response = null;
 
 					if (!(result instanceof DefaultResponse)) {
 						response = new DefaultResponse(result);

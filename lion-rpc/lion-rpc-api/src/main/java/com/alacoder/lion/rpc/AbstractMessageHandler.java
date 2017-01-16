@@ -42,8 +42,9 @@ public abstract class AbstractMessageHandler implements MessageHandler {
 
 	protected ConcurrentHashMap<String,Provider<?>> providers = new ConcurrentHashMap<String,Provider<?>>();
 	
+	@SuppressWarnings("rawtypes")
 	@Override
-	public Response handle(Channel channel, Request message) {
+	public Response<?> handle(Channel channel, Request<?> message) {
 		
 		RpcRequest request = (RpcRequest)message;
 		String serviceKey = LionFrameworkUtil.getServiceKey(request);
@@ -70,7 +71,7 @@ public abstract class AbstractMessageHandler implements MessageHandler {
 		return null;
 	}
 	
-	protected abstract RpcResponse call(RpcRequest request, Provider<?> provider);
+	protected abstract Response<?> call(Request<?> request, Provider<?> provider);
 	
 	public void addProvider(Provider<?> provider){
 		String serviceKey = LionFrameworkUtil.getServiceKey(provider.getUrl());

@@ -19,6 +19,7 @@ import com.alacoder.lion.common.url.LionURL;
 import com.alacoder.lion.common.url.URLParamType;
 import com.alacoder.lion.rpc.remote.DefaultRpcRequest;
 import com.alacoder.lion.rpc.remote.RpcRequest;
+import com.alacoder.lion.rpc.remote.RpcRequestInfo;
 import com.alacoder.lion.rpc.remote.RpcResponse;
 
 /**
@@ -43,11 +44,12 @@ public class DefaultRefererTest {
 		referer.init();
 		
 		RpcRequest request = new DefaultRpcRequest();
-		request.setInterfaceName("com.alacoder.lion.rpc.DemoService");
-		request.setMethodName("hello");
-		request.setParamtersDesc("java.lang.String");
+    	RpcRequestInfo rpcRequestInfo =  request.getRequestMsg();
+    	rpcRequestInfo.setInterfaceName("com.alacoder.lion.rpc.DemoService");
+    	rpcRequestInfo.setMethodName("hello");
+    	rpcRequestInfo.setParamtersDesc("java.lang.String");
 		Object arguments[] = {"Jimmy"};  
-		request.setArguments(arguments);
+		rpcRequestInfo.setArguments(arguments);
 		
 		RpcResponse response = referer.call(request);
 		

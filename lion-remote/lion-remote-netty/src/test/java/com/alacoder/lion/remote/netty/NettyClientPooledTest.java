@@ -45,14 +45,14 @@ public class NettyClientPooledTest  extends TestCase {
 		LionURL url = new LionURL("", "127.0.0.1", 4455, "");
 		url.addParameter(URLParamType.connectTimeout.getName(), "10000");
 		url.addParameter(URLParamType.requestTimeout.getName(), "10000");
-		Request request = new DefaultRequest();
+		Request<String> request = new DefaultRequest<String>();
 		NettyClientPooled client = null; 
 
 		logger.info(" client send() begin ： ");
 		client = new NettyClientPooled(url, new MessageHandlerAdpter() {
 			@Override
-			public Object handle(Channel channel, Response message) {
-				Response response = (Response) message;
+			public Object handle(Channel channel, Response<?> message) {
+				Response<?> response = (Response<?>) message;
 				logger.info(" client reciver send response ： " + response.getRequestId());
 				return null;
 			}
@@ -77,7 +77,7 @@ public class NettyClientPooledTest  extends TestCase {
    	public void testClientRequest() throws TransportException {
    		LionURL url = new LionURL("", "127.0.0.1", 4455, "");
    		url.addParameter(URLParamType.connectTimeout.getName(), "10000");
-   		Request request = new DefaultRequest();
+   		Request<?> request = new DefaultRequest<String>();
    		NettyClientPooled client = null;
    		
    		logger.info(" client request() begin ： " );
@@ -86,7 +86,7 @@ public class NettyClientPooledTest  extends TestCase {
    		
 		for (int i = 0; i < 10000; i++) {
 			request.setId(System.currentTimeMillis());
-			Response response = client.request(request);
+			Response<?> response = client.request(request);
 			logger.info(" client reciver request() response ： "
 					+ response.getRequestId() + " value: "
 					+ response.getValue());

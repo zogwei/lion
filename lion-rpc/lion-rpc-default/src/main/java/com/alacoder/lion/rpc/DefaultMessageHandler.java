@@ -27,6 +27,7 @@ import com.alacoder.common.log.LogService;
 import com.alacoder.lion.common.utils.ReflectUtil;
 import com.alacoder.lion.remote.Channel;
 import com.alacoder.lion.remote.transport.Request;
+import com.alacoder.lion.remote.transport.Response;
 import com.alacoder.lion.rpc.remote.DefaultRpcResponse;
 import com.alacoder.lion.rpc.remote.RpcRequest;
 import com.alacoder.lion.rpc.remote.RpcResponse;
@@ -58,7 +59,7 @@ public class DefaultMessageHandler extends AbstractMessageHandler {
 	    }
 
 	    @Override
-	    public RpcResponse handle(Channel channel, Request message) {
+	    public Response handle(Channel channel, Request message) {
 	        if (channel == null || message == null) {
 	            throw new LionFrameworkException("RequestRouter handler(channel, message) params is null");
 	        }
@@ -88,11 +89,11 @@ public class DefaultMessageHandler extends AbstractMessageHandler {
 	        return call(request, provider);
 	    }
 
-	    protected RpcResponse call(RpcRequest request, Provider<?> provider) {
+	    protected RpcResponse call(Request<?> request, Provider<?> provider) {
 	        try {
-	            return provider.call(request);
+	            return provider.call((RpcRequest)request);
 	        } catch (Exception e) {
-	            DefaultRpcResponse response = new DefaultRpcResponse();
+	        	DefaultRpcResponse response = new DefaultRpcResponse();
 	            response.setException(new LionBizException("provider call process error", e));
 	            return response;
 	        }

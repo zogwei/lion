@@ -13,6 +13,8 @@
 
 package com.alacoder.lion.remote.transport;
 
+import java.util.Map;
+
 import com.alacoder.lion.remote.TransportData;
 
 /**
@@ -23,14 +25,12 @@ import com.alacoder.lion.remote.TransportData;
  *
  */
 
-public interface Response extends TransportData {
+public interface Response<T> extends TransportData {
 	
 	public Long getRequestId();
 	
 	public void setRequestId(Long requestId);
 	
-	public void setId(Long id) ;
-
 	  /**
      * <pre>
 	 * 		如果 request 正常处理，那么会返回 Object value，而如果 request 处理有异常，那么 getValue 会抛出异常
@@ -39,7 +39,9 @@ public interface Response extends TransportData {
      * @throws RuntimeException
      * @return
      */
-    Object getValue();
+    T getValue();
+    
+//    void setValue(T t);
 
     /**
      * 如果request处理有异常，那么调用该方法return exception 如果request还没处理完或者request处理正常，那么return null
@@ -51,6 +53,8 @@ public interface Response extends TransportData {
      * @return
      */
     Exception getException();
+    
+//    void setException(Exception e);
 
     /**
      * 业务处理时间
@@ -58,15 +62,14 @@ public interface Response extends TransportData {
      * @return
      */
     long getProcessTime();
+
+    void setProcessTime(long time);
     
     long getCreateTime();
 
-    /**
-     * 业务处理时间
-     * 
-     * @param time
-     */
-    void setProcessTime(long time);
-
     int getTimeout();
+    
+    Map<String, String> getAttachments();
+
+    void setAttachment(String key, String value);
 }

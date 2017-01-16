@@ -24,6 +24,7 @@ import com.alacoder.lion.remote.transport.Response;
  *
  */
 
-public class RpcResponse extends DefaultResponse {
+//public class RpcResponse extends DefaultResponse {
+public abstract class RpcResponse<T> implements Response<T>{
 
 }

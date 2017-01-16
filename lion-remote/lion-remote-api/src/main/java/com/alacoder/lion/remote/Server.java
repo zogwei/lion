@@ -33,7 +33,7 @@ public interface Server extends Endpoint{
 	
 	Channel getServerChannel();
 	
-    Response request(Request request,InetSocketAddress clientAdd) throws TransportException;
+    Response<?> request(Request<?> request,InetSocketAddress clientAdd) throws TransportException;
     
     boolean send(TransportData transportData,InetSocketAddress clientAdd) throws TransportException;
     

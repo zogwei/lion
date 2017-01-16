@@ -16,6 +16,7 @@ package com.alacoder.lion.rpc.remote;
 import java.util.Map;
 
 import com.alacoder.lion.remote.TransportData;
+import com.alacoder.lion.remote.transport.DefaultRequest;
 import com.alacoder.lion.remote.transport.Request;
 
 /**
@@ -26,35 +27,36 @@ import com.alacoder.lion.remote.transport.Request;
  *
  */
 
-public interface RpcRequest extends Request{
+//public abstract class RpcRequest<T> extends DefaultRequest<T>{
+public abstract class RpcRequest implements Request<RpcRequestInfo>{
 
-	public String getParamtersDesc();;
-	
-	public void setParamtersDesc(String parametersDesc);
-	
-	public Object[] getArguments();
-	
-	public void setArguments(Object[] arguments) ;
-	
-	public Map<String, String> getAttachments() ;
-	
-	public void setAttachments(Map<String, String> attachments) ;
-	
-	public void setAttachment(String name, String value);
-	
-	public String getInterfaceName();
-	
-	public void setInterfaceName(String interfaceName);
-	
-	public String getMethodName() ;
-	
-	public void setMethodName(String method);
-	
-    void setRpcProtocolVersion(byte rpcProtocolVersion);
-
-    byte getRpcProtocolVersion();
-    
-    int getRetries();
-
-	void setRetries(int i);
+//	public abstract String getParamtersDesc();;
+//	
+//	public abstract void setParamtersDesc(String parametersDesc);
+//	
+//	public abstract Object[] getArguments();
+//	
+//	public abstract void setArguments(Object[] arguments) ;
+//	
+//	public abstract Map<String, String> getAttachments() ;
+//	
+//	public abstract void setAttachments(Map<String, String> attachments) ;
+//	
+//	public abstract void setAttachment(String name, String value);
+//	
+//	public abstract String getInterfaceName();
+//	
+//	public abstract void setInterfaceName(String interfaceName);
+//	
+//	public abstract String getMethodName() ;
+//	
+//	public abstract void setMethodName(String method);
+//	
+//	public abstract void setRpcProtocolVersion(byte rpcProtocolVersion);
+//
+//	public abstract byte getRpcProtocolVersion();
+//    
+//	public abstract int getRetries();
+//
+//	public abstract void setRetries(int i);
 }

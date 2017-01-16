@@ -27,9 +27,9 @@ import com.alacoder.lion.remote.transport.Response;
 
 public interface MessageHandler {
 
-	public Response handle(Channel channel, Request request);
+	public Response<?> handle(Channel channel, Request<?> request);
 	
-	public Object handle(Channel channel, Response response);
+	public Object handle(Channel channel, Response<?> response);
 	
 	public Object handle(Channel channel, TransportData response);
 }

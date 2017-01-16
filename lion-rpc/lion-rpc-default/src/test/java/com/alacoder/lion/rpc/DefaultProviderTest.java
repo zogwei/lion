@@ -18,6 +18,7 @@ import com.alacoder.common.log.LogService;
 import com.alacoder.lion.common.url.LionURL;
 import com.alacoder.lion.rpc.remote.DefaultRpcRequest;
 import com.alacoder.lion.rpc.remote.RpcRequest;
+import com.alacoder.lion.rpc.remote.RpcRequestInfo;
 import com.alacoder.lion.rpc.remote.RpcResponse;
 
 /**
@@ -38,11 +39,14 @@ public class DefaultProviderTest {
 		LionURL url = new LionURL("netty", "127.0.0.1", 4455, "com.alacoder.lion.rpc.DemoService");
 		DefaultProvider provider = new DefaultProvider(new DemoServiceImple(), url , DemoService.class);
 		RpcRequest request = new DefaultRpcRequest();
-		request.setInterfaceName("com.alacoder.lion.rpc.DemoService");
-		request.setMethodName("hello");
-		request.setParamtersDesc("java.lang.String");
+		
+    	RpcRequestInfo rpcRequestInfo =  new RpcRequestInfo();
+    	request.setRequestMsg(rpcRequestInfo);
+    	rpcRequestInfo.setInterfaceName("com.alacoder.lion.rpc.DemoService");
+    	rpcRequestInfo.setMethodName("hello");
+    	rpcRequestInfo.setParamtersDesc("java.lang.String");
 		Object arguments[] = {"Jimmy"};  
-		request.setArguments(arguments);
+		rpcRequestInfo.setArguments(arguments);
 		
 		RpcResponse response = provider.call(request);
 		

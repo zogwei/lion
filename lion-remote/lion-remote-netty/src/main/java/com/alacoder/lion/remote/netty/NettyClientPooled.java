@@ -192,7 +192,7 @@ public class NettyClientPooled extends AbstractPoolClient {
 	
 	
 	@Override
-	public Response request(Request request) throws TransportException {
+	public Response<?> request(Request<?> request) throws TransportException {
 		Channel channel = null;
 		try {
 			channel = borrowObject();
@@ -202,7 +202,7 @@ public class NettyClientPooled extends AbstractPoolClient {
 			
 			boolean async = url.getIdentityParameter(request.getIdentity(), URLParamType.async.getName(), URLParamType.async.getBooleanValue());
 			
-			Response response =  request(request,async,channel);
+			Response<?> response =  request(request,async,channel);
 			
 			returnObject(channel);
 			
@@ -220,8 +220,9 @@ public class NettyClientPooled extends AbstractPoolClient {
 
 	}
 	
-	public Response request(Request request, boolean async, Channel channel) throws TransportException {
-		Response response = null;
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public Response<?> request(Request<?> request, boolean async, Channel channel) throws TransportException {
+		Response<?> response = null;
 		try {
 			response = channel.request(request);
 		} catch (TransportException e) {

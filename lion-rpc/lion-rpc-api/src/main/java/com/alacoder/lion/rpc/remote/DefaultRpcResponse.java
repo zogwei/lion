@@ -11,11 +11,15 @@
  * @version V1.0
  */
 
-package com.alacoder.lion.remote.transport;
+package com.alacoder.lion.rpc.remote;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 
+import com.alacoder.lion.remote.codec.RemoteProtocolVersion;
+import com.alacoder.lion.remote.transport.DefaultResponse;
+import com.alacoder.lion.remote.transport.Response;
 
 /**
  * @ClassName: DefaultResponse
@@ -25,7 +29,8 @@ import java.util.Map;
  *
  */
 
-public class DefaultResponse<T> implements Response<T> {
+@SuppressWarnings("serial")
+public class DefaultRpcResponse<T> extends RpcResponse<T> {
 	
 	private static final long serialVersionUID = 1L;
 	private T value;
@@ -37,10 +42,12 @@ public class DefaultResponse<T> implements Response<T> {
     private Long requestId;
     
     private Map<String, String> attachments;// rpc协议版本兼容时可以回传一些额外的信息
+
+    private byte rpcProtocolVersion = RemoteProtocolVersion.VERSION_1.getVersion();
     
     private long createTime = System.currentTimeMillis();
     
-    public DefaultResponse(Response<T> response) {
+    public DefaultRpcResponse(Response<T> response) {
         this.value = response.getValue();
         this.exception = response.getException();
         this.id = response.getRequestId();
@@ -48,11 +55,11 @@ public class DefaultResponse<T> implements Response<T> {
         this.timeout = response.getTimeout();
     }
     
-    public DefaultResponse() {
+    public DefaultRpcResponse() {
 
     }
     
-    public DefaultResponse(T value) {
+    public DefaultRpcResponse(T value) {
         this.value = value;
     }
 
@@ -116,7 +123,7 @@ public class DefaultResponse<T> implements Response<T> {
 	public void setRequestId(Long requestId) {
 		this.requestId = requestId;
 	}
-
+	
 	   @SuppressWarnings("unchecked")
 	    public Map<String, String> getAttachments() {
 	        return attachments != null ? attachments : Collections.EMPTY_MAP;
@@ -125,7 +132,7 @@ public class DefaultResponse<T> implements Response<T> {
 	    @Override
 	    public void setAttachment(String key, String value) {
 	        if (this.attachments == null) {
-	            this.attachments = new java.util.HashMap<String, String>();
+	            this.attachments = new HashMap<String, String>();
 	        }
 
 	        this.attachments.put(key, value);
@@ -133,6 +140,15 @@ public class DefaultResponse<T> implements Response<T> {
 
 	    public void setAttachments(Map<String, String> attachments) {
 	        this.attachments = attachments;
+	    }
+
+
+	    public byte getRpcProtocolVersion() {
+	        return rpcProtocolVersion;
+	    }
+
+	    public void setRpcProtocolVersion(byte rpcProtocolVersion) {
+	        this.rpcProtocolVersion = rpcProtocolVersion;
 	    }
 
 }

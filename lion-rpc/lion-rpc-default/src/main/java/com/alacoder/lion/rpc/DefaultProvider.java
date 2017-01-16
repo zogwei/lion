@@ -24,6 +24,7 @@ import com.alacoder.lion.common.extension.SpiMeta;
 import com.alacoder.lion.common.url.LionURL;
 import com.alacoder.lion.rpc.remote.DefaultRpcResponse;
 import com.alacoder.lion.rpc.remote.RpcRequest;
+import com.alacoder.lion.rpc.remote.RpcRequestInfo;
 import com.alacoder.lion.rpc.remote.RpcResponse;
 
 /**
@@ -47,18 +48,19 @@ public class DefaultProvider<T> extends AbstractProvider<T> {
 
 	@Override
 	protected RpcResponse invoke(RpcRequest request) {
-		DefaultRpcResponse response = new DefaultRpcResponse();
-		
+		DefaultRpcResponse<Object> response = new DefaultRpcResponse<Object>();
+    	RpcRequestInfo rpcRequestInfo =  request.getRequestMsg();
+    	
 		Method method = lookup(request);
 		if(method == null) {
-			LionServiceException exception = new LionServiceException("Service method not exist: " + request.getInterfaceName() + "." + request.getMethodName()
-                    + "(" + request.getParamtersDesc() + ")", LionErrorMsgConstant.SERVICE_UNFOUND);
+			LionServiceException exception = new LionServiceException("Service method not exist: " + rpcRequestInfo.getInterfaceName() + "." + rpcRequestInfo.getMethodName()
+                    + "(" + rpcRequestInfo.getParamtersDesc() + ")", LionErrorMsgConstant.SERVICE_UNFOUND);
 			response.setException(exception);
 			return response;
 		}
 		
 		try{
-			Object value = method.invoke(proxyImpl, request.getArguments());
+			Object value = method.invoke(proxyImpl, rpcRequestInfo.getArguments());
 			response.setValue(value);
 		}
 		catch(Exception e){
@@ -79,8 +81,8 @@ public class DefaultProvider<T> extends AbstractProvider<T> {
 		}
 		
         // 传递rpc版本和attachment信息方便不同rpc版本的codec使用。
-        response.setRpcProtocolVersion(request.getRpcProtocolVersion());
-        response.setAttachments(request.getAttachments());
+        response.setRpcProtocolVersion(rpcRequestInfo.getRpcProtocolVersion());
+        response.setAttachments(rpcRequestInfo.getAttachments());
         return response;
 	}
 }

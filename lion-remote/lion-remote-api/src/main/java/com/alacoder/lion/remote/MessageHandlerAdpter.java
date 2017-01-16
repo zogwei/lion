@@ -28,12 +28,12 @@ public class MessageHandlerAdpter implements MessageHandler{
 
 
 	@Override
-	public Response handle(Channel channel, Request request) {
+	public Response<?> handle(Channel channel, Request<?> request) {
 		return null;
 	}
 
 	@Override
-	public Object handle(Channel channel, Response response) {
+	public Object handle(Channel channel, Response<?> response) {
 		return false;
 	}
 

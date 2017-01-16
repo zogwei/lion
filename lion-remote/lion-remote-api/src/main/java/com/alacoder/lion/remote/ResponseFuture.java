@@ -23,11 +23,12 @@ import com.alacoder.lion.remote.transport.Response;
  *
  */
 
+@SuppressWarnings("rawtypes")
 public abstract class ResponseFuture implements Future, Response {
 
 	private static final long serialVersionUID = 1L;
 
-	public abstract void onSuccess(Response response) ;
+	public abstract void onSuccess(Response<?> response) ;
 
-	public abstract void onFailure(Response response);
+	public abstract void onFailure(Response<?> response);
 }

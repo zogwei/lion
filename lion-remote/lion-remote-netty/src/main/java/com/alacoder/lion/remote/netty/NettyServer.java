@@ -110,27 +110,19 @@ public class NettyServer extends AbstractServer{
 			return ;
 		}
 		
-		boolean shareChannel = url.getBooleanParameter(URLParamType.shareChannel.getName(),
-				URLParamType.shareChannel.getBooleanValue());
-		final int maxContentLength = url.getIntParameter(URLParamType.maxContentLength.getName(),
-				URLParamType.maxContentLength.getIntValue());
-		final int maxServerConnection = url.getIntParameter(URLParamType.maxServerConnection.getName(),
-				URLParamType.maxServerConnection.getIntValue());
-		int workerQueueSize = url.getIntParameter(URLParamType.workerQueueSize.getName(),
-				URLParamType.workerQueueSize.getIntValue());
+		boolean shareChannel = url.getBooleanParameter(URLParamType.shareChannel.getName(),URLParamType.shareChannel.getBooleanValue());
+		final int maxContentLength = url.getIntParameter(URLParamType.maxContentLength.getName(),URLParamType.maxContentLength.getIntValue());
+		final int maxServerConnection = url.getIntParameter(URLParamType.maxServerConnection.getName(),URLParamType.maxServerConnection.getIntValue());
+		int workerQueueSize = url.getIntParameter(URLParamType.workerQueueSize.getName(),URLParamType.workerQueueSize.getIntValue());
 
 		int minWorkerThread = 0, maxWorkerThread = 0;
 
 		if (shareChannel) {
-			minWorkerThread = url.getIntParameter(URLParamType.minWorkerThread.getName(),
-					LionConstants.NETTY_SHARECHANNEL_MIN_WORKDER);
-			maxWorkerThread = url.getIntParameter(URLParamType.maxWorkerThread.getName(),
-					LionConstants.NETTY_SHARECHANNEL_MAX_WORKDER);
+			minWorkerThread = url.getIntParameter(URLParamType.minWorkerThread.getName(),LionConstants.NETTY_SHARECHANNEL_MIN_WORKDER);
+			maxWorkerThread = url.getIntParameter(URLParamType.maxWorkerThread.getName(),LionConstants.NETTY_SHARECHANNEL_MAX_WORKDER);
 		} else {
-			minWorkerThread = url.getIntParameter(URLParamType.minWorkerThread.getName(),
-					LionConstants.NETTY_NOT_SHARECHANNEL_MIN_WORKDER);
-			maxWorkerThread = url.getIntParameter(URLParamType.maxWorkerThread.getName(),
-					LionConstants.NETTY_NOT_SHARECHANNEL_MAX_WORKDER);
+			minWorkerThread = url.getIntParameter(URLParamType.minWorkerThread.getName(),LionConstants.NETTY_NOT_SHARECHANNEL_MIN_WORKDER);
+			maxWorkerThread = url.getIntParameter(URLParamType.maxWorkerThread.getName(),LionConstants.NETTY_NOT_SHARECHANNEL_MAX_WORKDER);
 		}
 		
 		standardThreadExecutor = (standardThreadExecutor != null && !standardThreadExecutor.isShutdown()) ? standardThreadExecutor
@@ -208,7 +200,7 @@ public class NettyServer extends AbstractServer{
 	}
 	
 	@Override
-	public Response request(Request request) throws TransportException {
+	public Response<?> request(Request<?> request) throws TransportException {
 		throw new LionFrameworkException("NettyServer request(Request request) method unsupport: url: " + url);
 	}
 	
@@ -218,7 +210,7 @@ public class NettyServer extends AbstractServer{
 	}
 	
 	@Override
-	public Response request(Request request, InetSocketAddress clientAdd) throws TransportException {
+	public Response<?> request(Request<?> request, InetSocketAddress clientAdd) throws TransportException {
 		String channelKey = NettyChannelHandler.getChannelKey(clientAdd , this.remoteAddress);
 		Channel channel = channels.get(channelKey);
 		if(channel == null) {
@@ -247,8 +239,9 @@ public class NettyServer extends AbstractServer{
 		return send(transportData,channel);
 	}
 
-	private Response request(Request request, boolean async,Channel channel) throws TransportException {
-		Response response = null;
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	private Response<?> request(Request<?> request, boolean async,Channel channel) throws TransportException {
+		Response<?> response = null;
 		
 		try {
 			if(channel.isAvailable()){

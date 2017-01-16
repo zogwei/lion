@@ -82,7 +82,7 @@ public class NettyDecodeHandler extends ByteToMessageDecoder {
 			Exception e = new LionServiceException("NettyDecoder transport data content length over of limit, size: " + dataLength + " > " + maxContentLength);
 
 			if (messageType == LionConstants.FLAG_REQUEST) {
-				Response response = buildExceptionResponse(requestId, e);
+				Response<?> response = buildExceptionResponse(requestId, e);
 				ch.writeAndFlush(response);
 				throw e;
 			} else if (messageType == LionConstants.FLAG_RESPONSE) {
@@ -101,10 +101,10 @@ public class NettyDecodeHandler extends ByteToMessageDecoder {
 			out.add(ret);
 		} catch (Exception e) {
 			if (messageType == LionConstants.FLAG_REQUEST) {
-				Response resonse = buildExceptionResponse(requestId, e);
+				Response<?> resonse = buildExceptionResponse(requestId, e);
 				ch.write(resonse);
 			} else {
-				Response resonse = buildExceptionResponse(requestId, e);
+				Response<?> resonse = buildExceptionResponse(requestId, e);
 				out.add(resonse);
 			}
 		}
@@ -112,7 +112,8 @@ public class NettyDecodeHandler extends ByteToMessageDecoder {
 		
 	}
 	
-	private Response buildExceptionResponse(long requestId, Exception e) {
+	private Response<?> buildExceptionResponse(long requestId, Exception e) {
+		@SuppressWarnings("rawtypes")
 		DefaultResponse response = new DefaultResponse();
 		response.setId(requestId);
 		response.setException(e);

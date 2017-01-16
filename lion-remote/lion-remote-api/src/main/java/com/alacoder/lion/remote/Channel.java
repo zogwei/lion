@@ -31,7 +31,7 @@ public interface Channel {
 	
     boolean open();
     
-    Response request(Request request) throws TransportException;
+    Response<?> request(Request<?> request) throws TransportException;
     
     boolean send(TransportData transportData) throws TransportException;
 	
