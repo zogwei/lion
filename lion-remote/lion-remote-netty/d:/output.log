@@ -855,3 +855,28 @@ DEBUG (com.alacoder.lion.remote.netty.NettyChannel:181)- NettyChannel open: ://1
 INFO (com.alacoder.lion.remote.netty.NettyClientTest:281)-  client reciver request() response ： null value: response value : 1484554108191
 DEBUG (com.alacoder.lion.remote.netty.NettyChannelHandler:181)- chanel inactive [id: 0x583ed148, /127.0.0.1:65150 :> /127.0.0.1:4455]
 DEBUG (com.alacoder.lion.remote.netty.NettyChannelHandler:181)- chanel remove  127.0.0.1:65150-127.0.0.1:4455
+DEBUG (com.aben.cup.log.logging.LogFactory:181)- Using Log4J as the default logging framework
+DEBUG (io.netty.util.internal.logging.InternalLoggerFactory:45)- Using Log4J as the default logging framework
+DEBUG (io.netty.channel.MultithreadEventLoopGroup:41)- -Dio.netty.eventLoopThreads: 16
+DEBUG (io.netty.util.internal.PlatformDependent:366)- UID: 812348242
+DEBUG (io.netty.util.internal.PlatformDependent:443)- Java version: 7
+DEBUG (io.netty.util.internal.PlatformDependent:450)- -Dio.netty.noUnsafe: false
+DEBUG (io.netty.util.internal.PlatformDependent0:59)- java.nio.ByteBuffer.cleaner: available
+DEBUG (io.netty.util.internal.PlatformDependent0:78)- java.nio.Buffer.address: available
+DEBUG (io.netty.util.internal.PlatformDependent0:86)- sun.misc.Unsafe.theUnsafe: available
+DEBUG (io.netty.util.internal.PlatformDependent0:96)- sun.misc.Unsafe.copyMemory: available
+DEBUG (io.netty.util.internal.PlatformDependent0:133)- java.nio.Bits.unaligned: true
+DEBUG (io.netty.util.internal.PlatformDependent:477)- sun.misc.Unsafe: available
+DEBUG (io.netty.util.internal.PlatformDependent:555)- -Dio.netty.noJavassist: false
+DEBUG (io.netty.util.internal.PlatformDependent:567)- Javassist: unavailable
+DEBUG (io.netty.util.internal.PlatformDependent:568)- You don't have Javassist in your class path or you don't have enough permission to load dynamically generated classes.  Please check the configuration for better performance.
+DEBUG (io.netty.util.internal.PlatformDependent:76)- -Dio.netty.noPreferDirect: false
+DEBUG (io.netty.channel.nio.NioEventLoop:88)- -Dio.netty.noKeySetOptimization: false
+DEBUG (io.netty.channel.nio.NioEventLoop:89)- -Dio.netty.selectorAutoRebuildThreshold: 512
+INFO (com.alacoder.lion.remote.netty.NettyServer:346)- NettyServer init success : url=://:4455/path
+DEBUG (io.netty.util.NetUtil:100)- Loopback interface: lo0
+DEBUG (io.netty.util.NetUtil:105)- Loopback address: /fe80:0:0:0:0:0:0:1%1 (primary)
+DEBUG (io.netty.util.NetUtil:108)- Loopback address: /0:0:0:0:0:0:0:1
+DEBUG (io.netty.util.NetUtil:108)- Loopback address: /127.0.0.1
+DEBUG (com.alacoder.lion.remote.netty.NettyChannel:181)- NettyChannel open: ://:4455/path local=/0:0:0:0:0:0:0:0:4455
+INFO (com.alacoder.lion.remote.AbstractServer:346)- NettyServer open success , url = ://:4455/path

@@ -29,14 +29,13 @@ import com.alacoder.lion.common.extension.SpiMeta;
 import com.alacoder.lion.common.url.LionURL;
 import com.alacoder.lion.common.url.URLParamType;
 import com.alacoder.lion.remote.transport.Request;
+import com.alacoder.lion.remote.transport.Response;
 import com.alacoder.lion.rpc.Exporter;
 import com.alacoder.lion.rpc.Filter;
 import com.alacoder.lion.rpc.Protocol;
 import com.alacoder.lion.rpc.Provider;
 import com.alacoder.lion.rpc.Referer;
-import com.alacoder.lion.rpc.remote.RpcRequest;
 import com.alacoder.lion.rpc.remote.RpcRequestInfo;
-import com.alacoder.lion.rpc.remote.RpcResponse;
 
 /**
  * @ClassName: ProtocolFilterDecorator
@@ -81,8 +80,9 @@ public class ProtocolFilterDecorator implements Protocol {
             final Referer<T> lf = lastRef;
             lastRef = new Referer<T>() {
                 @Override
-                public RpcResponse call(RpcRequest request) {
-                	RpcRequestInfo rpcRequestInfo =  request.getRequestMsg();
+                public Response call(Request request) {
+                	RpcRequestInfo rpcRequestInfo =  new RpcRequestInfo();
+                	request.setRequestMsg(rpcRequestInfo);
 
                 	Activation activation = f.getClass().getAnnotation(Activation.class);
                     if (activation != null && !activation.retry() && rpcRequestInfo.getRetries() != 0) {
@@ -147,7 +147,7 @@ public class ProtocolFilterDecorator implements Protocol {
             final Provider<T> lp = lastProvider;
             lastProvider = new Provider<T>() {
                 @Override
-                public RpcResponse call(RpcRequest request) {
+                public Response call(Request request) {
                     return f.filter(lp, request);
                 }
 

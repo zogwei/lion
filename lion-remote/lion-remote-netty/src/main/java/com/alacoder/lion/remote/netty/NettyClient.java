@@ -207,7 +207,7 @@ public class NettyClient extends AbstractClient {
 			}
 		}
 
-		if (async || !(response instanceof NettyResponseFuture)) {
+		if (async && (response instanceof NettyResponseFuture)) {
 			return response;
 		}
 

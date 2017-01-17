@@ -17,8 +17,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import com.alacoder.common.exception.LionFrameworkException;
 import com.alacoder.lion.common.url.LionURL;
-import com.alacoder.lion.rpc.remote.RpcRequest;
-import com.alacoder.lion.rpc.remote.RpcResponse;
+import com.alacoder.lion.remote.transport.Request;
+import com.alacoder.lion.remote.transport.Response;
 import com.alacoder.lion.rpc.utils.LionFrameworkUtil;
 
 /**
@@ -53,14 +53,14 @@ public abstract class AbstractReferer<T> extends AbstractNode implements Referer
     }
     
     @Override
-    public RpcResponse call(RpcRequest request) {
+    public Response call(Request request) {
         if (!isAvailable()) {
             throw new LionFrameworkException(this.getClass().getSimpleName() + " call Error: node is not available, url=" + url.getUri()
                     + " " + LionFrameworkUtil.toString(request));
         }
 
         incrActiveCount(request);
-        RpcResponse response = null;
+        Response response = null;
         try {
             response = doCall(request);
 
@@ -75,15 +75,15 @@ public abstract class AbstractReferer<T> extends AbstractNode implements Referer
         return activeRefererCount.get();
     }
 
-    protected void incrActiveCount(RpcRequest request) {
+    protected void incrActiveCount(Request request) {
         activeRefererCount.incrementAndGet();
     }
 
-    protected void decrActiveCount(RpcRequest request, RpcResponse response) {
+    protected void decrActiveCount(Request request, Response response) {
         activeRefererCount.decrementAndGet();
     }
 
-    protected abstract RpcResponse doCall(RpcRequest request);
+    protected abstract Response doCall(Request request);
 
     @Override
     public String desc() {

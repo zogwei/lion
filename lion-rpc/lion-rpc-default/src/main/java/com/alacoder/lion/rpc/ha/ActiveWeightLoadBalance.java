@@ -19,8 +19,8 @@ import java.util.List;
 import java.util.Random;
 
 import com.alacoder.lion.common.extension.SpiMeta;
+import com.alacoder.lion.remote.transport.Request;
 import com.alacoder.lion.rpc.Referer;
-import com.alacoder.lion.rpc.remote.RpcRequest;
 
 /**
  * @ClassName: ActiveWeightLoadBalance
@@ -45,7 +45,7 @@ public class ActiveWeightLoadBalance<T> extends AbstractLoadBalance<T> {
     private static Random random = new Random();
 
     @Override
-    protected Referer<T> doSelect(RpcRequest request) {
+    protected Referer<T> doSelect(Request request) {
         List<Referer<T>> referers = getReferers();
 
         int refererSize = referers.size();
@@ -79,7 +79,7 @@ public class ActiveWeightLoadBalance<T> extends AbstractLoadBalance<T> {
 
 
     @Override
-    protected void doSelectToHolder(RpcRequest request, List<Referer<T>> refersHolder) {
+    protected void doSelectToHolder(Request request, List<Referer<T>> refersHolder) {
         List<Referer<T>> referers = getReferers();
 
         int refererSize = referers.size();

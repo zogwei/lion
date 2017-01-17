@@ -18,8 +18,8 @@ import java.util.List;
 import com.alacoder.common.exception.LionServiceException;
 import com.alacoder.common.log.LogFactory;
 import com.alacoder.common.log.LogService;
+import com.alacoder.lion.remote.transport.Request;
 import com.alacoder.lion.rpc.Referer;
-import com.alacoder.lion.rpc.remote.RpcRequest;
 
 /**
  * @ClassName: AbstractLoadBalance
@@ -42,7 +42,7 @@ public abstract class AbstractLoadBalance<T> implements LoadBalance<T> {
 	}
 
 	 @Override
-	    public Referer<T> select(RpcRequest request) {
+	    public Referer<T> select(Request request) {
 	        List<Referer<T>> referers = this.referers;
 
 	        Referer<T> ref = null;
@@ -61,7 +61,7 @@ public abstract class AbstractLoadBalance<T> implements LoadBalance<T> {
 
 
 	@Override
-	public void selectToHolder(RpcRequest request, List<Referer<T>> refersHolder) {
+	public void selectToHolder(Request request, List<Referer<T>> refersHolder) {
 		 List<Referer<T>> referers = this.referers;
 
 	        if (referers == null) {
@@ -91,8 +91,8 @@ public abstract class AbstractLoadBalance<T> implements LoadBalance<T> {
         logger.info("ignore weightString:" + weightString);
     }
 	
-    protected abstract Referer<T> doSelect(RpcRequest request);
+    protected abstract Referer<T> doSelect(Request request);
 
-    protected abstract void doSelectToHolder(RpcRequest request, List<Referer<T>> refersHolder);
+    protected abstract void doSelectToHolder(Request request, List<Referer<T>> refersHolder);
 
 }

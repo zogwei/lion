@@ -16,6 +16,8 @@ package com.alacoder.lion.remote.transport;
 import java.util.Collections;
 import java.util.Map;
 
+import com.alacoder.lion.remote.codec.RemoteProtocolVersion;
+
 
 /**
  * @ClassName: DefaultResponse
@@ -40,6 +42,8 @@ public class DefaultResponse<T> implements Response<T> {
     
     private long createTime = System.currentTimeMillis();
     
+    private byte rpcProtocolVersion = RemoteProtocolVersion.VERSION_1.getVersion();
+
     public DefaultResponse(Response<T> response) {
         this.value = response.getValue();
         this.exception = response.getException();
@@ -135,4 +139,11 @@ public class DefaultResponse<T> implements Response<T> {
 	        this.attachments = attachments;
 	    }
 
+	    public byte getRpcProtocolVersion() {
+	        return rpcProtocolVersion;
+	    }
+
+	    public void setRpcProtocolVersion(byte rpcProtocolVersion) {
+	        this.rpcProtocolVersion = rpcProtocolVersion;
+	    }
 }

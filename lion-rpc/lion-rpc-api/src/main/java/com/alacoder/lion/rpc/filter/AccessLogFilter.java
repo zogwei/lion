@@ -21,12 +21,13 @@ import com.alacoder.lion.common.extension.SpiMeta;
 import com.alacoder.lion.common.url.URLParamType;
 import com.alacoder.lion.common.utils.NetUtils;
 import com.alacoder.lion.common.utils.StringTools;
+import com.alacoder.lion.remote.transport.Request;
+import com.alacoder.lion.remote.transport.Response;
 import com.alacoder.lion.rpc.Caller;
 import com.alacoder.lion.rpc.Filter;
 import com.alacoder.lion.rpc.Provider;
-import com.alacoder.lion.rpc.remote.RpcRequest;
+import com.alacoder.lion.rpc.remote.DefaultRpcRequest;
 import com.alacoder.lion.rpc.remote.RpcRequestInfo;
-import com.alacoder.lion.rpc.remote.RpcResponse;
 
 /**
  * @ClassName: AccessLogFilter
@@ -45,13 +46,13 @@ public class AccessLogFilter implements Filter {
     private String side;
 
     @Override
-    public RpcResponse filter(Caller<?> caller, RpcRequest request) {
+    public Response filter(Caller<?> caller, Request request) {
         boolean needLog = caller.getUrl().getBooleanParameter(URLParamType.accessLog.getName(), URLParamType.accessLog.getBooleanValue());
         if (needLog) {
             long t1 = System.currentTimeMillis();
             boolean success = false;
             try {
-                RpcResponse response = caller.call(request);
+                Response response = caller.call(request);
                 success = true;
                 return response;
             } finally {
@@ -63,13 +64,14 @@ public class AccessLogFilter implements Filter {
         }
     }
 
-    private void logAccess(Caller<?> caller, RpcRequest request, long consumeTime, boolean success) {
+    private void logAccess(Caller<?> caller, Request request, long consumeTime, boolean success) {
         if (getSide() == null) {
             String side = caller instanceof Provider ? LionConstants.NODE_TYPE_SERVICE : LionConstants.NODE_TYPE_REFERER;
             setSide(side);
         }
         
-    	RpcRequestInfo rpcRequestInfo =  request.getRequestMsg();
+    	DefaultRpcRequest rpcRequest = (DefaultRpcRequest)request;
+    	RpcRequestInfo rpcRequestInfo =  rpcRequest.getRequestMsg();
 
         StringBuilder builder = new StringBuilder(128);
         append(builder, side);

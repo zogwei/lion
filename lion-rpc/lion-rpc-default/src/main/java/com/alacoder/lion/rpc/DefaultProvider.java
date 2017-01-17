@@ -22,10 +22,11 @@ import com.alacoder.common.log.LogFactory;
 import com.alacoder.common.log.LogService;
 import com.alacoder.lion.common.extension.SpiMeta;
 import com.alacoder.lion.common.url.LionURL;
-import com.alacoder.lion.rpc.remote.DefaultRpcResponse;
-import com.alacoder.lion.rpc.remote.RpcRequest;
+import com.alacoder.lion.remote.transport.DefaultResponse;
+import com.alacoder.lion.remote.transport.Request;
+import com.alacoder.lion.remote.transport.Response;
+import com.alacoder.lion.rpc.remote.DefaultRpcRequest;
 import com.alacoder.lion.rpc.remote.RpcRequestInfo;
-import com.alacoder.lion.rpc.remote.RpcResponse;
 
 /**
  * @ClassName: DefaultProvider
@@ -47,9 +48,10 @@ public class DefaultProvider<T> extends AbstractProvider<T> {
 	}
 
 	@Override
-	protected RpcResponse invoke(RpcRequest request) {
-		DefaultRpcResponse<Object> response = new DefaultRpcResponse<Object>();
-    	RpcRequestInfo rpcRequestInfo =  request.getRequestMsg();
+	protected Response invoke(Request request) {
+		DefaultResponse<Object> response = new DefaultResponse<Object>();
+    	DefaultRpcRequest rpcRequest = (DefaultRpcRequest)request;
+    	RpcRequestInfo rpcRequestInfo =  rpcRequest.getRequestMsg();
     	
 		Method method = lookup(request);
 		if(method == null) {

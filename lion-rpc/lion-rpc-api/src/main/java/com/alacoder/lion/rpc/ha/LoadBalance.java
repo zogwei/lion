@@ -17,8 +17,8 @@ import java.util.List;
 
 import com.alacoder.lion.common.extension.Spi;
 import com.alacoder.lion.common.extension.Scope;
+import com.alacoder.lion.remote.transport.Request;
 import com.alacoder.lion.rpc.Referer;
-import com.alacoder.lion.rpc.remote.RpcRequest;
 
 /**
  * @ClassName: LoadBalance
@@ -33,9 +33,9 @@ public interface LoadBalance<T> {
 
     void onRefresh(List<Referer<T>> referers);
 
-    Referer<T> select(RpcRequest request);
+    Referer<T> select(Request request);
 
-    void selectToHolder(RpcRequest request, List<Referer<T>> refersHolder);
+    void selectToHolder(Request request, List<Referer<T>> refersHolder);
 
     void setWeightString(String weightString);
 

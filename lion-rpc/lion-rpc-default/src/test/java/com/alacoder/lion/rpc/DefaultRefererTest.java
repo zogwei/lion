@@ -17,10 +17,10 @@ import com.alacoder.common.log.LogFactory;
 import com.alacoder.common.log.LogService;
 import com.alacoder.lion.common.url.LionURL;
 import com.alacoder.lion.common.url.URLParamType;
+import com.alacoder.lion.remote.transport.Request;
+import com.alacoder.lion.remote.transport.Response;
 import com.alacoder.lion.rpc.remote.DefaultRpcRequest;
-import com.alacoder.lion.rpc.remote.RpcRequest;
 import com.alacoder.lion.rpc.remote.RpcRequestInfo;
-import com.alacoder.lion.rpc.remote.RpcResponse;
 
 /**
  * @ClassName: DefaultProviderTest
@@ -43,15 +43,17 @@ public class DefaultRefererTest {
 		DefaultRpcReferer referer = new DefaultRpcReferer(DemoService.class, refererUrl , serviceUrl);
 		referer.init();
 		
-		RpcRequest request = new DefaultRpcRequest();
-    	RpcRequestInfo rpcRequestInfo =  request.getRequestMsg();
+		Request request = new DefaultRpcRequest();
+		
+    	RpcRequestInfo rpcRequestInfo = new RpcRequestInfo();
+    	request.setRequestMsg(rpcRequestInfo);
     	rpcRequestInfo.setInterfaceName("com.alacoder.lion.rpc.DemoService");
     	rpcRequestInfo.setMethodName("hello");
     	rpcRequestInfo.setParamtersDesc("java.lang.String");
 		Object arguments[] = {"Jimmy"};  
 		rpcRequestInfo.setArguments(arguments);
 		
-		RpcResponse response = referer.call(request);
+		Response response = referer.call(request);
 		
 		logger.info("referer response value = {} ", response.getValue());
 

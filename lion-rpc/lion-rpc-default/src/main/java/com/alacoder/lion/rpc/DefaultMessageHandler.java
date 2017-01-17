@@ -26,11 +26,9 @@ import com.alacoder.common.log.LogFactory;
 import com.alacoder.common.log.LogService;
 import com.alacoder.lion.common.utils.ReflectUtil;
 import com.alacoder.lion.remote.Channel;
+import com.alacoder.lion.remote.transport.DefaultResponse;
 import com.alacoder.lion.remote.transport.Request;
 import com.alacoder.lion.remote.transport.Response;
-import com.alacoder.lion.rpc.remote.DefaultRpcResponse;
-import com.alacoder.lion.rpc.remote.RpcRequest;
-import com.alacoder.lion.rpc.remote.RpcResponse;
 import com.alacoder.lion.rpc.utils.LionFrameworkUtil;
 
 /**
@@ -64,11 +62,11 @@ public class DefaultMessageHandler extends AbstractMessageHandler {
 	            throw new LionFrameworkException("RequestRouter handler(channel, message) params is null");
 	        }
 
-	        if (!(message instanceof RpcRequest)) {
+	        if (!(message instanceof Request)) {
 	            throw new LionFrameworkException("RequestRouter message type not support: " + message.getClass());
 	        }
 
-	        RpcRequest request = (RpcRequest) message;
+	        Request request = (Request) message;
 
 	        String serviceKey = LionFrameworkUtil.getServiceKey(request);
 
@@ -81,7 +79,7 @@ public class DefaultMessageHandler extends AbstractMessageHandler {
 	                    new LionServiceException(this.getClass().getSimpleName() + " handler Error: provider not exist serviceKey="
 	                            + serviceKey + " " + LionFrameworkUtil.toString(request));
 
-	            DefaultRpcResponse response = new DefaultRpcResponse();
+	            DefaultResponse response = new DefaultResponse();
 	            response.setException(exception);
 	            return response;
 	        }
@@ -89,11 +87,11 @@ public class DefaultMessageHandler extends AbstractMessageHandler {
 	        return call(request, provider);
 	    }
 
-	    protected RpcResponse call(Request<?> request, Provider<?> provider) {
+	    protected Response call(Request<?> request, Provider<?> provider) {
 	        try {
-	            return provider.call((RpcRequest)request);
+	            return provider.call((Request)request);
 	        } catch (Exception e) {
-	        	DefaultRpcResponse response = new DefaultRpcResponse();
+	        	DefaultResponse response = new DefaultResponse();
 	            response.setException(new LionBizException("provider call process error", e));
 	            return response;
 	        }

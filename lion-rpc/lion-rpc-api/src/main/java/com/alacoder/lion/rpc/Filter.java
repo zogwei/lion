@@ -14,8 +14,8 @@
 package com.alacoder.lion.rpc;
 
 import com.alacoder.lion.common.extension.Spi;
-import com.alacoder.lion.rpc.remote.RpcRequest;
-import com.alacoder.lion.rpc.remote.RpcResponse;
+import com.alacoder.lion.remote.transport.Request;
+import com.alacoder.lion.remote.transport.Response;
 
 /**
  * @ClassName: Filter
@@ -28,5 +28,5 @@ import com.alacoder.lion.rpc.remote.RpcResponse;
 @Spi
 public interface Filter {
 
-    RpcResponse filter(Caller<?> caller, RpcRequest request);
+    Response filter(Caller<?> caller, Request request);
 }

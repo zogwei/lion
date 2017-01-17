@@ -25,11 +25,10 @@ import com.alacoder.lion.common.url.LionURL;
 import com.alacoder.lion.common.url.URLParamType;
 import com.alacoder.lion.common.utils.CollectionUtil;
 import com.alacoder.lion.common.utils.ExceptionUtil;
+import com.alacoder.lion.remote.transport.DefaultResponse;
 import com.alacoder.lion.remote.transport.Request;
+import com.alacoder.lion.remote.transport.Response;
 import com.alacoder.lion.rpc.Referer;
-import com.alacoder.lion.rpc.remote.DefaultRpcResponse;
-import com.alacoder.lion.rpc.remote.RpcRequest;
-import com.alacoder.lion.rpc.remote.RpcResponse;
 
 /**
  * @ClassName: ClusterSpi
@@ -67,7 +66,7 @@ public class ClusterSpi<T> implements Cluster<T> {
     }
 
     @Override
-    public RpcResponse call(RpcRequest request) {
+    public Response call(Request request) {
         if (available.get()) {
             try {
                 return haStrategy.call(request, loadBalance);
@@ -176,7 +175,7 @@ public class ClusterSpi<T> implements Cluster<T> {
         return referers;
     }
 
-    protected RpcResponse callFalse(RpcRequest request, Exception cause) {
+    protected Response callFalse(Request request, Exception cause) {
 
         // biz exception 无论如何都要抛出去
         if (ExceptionUtil.isBizException(cause)) {
@@ -197,8 +196,8 @@ public class ClusterSpi<T> implements Cluster<T> {
         return buildErrorResponse(request, cause);
     }
 
-    private RpcResponse buildErrorResponse(RpcRequest request, Exception lionException) {
-        DefaultRpcResponse rs = new DefaultRpcResponse();
+    private Response buildErrorResponse(Request request, Exception lionException) {
+        DefaultResponse rs = new DefaultResponse();
         rs.setException(lionException);
         rs.setId(request.getId());
         rs.setRequestId(request.getId());

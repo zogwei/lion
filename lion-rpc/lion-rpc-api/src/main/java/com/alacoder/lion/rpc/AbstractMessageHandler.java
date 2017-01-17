@@ -24,8 +24,6 @@ import com.alacoder.lion.remote.TransportData;
 import com.alacoder.lion.remote.transport.DefaultResponse;
 import com.alacoder.lion.remote.transport.Request;
 import com.alacoder.lion.remote.transport.Response;
-import com.alacoder.lion.rpc.remote.RpcRequest;
-import com.alacoder.lion.rpc.remote.RpcResponse;
 import com.alacoder.lion.rpc.utils.LionFrameworkUtil;
 
 /**
@@ -46,7 +44,7 @@ public abstract class AbstractMessageHandler implements MessageHandler {
 	@Override
 	public Response<?> handle(Channel channel, Request<?> message) {
 		
-		RpcRequest request = (RpcRequest)message;
+		Request request = (Request)message;
 		String serviceKey = LionFrameworkUtil.getServiceKey(request);
 		@SuppressWarnings("rawtypes")
 		Provider provider = providers.get(serviceKey);

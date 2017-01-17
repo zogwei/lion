@@ -28,10 +28,10 @@ import com.alacoder.lion.common.url.URLParamType;
 import com.alacoder.lion.common.utils.ExceptionUtil;
 import com.alacoder.lion.common.utils.ReflectUtil;
 import com.alacoder.lion.common.utils.RequestIdGenerator;
+import com.alacoder.lion.remote.transport.Response;
 import com.alacoder.lion.rpc.ha.Cluster;
 import com.alacoder.lion.rpc.remote.DefaultRpcRequest;
 import com.alacoder.lion.rpc.remote.RpcRequestInfo;
-import com.alacoder.lion.rpc.remote.RpcResponse;
 import com.alacoder.lion.rpc.utils.LionFrameworkUtil;
 
 /**
@@ -95,7 +95,7 @@ public class RefererInvocationHandler<T> implements InvocationHandler {
             // 带上client的application和module
         	rpcRequestInfo.setAttachment(URLParamType.application.getName(), ApplicationInfo.getApplication(cluster.getUrl()).getApplication());
         	rpcRequestInfo.setAttachment(URLParamType.module.getName(), ApplicationInfo.getApplication(cluster.getUrl()).getModule());
-            RpcResponse response = null;
+            Response response = null;
             boolean throwException =
                     Boolean.parseBoolean(cluster.getUrl().getParameter(URLParamType.throwException.getName(),
                             URLParamType.throwException.getValue()));

@@ -18,6 +18,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.alacoder.lion.remote.codec.RemoteProtocolVersion;
+import com.alacoder.lion.remote.transport.DefaultRequest;
 
 /**
  * @ClassName: Request
@@ -27,7 +28,7 @@ import com.alacoder.lion.remote.codec.RemoteProtocolVersion;
  *
  */
 
-public class DefaultRpcRequest extends RpcRequest {
+public class DefaultRpcRequest extends DefaultRequest<RpcRequestInfo> {
 	
 	private Long id;
 	private RpcRequestInfo rpcRequestInfo;
