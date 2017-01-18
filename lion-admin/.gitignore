@@ -1,0 +1,12 @@
+/target/
+**/Thumbs.db
+**/logs/
+**/out/
+**/target/
+**/.settings/
+**/.DS_Store
+/.settings/
+**/.settings
+**/.setting/*
+/.DS_Store
+/.project

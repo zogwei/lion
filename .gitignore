@@ -8,3 +8,7 @@
 **/.settings
 **/.setting/*
 /.DS_Store
+/.classpath
+/.project
+**/.classpath
+**/.project
