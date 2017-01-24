@@ -84,7 +84,4 @@
         <property name="basePackage" value="com.alacoder.lion.admin.web.persistence,com.alacoder.lion.admin.web.persistence" />
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactoryForMybatis"/>
     </bean>
-
-	
-	
 </beans>
