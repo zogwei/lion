@@ -33,7 +33,7 @@ import com.google.common.collect.Maps;
 
 /**
  * 全局配置类
- * @author ThinkGem
+ * @author jimmy
  * @version 2014-06-25
  */
 public class Global {

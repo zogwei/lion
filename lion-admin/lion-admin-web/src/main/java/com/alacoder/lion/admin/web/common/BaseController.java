@@ -47,7 +47,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
  * 控制器支持类
- * @author ThinkGem
+ * @author jimmy
  * @version 2013-3-23
  */
 public abstract class BaseController {

@@ -1,5 +1,5 @@
 /**
- * Copyright &copy; 2012-2016 <a href="https://github.com/thinkgem/jeesite">JeeSite</a> All rights reserved.
+ * Copyright &copy; 2012-2016 <a href="https://github.com/jimmy/jeesite">JeeSite</a> All rights reserved.
  */
 package com.alacoder.lion.admin.web.common.utils;
 
@@ -10,7 +10,7 @@ import org.apache.commons.lang3.time.DateFormatUtils;
 
 /**
  * 时间计算工具类
- * @author ThinkGem
+ * @author jimmy
  * @version 2013-11-03
  */
 public class TimeUtils {

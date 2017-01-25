@@ -1,5 +1,5 @@
 /**
- * Copyright &copy; 2012-2016 <a href="https://github.com/thinkgem/jeesite">JeeSite</a> All rights reserved.
+ * Copyright &copy; 2012-2016 <a href="https://github.com/jimmy/jeesite">JeeSite</a> All rights reserved.
  */
 package com.alacoder.lion.admin.web.sys.security;
 
@@ -18,7 +18,7 @@ import com.alacoder.lion.admin.web.common.utils.StringUtils;
 
 /**
  * 表单验证（包含验证码）过滤类
- * @author ThinkGem
+ * @author jimmy
  * @version 2014-5-19
  */
 @Service

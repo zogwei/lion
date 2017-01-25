@@ -1,5 +1,5 @@
 /**
- * Copyright &copy; 2012-2016 <a href="https://github.com/thinkgem/jeesite">JeeSite</a> All rights reserved.
+ * Copyright &copy; 2012-2016 <a href="https://github.com/jimmy/jeesite">JeeSite</a> All rights reserved.
  */
 package com.alacoder.lion.admin.web.common.utils;
 
@@ -13,7 +13,7 @@ import org.apache.commons.lang3.StringUtils;
 
 /**
  * 对象操作工具类, 继承org.apache.commons.lang3.ObjectUtils类
- * @author ThinkGem
+ * @author jimmy
  * @version 2014-6-29
  */
 public class ObjectUtils extends org.apache.commons.lang3.ObjectUtils {

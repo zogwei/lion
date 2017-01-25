@@ -29,8 +29,8 @@ import com.alacoder.lion.admin.web.common.DateUtils;
 
 /**
  * 日志拦截器
- * @author ThinkGem
- * @version 2014-8-19
+ * @author 
+ * @version 
  */
 public class LogInterceptor implements HandlerInterceptor {
 	

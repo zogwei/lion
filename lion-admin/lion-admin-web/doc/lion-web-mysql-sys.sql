@@ -161,7 +161,7 @@ CREATE TABLE `t_sys_user` (
 
 LOCK TABLES `t_sys_user` WRITE;
 /*!40000 ALTER TABLE `t_sys_user` DISABLE KEYS */;
-INSERT INTO `t_sys_user` (`id`, `company_id`, `office_id`, `login_name`, `password`, `no`, `name`, `email`, `phone`, `mobile`, `user_type`, `photo`, `login_ip`, `login_date`, `login_flag`, `create_by`, `create_date`, `update_by`, `update_date`, `remarks`, `del_flag`) VALUES ('1','1','2','root','02a3f0772fcca9f415adc990734b45c6f059c7d33ee28362c4852032','0001','系统管理员','thinkgem@163.com','8675','8675',NULL,NULL,NULL,NULL,'1','1','2013-05-27 08:00:00','1','2013-05-27 08:00:00','最高管理员','0');
+INSERT INTO `t_sys_user` (`id`, `company_id`, `office_id`, `login_name`, `password`, `no`, `name`, `email`, `phone`, `mobile`, `user_type`, `photo`, `login_ip`, `login_date`, `login_flag`, `create_by`, `create_date`, `update_by`, `update_date`, `remarks`, `del_flag`) VALUES ('1','1','2','root','02a3f0772fcca9f415adc990734b45c6f059c7d33ee28362c4852032','0001','系统管理员','jimmy@163.com','8675','8675',NULL,NULL,NULL,NULL,'1','1','2013-05-27 08:00:00','1','2013-05-27 08:00:00','最高管理员','0');
 /*!40000 ALTER TABLE `t_sys_user` ENABLE KEYS */;
 UNLOCK TABLES;
 

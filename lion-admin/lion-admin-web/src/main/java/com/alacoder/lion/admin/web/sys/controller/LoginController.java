@@ -18,31 +18,30 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.shiro.authz.UnauthorizedException;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
-import org.apache.shiro.web.util.WebUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.alacoder.lion.admin.web.common.BaseController;
-import com.alacoder.lion.admin.web.common.Global;
 import com.alacoder.lion.admin.web.common.utils.CacheUtils;
 import com.alacoder.lion.admin.web.common.utils.CookieUtils;
 import com.alacoder.lion.admin.web.common.utils.StringUtils;
-import com.alacoder.lion.admin.web.sys.security.FormAuthenticationFilter;
+import com.alacoder.lion.admin.web.sys.service.SystemService;
 import com.google.common.collect.Maps;
 
 /**
  * 登录Controller
- * @author ThinkGem
+ * @author jimmy
  * @version 2013-5-31
  */
 @Controller
 public class LoginController extends BaseController{
+	
+	@Autowired
+	private SystemService systemService;
 	
 	/**
 	 * 管理登录
@@ -50,6 +49,8 @@ public class LoginController extends BaseController{
 	@RequestMapping(value = "${adminPath}/login")
 	public String login(HttpServletRequest request, HttpServletResponse response, Model model) {
 	
+		systemService.login();
+		
 		return "admin/index.jsp";
 	}
 

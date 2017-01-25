@@ -1,5 +1,5 @@
 /**
- * Copyright &copy; 2012-2016 <a href="https://github.com/thinkgem/jeesite">JeeSite</a> All rights reserved.
+ * Copyright &copy; 2012-2016 <a href="https://github.com/jimmy/jeesite">JeeSite</a> All rights reserved.
  */
 package com.alacoder.lion.admin.web.common.utils;
 
@@ -22,10 +22,10 @@ import freemarker.template.Template;
 public class SendMailUtil {
 
 	// private static final String smtphost = "192.168.1.70";
-	private static final String from = "thinkgem@163.com";
+	private static final String from = "jimmy@163.com";
 	private static final String fromName = "测试公司";
 	private static final String charSet = "utf-8";
-	private static final String username = "thinkgem@163.com";
+	private static final String username = "jimmy@163.com";
 	private static final String password = "123456";
 
 	private static Map<String, String> hostMap = new HashMap<String, String>();
