@@ -3,25 +3,30 @@
  * Copyright: Copyright (c) 2016 
  * 
  * @project_name: lion-monitor-api
- * @Title: MonitorClient.java
+ * @Title: DefaultMonitorClient.java
  * @Package com.alacoder.lion.monitor.api
  * @Description: 
  * @author jimmy.zhong
- * @date 2017年2月6日 下午4:17:47
+ * @date 2017年2月7日 下午4:21:50
  * @version V1.0
  */
 
 package com.alacoder.lion.monitor.api;
 
 /**
- * @ClassName: MonitorClient
+ * @ClassName: DefaultMonitorClient
  * @Description: 
  * @author jimmy.zhong
- * @date 2017年2月6日 下午4:17:47
+ * @date 2017年2月7日 下午4:21:50
  *
  */
 
-public interface MonitorClient {
+public class DefaultMonitorClient implements MonitorClient{
 
-	public boolean sendMsg(MonitorMsg msg);
+	@Override
+	public boolean sendMsg(MonitorMsg msg) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }
