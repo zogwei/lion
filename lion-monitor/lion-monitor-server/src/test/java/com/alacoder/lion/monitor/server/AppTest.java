@@ -1,4 +1,4 @@
-package com.alacoder.lion.monitor.api;
+package com.alacoder.lion.monitor.server;
 
 import junit.framework.Test;
 import junit.framework.TestCase;

@@ -11,7 +11,7 @@
  * @version V1.0
  */
 
-package com.alacoder.lion.monitor.api;
+package com.alacoder.lion.monitor.server;
 
 /**
  * @ClassName: MonitorServer

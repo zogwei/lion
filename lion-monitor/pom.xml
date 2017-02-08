@@ -9,6 +9,10 @@
   <artifactId>lion-monitor</artifactId>
   <packaging>pom</packaging>
   <modules>
-    <module>lion-monitor-api</module>
+    
+    
+    <module>lion-monitor-client</module>
+    <module>lion-monitor-core</module>
+    <module>lion-monitor-server</module>
   </modules>
 </project>
