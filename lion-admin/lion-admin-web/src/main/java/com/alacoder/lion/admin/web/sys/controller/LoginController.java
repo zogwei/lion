@@ -51,7 +51,7 @@ public class LoginController extends BaseController{
 	
 		systemService.login();
 		
-		return "admin/index.jsp";
+		return "sys/index_iframe.jsp";
 	}
 
 

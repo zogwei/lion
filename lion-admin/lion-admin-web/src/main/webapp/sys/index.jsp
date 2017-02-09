@@ -499,7 +499,7 @@ immediately after the control sidebar -->
 
 <script type="text/javascript">
     $(function() {
-        addTabs(({ id: '10008', title: '欢迎页', close: false, url: '../admin/dashboard.html' }));
+        addTabs(({ id: '10008', title: '欢迎页', close: false, url: '../sys/dashboard.html' }));
         App.fixIframeCotent();
         var menus = [
              { id: "10010", text: "我的工作台", isHeader: true },
@@ -515,9 +515,9 @@ immediately after the control sidebar -->
                           isOpen: false,
                           icon: "fa fa-circle-o",
                           children: [
-                              { id: "10022", text: "iframe加载", url: "../admin/index_iframe.html", targetType: "blank", icon: "fa fa-spinner" },
-                              { id: "10023", text: "ajax加载", url: "../admin/index.html", targetType: "blank", icon: "fa fa-refresh" },
-                               { id: "10023", text: "原生页面加载", url: "../admin/index_page.html", targetType: "blank", icon: "fa fa-refresh" }
+                              { id: "10022", text: "iframe加载", url: "../sys/index_iframe.html", targetType: "blank", icon: "fa fa-spinner" },
+                              { id: "10023", text: "ajax加载", url: "../sys/index.html", targetType: "blank", icon: "fa fa-refresh" },
+                               { id: "10023", text: "原生页面加载", url: "../sys/index_page.html", targetType: "blank", icon: "fa fa-refresh" }
 
                           ]
                       }

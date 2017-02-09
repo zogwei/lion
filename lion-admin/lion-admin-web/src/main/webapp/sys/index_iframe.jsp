@@ -7,7 +7,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>SuperUI前端框架</title>
+    <title>Lion系统管理</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.6 -->
@@ -50,7 +50,7 @@ desired effect
 |               | sidebar-mini                            |
 |---------------------------------------------------------|
 -->
-<body class="hold-transition skin-blue sidebar-mini fixed">
+<body class="hold-transition skin-black sidebar-mini fixed">
 <div class="wrapper">
 <!-- Main Header -->
 <header class="main-header">
@@ -59,7 +59,7 @@ desired effect
         <!-- mini logo for sidebar mini 50x50 pixels -->
         <span class="logo-mini"><b>S</b>UI</span>
         <!-- logo for regular state and mobile devices -->
-        <span class="logo-lg"><b>Super</b>Shop</span>
+        <span class="logo-lg"><b>Lion</b>系统管理</span>
     </a>
    
     <!-- Header Navbar -->
@@ -70,20 +70,8 @@ desired effect
         </a>
         <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
             <ul class="nav navbar-nav">
-                <li><a href="#">平台 <span class="sr-only">(current)</span></a></li>
-                <li><a href="#">订单</a></li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">会员 <span class="caret"></span></a>
-                    <ul class="dropdown-menu" role="menu">
-                        <li><a href="#">会员积分管理</a></li>
-                        <li><a href="#">会员等级管理</a></li>
-                        <li><a href="#">会员信息管理</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#">会员营销管理</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#">会员优惠券</a></li>
-                    </ul>
-                </li>
+                <li><a href="#" onclick="changeMenu('monitor')">监控</a></li>
+                <li><a href="#" onclick="changeMenu('monitor')">系统管理</a></li>
             </ul>
           
         </div>
@@ -95,10 +83,10 @@ desired effect
                     <!-- Menu toggle button -->
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <i class="fa fa-envelope-o"></i>
-                        <span class="label label-success">4</span>
+                        <span class="label label-success">0</span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li class="header">你有4条提醒</li>
+                        <li class="header">你有0条提醒</li>
                         <li>
                             <!-- inner menu: contains the messages -->
                             <ul class="menu">
@@ -131,10 +119,10 @@ desired effect
                     <!-- Menu toggle button -->
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <i class="fa fa-bell-o"></i>
-                        <span class="label label-warning">10</span>
+                        <span class="label label-warning">0</span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li class="header">你有10条消息</li>
+                        <li class="header">你有0条消息</li>
                         <li>
                             <!-- Inner Menu: contains the notifications -->
                             <ul class="menu">
@@ -155,10 +143,10 @@ desired effect
                     <!-- Menu Toggle Button -->
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <i class="fa fa-flag-o"></i>
-                        <span class="label label-danger">9</span>
+                        <span class="label label-danger">0</span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li class="header">您有9条消息</li>
+                        <li class="header">您有0条消息</li>
                         <li>
                             <!-- Inner menu: contains the tasks -->
                             <ul class="menu">
@@ -167,7 +155,7 @@ desired effect
                                     <a href="#">
                                         <!-- Task title and progress text -->
                                         <h3>
-                                            superui第一版发布啦
+                                            lion第一版发布啦
                                             <small class="pull-right">20%</small>
                                         </h3>
                                         <!-- The progress bar -->
@@ -194,14 +182,14 @@ desired effect
                         <!-- The user image in the navbar-->
                         <img src="../content/ui/img/photos/girl1.png" class="user-image" alt="User Image">
                         <!-- hidden-xs hides the username on small devices so only the image appears. -->
-                        <span class="hidden-xs">TZHSWEET</span>
+                        <span class="hidden-xs">admin</span>
                     </a>
                     <ul class="dropdown-menu">
                         <!-- The user image in the menu -->
                         <li class="user-header">
                             <img src="../content/ui/img/photos/girl1.png" class="img-circle" alt="User Image">
                             <p>
-                                TZHSWEET的小妞
+                                admin
                                 <small>2016年注册</small>
                             </p>
                         </li>
@@ -249,7 +237,7 @@ desired effect
                 <img src="../content/ui/img/photos/girl1.png" class="img-circle" alt="用户头像">
             </div>
             <div class="pull-left info">
-                <p>TZHSWEET</p>
+                <p>admin</p>
                 <!-- Status -->
                 <a href="#"><i class="fa fa-circle text-success"></i> 在线</a>
             </div>
@@ -313,10 +301,10 @@ desired effect
 <footer class="main-footer">
     <!-- To the right -->
     <div class="pull-right hidden-xs">
-       SuperShop项目组
+       lion项目组
     </div>
     <!-- Default to the left -->
-    版权所有 &copy;tzhsweet 2015-2018&nbsp;&nbsp;&nbsp;&nbsp;   粤ICP备16024545号-1
+    版权所有 &copy;lion 2015-2018&nbsp;&nbsp;&nbsp;&nbsp;   粤ICP备XXXXX号-1
 </footer>
 <!-- Control Sidebar -->
 <aside class="control-sidebar control-sidebar-dark">
@@ -499,147 +487,171 @@ immediately after the control sidebar -->
 
 <script type="text/javascript">
     $(function() {
-        addTabs(({ id: '10008', title: '欢迎页', close: false, url: '../admin/dashboard.html' }));
+        addTabs(({ id: '10008', title: '欢迎页', close: false, url: '../sys/dashboard.html' }));
         App.fixIframeCotent();
-        var menus = [
-             { id: "10010", text: "我的工作台", isHeader: true },
-              {
-                  id: "10020",
-                  isOpen: false,
-                  text: "SuperShopUI",
-                  icon: "fa fa-bookmark-o",
-                  children: [
-                      {
-                          id: "10021",
-                          text: "页面加载",
-                          isOpen: false,
-                          icon: "fa fa-circle-o",
-                          children: [
-                              { id: "10022", text: "iframe加载", url: "../admin/index_iframe.html", targetType: "blank", icon: "fa fa-spinner" },
-                              { id: "10023", text: "ajax加载", url: "../admin/index.html", targetType: "blank", icon: "fa fa-refresh" },
-                               { id: "10023", text: "原生页面加载", url: "../admin/index_page.html", targetType: "blank", icon: "fa fa-refresh" }
-
-                          ]
-                      }
-                  ]
-              },
-             
-              {
-                  id: "10001",
-                  text: "基础UI",
-                
-                  icon: "fa fa-circle-o",
-                  children: [
-                       { id: "10004", text: "按钮", url: "../components/buttons.html", targetType: "iframe-tab", icon: "fa fa-square" },
-                      { id: "10003", text: "常用组件", url: "../components/general.html", targetType: "iframe-tab", icon: "fa fa-list-alt" },
-                     
-                      { id: "10012", text: "图标库", url: "../components/icons.html", targetType: "iframe-tab", icon: "fa fa-circle-o" },
-                      {
-                          id: "10203",
-                          text: "表单组件",
-                          url: "../forms/general.html",
-                          targetType: "iframe-tab",
-                          icon: "fa fa-plus-square-o"
-                      },
-                       {
-                           id: "10204",
-                           text: "表单扩展组件",
-                           url: "../forms/advanced.html",
-                           targetType: "iframe-tab",
-                           icon: "fa fa-plus-square-o"
-                       },
-                       { id: "10005", text: "Block UI", url: "../components/blockui.html", targetType: "iframe-tab", icon: "fa fa-spinner" },
-                      { id: "10013", text: "sliders组件",tips:5, url: "../components/sliders.html", targetType: "iframe-tab", icon: "fa fa-list-ol" },
-                      { id: "10204", text: "switch按钮", targetType: "iframe-tab", url: "../components/bootstrapswitch.html", icon: "fa fa-toggle-on" },
-                      { id: "10017", text: "面板", targetType: "iframe-tab", url: "../components/widgets.html", icon: "fa fa-circle-o" }
-                  ]
-              },
-         
-              {
-                  id: "10202",
-                  text: "插件",
-
-                  targetType: "iframe-tab",
-                  icon: "fa fa-circle-o",
-                  children: [
-                       { id: "10026", text: "layer弹出层", targetType: "iframe-tab",  url: "../components/layer.html", icon: "fa fa-circle-o" },
-                      { id: "10006", text: "日历选择控件", targetType: "iframe-tab", url: "../component-extend/calendar.html", icon: "fa fa-circle-o" },
-                          { id: "10014", text: "时间轴", targetType: "iframe-tab", url: "../component-extend/timeline.html", icon: "fa fa-circle-o" },
-                      { id: "10010", text: "页面加载效果", targetType: "iframe-tab", url: "../component-extend/pageprogress.html", icon: "fa fa-circle-o" },
-                      { id: "10016", text: "树", targetType: "iframe-tab", url: "../component-extend/jstree.html", icon: "fa fa-circle-o" },
-                      //{ id: "10241", text: "下拉框", targetType: "iframe-tab", url: "../component-extend/bootstrap_select.html", icon: "fa fa-minus-square-o" },
-                  
-                        { id: "10014", text: "日起选择组件", targetType: "iframe-tab", url: "../component-extend/datetimepickers.html", icon: "fa fa-calendar" },
-                      { id: "10242", text: "select2下拉框", targetType: "iframe-tab", url: "../component-extend/select2.html", icon: "fa fa-circle-o" },
-                      { id: "10205", text: "多选框", targetType: "iframe-tab", url: "../component-extend/bootstraptagsinput.html", icon: " fa fa-check-square-o" },
-                      { id: "10206", text: "多文件上传组件", targetType: "iframe-tab", url: "../component-extend/formfileupload.html", icon: "  fa fa-circle-o " }
-                  ]
-
-              },
-              {
-                  id: "10208",
-                  text: "表格组件",
-
-                  icon: "fa fa-circle-o",
-                  children: [
-                      { id: "10211", text: "bootstraptable表格", targetType: "iframe-tab", url: "../tables/basetable.html", icon: "fa fa-table" },
-                      { id: "10212", text: "管理表格", targetType: "iframe-tab", url: "../tables/managetable.html", icon: "fa fa-table" },
-                        { id: "10213", text: "jqgrid表格", targetType: "iframe-tab", url: "../tables/jqgrid.html", icon: "fa fa-table" }
-                  ]
-              },
-               {
-                   id: "10209", text: "通用模板", isOpen: false,  icon: "fa fa-circle-o", children: [
-                   { id: "10214", text: "企业站", targetType: "blank", url: "http://www.supermgr.cn", icon: "fa fa-circle-o" }//,
-                   //{ id: "10215", text: "微信端", targetType: "blank", url: "../template/test2.html", icon: "fa fa-circle-o" }
-                   ]
-
-               },
-                
-                 {
-                     id: "20209", text: "布局", isOpen: false, icon: "fa fa-circle-o", children: [
-                     { id: "20214", text: "盒式布局", targetType: "blank", url: "../layout/boxed.html", icon: "fa fa-circle-o" },
-                     { id: "20215", text: "自适应布局", targetType: "blank", url: "../layout/fixed.html", icon: "fa fa-circle-o" },
-                       { id: "20216", text: "顶部菜单", targetType: "blank", url: "../layout/top-nav.html", icon: "fa fa-circle-o" },
-                           { id: "20217", text: "左侧菜单收缩", targetType: "blank", url: "../layout/collapsed-sidebar.html", icon: "fa fa-circle-o" }
-                     ]
-
-                 },
-                {
-                    id: "30209", text: "图表", isOpen: false, icon: "fa fa-circle-o", children: [
-                    { id: "30214", text: "chart图表", targetType: "iframe-tab", url: "../charts/chartjs.html", icon: "fa fa-circle-o" },
-                    { id: "30215", text: "flot图表", targetType: "iframe-tab", url: "../charts/flot.html", icon: "fa fa-circle-o" },
-                      { id: "30216", text: "inline图表", targetType: "iframe-tab", url: "../charts/inline.html", icon: "fa fa-circle-o" },
-                          { id: "30217", text: "morris图表", targetType: "iframe-tab", url: "../charts/morris.html", icon: "fa fa-circle-o" }
-                    ]
-
-                },
-                 {
-                     id: "30209", text: "页面实例", isOpen: false, icon: "fa fa-circle-o", children: [
-                   {
-                       id: "30208",
-                       text: "邮件管理器",
-
-                       icon: "fa fa-circle-o",
-                       children: [
-                           { id: "30211", text: "邮件管理", targetType: "iframe-tab", url: "../pages/mailbox/mailbox.html", icon: "fa fa-table" },
-                           { id: "30212", text: "阅读邮件", targetType: "iframe-tab", url: "../pages/mailbox/read-mail.html", icon: "fa fa-table" },
-                             { id: "30213", text: "发送邮件", targetType: "iframe-tab", url: "../pages/mailbox/compose.html", icon: "fa fa-table" }
-                       ]
-                   },
-                   {
-                       id: "40208",
-                       text: "SuperMgr后台Demo",
-                       icon: "fa fa-circle-o",
-                       targetType: "blank", url: "../pages/supermgr/index.html"
-                   }
-                     ]
-
-                 }
-        ];
-        $('.sidebar-menu').sidebarMenu({ data: menus, param: { strUser: 'admin' } });
-
-       
+        
+        changeMenu('monitor');
     });
+    
+    function changeMenu(item){
+    	$('.sidebar-menu li').remove();
+    	if('monitor' == item) {
+    		var menus1 = [
+    	                     { id: "20010", text: "监控", isHeader: true },
+
+   	                      {
+   	                          id: "20001",
+   	                          text: "rpc 监控",
+   	                        
+   	                          icon: "fa fa-circle-o",
+   	                          children: [
+   	                               { id: "20004", text: "调用监控", url: "../components/buttons.html", targetType: "iframe-tab", icon: "fa fa-square" },
+   	                               { id: "20003", text: "异常监控", url: "../components/general.html", targetType: "iframe-tab", icon: "fa fa-list-alt" }
+   	                          ]
+   	                      }
+    	                ];
+    	    $('.sidebar-menu').sidebarMenu({ data: menus1, param: { strUser: 'admin' } });
+    	}
+    	else if('component' == item) {
+    		var menus = [
+    		             { id: "10010", text: "我的工作台", isHeader: true },
+    		              {
+    		                  id: "10020",
+    		                  isOpen: false,
+    		                  text: "SuperShopUI",
+    		                  icon: "fa fa-bookmark-o",
+    		                  children: [
+    		                      {
+    		                          id: "10021",
+    		                          text: "页面加载",
+    		                          isOpen: false,
+    		                          icon: "fa fa-circle-o",
+    		                          children: [
+    		                              { id: "10022", text: "iframe加载", url: "../sys/index_iframe.html", targetType: "blank", icon: "fa fa-spinner" },
+    		                              { id: "10023", text: "ajax加载", url: "../sys/index.html", targetType: "blank", icon: "fa fa-refresh" },
+    		                               { id: "10023", text: "原生页面加载", url: "../sys/index_page.html", targetType: "blank", icon: "fa fa-refresh" }
+
+    		                          ]
+    		                      }
+    		                  ]
+    		              },
+    		             
+    		              {
+    		                  id: "10001",
+    		                  text: "基础UI",
+    		                
+    		                  icon: "fa fa-circle-o",
+    		                  children: [
+    		                       { id: "10004", text: "按钮", url: "../components/buttons.html", targetType: "iframe-tab", icon: "fa fa-square" },
+    		                      { id: "10003", text: "常用组件", url: "../components/general.html", targetType: "iframe-tab", icon: "fa fa-list-alt" },
+    		                     
+    		                      { id: "10012", text: "图标库", url: "../components/icons.html", targetType: "iframe-tab", icon: "fa fa-circle-o" },
+    		                      {
+    		                          id: "10203",
+    		                          text: "表单组件",
+    		                          url: "../forms/general.html",
+    		                          targetType: "iframe-tab",
+    		                          icon: "fa fa-plus-square-o"
+    		                      },
+    		                       {
+    		                           id: "10204",
+    		                           text: "表单扩展组件",
+    		                           url: "../forms/advanced.html",
+    		                           targetType: "iframe-tab",
+    		                           icon: "fa fa-plus-square-o"
+    		                       },
+    		                       { id: "10005", text: "Block UI", url: "../components/blockui.html", targetType: "iframe-tab", icon: "fa fa-spinner" },
+    		                      { id: "10013", text: "sliders组件",tips:5, url: "../components/sliders.html", targetType: "iframe-tab", icon: "fa fa-list-ol" },
+    		                      { id: "10204", text: "switch按钮", targetType: "iframe-tab", url: "../components/bootstrapswitch.html", icon: "fa fa-toggle-on" },
+    		                      { id: "10017", text: "面板", targetType: "iframe-tab", url: "../components/widgets.html", icon: "fa fa-circle-o" }
+    		                  ]
+    		              },
+    		         
+    		              {
+    		                  id: "10202",
+    		                  text: "插件",
+
+    		                  targetType: "iframe-tab",
+    		                  icon: "fa fa-circle-o",
+    		                  children: [
+    		                       { id: "10026", text: "layer弹出层", targetType: "iframe-tab",  url: "../components/layer.html", icon: "fa fa-circle-o" },
+    		                      { id: "10006", text: "日历选择控件", targetType: "iframe-tab", url: "../component-extend/calendar.html", icon: "fa fa-circle-o" },
+    		                          { id: "10014", text: "时间轴", targetType: "iframe-tab", url: "../component-extend/timeline.html", icon: "fa fa-circle-o" },
+    		                      { id: "10010", text: "页面加载效果", targetType: "iframe-tab", url: "../component-extend/pageprogress.html", icon: "fa fa-circle-o" },
+    		                      { id: "10016", text: "树", targetType: "iframe-tab", url: "../component-extend/jstree.html", icon: "fa fa-circle-o" },
+    		                      //{ id: "10241", text: "下拉框", targetType: "iframe-tab", url: "../component-extend/bootstrap_select.html", icon: "fa fa-minus-square-o" },
+    		                  
+    		                        { id: "10014", text: "日起选择组件", targetType: "iframe-tab", url: "../component-extend/datetimepickers.html", icon: "fa fa-calendar" },
+    		                      { id: "10242", text: "select2下拉框", targetType: "iframe-tab", url: "../component-extend/select2.html", icon: "fa fa-circle-o" },
+    		                      { id: "10205", text: "多选框", targetType: "iframe-tab", url: "../component-extend/bootstraptagsinput.html", icon: " fa fa-check-square-o" },
+    		                      { id: "10206", text: "多文件上传组件", targetType: "iframe-tab", url: "../component-extend/formfileupload.html", icon: "  fa fa-circle-o " }
+    		                  ]
+
+    		              },
+    		              {
+    		                  id: "10208",
+    		                  text: "表格组件",
+
+    		                  icon: "fa fa-circle-o",
+    		                  children: [
+    		                      { id: "10211", text: "bootstraptable表格", targetType: "iframe-tab", url: "../tables/basetable.html", icon: "fa fa-table" },
+    		                      { id: "10212", text: "管理表格", targetType: "iframe-tab", url: "../tables/managetable.html", icon: "fa fa-table" },
+    		                        { id: "10213", text: "jqgrid表格", targetType: "iframe-tab", url: "../tables/jqgrid.html", icon: "fa fa-table" }
+    		                  ]
+    		              },
+    		               {
+    		                   id: "10209", text: "通用模板", isOpen: false,  icon: "fa fa-circle-o", children: [
+    		                   { id: "10214", text: "企业站", targetType: "blank", url: "http://www.supermgr.cn", icon: "fa fa-circle-o" }//,
+    		                   //{ id: "10215", text: "微信端", targetType: "blank", url: "../template/test2.html", icon: "fa fa-circle-o" }
+    		                   ]
+
+    		               },
+    		                
+    		                 {
+    		                     id: "20209", text: "布局", isOpen: false, icon: "fa fa-circle-o", children: [
+    		                     { id: "20214", text: "盒式布局", targetType: "blank", url: "../layout/boxed.html", icon: "fa fa-circle-o" },
+    		                     { id: "20215", text: "自适应布局", targetType: "blank", url: "../layout/fixed.html", icon: "fa fa-circle-o" },
+    		                       { id: "20216", text: "顶部菜单", targetType: "blank", url: "../layout/top-nav.html", icon: "fa fa-circle-o" },
+    		                           { id: "20217", text: "左侧菜单收缩", targetType: "blank", url: "../layout/collapsed-sidebar.html", icon: "fa fa-circle-o" }
+    		                     ]
+
+    		                 },
+    		                {
+    		                    id: "30209", text: "图表", isOpen: false, icon: "fa fa-circle-o", children: [
+    		                    { id: "30214", text: "chart图表", targetType: "iframe-tab", url: "../charts/chartjs.html", icon: "fa fa-circle-o" },
+    		                    { id: "30215", text: "flot图表", targetType: "iframe-tab", url: "../charts/flot.html", icon: "fa fa-circle-o" },
+    		                      { id: "30216", text: "inline图表", targetType: "iframe-tab", url: "../charts/inline.html", icon: "fa fa-circle-o" },
+    		                          { id: "30217", text: "morris图表", targetType: "iframe-tab", url: "../charts/morris.html", icon: "fa fa-circle-o" }
+    		                    ]
+
+    		                },
+    		                 {
+    		                     id: "30209", text: "页面实例", isOpen: false, icon: "fa fa-circle-o", children: [
+    		                   {
+    		                       id: "30208",
+    		                       text: "邮件管理器",
+
+    		                       icon: "fa fa-circle-o",
+    		                       children: [
+    		                           { id: "30211", text: "邮件管理", targetType: "iframe-tab", url: "../pages/mailbox/mailbox.html", icon: "fa fa-table" },
+    		                           { id: "30212", text: "阅读邮件", targetType: "iframe-tab", url: "../pages/mailbox/read-mail.html", icon: "fa fa-table" },
+    		                             { id: "30213", text: "发送邮件", targetType: "iframe-tab", url: "../pages/mailbox/compose.html", icon: "fa fa-table" }
+    		                       ]
+    		                   },
+    		                   {
+    		                       id: "40208",
+    		                       text: "SuperMgr后台Demo",
+    		                       icon: "fa fa-circle-o",
+    		                       targetType: "blank", url: "../pages/supermgr/index.html"
+    		                   }
+    		                     ]
+
+    		                 }
+    		        ];
+    		 $('.sidebar-menu').sidebarMenu({ data: menus, param: { strUser: 'admin' } });
+    	}
+    }
+
 </script>
 </body>
 </html>
