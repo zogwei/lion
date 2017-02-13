@@ -72,6 +72,7 @@ desired effect
             <ul class="nav navbar-nav">
                 <li><a href="#" onclick="changeMenu('monitor')">监控</a></li>
                 <li><a href="#" onclick="changeMenu('monitor')">系统管理</a></li>
+                 <li><a href="#" onclick="changeMenu('component')">component demo</a></li>
             </ul>
           
         </div>
@@ -505,7 +506,7 @@ immediately after the control sidebar -->
    	                        
    	                          icon: "fa fa-circle-o",
    	                          children: [
-   	                               { id: "20004", text: "调用监控", url: "../components/buttons.html", targetType: "iframe-tab", icon: "fa fa-square" },
+   	                               { id: "20004", text: "调用监控", url: "../pages/monitor/rpc-monitor.html", targetType: "iframe-tab", icon: "fa fa-square" },
    	                               { id: "20003", text: "异常监控", url: "../components/general.html", targetType: "iframe-tab", icon: "fa fa-list-alt" }
    	                          ]
    	                      }
