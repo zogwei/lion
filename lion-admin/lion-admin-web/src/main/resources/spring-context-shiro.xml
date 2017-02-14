@@ -22,8 +22,17 @@
                 <entry key="authc" value-ref="formAuthenticationFilter"/>
             </map>
         </property>
+        	<!-- Shiro权限过滤过滤器定义 -->
 		<property name="filterChainDefinitions">
-			<ref bean="shiroFilterChainDefinitions"/>
+			<value>
+			    **/*.html = anon
+			    **/*.json = anon
+				/content/** = anon
+				${adminPath}/cas = cas
+				${adminPath}/login = authc
+				${adminPath}/logout = logout
+				${adminPath}/** = authc
+			</value>
 		</property>
 	</bean>
 	
@@ -70,24 +79,6 @@
 	<bean id="casFilter" class="org.apache.shiro.cas.CasFilter">  
 		<property name="failureUrl" value="${adminPath}/login"/>
 	</bean>
-	
-	<!-- Shiro权限过滤过滤器定义 -->
-	<bean name="shiroFilterChainDefinitions" class="java.lang.String">
-		<constructor-arg>
-			<value>
-			    **/*.html = anon
-				/content/** = anon
-				/userfiles/** = anon
-				${adminPath}/cas = cas
-				${adminPath}/login = authc
-				${adminPath}/logout = logout
-				${adminPath}/** = user
-				/act/editor/** = user
-				/ReportServer/** = user
-			</value>
-		</constructor-arg>
-	</bean>
-	
 	
 	<!-- 保证实现了Shiro内部lifecycle函数的bean执行 -->
 	<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>

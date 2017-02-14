@@ -133,17 +133,19 @@
 		};
 		
 		setInterval(function () {
+			$.get('/admin/monitor/rpcMonitor.json').done(function (data) {
+				var obj = JSON.parse(data); 
+				myChart1.setOption({
+			        series: [{
+			            data: obj.data
+			        }]
+			    });
+			});
 		
 		    for (var i = 0; i < 5; i++) {
 		        data.shift();
 		        data.push(randomData());
 		    }
-		
-		    myChart1.setOption({
-		        series: [{
-		            data: data
-		        }]
-		    });
 		    
 		    myChart2.setOption({
 		        series: [{

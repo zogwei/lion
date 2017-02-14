@@ -49,6 +49,7 @@ public class LoginController extends BaseController{
 	@RequestMapping(value = "${adminPath}/login")
 	public String login(HttpServletRequest request, HttpServletResponse response, Model model) {
 	
+
 		systemService.login();
 		
 		return "sys/index_iframe.jsp";
