@@ -13,10 +13,21 @@
 
 package com.alacoder.lion.monitor.client;
 
+import com.alacoder.common.log.LogFactory;
+import com.alacoder.common.log.LogService;
 import com.alacoder.lion.common.url.LionURL;
+import com.alacoder.lion.monitor.DefaultRpcMonitorMsg;
 import com.alacoder.lion.monitor.MonitorMsg;
 import com.alacoder.lion.monitor.MonitorMsgHandler;
+import com.alacoder.lion.remote.Channel;
 import com.alacoder.lion.remote.Client;
+import com.alacoder.lion.remote.MessageHandler;
+import com.alacoder.lion.remote.TransportData;
+import com.alacoder.lion.remote.TransportException;
+import com.alacoder.lion.remote.netty.NettyClient;
+import com.alacoder.lion.remote.transport.DefaultRequest;
+import com.alacoder.lion.remote.transport.Request;
+import com.alacoder.lion.remote.transport.Response;
 
 /**
  * @ClassName: DefaultMonitorClient
@@ -27,8 +38,9 @@ import com.alacoder.lion.remote.Client;
  */
 
 public class DefaultMonitorClient implements MonitorClient{
-	
-	
+
+	private final static LogService logger = LogFactory.getLogService(DefaultMonitorClient.class);
+
 	private MonitorMsgHandler handler = null;
 	private Client remoteClient = null;
 	
@@ -37,19 +49,49 @@ public class DefaultMonitorClient implements MonitorClient{
 	}
 	
 	public DefaultMonitorClient(LionURL lionURL,MonitorMsgHandler handler){
-		
+		this.handler = handler;
+		remoteClient = new NettyClient(lionURL,new MonitorClientMessageHandler());
+		remoteClient.open();
 	}
 
 	@Override
 	public boolean sendMsg(MonitorMsg msg) {
-		// TODO Auto-generated method stub
+		
 		return false;
 	}
 
 	@Override
 	public boolean collectMsg(MonitorMsg msg) {
-		// TODO Auto-generated method stub
+		Request<MonitorMsg> request = new DefaultRequest<MonitorMsg>();
+		request.setRequestMsg(msg);
+		try {
+			remoteClient.request(request);
+		} catch (TransportException t) {
+			 logger.error("monitor client collect error, cause: " + t.getMessage(), t);
+		}
 		return false;
+	}
+	
+	
+	
+	class MonitorClientMessageHandler implements MessageHandler{
+
+		@Override
+		public Response<?> handle(Channel channel, Request<?> request) {
+			return null;
+		}
+
+		@Override
+		public Object handle(Channel channel, Response<?> response) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public Object handle(Channel channel, TransportData response) {
+			// TODO Auto-generated method stub
+			return null;
+		}
 	}
 
 }

@@ -16,12 +16,17 @@ package com.alacoder.lion.monitor.server;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
+import com.alacoder.common.log.LogFactory;
+import com.alacoder.common.log.LogService;
 import com.alacoder.lion.common.url.LionURL;
+import com.alacoder.lion.monitor.DefaultRpcMonitorMsg;
 import com.alacoder.lion.monitor.MonitorMsgHandler;
 import com.alacoder.lion.remote.Channel;
 import com.alacoder.lion.remote.MessageHandler;
 import com.alacoder.lion.remote.Server;
 import com.alacoder.lion.remote.TransportData;
+import com.alacoder.lion.remote.netty.NettyServer;
+import com.alacoder.lion.remote.transport.DefaultResponse;
 import com.alacoder.lion.remote.transport.Request;
 import com.alacoder.lion.remote.transport.Response;
 
@@ -34,6 +39,8 @@ import com.alacoder.lion.remote.transport.Response;
  */
 
 public class DefaultMonitorServer implements MonitorServer{
+
+	private final static LogService logger = LogFactory.getLogService(DefaultMonitorServer.class);
 
 	private final static Integer MAX_QUEUE= 10000;
 	
@@ -49,15 +56,28 @@ public class DefaultMonitorServer implements MonitorServer{
 	}
 	
 	public DefaultMonitorServer(LionURL lionURL,MonitorMsgHandler handler){
-		
+		this.handler = handler;
+		remoteServer = new NettyServer(lionURL, new MonitorMessageHandler());
+		remoteServer.open();
 	}
 	
 	class MonitorMessageHandler implements MessageHandler{
 
 		@Override
 		public Response<?> handle(Channel channel, Request<?> request) {
-			// TODO Auto-generated method stub
-			return null;
+			Object msg = request.getRequestMsg();
+			if(msg instanceof DefaultRpcMonitorMsg) {
+				logger.info(msg.toString());
+				queue.add(request);
+			}
+			else {
+				logger.error("no know type , msg : " + msg.toString());
+			}
+			
+			DefaultResponse<String> ret = new DefaultResponse<String>();
+			ret.setRequestId(request.getId());
+			
+			return ret;
 		}
 
 		@Override
@@ -71,7 +91,8 @@ public class DefaultMonitorServer implements MonitorServer{
 			// TODO Auto-generated method stub
 			return null;
 		}
-		
 	}
+	
+	
 	
 }

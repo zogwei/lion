@@ -99,12 +99,13 @@ public class NettyChannel extends com.alacoder.lion.remote.AbstractChannel{
         }
 		
 		ResponseFuture response = new NettyResponseFuture(request, timeout, this.endpoint);
-		//TODO requestid is null
 		this.endpoint.registerCallback(request.getId(), response);
 		
 		ChannelFuture writeFuture = this.channel.writeAndFlush(request);
 		
 		boolean result = writeFuture.awaitUninterruptibly(timeout, TimeUnit.MILLISECONDS);
+		
+		// TODO writeFuture 存在序列号异常时 丢失异常信息
 		if(result && writeFuture.isSuccess()) {
 			response.addListener(new FutureListener(){
 				@Override

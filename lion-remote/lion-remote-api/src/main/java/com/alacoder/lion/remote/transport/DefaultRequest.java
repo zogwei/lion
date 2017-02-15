@@ -13,6 +13,8 @@
 
 package com.alacoder.lion.remote.transport;
 
+import java.util.concurrent.atomic.AtomicLong;
+
 /**
  * @ClassName: DefaultRequest
  * @Description: 
@@ -23,8 +25,14 @@ package com.alacoder.lion.remote.transport;
 
 @SuppressWarnings("serial")
 public class DefaultRequest<T> implements Request<T> {
+    private static final AtomicLong INVOKE_ID = new AtomicLong(0);
+    
 	private Long id;
 	private T t;
+	
+	public DefaultRequest(){
+		id= INVOKE_ID.getAndIncrement();
+	}
 
 	public Long getId() {
 		return id;

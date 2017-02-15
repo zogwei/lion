@@ -21,6 +21,6 @@ package com.alacoder.lion.monitor;
  *
  */
 
-public interface MonitorMsg {
+public interface MonitorMsg extends java.io.Serializable {
 
 }
