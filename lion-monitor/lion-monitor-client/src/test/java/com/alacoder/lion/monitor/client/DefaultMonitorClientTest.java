@@ -52,8 +52,6 @@ public class DefaultMonitorClientTest {
             public void run() {
                 try {
                 	monitorClient.collectMsg( getItem());
-
-            		
                 } catch (Throwable t) { // 防御性容错
                     logger.error("Unexpected error occur at draw stat chart, cause: " + t.getMessage(), t);
                 }

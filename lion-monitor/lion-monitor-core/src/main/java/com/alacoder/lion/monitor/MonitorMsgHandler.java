@@ -23,4 +23,5 @@ package com.alacoder.lion.monitor;
 
 public interface MonitorMsgHandler {
 
+	void handler(MonitorMsg msg);
 }

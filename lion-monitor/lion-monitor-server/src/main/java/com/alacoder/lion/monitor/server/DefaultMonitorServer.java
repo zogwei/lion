@@ -14,21 +14,33 @@
 package com.alacoder.lion.monitor.server;
 
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingQueue;
 
 import com.alacoder.common.log.LogFactory;
 import com.alacoder.common.log.LogService;
 import com.alacoder.lion.common.url.LionURL;
+import com.alacoder.lion.common.utils.BeanUtils;
+import com.alacoder.lion.monitor.DefaultMonitorMsgHandler;
 import com.alacoder.lion.monitor.DefaultRpcMonitorMsg;
+import com.alacoder.lion.monitor.MonitorMsg;
 import com.alacoder.lion.monitor.MonitorMsgHandler;
 import com.alacoder.lion.remote.Channel;
 import com.alacoder.lion.remote.MessageHandler;
 import com.alacoder.lion.remote.Server;
 import com.alacoder.lion.remote.TransportData;
 import com.alacoder.lion.remote.netty.NettyServer;
+import com.alacoder.lion.remote.transport.DefaultRequest;
 import com.alacoder.lion.remote.transport.DefaultResponse;
 import com.alacoder.lion.remote.transport.Request;
 import com.alacoder.lion.remote.transport.Response;
+import com.lmax.disruptor.EventFactory;
+import com.lmax.disruptor.IgnoreExceptionHandler;
+import com.lmax.disruptor.RingBuffer;
+import com.lmax.disruptor.SequenceBarrier;
+import com.lmax.disruptor.WorkHandler;
+import com.lmax.disruptor.WorkerPool;
 
 /**
  * @ClassName: DefaultMonitorServer
@@ -47,18 +59,38 @@ public class DefaultMonitorServer implements MonitorServer{
 	private MonitorMsgHandler handler = null;
 	private Server remoteServer = null;
 	
-	//TODO 异常处理相关 考虑改成disputor实现
-    private final BlockingQueue<Request> queue = new LinkedBlockingQueue<Request>(MAX_QUEUE);
-    
+	RingBuffer<Request<MonitorMsg>> ringBuffer = null;
+	int BUFFER_SIZE= 1024;
+	int THREAD_NUMBERS= 4;
+	
 			
 	public DefaultMonitorServer(LionURL lionURL){
 		this(lionURL,null);
 	}
 	
 	public DefaultMonitorServer(LionURL lionURL,MonitorMsgHandler handler){
-		this.handler = handler;
+		if(handler == null){
+			this.handler = new DefaultMonitorMsgHandler();
+		}
+		else {
+			this.handler = handler;
+		}
 		remoteServer = new NettyServer(lionURL, new MonitorMessageHandler());
 		remoteServer.open();
+		
+		EventFactory<Request<MonitorMsg>> eventFactory=new EventFactory<Request<MonitorMsg>>() {
+			public Request<MonitorMsg> newInstance() {
+				return new DefaultRequest<MonitorMsg>();
+			}
+		};
+		ringBuffer=RingBuffer.createSingleProducer(eventFactory, BUFFER_SIZE);
+		SequenceBarrier sequenceBarrier = ringBuffer.newBarrier();
+		ExecutorService executor = Executors.newFixedThreadPool(THREAD_NUMBERS);
+		
+		DisputorMsgHandler disputorMsgHandler = new DisputorMsgHandler(this.handler);
+		WorkHandler<Request<MonitorMsg>> workHandlers= disputorMsgHandler;
+		WorkerPool<Request<MonitorMsg>> workerPool=new WorkerPool<Request<MonitorMsg>>(ringBuffer, sequenceBarrier, new IgnoreExceptionHandler(), workHandlers);
+		workerPool.start(executor);
 	}
 	
 	class MonitorMessageHandler implements MessageHandler{
@@ -68,7 +100,10 @@ public class DefaultMonitorServer implements MonitorServer{
 			Object msg = request.getRequestMsg();
 			if(msg instanceof DefaultRpcMonitorMsg) {
 				logger.info(msg.toString());
-				queue.add(request);
+				long seq=ringBuffer.next();
+				Request<MonitorMsg> temp = ringBuffer.get(seq);
+				BeanUtils.copyProperties(temp,request);
+				ringBuffer.publish(seq);
 			}
 			else {
 				logger.error("no know type , msg : " + msg.toString());
