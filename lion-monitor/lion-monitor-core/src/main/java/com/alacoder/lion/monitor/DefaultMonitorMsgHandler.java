@@ -13,6 +13,9 @@
 
 package com.alacoder.lion.monitor;
 
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
 import com.alacoder.common.log.LogFactory;
 import com.alacoder.common.log.LogService;
 
@@ -27,9 +30,15 @@ import com.alacoder.common.log.LogService;
 public class DefaultMonitorMsgHandler implements MonitorMsgHandler {
 
 	private final static LogService logger = LogFactory.getLogService(DefaultMonitorMsgHandler.class);
+	
+	//内存存储
+	private final static Map<String,Map> monitorData = new ConcurrentHashMap<String,Map>();
+	
 	@Override
 	public void handler(MonitorMsg msg) {
-		logger.warn("dong nothin, msg : " + msg.toString());
+		logger.info("dong nothin, msg : " + msg.toString());
+		String name = msg.getMetricType();
+
 	}
 
 }

@@ -43,6 +43,8 @@ public class DefaultRpcMonitorMsg implements MonitorMsg {
     private long[] metric;
     
     private Date  date;
+    
+    private String metricType;
 
 	public String getApplication() {
 		return application;
@@ -115,6 +117,19 @@ public class DefaultRpcMonitorMsg implements MonitorMsg {
 	public void setDate(Date date) {
 		this.date = date;
 	}
+	
+	
+
+	public String getMetricType() {
+		if(metricType == null || "".equals(metricType)) {
+			metricType = "default";
+		}
+		return metricType;
+	}
+
+	public void setMetricType(String metricType) {
+		this.metricType = metricType;
+	}
 
 	@Override
 	public String toString() {
@@ -124,7 +139,5 @@ public class DefaultRpcMonitorMsg implements MonitorMsg {
 				+ ", server=" + server + ", metric=" + Arrays.toString(metric)
 				+ ", date=" + date + "]";
 	}
-	
-	
-    
+
 }

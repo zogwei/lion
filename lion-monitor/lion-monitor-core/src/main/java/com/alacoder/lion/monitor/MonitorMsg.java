@@ -23,4 +23,5 @@ package com.alacoder.lion.monitor;
 
 public interface MonitorMsg extends java.io.Serializable {
 
+	public String getMetricType();
 }

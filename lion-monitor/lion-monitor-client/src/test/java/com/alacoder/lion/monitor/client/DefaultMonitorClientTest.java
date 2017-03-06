@@ -66,13 +66,15 @@ public class DefaultMonitorClientTest {
 		msg.setApplication("app1");
 		msg.setDate(new Date());
 		
-		int index = 1;
+		int index = 5;
 		
 		long[] metric = new long[index];
 		for(int i = 0 ;i< index; i++){
 			long num1 = Math.abs(Math.round(Math.random()));
 			metric[i] = num1;
 		}
+		msg.setMetric(metric);
+		
 		return msg;
 	}
 }
