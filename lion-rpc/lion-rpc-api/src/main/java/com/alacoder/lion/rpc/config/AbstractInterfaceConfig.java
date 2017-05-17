@@ -20,8 +20,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang3.StringUtils;
+import com.alacoder.lion.registry.RegistryService;
 
+import org.apache.commons.lang3.StringUtils;
 import com.alacoder.common.exception.LionErrorMsgConstant;
 import com.alacoder.common.exception.LionFrameworkException;
 import com.alacoder.common.exception.LionServiceException;
@@ -31,7 +32,6 @@ import com.alacoder.lion.common.url.URLParamType;
 import com.alacoder.lion.common.utils.NetUtils;
 import com.alacoder.lion.common.utils.ReflectUtil;
 import com.alacoder.lion.common.utils.UrlUtils;
-import com.alacoder.lion.registry.api.RegistryService;
 import com.alacoder.lion.rpc.ApplicationInfo;
 
 /**

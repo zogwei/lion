@@ -17,9 +17,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
+import com.alacoder.lion.registry.NotifyListener;
+import com.alacoder.lion.registry.Registry;
+import com.alacoder.lion.registry.RegistryFactory;
+
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
-
 import com.alacoder.common.exception.LionErrorMsgConstant;
 import com.alacoder.common.exception.LionFrameworkException;
 import com.alacoder.common.log.LogFactory;
@@ -30,9 +33,6 @@ import com.alacoder.lion.common.url.LionURL;
 import com.alacoder.lion.common.url.URLParamType;
 import com.alacoder.lion.common.utils.CollectionUtil;
 import com.alacoder.lion.common.utils.StringTools;
-import com.alacoder.lion.registry.api.NotifyListener;
-import com.alacoder.lion.registry.api.Registry;
-import com.alacoder.lion.registry.api.RegistryFactory;
 import com.alacoder.lion.rpc.Protocol;
 import com.alacoder.lion.rpc.Referer;
 import com.alacoder.lion.rpc.filter.ProtocolFilterDecorator;

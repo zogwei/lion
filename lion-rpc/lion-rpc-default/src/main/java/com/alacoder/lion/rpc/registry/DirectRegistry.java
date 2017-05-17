@@ -17,12 +17,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
+import com.alacoder.lion.registry.AbstractRegistry;
+import com.alacoder.lion.registry.NotifyListener;
+
 import com.alacoder.common.exception.LionFrameworkException;
 import com.alacoder.lion.common.LionConstants;
 import com.alacoder.lion.common.extension.SpiMeta;
 import com.alacoder.lion.common.url.LionURL;
-import com.alacoder.lion.registry.api.AbstractRegistry;
-import com.alacoder.lion.registry.api.NotifyListener;
 
 /**
  * @ClassName: DirectRegistry

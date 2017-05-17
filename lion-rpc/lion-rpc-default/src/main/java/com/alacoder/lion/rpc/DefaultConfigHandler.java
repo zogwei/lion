@@ -16,6 +16,9 @@ package com.alacoder.lion.rpc;
 import java.util.Collection;
 import java.util.List;
 
+import com.alacoder.lion.registry.Registry;
+import com.alacoder.lion.registry.RegistryFactory;
+
 import com.alacoder.common.exception.LionErrorMsg;
 import com.alacoder.common.exception.LionErrorMsgConstant;
 import com.alacoder.common.exception.LionFrameworkException;
@@ -26,8 +29,6 @@ import com.alacoder.lion.common.extension.SpiMeta;
 import com.alacoder.lion.common.url.LionURL;
 import com.alacoder.lion.common.url.URLParamType;
 import com.alacoder.lion.common.utils.StringTools;
-import com.alacoder.lion.registry.api.Registry;
-import com.alacoder.lion.registry.api.RegistryFactory;
 import com.alacoder.lion.rpc.ha.Cluster;
 import com.alacoder.lion.rpc.ha.ClusterSupport;
 import com.alacoder.lion.rpc.RefererInvocationHandler;

@@ -3,30 +3,31 @@
  * Copyright: Copyright (c) 2016 
  * 
  * @project_name: lion-rpc
- * @Title: Registry.java
+ * @Title: RegistryFactory.java
  * @Package com.alacoder.lion.rpc
  * @Description: 
  * @author jimmy.zhong
- * @date 2016年9月26日 下午5:43:39
+ * @date 2016年9月26日 下午5:44:33
  * @version V1.0
  */
 
-package com.alacoder.lion.registry.api;
+package com.alacoder.lion.registry;
 
 import com.alacoder.lion.common.extension.Spi;
 import com.alacoder.lion.common.extension.Scope;
 import com.alacoder.lion.common.url.LionURL;
 
 /**
- * @ClassName: Registry
+ * @ClassName: RegistryFactory
  * @Description: 
  * @author jimmy.zhong
- * @date 2016年9月26日 下午5:43:39
+ * @date 2016年9月26日 下午5:44:33
  *
  */
 
 @Spi(scope = Scope.SINGLETON)
-public interface Registry extends RegistryService, DiscoveryService {
+public interface RegistryFactory {
 
-    LionURL getUrl();
+    Registry getRegistry(LionURL url);
 }
+

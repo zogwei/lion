@@ -16,14 +16,14 @@ package com.alacoder.lion.rpc.registry.zk;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.alacoder.lion.registry.NotifyListener;
+
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.recipes.cache.PathChildrenCacheEvent;
-
 import com.alacoder.common.log.LogFactory;
 import com.alacoder.common.log.LogService;
 import com.alacoder.lion.common.LionConstants;
 import com.alacoder.lion.common.url.LionURL;
-import com.alacoder.lion.registry.api.NotifyListener;
 
 /**
  * @ClassName: LionCuratorWatcher

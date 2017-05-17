@@ -15,9 +15,10 @@ package com.alacoder.lion.rpc.registry.zk;
 
 import java.util.List;
 
+import com.alacoder.lion.registry.NotifyListener;
+
 import com.alacoder.lion.common.LionConstants;
 import com.alacoder.lion.common.url.LionURL;
-import com.alacoder.lion.registry.api.NotifyListener;
 
 /**
  * @ClassName: ZkNodeStorageOperTest

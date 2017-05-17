@@ -13,10 +13,11 @@
 
 package com.alacoder.lion.rpc.registry;
 
+import com.alacoder.lion.registry.AbstractRegistryFactory;
+import com.alacoder.lion.registry.Registry;
+
 import com.alacoder.lion.common.extension.SpiMeta;
 import com.alacoder.lion.common.url.LionURL;
-import com.alacoder.lion.registry.api.AbstractRegistryFactory;
-import com.alacoder.lion.registry.api.Registry;
 
 /**
  * @ClassName: DirectRegistryFactory

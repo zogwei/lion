@@ -20,6 +20,9 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.locks.ReentrantLock;
 
+import com.alacoder.lion.registry.AbstractRegistry;
+import com.alacoder.lion.registry.NotifyListener;
+
 import com.alacoder.common.exception.LionFrameworkException;
 import com.alacoder.common.log.LogFactory;
 import com.alacoder.common.log.LogService;
@@ -28,8 +31,6 @@ import com.alacoder.lion.common.extension.SpiMeta;
 import com.alacoder.lion.common.url.LionURL;
 import com.alacoder.lion.common.url.URLParamType;
 import com.alacoder.lion.common.utils.ConcurrentHashSet;
-import com.alacoder.lion.registry.api.AbstractRegistry;
-import com.alacoder.lion.registry.api.NotifyListener;
 
 /**
  * @ClassName: ZkRegistry

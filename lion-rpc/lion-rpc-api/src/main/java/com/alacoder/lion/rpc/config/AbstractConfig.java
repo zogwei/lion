@@ -19,14 +19,14 @@ import java.lang.reflect.Modifier;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang3.StringUtils;
+import com.alacoder.lion.registry.AbstractRegistry;
 
+import org.apache.commons.lang3.StringUtils;
 import com.alacoder.common.exception.LionErrorMsgConstant;
 import com.alacoder.common.exception.LionFrameworkException;
 import com.alacoder.common.log.LogFactory;
 import com.alacoder.common.log.LogService;
 import com.alacoder.lion.common.LionConstants;
-import com.alacoder.lion.registry.api.AbstractRegistry;
 
 /**
  * @ClassName: AbstractConfig

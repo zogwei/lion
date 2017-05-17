@@ -20,8 +20,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import org.apache.commons.lang3.StringUtils;
+import com.alacoder.lion.registry.RegistryService;
 
+import org.apache.commons.lang3.StringUtils;
 import com.alacoder.common.exception.LionErrorMsgConstant;
 import com.alacoder.common.exception.LionFrameworkException;
 import com.alacoder.lion.common.LionConstants;
@@ -31,7 +32,6 @@ import com.alacoder.lion.common.url.URLParamType;
 import com.alacoder.lion.common.utils.CollectionUtil;
 import com.alacoder.lion.common.utils.NetUtils;
 import com.alacoder.lion.common.utils.StringTools;
-import com.alacoder.lion.registry.api.RegistryService;
 import com.alacoder.lion.rpc.ConfigHandler;
 import com.alacoder.lion.rpc.ha.Cluster;
 import com.alacoder.lion.rpc.ha.ClusterSupport;

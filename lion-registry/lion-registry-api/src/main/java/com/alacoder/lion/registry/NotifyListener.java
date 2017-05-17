@@ -11,7 +11,7 @@
  * @version V1.0
  */
 
-package com.alacoder.lion.registry.api;
+package com.alacoder.lion.registry;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.alacoder.lion.registry.api;
+package com.alacoder.lion.registry;
 
 /**
  * Hello world!
