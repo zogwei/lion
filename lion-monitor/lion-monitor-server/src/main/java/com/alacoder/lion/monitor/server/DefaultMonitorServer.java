@@ -18,8 +18,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingQueue;
 
-import com.alacoder.common.log.LogFactory;
-import com.alacoder.common.log.LogService;
+import com.aben.cup.log.logging.LogFactory;
+import com.aben.cup.log.logging.Log;
 import com.alacoder.lion.common.url.LionURL;
 import com.alacoder.lion.common.utils.BeanUtils;
 import com.alacoder.lion.monitor.DefaultMonitorMsgHandler;
@@ -52,7 +52,7 @@ import com.lmax.disruptor.WorkerPool;
 
 public class DefaultMonitorServer implements MonitorServer{
 
-	private final static LogService logger = LogFactory.getLogService(DefaultMonitorServer.class);
+	private final static Log logger = LogFactory.getLog(DefaultMonitorServer.class);
 
 	private final static Integer MAX_QUEUE= 10000;
 	

@@ -25,8 +25,8 @@ import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import com.alacoder.common.exception.LionErrorMsgConstant;
 import com.alacoder.common.exception.LionFrameworkException;
-import com.alacoder.common.log.LogFactory;
-import com.alacoder.common.log.LogService;
+import com.aben.cup.log.logging.LogFactory;
+import com.aben.cup.log.logging.Log;
 import com.alacoder.lion.common.LionConstants;
 import com.alacoder.lion.common.extension.ExtensionLoader;
 import com.alacoder.lion.common.url.LionURL;
@@ -47,7 +47,7 @@ import com.alacoder.lion.rpc.filter.ProtocolFilterDecorator;
 
 public class ClusterSupport<T> implements NotifyListener {
 
-	private final static LogService logger = LogFactory.getLogService(ClusterSupport.class);
+	private final static Log logger = LogFactory.getLog(ClusterSupport.class);
 	
 	private static ConcurrentHashMap<String, Protocol> protocols = new ConcurrentHashMap<String, Protocol>();
 	private Cluster<T> cluster;

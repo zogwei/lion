@@ -13,8 +13,8 @@
 
 package com.alacoder.lion.rpc;
 
-import com.alacoder.common.log.LogFactory;
-import com.alacoder.common.log.LogService;
+import com.aben.cup.log.logging.LogFactory;
+import com.aben.cup.log.logging.Log;
 import com.alacoder.lion.common.url.LionURL;
 import com.alacoder.lion.remote.transport.Request;
 import com.alacoder.lion.remote.transport.Response;
@@ -31,7 +31,7 @@ import com.alacoder.lion.rpc.remote.RpcRequestInfo;
 
 public class DefaultProviderTest {
 	
-	private final static LogService logger = LogFactory.getLogService(DefaultProviderTest.class);
+	private final static Log logger = LogFactory.getLog(DefaultProviderTest.class);
 
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })

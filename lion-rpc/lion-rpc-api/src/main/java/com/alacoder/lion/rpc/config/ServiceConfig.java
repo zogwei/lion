@@ -26,8 +26,8 @@ import org.apache.commons.lang3.StringUtils;
 import com.alacoder.common.exception.LionErrorMsgConstant;
 import com.alacoder.common.exception.LionFrameworkException;
 import com.alacoder.common.exception.LionServiceException;
-import com.alacoder.common.log.LogFactory;
-import com.alacoder.common.log.LogService;
+import com.aben.cup.log.logging.LogFactory;
+import com.aben.cup.log.logging.Log;
 import com.alacoder.lion.common.LionConstants;
 import com.alacoder.lion.common.extension.ExtensionLoader;
 import com.alacoder.lion.common.url.LionURL;
@@ -48,7 +48,7 @@ import com.alacoder.lion.rpc.Exporter;
 
 public class ServiceConfig<T> extends AbstractServiceConfig {
 	
-	private final static LogService logger = LogFactory.getLogService(ServiceConfig.class);
+	private final static Log logger = LogFactory.getLog(ServiceConfig.class);
 
 	private static final long serialVersionUID = 1L;
 

@@ -21,8 +21,8 @@ import java.util.concurrent.TimeUnit;
 import com.alacoder.common.exception.LionErrorMsgConstant;
 import com.alacoder.common.exception.LionFrameworkException;
 import com.alacoder.common.exception.LionServiceException;
-import com.alacoder.common.log.LogFactory;
-import com.alacoder.common.log.LogService;
+import com.aben.cup.log.logging.LogFactory;
+import com.aben.cup.log.logging.Log;
 import com.alacoder.lion.common.url.LionURL;
 import com.alacoder.lion.common.url.URLParamType;
 import com.alacoder.lion.common.utils.ExceptionUtil;
@@ -46,7 +46,7 @@ import com.alacoder.lion.remote.transport.Response;
 
 public class NettyChannel extends com.alacoder.lion.remote.AbstractChannel{
 	
-	private final static LogService logger = LogFactory.getLogService(NettyChannel.class);
+	private final static Log logger = LogFactory.getLog(NettyChannel.class);
 	
 	private volatile ChannelState state = ChannelState.UNINIT;
 	

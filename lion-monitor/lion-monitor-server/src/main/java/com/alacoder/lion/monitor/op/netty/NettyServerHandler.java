@@ -16,8 +16,8 @@ package com.alacoder.lion.monitor.op.netty;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.alacoder.common.log.LogFactory;
-import com.alacoder.common.log.LogService;
+import com.aben.cup.log.logging.LogFactory;
+import com.aben.cup.log.logging.Log;
 import com.alibaba.fastjson.JSON;
 
 import io.netty.buffer.ByteBuf;
@@ -36,7 +36,7 @@ import static io.netty.handler.codec.http.HttpVersion.*;
 
 public class NettyServerHandler extends ChannelInboundHandlerAdapter {
 
-	private final static LogService logger = LogFactory.getLogService(NettyServerHandler.class);
+	private final static Log logger = LogFactory.getLog(NettyServerHandler.class);
 
     @Override
     public void channelReadComplete(ChannelHandlerContext ctx) {

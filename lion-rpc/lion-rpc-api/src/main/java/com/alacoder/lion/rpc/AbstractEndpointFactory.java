@@ -22,8 +22,8 @@ import java.util.concurrent.ConcurrentMap;
 
 import com.alacoder.common.exception.LionErrorMsgConstant;
 import com.alacoder.common.exception.LionFrameworkException;
-import com.alacoder.common.log.LogFactory;
-import com.alacoder.common.log.LogService;
+import com.aben.cup.log.logging.LogFactory;
+import com.aben.cup.log.logging.Log;
 import com.alacoder.lion.common.url.LionURL;
 import com.alacoder.lion.common.url.URLParamType;
 import com.alacoder.lion.remote.Client;
@@ -41,7 +41,7 @@ import com.alacoder.lion.rpc.utils.LionFrameworkUtil;
 
 public abstract class AbstractEndpointFactory implements EndpointFactory {
 	
-	private final static LogService logger = LogFactory.getLogService(AbstractEndpointFactory.class);
+	private final static Log logger = LogFactory.getLog(AbstractEndpointFactory.class);
 
 	protected Map<String, Server> ipPort2ShareServer = new HashMap<String, Server>();
 	protected ConcurrentMap<Server, Set<String>> server2Url = new ConcurrentHashMap<Server, Set<String>>();

@@ -16,8 +16,8 @@ package com.alacoder.lion.monitor;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import com.alacoder.common.log.LogFactory;
-import com.alacoder.common.log.LogService;
+import com.aben.cup.log.logging.LogFactory;
+import com.aben.cup.log.logging.Log;
 
 /**
  * @ClassName: DefaultMonitorMsgHandler
@@ -29,7 +29,7 @@ import com.alacoder.common.log.LogService;
 
 public class DefaultMonitorMsgHandler implements MonitorMsgHandler {
 
-	private final static LogService logger = LogFactory.getLogService(DefaultMonitorMsgHandler.class);
+	private final static Log logger = LogFactory.getLog(DefaultMonitorMsgHandler.class);
 	
 	//内存存储
 	private final static Map<String,Map> monitorData = new ConcurrentHashMap<String,Map>();

@@ -15,8 +15,8 @@ package com.alacoder.lion.monitor.server;
 
 import com.aben.cup.log.logging.Log;
 import com.aben.cup.log.logging.internal.Log4JLoggerFactory;
-import com.alacoder.common.log.LogFactory;
-import com.alacoder.common.log.LogService;
+import com.aben.cup.log.logging.LogFactory;
+import com.aben.cup.log.logging.Log;
 import com.alacoder.lion.monitor.MonitorMsg;
 import com.alacoder.lion.monitor.MonitorMsgHandler;
 import com.alacoder.lion.monitor.op.netty.DefaultNettyOpServer;
@@ -36,7 +36,7 @@ public class DisputorMsgHandler implements EventHandler<Request<MonitorMsg>>,Wor
 	
 	MonitorMsgHandler handler = null;
 
-	private final static LogService logger = LogFactory.getLogService(DisputorMsgHandler.class);
+	private final static Log logger = LogFactory.getLog(DisputorMsgHandler.class);
 	
 	public DisputorMsgHandler(MonitorMsgHandler handler){
 		this.handler =  handler;

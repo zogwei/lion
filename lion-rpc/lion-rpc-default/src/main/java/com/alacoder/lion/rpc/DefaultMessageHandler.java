@@ -22,8 +22,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 import com.alacoder.common.exception.LionBizException;
 import com.alacoder.common.exception.LionFrameworkException;
 import com.alacoder.common.exception.LionServiceException;
-import com.alacoder.common.log.LogFactory;
-import com.alacoder.common.log.LogService;
+import com.aben.cup.log.logging.LogFactory;
+import com.aben.cup.log.logging.Log;
 import com.alacoder.lion.common.utils.ReflectUtil;
 import com.alacoder.lion.remote.Channel;
 import com.alacoder.lion.remote.transport.DefaultResponse;
@@ -41,7 +41,7 @@ import com.alacoder.lion.rpc.utils.LionFrameworkUtil;
 
 public class DefaultMessageHandler extends AbstractMessageHandler {
 	
-	private final static LogService logger = LogFactory.getLogService(DefaultMessageHandler.class);
+	private final static Log logger = LogFactory.getLog(DefaultMessageHandler.class);
 
 	 private Map<String, Provider<?>> providers = new HashMap<String, Provider<?>>();
 

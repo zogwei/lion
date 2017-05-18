@@ -17,8 +17,8 @@
 package com.alacoder.lion.common.utils;
 
 
-import com.alacoder.common.log.LogFactory;
-import com.alacoder.common.log.LogService;
+import com.aben.cup.log.logging.LogFactory;
+import com.aben.cup.log.logging.Log;
 
 /**
  * @author fishermen
@@ -27,13 +27,13 @@ import com.alacoder.common.log.LogService;
 
 public class MathUtil {
 	
-	private final static LogService log = LogFactory.getLogService(MathUtil.class);
+	private final static Log logger = LogFactory.getLog(MathUtil.class);
 
     public static int parseInt(String intStr, int defaultValue) {
         try {
             return Integer.parseInt(intStr);
         } catch (NumberFormatException e) {
-        	log.debug("ParseInt false, for malformed intStr:" + intStr);
+        	logger.debug("ParseInt false, for malformed intStr:" + intStr);
             return defaultValue;
         }
     }

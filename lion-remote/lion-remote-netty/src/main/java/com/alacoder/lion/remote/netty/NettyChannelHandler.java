@@ -21,8 +21,8 @@ import java.util.concurrent.ThreadPoolExecutor;
 
 import com.alacoder.common.exception.LionErrorMsgConstant;
 import com.alacoder.common.exception.LionServiceException;
-import com.alacoder.common.log.LogFactory;
-import com.alacoder.common.log.LogService;
+import com.aben.cup.log.logging.LogFactory;
+import com.aben.cup.log.logging.Log;
 import com.alacoder.lion.remote.Channel;
 import com.alacoder.lion.remote.Endpoint;
 import com.alacoder.lion.remote.MessageHandler;
@@ -46,7 +46,7 @@ import io.netty.channel.SimpleChannelInboundHandler;
 
 public class NettyChannelHandler extends SimpleChannelInboundHandler<TransportData> {
 	
-	private final static LogService logger = LogFactory.getLogService(NettyChannelHandler.class);
+	private final static Log logger = LogFactory.getLog(NettyChannelHandler.class);
 
 	private MessageHandler messagehandler;
 	private ThreadPoolExecutor threadPoolExecutor;

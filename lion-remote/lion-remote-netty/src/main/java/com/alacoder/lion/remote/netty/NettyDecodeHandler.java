@@ -21,8 +21,8 @@ import io.netty.handler.codec.ByteToMessageDecoder;
 
 import com.alacoder.common.exception.LionFrameworkException;
 import com.alacoder.common.exception.LionServiceException;
-import com.alacoder.common.log.LogFactory;
-import com.alacoder.common.log.LogService;
+import com.aben.cup.log.logging.LogFactory;
+import com.aben.cup.log.logging.Log;
 import com.alacoder.lion.common.LionConstants;
 import com.alacoder.lion.remote.Codec;
 import com.alacoder.lion.remote.transport.DefaultResponse;
@@ -38,7 +38,7 @@ import com.alacoder.lion.remote.transport.Response;
 
 public class NettyDecodeHandler extends ByteToMessageDecoder {
 	
-	private final static LogService logger = LogFactory.getLogService(NettyDecodeHandler.class);
+	private final static Log logger = LogFactory.getLog(NettyDecodeHandler.class);
 	
 	private Codec codec = null;
 	 

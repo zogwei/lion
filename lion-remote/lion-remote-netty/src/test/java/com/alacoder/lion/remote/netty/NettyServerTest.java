@@ -13,8 +13,8 @@
 
 package com.alacoder.lion.remote.netty;
 
-import com.alacoder.common.log.LogFactory;
-import com.alacoder.common.log.LogService;
+import com.aben.cup.log.logging.LogFactory;
+import com.aben.cup.log.logging.Log;
 import com.alacoder.lion.common.url.LionURL;
 import com.alacoder.lion.remote.Channel;
 import com.alacoder.lion.remote.MessageHandlerAdpter;
@@ -31,7 +31,7 @@ import com.alacoder.lion.remote.transport.Request;
 
 public class NettyServerTest {
 
-	private final static LogService logger = LogFactory.getLogService(NettyServerTest.class);
+	private final static Log logger = LogFactory.getLog(NettyServerTest.class);
 	
 	public static void main(String[] args) {
 //		LionURL url = new LionURL("protcol", "host", 4455, "path");

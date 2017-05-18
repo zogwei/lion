@@ -20,8 +20,8 @@ import com.alacoder.lion.registry.NotifyListener;
 
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.recipes.cache.PathChildrenCacheEvent;
-import com.alacoder.common.log.LogFactory;
-import com.alacoder.common.log.LogService;
+import com.aben.cup.log.logging.LogFactory;
+import com.aben.cup.log.logging.Log;
 import com.alacoder.lion.common.LionConstants;
 import com.alacoder.lion.common.url.LionURL;
 
@@ -35,7 +35,7 @@ import com.alacoder.lion.common.url.LionURL;
 
 public class LionCuratorWatcher  {
 	
-	private final static LogService logger = LogFactory.getLogService(LionCuratorWatcher.class);
+	private final static Log logger = LogFactory.getLog(LionCuratorWatcher.class);
 	
 	NotifyListener listener = null;
 	LionURL url = null;

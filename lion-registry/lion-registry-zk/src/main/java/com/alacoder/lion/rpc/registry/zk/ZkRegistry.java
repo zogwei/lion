@@ -24,8 +24,8 @@ import com.alacoder.lion.registry.AbstractRegistry;
 import com.alacoder.lion.registry.NotifyListener;
 
 import com.alacoder.common.exception.LionFrameworkException;
-import com.alacoder.common.log.LogFactory;
-import com.alacoder.common.log.LogService;
+import com.aben.cup.log.logging.LogFactory;
+import com.aben.cup.log.logging.Log;
 import com.alacoder.lion.common.LionConstants;
 import com.alacoder.lion.common.extension.SpiMeta;
 import com.alacoder.lion.common.url.LionURL;
@@ -42,7 +42,7 @@ import com.alacoder.lion.common.utils.ConcurrentHashSet;
 @SpiMeta(name = "zookeeper")
 public class ZkRegistry extends AbstractRegistry {
 	
-	private final static LogService logger = LogFactory.getLogService(ZkRegistry.class);
+	private final static Log logger = LogFactory.getLog(ZkRegistry.class);
 
 	private CuratorOper zkOper = null;
     private Set<LionURL> availableServices = new ConcurrentHashSet<LionURL>();

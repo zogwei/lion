@@ -26,8 +26,8 @@ import com.alacoder.lion.remote.transport.Request;
 import com.alacoder.lion.remote.transport.Response;
 import com.alacoder.common.exception.LionErrorMsgConstant;
 import com.alacoder.common.exception.LionServiceException;
-import com.alacoder.common.log.LogFactory;
-import com.alacoder.common.log.LogService;
+import com.aben.cup.log.logging.LogFactory;
+import com.aben.cup.log.logging.Log;
 
 /**
  * @ClassName: NettyResponseFuture
@@ -39,7 +39,7 @@ import com.alacoder.common.log.LogService;
 
 public class NettyResponseFuture extends ResponseFuture{
 	
-	private final static LogService logger = LogFactory.getLogService(NettyResponseFuture.class);
+	private final static Log logger = LogFactory.getLog(NettyResponseFuture.class);
 
 	private static final long serialVersionUID = 1L;
 

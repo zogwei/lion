@@ -16,8 +16,8 @@ package com.alacoder.lion.remote;
 import java.net.InetSocketAddress;
 
 import com.alacoder.common.exception.LionFrameworkException;
-import com.alacoder.common.log.LogFactory;
-import com.alacoder.common.log.LogService;
+import com.aben.cup.log.logging.LogFactory;
+import com.aben.cup.log.logging.Log;
 import com.alacoder.lion.common.extension.ExtensionLoader;
 import com.alacoder.lion.common.url.LionURL;
 import com.alacoder.lion.common.url.URLParamType;
@@ -33,7 +33,7 @@ import com.alacoder.lion.common.utils.StandardThreadExecutor;
 
 public abstract class AbstractServer extends AbstractEndpoint implements Server {
 	
-	private final static LogService logger = LogFactory.getLogService(AbstractServer.class);
+	private final static Log logger = LogFactory.getLog(AbstractServer.class);
 
 //	protected InetSocketAddress localAddress ;
 	protected InetSocketAddress remoteAddress;

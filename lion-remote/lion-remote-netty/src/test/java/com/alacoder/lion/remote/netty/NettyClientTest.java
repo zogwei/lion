@@ -17,8 +17,8 @@ import junit.framework.TestCase;
 
 import org.junit.Test;
 
-import com.alacoder.common.log.LogFactory;
-import com.alacoder.common.log.LogService;
+import com.aben.cup.log.logging.LogFactory;
+import com.aben.cup.log.logging.Log;
 import com.alacoder.lion.common.url.LionURL;
 import com.alacoder.lion.common.url.URLParamType;
 import com.alacoder.lion.remote.Channel;
@@ -38,7 +38,7 @@ import com.alacoder.lion.remote.transport.Response;
 
 public class NettyClientTest  extends TestCase {
 	
-	private final static LogService logger = LogFactory.getLogService(NettyClientTest.class);
+	private final static Log logger = LogFactory.getLog(NettyClientTest.class);
 
     @Test
 	public void testClientSend() throws TransportException {

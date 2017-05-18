@@ -15,8 +15,8 @@ package com.alacoder.lion.rpc;
 
 import com.alacoder.common.exception.LionErrorMsgConstant;
 import com.alacoder.common.exception.LionFrameworkException;
-import com.alacoder.common.log.LogFactory;
-import com.alacoder.common.log.LogService;
+import com.aben.cup.log.logging.LogFactory;
+import com.aben.cup.log.logging.Log;
 import com.alacoder.lion.common.url.LionURL;
 
 /**
@@ -29,7 +29,7 @@ import com.alacoder.lion.common.url.LionURL;
 
 public abstract class AbstractNode implements Node {
 	
-	private final static LogService logger = LogFactory.getLogService(AbstractNode.class);
+	private final static Log logger = LogFactory.getLog(AbstractNode.class);
 
 	protected LionURL url;
 	

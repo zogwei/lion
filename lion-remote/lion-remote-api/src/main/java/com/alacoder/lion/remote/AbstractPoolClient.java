@@ -17,8 +17,8 @@ import org.apache.commons.pool.PoolableObjectFactory;
 import org.apache.commons.pool.impl.GenericObjectPool;
 
 import com.alacoder.common.exception.LionServiceException;
-import com.alacoder.common.log.LogFactory;
-import com.alacoder.common.log.LogService;
+import com.aben.cup.log.logging.LogFactory;
+import com.aben.cup.log.logging.Log;
 import com.alacoder.lion.common.url.LionURL;
 import com.alacoder.lion.common.url.URLParamType;
 
@@ -32,7 +32,7 @@ import com.alacoder.lion.common.url.URLParamType;
 
 public abstract class AbstractPoolClient extends AbstractClient{
 	
-	private final static LogService logger = LogFactory.getLogService(AbstractPoolClient.class);
+	private final static Log logger = LogFactory.getLog(AbstractPoolClient.class);
 	
 	
     protected static long defaultMinEvictableIdleTimeMillis = (long) 1000 * 60 * 60;//默认链接空闲时间

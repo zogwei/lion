@@ -25,8 +25,8 @@ import java.util.Enumeration;
 import java.util.Map;
 import java.util.regex.Pattern;
 
-import com.alacoder.common.log.LogFactory;
-import com.alacoder.common.log.LogService;
+import com.aben.cup.log.logging.LogFactory;
+import com.aben.cup.log.logging.Log;
 
 /**
  * 
@@ -38,7 +38,7 @@ import com.alacoder.common.log.LogService;
 
 public class NetUtils {
 	
-	private final static LogService logger = LogFactory.getLogService(NetUtils.class);
+	private final static Log logger = LogFactory.getLog(NetUtils.class);
 
     public static final String LOCALHOST = "127.0.0.1";
 

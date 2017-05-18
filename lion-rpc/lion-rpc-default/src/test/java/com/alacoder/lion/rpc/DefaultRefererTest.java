@@ -13,8 +13,8 @@
 
 package com.alacoder.lion.rpc;
 
-import com.alacoder.common.log.LogFactory;
-import com.alacoder.common.log.LogService;
+import com.aben.cup.log.logging.LogFactory;
+import com.aben.cup.log.logging.Log;
 import com.alacoder.lion.common.url.LionURL;
 import com.alacoder.lion.common.url.URLParamType;
 import com.alacoder.lion.remote.transport.Request;
@@ -32,7 +32,7 @@ import com.alacoder.lion.rpc.remote.RpcRequestInfo;
 
 public class DefaultRefererTest {
 
-	private final static LogService logger = LogFactory.getLogService(DefaultRefererTest.class);
+	private final static Log logger = LogFactory.getLog(DefaultRefererTest.class);
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public static void main(String[] args) {

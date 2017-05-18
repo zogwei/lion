@@ -24,8 +24,8 @@ import java.util.concurrent.atomic.AtomicLong;
 
 import com.alacoder.common.exception.LionErrorMsgConstant;
 import com.alacoder.common.exception.LionServiceException;
-import com.alacoder.common.log.LogFactory;
-import com.alacoder.common.log.LogService;
+import com.aben.cup.log.logging.LogFactory;
+import com.aben.cup.log.logging.Log;
 import com.alacoder.lion.common.LionConstants;
 import com.alacoder.lion.common.url.LionURL;
 import com.alacoder.lion.common.url.URLParamType;
@@ -40,7 +40,7 @@ import com.alacoder.lion.common.url.URLParamType;
 
 public abstract class AbstractEndpoint implements Endpoint {
 	
-	private final static LogService logger = LogFactory.getLogService(AbstractEndpoint.class);
+	private final static Log logger = LogFactory.getLog(AbstractEndpoint.class);
 	
     protected volatile EndpointState state = EndpointState.UNINIT;
     

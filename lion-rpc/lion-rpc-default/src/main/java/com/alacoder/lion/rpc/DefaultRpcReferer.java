@@ -17,8 +17,8 @@ import io.netty.util.concurrent.Future;
 import io.netty.util.concurrent.FutureListener;
 
 import com.alacoder.common.exception.LionServiceException;
-import com.alacoder.common.log.LogFactory;
-import com.alacoder.common.log.LogService;
+import com.aben.cup.log.logging.LogFactory;
+import com.aben.cup.log.logging.Log;
 import com.alacoder.lion.common.extension.ExtensionLoader;
 import com.alacoder.lion.common.url.LionURL;
 import com.alacoder.lion.common.url.URLParamType;
@@ -40,7 +40,7 @@ import com.alacoder.lion.rpc.remote.RpcRequestInfo;
 
 public class DefaultRpcReferer<T> extends AbstractReferer<T>{
 
-	private final static LogService logger = LogFactory.getLogService(DefaultRpcReferer.class);
+	private final static Log logger = LogFactory.getLog(DefaultRpcReferer.class);
 	
 	private Client client;
     private EndpointFactory endpointFactory;

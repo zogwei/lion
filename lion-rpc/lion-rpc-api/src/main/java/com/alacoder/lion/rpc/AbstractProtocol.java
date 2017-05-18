@@ -17,8 +17,8 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import com.alacoder.common.exception.LionErrorMsgConstant;
 import com.alacoder.common.exception.LionFrameworkException;
-import com.alacoder.common.log.LogFactory;
-import com.alacoder.common.log.LogService;
+import com.aben.cup.log.logging.LogFactory;
+import com.aben.cup.log.logging.Log;
 import com.alacoder.lion.common.url.LionURL;
 import com.alacoder.lion.rpc.utils.LionFrameworkUtil;
 
@@ -32,7 +32,7 @@ import com.alacoder.lion.rpc.utils.LionFrameworkUtil;
 
 public abstract class AbstractProtocol implements Protocol {
 	
-	private final static LogService logger = LogFactory.getLogService(AbstractProtocol.class);
+	private final static Log logger = LogFactory.getLog(AbstractProtocol.class);
 	
 	protected ConcurrentHashMap<String, Exporter<?>> exporterMap = new ConcurrentHashMap<String, Exporter<?>>();
 

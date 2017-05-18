@@ -39,8 +39,8 @@ import org.apache.zookeeper.data.ACL;
 import org.apache.curator.framework.CuratorFrameworkFactory.Builder;
 
 import com.alacoder.common.exception.LionFrameworkException;
-import com.alacoder.common.log.LogFactory;
-import com.alacoder.common.log.LogService;
+import com.aben.cup.log.logging.LogFactory;
+import com.aben.cup.log.logging.Log;
 import com.alacoder.lion.common.utils.LifeCycleState;
 import com.google.common.base.Strings;
 
@@ -57,7 +57,7 @@ import com.google.common.base.Strings;
 
 public class CuratorOper {
 	
-	private final static LogService logger = LogFactory.getLogService(CuratorOper.class);
+	private final static Log logger = LogFactory.getLog(CuratorOper.class);
 	
 	private volatile LifeCycleState state = LifeCycleState.UNINIT;
 	

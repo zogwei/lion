@@ -13,8 +13,8 @@
 
 package com.alacoder.lion.monitor.server;
 
-import com.alacoder.common.log.LogFactory;
-import com.alacoder.common.log.LogService;
+import com.aben.cup.log.logging.LogFactory;
+import com.aben.cup.log.logging.Log;
 import com.alacoder.lion.common.url.LionURL;
 
 /**
@@ -38,7 +38,7 @@ public class DefaultMonitorServerTest {
 	 */
 	
 
-	private final static LogService logger = LogFactory.getLogService(DefaultMonitorServerTest.class);
+	private final static Log logger = LogFactory.getLog(DefaultMonitorServerTest.class);
 
 	public static void main(String[] args) {
 		LionURL url = new LionURL("", "", 5566, "path");

@@ -13,8 +13,8 @@
 
 package com.alacoder.lion.rpc.filter;
 
-import com.alacoder.common.log.LogFactory;
-import com.alacoder.common.log.LogService;
+import com.aben.cup.log.logging.LogFactory;
+import com.aben.cup.log.logging.Log;
 import com.alacoder.lion.common.LionConstants;
 import com.alacoder.lion.common.extension.Activation;
 import com.alacoder.lion.common.extension.SpiMeta;
@@ -41,7 +41,7 @@ import com.alacoder.lion.rpc.remote.RpcRequestInfo;
 @Activation(sequence = 100)
 public class AccessLogFilter implements Filter {
 
-	private final static LogService logger = LogFactory.getLogService(AccessLogFilter.class);
+	private final static Log logger = LogFactory.getLog(AccessLogFilter.class);
 	
     private String side;
 
@@ -96,7 +96,7 @@ public class AccessLogFilter implements Filter {
         append(builder, rpcRequestInfo.getAttachments().get(URLParamType.requestIdFromClient.getName()));
         append(builder, consumeTime);
 
-        logger.accessLog(builder.substring(0, builder.length() - 1));
+        logger.info(builder.substring(0, builder.length() - 1));
     }
 
     private void append(StringBuilder builder, Object field) {

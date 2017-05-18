@@ -16,8 +16,8 @@ package com.alacoder.lion.rpc.ha;
 import java.util.List;
 
 import com.alacoder.common.exception.LionServiceException;
-import com.alacoder.common.log.LogFactory;
-import com.alacoder.common.log.LogService;
+import com.aben.cup.log.logging.LogFactory;
+import com.aben.cup.log.logging.Log;
 import com.alacoder.lion.remote.transport.Request;
 import com.alacoder.lion.rpc.Referer;
 
@@ -31,7 +31,7 @@ import com.alacoder.lion.rpc.Referer;
 
 public abstract class AbstractLoadBalance<T> implements LoadBalance<T> {
 
-	private final static LogService logger = LogFactory.getLogService(AbstractLoadBalance.class);
+	private final static Log logger = LogFactory.getLog(AbstractLoadBalance.class);
 	
 	private List<Referer<T>> referers;
 

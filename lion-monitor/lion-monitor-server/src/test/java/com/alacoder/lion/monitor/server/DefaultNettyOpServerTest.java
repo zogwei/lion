@@ -16,8 +16,8 @@ package com.alacoder.lion.monitor.server;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.alacoder.common.log.LogFactory;
-import com.alacoder.common.log.LogService;
+import com.aben.cup.log.logging.LogFactory;
+import com.aben.cup.log.logging.Log;
 import com.alacoder.lion.common.url.LionURL;
 import com.alacoder.lion.common.utils.HttpClientUtil;
 import com.alacoder.lion.monitor.op.netty.DefaultNettyOpServer;
@@ -32,7 +32,7 @@ import com.alacoder.lion.monitor.op.netty.DefaultNettyOpServer;
 
 public class DefaultNettyOpServerTest {
 
-	private final static LogService logger = LogFactory.getLogService(DefaultNettyOpServerTest.class);
+	private final static Log logger = LogFactory.getLog(DefaultNettyOpServerTest.class);
 	
 	static Integer   port = 8089;
 

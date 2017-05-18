@@ -13,8 +13,8 @@
 
 package com.alacoder.lion.monitor.client;
 
-import com.alacoder.common.log.LogFactory;
-import com.alacoder.common.log.LogService;
+import com.aben.cup.log.logging.LogFactory;
+import com.aben.cup.log.logging.Log;
 import com.alacoder.lion.common.url.LionURL;
 import com.alacoder.lion.monitor.DefaultRpcMonitorMsg;
 import com.alacoder.lion.monitor.MonitorMsg;
@@ -39,7 +39,7 @@ import com.alacoder.lion.remote.transport.Response;
 
 public class DefaultMonitorClient implements MonitorClient{
 
-	private final static LogService logger = LogFactory.getLogService(DefaultMonitorClient.class);
+	private final static Log logger = LogFactory.getLog(DefaultMonitorClient.class);
 
 	private MonitorMsgHandler handler = null;
 	private Client remoteClient = null;

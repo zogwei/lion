@@ -13,8 +13,8 @@ import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.util.ClassUtils;
 
-import com.alacoder.common.log.LogFactory;
-import com.alacoder.common.log.LogService;
+import com.aben.cup.log.logging.LogFactory;
+import com.aben.cup.log.logging.Log;
 import com.alacoder.lion.common.utils.ConcurrentHashSet;
 import com.alacoder.lion.rpc.config.BasicRefererInterfaceConfig;
 import com.alacoder.lion.rpc.config.BasicServiceInterfaceConfig;
@@ -45,7 +45,7 @@ import java.util.concurrent.ConcurrentMap;
  */
 public class AnnotationBean implements DisposableBean, BeanFactoryPostProcessor, BeanPostProcessor, BeanFactoryAware {
 
-	private final static LogService logger = LogFactory.getLogService(AnnotationBean.class);
+	private final static Log logger = LogFactory.getLog(AnnotationBean.class);
 	
     private String id;
 

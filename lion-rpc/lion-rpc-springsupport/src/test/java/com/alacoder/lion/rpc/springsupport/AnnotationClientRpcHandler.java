@@ -15,8 +15,8 @@ package com.alacoder.lion.rpc.springsupport;
 
 import org.springframework.stereotype.Component;
 
-import com.alacoder.common.log.LogFactory;
-import com.alacoder.common.log.LogService;
+import com.aben.cup.log.logging.LogFactory;
+import com.aben.cup.log.logging.Log;
 import com.alacoder.lion.rpc.springsupport.annotation.LionReferer;
 
 /**
@@ -29,7 +29,7 @@ import com.alacoder.lion.rpc.springsupport.annotation.LionReferer;
 @Component
 public class AnnotationClientRpcHandler {
 
-	private final static LogService logger = LogFactory.getLogService(AnnotationClientRpcHandler.class);
+	private final static Log logger = LogFactory.getLog(AnnotationClientRpcHandler.class);
 	
 	
     @LionReferer

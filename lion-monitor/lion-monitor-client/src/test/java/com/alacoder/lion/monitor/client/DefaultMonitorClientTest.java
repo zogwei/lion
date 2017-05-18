@@ -18,8 +18,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-import com.alacoder.common.log.LogFactory;
-import com.alacoder.common.log.LogService;
+import com.aben.cup.log.logging.LogFactory;
+import com.aben.cup.log.logging.Log;
 import com.alacoder.lion.common.url.LionURL;
 import com.alacoder.lion.common.url.URLParamType;
 import com.alacoder.lion.monitor.DefaultRpcMonitorMsg;
@@ -37,7 +37,7 @@ import com.alacoder.lion.remote.transport.Request;
 
 public class DefaultMonitorClientTest {
 
-	private final static LogService logger = LogFactory.getLogService(DefaultMonitorClientTest.class);
+	private final static Log logger = LogFactory.getLog(DefaultMonitorClientTest.class);
 
 	public static void main(String[] args) {
 		LionURL url = new LionURL("", "", 5566, "path");

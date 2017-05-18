@@ -15,8 +15,8 @@ package com.alacoder.lion.remote.netty;
 
 import org.apache.commons.pool.BasePoolableObjectFactory;
 
-import com.alacoder.common.log.LogFactory;
-import com.alacoder.common.log.LogService;
+import com.aben.cup.log.logging.LogFactory;
+import com.aben.cup.log.logging.Log;
 import com.alacoder.lion.common.url.LionURL;
 import com.alacoder.lion.remote.AbstractPoolClient;
 import com.alacoder.lion.remote.Channel;
@@ -31,7 +31,7 @@ import com.alacoder.lion.remote.Channel;
 
 public class NettyClientChannelFactory extends BasePoolableObjectFactory<Channel> {
 	
-	private final static LogService logger = LogFactory.getLogService(NettyClientChannelFactory.class);
+	private final static Log logger = LogFactory.getLog(NettyClientChannelFactory.class);
 	
 	private String factoryName = "";
 	private AbstractPoolClient nettyClient;

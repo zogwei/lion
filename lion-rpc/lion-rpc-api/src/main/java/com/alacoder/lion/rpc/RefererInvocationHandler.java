@@ -22,8 +22,8 @@ import java.util.Map;
 
 import com.alacoder.common.exception.LionErrorMsgConstant;
 import com.alacoder.common.exception.LionServiceException;
-import com.alacoder.common.log.LogFactory;
-import com.alacoder.common.log.LogService;
+import com.aben.cup.log.logging.LogFactory;
+import com.aben.cup.log.logging.Log;
 import com.alacoder.lion.common.url.URLParamType;
 import com.alacoder.lion.common.utils.ExceptionUtil;
 import com.alacoder.lion.common.utils.ReflectUtil;
@@ -44,7 +44,7 @@ import com.alacoder.lion.rpc.utils.LionFrameworkUtil;
 
 public class RefererInvocationHandler<T> implements InvocationHandler {
 
-	private final static LogService logger = LogFactory.getLogService(RefererInvocationHandler.class);
+	private final static Log logger = LogFactory.getLog(RefererInvocationHandler.class);
 	
 	private List<Cluster<T>> clusters;
 	private Class<T> clz;

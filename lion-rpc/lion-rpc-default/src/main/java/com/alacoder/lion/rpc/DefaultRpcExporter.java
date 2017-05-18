@@ -16,8 +16,8 @@ package com.alacoder.lion.rpc;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import com.alacoder.common.log.LogFactory;
-import com.alacoder.common.log.LogService;
+import com.aben.cup.log.logging.LogFactory;
+import com.aben.cup.log.logging.Log;
 import com.alacoder.lion.common.extension.ExtensionLoader;
 import com.alacoder.lion.common.url.LionURL;
 import com.alacoder.lion.common.url.URLParamType;
@@ -34,7 +34,7 @@ import com.alacoder.lion.rpc.utils.LionFrameworkUtil;
 
 public class DefaultRpcExporter<T> extends AbstractExporter<T> {
 
-	private final static LogService logger = LogFactory.getLogService(DefaultRpcExporter.class);
+	private final static Log logger = LogFactory.getLog(DefaultRpcExporter.class);
 	
 	private Server server;
 	private EndpointFactory endpointFactory;
