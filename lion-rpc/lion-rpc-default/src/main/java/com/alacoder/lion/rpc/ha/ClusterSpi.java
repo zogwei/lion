@@ -65,7 +65,8 @@ public class ClusterSpi<T> implements Cluster<T> {
         return referers.get(0).getInterface();
     }
 
-    @Override
+    @SuppressWarnings("rawtypes")
+	@Override
     public Response call(Request request) {
         if (available.get()) {
             try {
@@ -175,7 +176,8 @@ public class ClusterSpi<T> implements Cluster<T> {
         return referers;
     }
 
-    protected Response callFalse(Request request, Exception cause) {
+    @SuppressWarnings("rawtypes")
+	protected Response callFalse(Request request, Exception cause) {
 
         // biz exception 无论如何都要抛出去
         if (ExceptionUtil.isBizException(cause)) {
@@ -196,7 +198,8 @@ public class ClusterSpi<T> implements Cluster<T> {
         return buildErrorResponse(request, cause);
     }
 
-    private Response buildErrorResponse(Request request, Exception lionException) {
+    @SuppressWarnings("rawtypes")
+	private Response buildErrorResponse(Request request, Exception lionException) {
         DefaultResponse rs = new DefaultResponse();
         rs.setException(lionException);
         rs.setId(request.getId());

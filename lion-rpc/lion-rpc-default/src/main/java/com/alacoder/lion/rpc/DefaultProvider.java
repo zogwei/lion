@@ -47,6 +47,7 @@ public class DefaultProvider<T> extends AbstractProvider<T> {
 		this.proxyImpl = proxyImpl;
 	}
 
+	@SuppressWarnings("rawtypes")
 	@Override
 	protected Response invoke(Request request) {
 		DefaultResponse<Object> response = new DefaultResponse<Object>();

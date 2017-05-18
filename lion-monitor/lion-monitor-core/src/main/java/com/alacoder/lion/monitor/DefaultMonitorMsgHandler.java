@@ -32,8 +32,10 @@ public class DefaultMonitorMsgHandler implements MonitorMsgHandler {
 	private final static Log logger = LogFactory.getLog(DefaultMonitorMsgHandler.class);
 	
 	//内存存储
+	@SuppressWarnings({ "unused", "rawtypes" })
 	private final static Map<String,Map> monitorData = new ConcurrentHashMap<String,Map>();
 	
+	@SuppressWarnings("unused")
 	@Override
 	public void handler(MonitorMsg msg) {
 		logger.info("dong nothin, msg : " + msg.toString());

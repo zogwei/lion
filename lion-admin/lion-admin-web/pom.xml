@@ -7,9 +7,7 @@
     <artifactId>lion-admin</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <groupId>com.alacoder</groupId>
   <artifactId>lion-admin-web</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
   <packaging>war</packaging>
   <name>lion-admin-web Maven Webapp</name>
   <url>http://maven.apache.org</url>
@@ -39,7 +37,7 @@
 		<jackson.version>2.2.3</jackson.version>
 		<fastjson.version>1.1.40</fastjson.version>
 		<xstream.version>1.4.7</xstream.version>
-		<guava.version>17.0</guava.version>
+		<guava.version>18.0</guava.version>
 		<dozer.version>5.5.1</dozer.version>
 		<poi.version>3.9</poi.version>
 		<freemarker.version>2.3.20</freemarker.version>
@@ -354,7 +352,6 @@
 		<dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
-			<version>${guava.version}</version>
 		</dependency>
 		
 		<!-- jackson json -->

@@ -38,8 +38,10 @@ public class DefaultMonitorServerTest {
 	 */
 	
 
+	@SuppressWarnings("unused")
 	private final static Log logger = LogFactory.getLog(DefaultMonitorServerTest.class);
 
+	@SuppressWarnings("unused")
 	public static void main(String[] args) {
 		LionURL url = new LionURL("", "", 5566, "path");
 		DefaultMonitorServer monitorServer = new DefaultMonitorServer(url);

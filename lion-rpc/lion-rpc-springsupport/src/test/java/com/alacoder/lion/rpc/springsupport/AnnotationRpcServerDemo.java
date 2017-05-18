@@ -62,8 +62,9 @@ public class AnnotationRpcServerDemo {
     @Bean(name="registryConfig1")
     public RegistryConfigBean registryConfig() {
         RegistryConfigBean config = new RegistryConfigBean();
-        config.setRegProtocol("direct");
-//        config.setAddress("127.0.0.1:2181");
+//        config.setRegProtocol("direct");
+        config.setRegProtocol("zookeeper");
+        config.setAddress("localhost:2181");
         return config;
     }
 

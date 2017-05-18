@@ -44,7 +44,8 @@ public class ActiveWeightLoadBalance<T> extends AbstractLoadBalance<T> {
     public static final int MAX_REFERER_COUNT = 10;
     private static Random random = new Random();
 
-    @Override
+    @SuppressWarnings("rawtypes")
+	@Override
     protected Referer<T> doSelect(Request request) {
         List<Referer<T>> referers = getReferers();
 
@@ -78,7 +79,8 @@ public class ActiveWeightLoadBalance<T> extends AbstractLoadBalance<T> {
     }
 
 
-    @Override
+    @SuppressWarnings("rawtypes")
+	@Override
     protected void doSelectToHolder(Request request, List<Referer<T>> refersHolder) {
         List<Referer<T>> referers = getReferers();
 

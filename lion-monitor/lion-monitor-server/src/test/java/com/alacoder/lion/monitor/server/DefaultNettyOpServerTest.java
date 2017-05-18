@@ -32,10 +32,12 @@ import com.alacoder.lion.monitor.op.netty.DefaultNettyOpServer;
 
 public class DefaultNettyOpServerTest {
 
+	@SuppressWarnings("unused")
 	private final static Log logger = LogFactory.getLog(DefaultNettyOpServerTest.class);
 	
 	static Integer   port = 8089;
 
+	@SuppressWarnings("unused")
 	public static void main(String[] args) {
 		LionURL url = new LionURL("", "", 5566, "path");
 		

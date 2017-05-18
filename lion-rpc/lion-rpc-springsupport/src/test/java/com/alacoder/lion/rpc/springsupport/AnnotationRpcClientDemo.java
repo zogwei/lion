@@ -30,6 +30,11 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class AnnotationRpcClientDemo {
 
     public static void main(String[] args) throws InterruptedException {
+    	
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext(new
+                String[]{"classpath*:lion_demo_server_annotation.xml"});
+//        LionSwitcherUtil.setSwitcherValue(LionConstants.REGISTRY_HEARTBEAT_SWITCHER, true);
+        System.out.println("server start...");
 
         @SuppressWarnings("resource")
 		ApplicationContext ctx = new ClassPathXmlApplicationContext(new
@@ -82,8 +87,9 @@ public class AnnotationRpcClientDemo {
     @Bean(name = "registry")
     public RegistryConfigBean registryConfig() {
         RegistryConfigBean config = new RegistryConfigBean();
-        config.setRegProtocol("direct");
-//        config.setAddress("127.0.0.1:2181");
+//      config.setRegProtocol("direct");
+      config.setRegProtocol("zookeeper");
+      config.setAddress("localhost:2181");
         return config;
     }
     

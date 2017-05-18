@@ -50,7 +50,8 @@ public class FailoverHaStrategy<T> extends AbstractHaStrategy<T> {
         }
     };
 
-    @Override
+    @SuppressWarnings("rawtypes")
+	@Override
     public Response call(Request request, LoadBalance<T> loadBalance) {
     	DefaultRpcRequest rpcRequest = (DefaultRpcRequest)request;
     	RpcRequestInfo rpcRequestInfo =  rpcRequest.getRequestMsg();
@@ -89,7 +90,8 @@ public class FailoverHaStrategy<T> extends AbstractHaStrategy<T> {
         throw new LionFrameworkException("FailoverHaStrategy.call should not come here!");
     }
 
-    protected List<Referer<T>> selectReferers(Request request, LoadBalance<T> loadBalance) {
+    @SuppressWarnings("rawtypes")
+	protected List<Referer<T>> selectReferers(Request request, LoadBalance<T> loadBalance) {
         List<Referer<T>> referers = referersHolder.get();
         referers.clear();
         loadBalance.selectToHolder(request, referers);

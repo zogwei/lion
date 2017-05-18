@@ -26,7 +26,12 @@ import java.util.Date;
 
 public class DefaultRpcMonitorMsg implements MonitorMsg {
 
-    private String application;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	private String application;
     
     private String service;
 

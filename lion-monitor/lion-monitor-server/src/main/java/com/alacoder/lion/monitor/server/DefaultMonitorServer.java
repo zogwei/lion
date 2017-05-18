@@ -13,10 +13,8 @@
 
 package com.alacoder.lion.monitor.server;
 
-import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.LinkedBlockingQueue;
 
 import com.aben.cup.log.logging.LogFactory;
 import com.aben.cup.log.logging.Log;
@@ -54,6 +52,7 @@ public class DefaultMonitorServer implements MonitorServer{
 
 	private final static Log logger = LogFactory.getLog(DefaultMonitorServer.class);
 
+	@SuppressWarnings("unused")
 	private final static Integer MAX_QUEUE= 10000;
 	
 	private MonitorMsgHandler handler = null;
@@ -68,6 +67,7 @@ public class DefaultMonitorServer implements MonitorServer{
 		this(lionURL,null);
 	}
 	
+	@SuppressWarnings("unchecked")
 	public DefaultMonitorServer(LionURL lionURL,MonitorMsgHandler handler){
 		if(handler == null){
 			this.handler = new DefaultMonitorMsgHandler();

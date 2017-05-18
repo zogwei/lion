@@ -15,7 +15,6 @@ package com.alacoder.lion.rpc;
 
 import io.netty.util.concurrent.Future;
 import io.netty.util.concurrent.FutureListener;
-
 import com.alacoder.common.exception.LionServiceException;
 import com.aben.cup.log.logging.LogFactory;
 import com.aben.cup.log.logging.Log;
@@ -23,7 +22,6 @@ import com.alacoder.lion.common.extension.ExtensionLoader;
 import com.alacoder.lion.common.url.LionURL;
 import com.alacoder.lion.common.url.URLParamType;
 import com.alacoder.lion.remote.Client;
-import com.alacoder.lion.remote.ResponseFuture;
 import com.alacoder.lion.remote.TransportException;
 import com.alacoder.lion.remote.transport.Request;
 import com.alacoder.lion.remote.transport.Response;
@@ -55,6 +53,7 @@ public class DefaultRpcReferer<T> extends AbstractReferer<T>{
          client = endpointFactory.createClient(url,null);
      }
 
+	 @SuppressWarnings({"rawtypes" })
      @Override
      protected Response doCall(Request request) {
      	DefaultRpcRequest rpcRequest = (DefaultRpcRequest)request;

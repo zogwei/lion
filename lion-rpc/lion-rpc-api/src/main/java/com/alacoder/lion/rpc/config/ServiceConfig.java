@@ -56,7 +56,7 @@ public class ServiceConfig<T> extends AbstractServiceConfig {
     
 	private T ref;
 	private Class<T> interfaceClass;
-	 // 具体到方法的配置
+	 // 
 	private BasicServiceInterfaceConfig basicServiceConfig;
     // 具体到方法的配置
     protected List<MethodConfig> methods;

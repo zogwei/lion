@@ -32,5 +32,10 @@
             <version>${spring-framework.version}</version>
             <scope>provided</scope>
         </dependency>
+      <dependency>
+      	<groupId>com.alacoder</groupId>
+      	<artifactId>lion-registry-zk</artifactId>
+      	<version>0.0.1-SNAPSHOT</version>
+      </dependency>
   </dependencies>
 </project>

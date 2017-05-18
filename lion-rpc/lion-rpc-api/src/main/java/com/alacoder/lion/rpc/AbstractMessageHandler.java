@@ -46,7 +46,6 @@ public abstract class AbstractMessageHandler implements MessageHandler {
 		
 		Request request = (Request)message;
 		String serviceKey = LionFrameworkUtil.getServiceKey(request);
-		@SuppressWarnings("rawtypes")
 		Provider provider = providers.get(serviceKey);
 		if(provider == null) {
 			logger.error(" handler error, provider not find ,serviceKey " + serviceKey);
@@ -59,6 +58,7 @@ public abstract class AbstractMessageHandler implements MessageHandler {
 		return call(request, provider);
 	}
 	
+	@SuppressWarnings("rawtypes")
 	@Override
 	public Object handle(Channel channel, Response response) {
 		return false;

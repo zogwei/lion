@@ -56,7 +56,8 @@ public class DefaultMessageHandler extends AbstractMessageHandler {
 	        addProvider(provider);
 	    }
 
-	    @Override
+	    @SuppressWarnings({ "unchecked", "rawtypes" })
+		@Override
 	    public Response handle(Channel channel, Request message) {
 	        if (channel == null || message == null) {
 	            throw new LionFrameworkException("RequestRouter handler(channel, message) params is null");
@@ -87,6 +88,7 @@ public class DefaultMessageHandler extends AbstractMessageHandler {
 	        return call(request, provider);
 	    }
 
+	    @SuppressWarnings({ "unchecked", "rawtypes" })
 	    protected Response call(Request<?> request, Provider<?> provider) {
 	        try {
 	            return provider.call((Request)request);

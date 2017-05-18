@@ -7,9 +7,7 @@
     <artifactId>lion-monitor</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <groupId>com.alacoder</groupId>
   <artifactId>lion-monitor-client</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
   <name>lion-monitor-client</name>
   <url>http://maven.apache.org</url>
   <properties>

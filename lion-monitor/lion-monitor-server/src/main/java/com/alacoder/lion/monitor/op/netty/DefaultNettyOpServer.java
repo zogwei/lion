@@ -19,7 +19,6 @@ import io.netty.channel.ChannelOption;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
-
 import com.aben.cup.log.logging.LogFactory;
 import com.aben.cup.log.logging.Log;
 import com.alacoder.lion.monitor.op.OpServer;
@@ -34,6 +33,7 @@ import com.alacoder.lion.monitor.op.OpServer;
 
 public class DefaultNettyOpServer implements OpServer {
 	
+	@SuppressWarnings("unused")
 	private final static Log logger = LogFactory.getLog(DefaultNettyOpServer.class);
 	
 	int port ;
