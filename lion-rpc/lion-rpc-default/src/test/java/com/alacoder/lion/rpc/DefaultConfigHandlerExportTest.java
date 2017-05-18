@@ -50,9 +50,9 @@ public class DefaultConfigHandlerExportTest {
 //				+ "shareChannel=true&"
 					;
 
-		LionURL url = new LionURL(LionConstants.REGISTRY_PROTOCOL_DIRECT, "127.0.0.1", 4455, "com.alacoder.lion.rpc.DemoService");
+		LionURL url = new LionURL(LionConstants.REGISTRY_PROTOCOL_ZOOKEEPER, "127.0.0.1", 4455, "com.alacoder.lion.rpc.DemoService");
 		url.addParameter("embed", embed);
-		url.addParameter("protocol", LionConstants.REGISTRY_PROTOCOL_DIRECT);
+		url.addParameter("protocol", LionConstants.REGISTRY_PROTOCOL_ZOOKEEPER);
 //		url.addParameter("export", "demoMotan:8001");
 //		url.addParameter("application", "myMotanDemo");
 //		url.addParameter("module", "lion-demo-rpc");

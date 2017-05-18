@@ -69,7 +69,7 @@ public class CuratorOper {
 	public CuratorOper(ZkConfiguration zkConfig){
 		logger.debug(" ZkNodeStorageOper init begin");
 		try {
-			logger.debug("Elastic job: zookeeper registry center init, server lists is: {}.",zkConfig.getServerLists());
+			logger.debug(" zookeeper registry center init, server lists is: {}.",zkConfig.getServerLists());
 			Builder builder = CuratorFrameworkFactory
 					.builder()
 					.connectString(zkConfig.getServerLists())

@@ -53,7 +53,7 @@ public class DefaultConfigHandlerRefererTest {
 //				+ "shareChannel=true&"
 				;
 
-		LionURL url = new LionURL(LionConstants.REGISTRY_PROTOCOL_DIRECT, "127.0.0.1", 4455, "com.alacoder.lion.rpc.DemoService");
+		LionURL url = new LionURL(LionConstants.REGISTRY_PROTOCOL_ZOOKEEPER, "127.0.0.1", 4455, "com.alacoder.lion.rpc.DemoService");
 		url.addParameter("embed", embed);
 //		url.addParameter("protocol", LionConstants.REGISTRY_PROTOCOL_DIRECT);
 //		url.addParameter("export", "demoLion:8001");
