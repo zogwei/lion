@@ -30,7 +30,6 @@ import com.alacoder.lion.remote.transport.DefaultRequest;
 
 public class DefaultRpcRequest extends DefaultRequest<RpcRequestInfo> {
 	
-	private Long id;
 	private RpcRequestInfo rpcRequestInfo;
 
 	@Override
@@ -47,16 +46,6 @@ public class DefaultRpcRequest extends DefaultRequest<RpcRequestInfo> {
 	@Override
 	public RpcRequestInfo getRequestMsg() {
 		return rpcRequestInfo;
-	}
-
-	@Override
-	public Long getId() {
-		return id;
-	}
-
-	@Override
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 }
