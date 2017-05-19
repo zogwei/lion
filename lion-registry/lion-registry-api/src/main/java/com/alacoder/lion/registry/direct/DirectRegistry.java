@@ -11,7 +11,7 @@
  * @version V1.0
  */
 
-package com.alacoder.lion.rpc.registry;
+package com.alacoder.lion.registry.direct;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -55,6 +55,13 @@ public class RefererConfigZkRegistryTest {
 		String result = service.hello("jimmy");
 
 		System.out.println("referer result [service.hello(\"jimmy\")] : " + result);
+		
+		try {
+			Thread.sleep(1000*1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	private static void export(){
