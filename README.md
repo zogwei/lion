@@ -4,7 +4,7 @@ a RPC framework
   
 TODO List
 
-consumer 注册zk
+consumer 注册zk 
 
 管控控制台
 1、通过阅读代码，熟悉现有配置和监控系统dubbo-admin， dubbokeeper，dubbo-monitor-simple
