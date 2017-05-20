@@ -25,8 +25,8 @@ import java.util.Enumeration;
 import java.util.Map;
 import java.util.regex.Pattern;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.aben.cup.log.logging.LogFactory;
+import com.aben.cup.log.logging.Log;
 
 /**
  * 
@@ -37,8 +37,8 @@ import org.slf4j.LoggerFactory;
  */
 
 public class NetUtils {
-
-    private static final Logger logger = LoggerFactory.getLogger(NetUtils.class);
+	
+	private final static Log logger = LogFactory.getLog(NetUtils.class);
 
     public static final String LOCALHOST = "127.0.0.1";
 
@@ -130,7 +130,7 @@ public class NetUtils {
                     } catch (Throwable e) {}
                 }
             } catch (Exception e) {
-                LoggerUtil.warn(String.format("Failed to retriving local address by connecting to dest host:port(%s:%s) false, e=%s", host,
+            	logger.warn(String.format("Failed to retriving local address by connecting to dest host:port(%s:%s) false, e=%s", host,
                         port, e));
             }
         }

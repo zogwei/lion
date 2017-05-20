@@ -1,0 +1,907 @@
+DEBUG (com.aben.cup.log.logging.LogFactory:181)- Using Log4J as the default logging framework
+DEBUG (com.aben.cup.log.logging.LogFactory:181)- Using Log4J as the default logging framework
+DEBUG (com.aben.cup.log.logging.LogFactory:181)- Using Log4J as the default logging framework
+DEBUG (com.aben.cup.log.logging.LogFactory:181)- Using Log4J as the default logging framework
+DEBUG (com.aben.cup.log.logging.LogFactory:181)- Using Log4J as the default logging framework
+INFO (com.alacoder.lion.rpc.DefaultProviderTest:346)- provider response value = hello, Jimmy 
+DEBUG (com.aben.cup.log.logging.LogFactory:181)- Using Log4J as the default logging framework
+DEBUG (io.netty.util.internal.logging.InternalLoggerFactory:45)- Using Log4J as the default logging framework
+DEBUG (io.netty.channel.MultithreadEventLoopGroup:41)- -Dio.netty.eventLoopThreads: 16
+DEBUG (io.netty.util.internal.PlatformDependent:366)- UID: 812348242
+DEBUG (io.netty.util.internal.PlatformDependent:443)- Java version: 7
+DEBUG (io.netty.util.internal.PlatformDependent:450)- -Dio.netty.noUnsafe: false
+DEBUG (io.netty.util.internal.PlatformDependent0:59)- java.nio.ByteBuffer.cleaner: available
+DEBUG (io.netty.util.internal.PlatformDependent0:78)- java.nio.Buffer.address: available
+DEBUG (io.netty.util.internal.PlatformDependent0:86)- sun.misc.Unsafe.theUnsafe: available
+DEBUG (io.netty.util.internal.PlatformDependent0:96)- sun.misc.Unsafe.copyMemory: available
+DEBUG (io.netty.util.internal.PlatformDependent0:133)- java.nio.Bits.unaligned: true
+DEBUG (io.netty.util.internal.PlatformDependent:477)- sun.misc.Unsafe: available
+DEBUG (io.netty.util.internal.PlatformDependent:555)- -Dio.netty.noJavassist: false
+DEBUG (io.netty.util.internal.PlatformDependent:567)- Javassist: unavailable
+DEBUG (io.netty.util.internal.PlatformDependent:568)- You don't have Javassist in your class path or you don't have enough permission to load dynamically generated classes.  Please check the configuration for better performance.
+DEBUG (io.netty.util.internal.PlatformDependent:76)- -Dio.netty.noPreferDirect: false
+DEBUG (io.netty.channel.nio.NioEventLoop:88)- -Dio.netty.noKeySetOptimization: false
+DEBUG (io.netty.channel.nio.NioEventLoop:89)- -Dio.netty.selectorAutoRebuildThreshold: 512
+DEBUG (com.aben.cup.log.logging.LogFactory:181)- Using Log4J as the default logging framework
+DEBUG (io.netty.util.internal.logging.InternalLoggerFactory:45)- Using Log4J as the default logging framework
+DEBUG (io.netty.channel.MultithreadEventLoopGroup:41)- -Dio.netty.eventLoopThreads: 16
+DEBUG (io.netty.util.internal.PlatformDependent:366)- UID: 812348242
+DEBUG (io.netty.util.internal.PlatformDependent:443)- Java version: 7
+DEBUG (io.netty.util.internal.PlatformDependent:450)- -Dio.netty.noUnsafe: false
+DEBUG (io.netty.util.internal.PlatformDependent0:59)- java.nio.ByteBuffer.cleaner: available
+DEBUG (io.netty.util.internal.PlatformDependent0:78)- java.nio.Buffer.address: available
+DEBUG (io.netty.util.internal.PlatformDependent0:86)- sun.misc.Unsafe.theUnsafe: available
+DEBUG (io.netty.util.internal.PlatformDependent0:96)- sun.misc.Unsafe.copyMemory: available
+DEBUG (io.netty.util.internal.PlatformDependent0:133)- java.nio.Bits.unaligned: true
+DEBUG (io.netty.util.internal.PlatformDependent:477)- sun.misc.Unsafe: available
+DEBUG (io.netty.util.internal.PlatformDependent:555)- -Dio.netty.noJavassist: false
+DEBUG (io.netty.util.internal.PlatformDependent:567)- Javassist: unavailable
+DEBUG (io.netty.util.internal.PlatformDependent:568)- You don't have Javassist in your class path or you don't have enough permission to load dynamically generated classes.  Please check the configuration for better performance.
+DEBUG (io.netty.util.internal.PlatformDependent:76)- -Dio.netty.noPreferDirect: false
+DEBUG (io.netty.channel.nio.NioEventLoop:88)- -Dio.netty.noKeySetOptimization: false
+DEBUG (io.netty.channel.nio.NioEventLoop:89)- -Dio.netty.selectorAutoRebuildThreshold: 512
+DEBUG (com.aben.cup.log.logging.LogFactory:181)- Using Log4J as the default logging framework
+INFO (com.alacoder.lion.rpc.DefaultProviderTest:346)- provider response value = hello, Jimmy 
+DEBUG (com.aben.cup.log.logging.LogFactory:181)- Using Log4J as the default logging framework
+INFO (com.alacoder.lion.rpc.DefaultMessageHandler:281)- RequestRouter addProvider: url=lion://127.0.0.1:4455/com.alacoder.lion.rpc.DemoService?group=default_rpc all_public_method_count=1
+INFO (com.alacoder.lion.rpc.AbstractEndpointFactory:346)- DefaultNettyEndpointFactory create no_share_channel server: url=lion://127.0.0.1:4455/com.alacoder.lion.rpc.DemoService?group=default_rpc
+INFO (com.alacoder.lion.rpc.AbstractEndpointFactory:346)- DefaultNettyEndpointFactory create share_channel server: url=lion://127.0.0.1:4455/com.alacoder.lion.rpc.DemoService?group=default_rpc
+DEBUG (io.netty.util.internal.logging.InternalLoggerFactory:45)- Using Log4J as the default logging framework
+DEBUG (io.netty.channel.MultithreadEventLoopGroup:41)- -Dio.netty.eventLoopThreads: 16
+DEBUG (io.netty.util.internal.PlatformDependent:366)- UID: 812348242
+DEBUG (io.netty.util.internal.PlatformDependent:443)- Java version: 7
+DEBUG (io.netty.util.internal.PlatformDependent:450)- -Dio.netty.noUnsafe: false
+DEBUG (io.netty.util.internal.PlatformDependent0:59)- java.nio.ByteBuffer.cleaner: available
+DEBUG (io.netty.util.internal.PlatformDependent0:78)- java.nio.Buffer.address: available
+DEBUG (io.netty.util.internal.PlatformDependent0:86)- sun.misc.Unsafe.theUnsafe: available
+DEBUG (io.netty.util.internal.PlatformDependent0:96)- sun.misc.Unsafe.copyMemory: available
+DEBUG (io.netty.util.internal.PlatformDependent0:133)- java.nio.Bits.unaligned: true
+DEBUG (io.netty.util.internal.PlatformDependent:477)- sun.misc.Unsafe: available
+DEBUG (io.netty.util.internal.PlatformDependent:555)- -Dio.netty.noJavassist: false
+DEBUG (io.netty.util.internal.PlatformDependent:567)- Javassist: unavailable
+DEBUG (io.netty.util.internal.PlatformDependent:568)- You don't have Javassist in your class path or you don't have enough permission to load dynamically generated classes.  Please check the configuration for better performance.
+DEBUG (io.netty.util.internal.PlatformDependent:76)- -Dio.netty.noPreferDirect: false
+DEBUG (io.netty.channel.nio.NioEventLoop:88)- -Dio.netty.noKeySetOptimization: false
+DEBUG (io.netty.channel.nio.NioEventLoop:89)- -Dio.netty.selectorAutoRebuildThreshold: 512
+INFO (com.alacoder.lion.remote.netty.NettyServer:346)- NettyServer init success : url=lion://127.0.0.1:4455/
+DEBUG (io.netty.util.NetUtil:100)- Loopback interface: lo0
+DEBUG (io.netty.util.NetUtil:105)- Loopback address: /fe80:0:0:0:0:0:0:1%1 (primary)
+DEBUG (io.netty.util.NetUtil:108)- Loopback address: /0:0:0:0:0:0:0:1
+DEBUG (io.netty.util.NetUtil:108)- Loopback address: /127.0.0.1
+DEBUG (com.alacoder.lion.remote.netty.NettyChannel:181)- NettyChannel open: lion://127.0.0.1:4455/ local=/127.0.0.1:4455
+INFO (com.alacoder.lion.remote.AbstractServer:346)- NettyServer open success , url = lion://127.0.0.1:4455/
+INFO (com.alacoder.lion.rpc.AbstractNode:281)- DefaultRpcExporter node init Success: [DefaultRpcExporter] url=lion://127.0.0.1:4455/com.alacoder.lion.rpc.DemoService?group=default_rpc
+INFO (com.alacoder.lion.rpc.AbstractProtocol:281)- DefaultRpcProtocol export Success: url=lion://127.0.0.1:4455/com.alacoder.lion.rpc.DemoService?group=default_rpc
+DEBUG (com.aben.cup.log.logging.LogFactory:181)- Using Log4J as the default logging framework
+WARN (com.alacoder.lion.common.utils.NetUtils:381)- Failed to retriving local address by connecting to dest host:port(127.0.0.1:6000) false, e=java.net.ConnectException: Connection refused
+INFO (com.alacoder.lion.rpc.DefaultMessageHandler:281)- RequestRouter addProvider: url=lion://192.168.137.1:7080/com.alacoder.lion.rpc.DemoService?group=demoGroup all_public_method_count=1
+INFO (com.alacoder.lion.rpc.AbstractEndpointFactory:346)- DefaultNettyEndpointFactory create share_channel server: url=lion://192.168.137.1:7080/com.alacoder.lion.rpc.DemoService?group=demoGroup
+DEBUG (io.netty.util.internal.logging.InternalLoggerFactory:45)- Using Log4J as the default logging framework
+DEBUG (io.netty.channel.MultithreadEventLoopGroup:41)- -Dio.netty.eventLoopThreads: 16
+DEBUG (io.netty.util.internal.PlatformDependent:366)- UID: 812348242
+DEBUG (io.netty.util.internal.PlatformDependent:443)- Java version: 7
+DEBUG (io.netty.util.internal.PlatformDependent:450)- -Dio.netty.noUnsafe: false
+DEBUG (io.netty.util.internal.PlatformDependent0:59)- java.nio.ByteBuffer.cleaner: available
+DEBUG (io.netty.util.internal.PlatformDependent0:78)- java.nio.Buffer.address: available
+DEBUG (io.netty.util.internal.PlatformDependent0:86)- sun.misc.Unsafe.theUnsafe: available
+DEBUG (io.netty.util.internal.PlatformDependent0:96)- sun.misc.Unsafe.copyMemory: available
+DEBUG (io.netty.util.internal.PlatformDependent0:133)- java.nio.Bits.unaligned: true
+DEBUG (io.netty.util.internal.PlatformDependent:477)- sun.misc.Unsafe: available
+DEBUG (io.netty.util.internal.PlatformDependent:555)- -Dio.netty.noJavassist: false
+DEBUG (io.netty.util.internal.PlatformDependent:567)- Javassist: unavailable
+DEBUG (io.netty.util.internal.PlatformDependent:568)- You don't have Javassist in your class path or you don't have enough permission to load dynamically generated classes.  Please check the configuration for better performance.
+DEBUG (io.netty.util.internal.PlatformDependent:76)- -Dio.netty.noPreferDirect: false
+DEBUG (io.netty.channel.nio.NioEventLoop:88)- -Dio.netty.noKeySetOptimization: false
+DEBUG (io.netty.channel.nio.NioEventLoop:89)- -Dio.netty.selectorAutoRebuildThreshold: 512
+INFO (com.alacoder.lion.remote.netty.NettyServer:346)- NettyServer init success : url=lion://192.168.137.1:7080/
+DEBUG (io.netty.util.NetUtil:100)- Loopback interface: lo0
+DEBUG (io.netty.util.NetUtil:105)- Loopback address: /fe80:0:0:0:0:0:0:1%1 (primary)
+DEBUG (io.netty.util.NetUtil:108)- Loopback address: /0:0:0:0:0:0:0:1
+DEBUG (io.netty.util.NetUtil:108)- Loopback address: /127.0.0.1
+DEBUG (com.alacoder.lion.remote.netty.NettyChannel:181)- NettyChannel open: lion://192.168.137.1:7080/ local=/192.168.137.1:7080
+INFO (com.alacoder.lion.remote.AbstractServer:346)- NettyServer open success , url = lion://192.168.137.1:7080/
+INFO (com.alacoder.lion.rpc.AbstractNode:281)- DefaultRpcExporter node init Success: [DefaultRpcExporter] url=lion://192.168.137.1:7080/com.alacoder.lion.rpc.DemoService?group=demoGroup
+INFO (com.alacoder.lion.rpc.AbstractProtocol:281)- DefaultRpcProtocol export Success: url=lion://192.168.137.1:7080/com.alacoder.lion.rpc.DemoService?group=demoGroup
+DEBUG (com.aben.cup.log.logging.LogFactory:181)- Using Log4J as the default logging framework
+WARN (com.alacoder.lion.common.utils.NetUtils:381)- Failed to retriving local address by connecting to dest host:port(127.0.0.1:6000) false, e=java.net.ConnectException: Connection refused
+INFO (com.alacoder.lion.rpc.DefaultMessageHandler:281)- RequestRouter addProvider: url=lion://192.168.137.1:7080/com.alacoder.lion.rpc.DemoService?group=demoGroup all_public_method_count=1
+INFO (com.alacoder.lion.rpc.AbstractEndpointFactory:346)- DefaultNettyEndpointFactory create share_channel server: url=lion://192.168.137.1:7080/com.alacoder.lion.rpc.DemoService?group=demoGroup
+DEBUG (io.netty.util.internal.logging.InternalLoggerFactory:45)- Using Log4J as the default logging framework
+DEBUG (io.netty.channel.MultithreadEventLoopGroup:41)- -Dio.netty.eventLoopThreads: 16
+DEBUG (io.netty.util.internal.PlatformDependent:366)- UID: 812348242
+DEBUG (io.netty.util.internal.PlatformDependent:443)- Java version: 7
+DEBUG (io.netty.util.internal.PlatformDependent:450)- -Dio.netty.noUnsafe: false
+DEBUG (io.netty.util.internal.PlatformDependent0:59)- java.nio.ByteBuffer.cleaner: available
+DEBUG (io.netty.util.internal.PlatformDependent0:78)- java.nio.Buffer.address: available
+DEBUG (io.netty.util.internal.PlatformDependent0:86)- sun.misc.Unsafe.theUnsafe: available
+DEBUG (io.netty.util.internal.PlatformDependent0:96)- sun.misc.Unsafe.copyMemory: available
+DEBUG (io.netty.util.internal.PlatformDependent0:133)- java.nio.Bits.unaligned: true
+DEBUG (io.netty.util.internal.PlatformDependent:477)- sun.misc.Unsafe: available
+DEBUG (io.netty.util.internal.PlatformDependent:555)- -Dio.netty.noJavassist: false
+DEBUG (io.netty.util.internal.PlatformDependent:567)- Javassist: unavailable
+DEBUG (io.netty.util.internal.PlatformDependent:568)- You don't have Javassist in your class path or you don't have enough permission to load dynamically generated classes.  Please check the configuration for better performance.
+DEBUG (io.netty.util.internal.PlatformDependent:76)- -Dio.netty.noPreferDirect: false
+DEBUG (io.netty.channel.nio.NioEventLoop:88)- -Dio.netty.noKeySetOptimization: false
+DEBUG (io.netty.channel.nio.NioEventLoop:89)- -Dio.netty.selectorAutoRebuildThreshold: 512
+INFO (com.alacoder.lion.remote.netty.NettyServer:346)- NettyServer init success : url=lion://192.168.137.1:7080/
+DEBUG (io.netty.util.NetUtil:100)- Loopback interface: lo0
+DEBUG (io.netty.util.NetUtil:105)- Loopback address: /fe80:0:0:0:0:0:0:1%1 (primary)
+DEBUG (io.netty.util.NetUtil:108)- Loopback address: /0:0:0:0:0:0:0:1
+DEBUG (io.netty.util.NetUtil:108)- Loopback address: /127.0.0.1
+DEBUG (com.alacoder.lion.remote.netty.NettyChannel:181)- NettyChannel open: lion://192.168.137.1:7080/ local=/192.168.137.1:7080
+INFO (com.alacoder.lion.remote.AbstractServer:346)- NettyServer open success , url = lion://192.168.137.1:7080/
+INFO (com.alacoder.lion.rpc.AbstractNode:281)- DefaultRpcExporter node init Success: [DefaultRpcExporter] url=lion://192.168.137.1:7080/com.alacoder.lion.rpc.DemoService?group=demoGroup
+INFO (com.alacoder.lion.rpc.AbstractProtocol:281)- DefaultRpcProtocol export Success: url=lion://192.168.137.1:7080/com.alacoder.lion.rpc.DemoService?group=demoGroup
+DEBUG (com.aben.cup.log.logging.LogFactory:181)- Using Log4J as the default logging framework
+WARN (com.alacoder.lion.common.utils.NetUtils:381)- Failed to retriving local address by connecting to dest host:port(127.0.0.1:6000) false, e=java.net.ConnectException: Connection refused
+INFO (com.alacoder.lion.rpc.DefaultMessageHandler:281)- RequestRouter addProvider: url=lion://192.168.137.1:7080/com.alacoder.lion.rpc.DemoService?group=demoGroup all_public_method_count=1
+INFO (com.alacoder.lion.rpc.AbstractEndpointFactory:346)- DefaultNettyEndpointFactory create share_channel server: url=lion://192.168.137.1:7080/com.alacoder.lion.rpc.DemoService?group=demoGroup
+DEBUG (io.netty.util.internal.logging.InternalLoggerFactory:45)- Using Log4J as the default logging framework
+DEBUG (io.netty.channel.MultithreadEventLoopGroup:41)- -Dio.netty.eventLoopThreads: 16
+DEBUG (io.netty.util.internal.PlatformDependent:366)- UID: 812348242
+DEBUG (io.netty.util.internal.PlatformDependent:443)- Java version: 7
+DEBUG (io.netty.util.internal.PlatformDependent:450)- -Dio.netty.noUnsafe: false
+DEBUG (io.netty.util.internal.PlatformDependent0:59)- java.nio.ByteBuffer.cleaner: available
+DEBUG (io.netty.util.internal.PlatformDependent0:78)- java.nio.Buffer.address: available
+DEBUG (io.netty.util.internal.PlatformDependent0:86)- sun.misc.Unsafe.theUnsafe: available
+DEBUG (io.netty.util.internal.PlatformDependent0:96)- sun.misc.Unsafe.copyMemory: available
+DEBUG (io.netty.util.internal.PlatformDependent0:133)- java.nio.Bits.unaligned: true
+DEBUG (io.netty.util.internal.PlatformDependent:477)- sun.misc.Unsafe: available
+DEBUG (io.netty.util.internal.PlatformDependent:555)- -Dio.netty.noJavassist: false
+DEBUG (io.netty.util.internal.PlatformDependent:567)- Javassist: unavailable
+DEBUG (io.netty.util.internal.PlatformDependent:568)- You don't have Javassist in your class path or you don't have enough permission to load dynamically generated classes.  Please check the configuration for better performance.
+DEBUG (io.netty.util.internal.PlatformDependent:76)- -Dio.netty.noPreferDirect: false
+DEBUG (io.netty.channel.nio.NioEventLoop:88)- -Dio.netty.noKeySetOptimization: false
+DEBUG (io.netty.channel.nio.NioEventLoop:89)- -Dio.netty.selectorAutoRebuildThreshold: 512
+INFO (com.alacoder.lion.remote.netty.NettyServer:346)- NettyServer init success : url=lion://192.168.137.1:7080/
+DEBUG (io.netty.util.NetUtil:100)- Loopback interface: lo0
+DEBUG (io.netty.util.NetUtil:105)- Loopback address: /fe80:0:0:0:0:0:0:1%1 (primary)
+DEBUG (io.netty.util.NetUtil:108)- Loopback address: /0:0:0:0:0:0:0:1
+DEBUG (io.netty.util.NetUtil:108)- Loopback address: /127.0.0.1
+ERROR (com.alacoder.lion.remote.netty.NettyServer:562)- NettyServer error  
+java.net.BindException: Address already in use
+	at sun.nio.ch.Net.bind0(Native Method)
+	at sun.nio.ch.Net.bind(Net.java:444)
+	at sun.nio.ch.Net.bind(Net.java:436)
+	at sun.nio.ch.ServerSocketChannelImpl.bind(ServerSocketChannelImpl.java:214)
+	at sun.nio.ch.ServerSocketAdaptor.bind(ServerSocketAdaptor.java:74)
+	at io.netty.channel.socket.nio.NioServerSocketChannel.doBind(NioServerSocketChannel.java:101)
+	at io.netty.channel.AbstractChannel$AbstractUnsafe.bind(AbstractChannel.java:459)
+	at io.netty.channel.DefaultChannelPipeline$HeadHandler.bind(DefaultChannelPipeline.java:995)
+	at io.netty.channel.DefaultChannelHandlerContext.invokeBind0(DefaultChannelHandlerContext.java:492)
+	at io.netty.channel.DefaultChannelHandlerContext.invokeBind(DefaultChannelHandlerContext.java:478)
+	at io.netty.channel.DefaultChannelHandlerContext.bind(DefaultChannelHandlerContext.java:472)
+	at io.netty.channel.DefaultChannelPipeline.bind(DefaultChannelPipeline.java:837)
+	at io.netty.channel.AbstractChannel.bind(AbstractChannel.java:186)
+	at io.netty.bootstrap.AbstractBootstrap$2.run(AbstractBootstrap.java:321)
+	at io.netty.util.concurrent.SingleThreadEventExecutor.runAllTasks(SingleThreadEventExecutor.java:353)
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:366)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$2.run(SingleThreadEventExecutor.java:101)
+	at java.lang.Thread.run(Thread.java:745)
+DEBUG (com.aben.cup.log.logging.LogFactory:181)- Using Log4J as the default logging framework
+WARN (com.alacoder.lion.common.utils.NetUtils:381)- Failed to retriving local address by connecting to dest host:port(127.0.0.1:6000) false, e=java.net.ConnectException: Connection refused
+INFO (com.alacoder.lion.rpc.DefaultMessageHandler:281)- RequestRouter addProvider: url=lion://192.168.137.1:7080/com.alacoder.lion.rpc.DemoService?group=demoGroup all_public_method_count=1
+INFO (com.alacoder.lion.rpc.AbstractEndpointFactory:346)- DefaultNettyEndpointFactory create share_channel server: url=lion://192.168.137.1:7080/com.alacoder.lion.rpc.DemoService?group=demoGroup
+DEBUG (io.netty.util.internal.logging.InternalLoggerFactory:45)- Using Log4J as the default logging framework
+DEBUG (io.netty.channel.MultithreadEventLoopGroup:41)- -Dio.netty.eventLoopThreads: 16
+DEBUG (io.netty.util.internal.PlatformDependent:366)- UID: 812348242
+DEBUG (io.netty.util.internal.PlatformDependent:443)- Java version: 7
+DEBUG (io.netty.util.internal.PlatformDependent:450)- -Dio.netty.noUnsafe: false
+DEBUG (io.netty.util.internal.PlatformDependent0:59)- java.nio.ByteBuffer.cleaner: available
+DEBUG (io.netty.util.internal.PlatformDependent0:78)- java.nio.Buffer.address: available
+DEBUG (io.netty.util.internal.PlatformDependent0:86)- sun.misc.Unsafe.theUnsafe: available
+DEBUG (io.netty.util.internal.PlatformDependent0:96)- sun.misc.Unsafe.copyMemory: available
+DEBUG (io.netty.util.internal.PlatformDependent0:133)- java.nio.Bits.unaligned: true
+DEBUG (io.netty.util.internal.PlatformDependent:477)- sun.misc.Unsafe: available
+DEBUG (io.netty.util.internal.PlatformDependent:555)- -Dio.netty.noJavassist: false
+DEBUG (io.netty.util.internal.PlatformDependent:567)- Javassist: unavailable
+DEBUG (io.netty.util.internal.PlatformDependent:568)- You don't have Javassist in your class path or you don't have enough permission to load dynamically generated classes.  Please check the configuration for better performance.
+DEBUG (io.netty.util.internal.PlatformDependent:76)- -Dio.netty.noPreferDirect: false
+DEBUG (io.netty.channel.nio.NioEventLoop:88)- -Dio.netty.noKeySetOptimization: false
+DEBUG (io.netty.channel.nio.NioEventLoop:89)- -Dio.netty.selectorAutoRebuildThreshold: 512
+INFO (com.alacoder.lion.remote.netty.NettyServer:346)- NettyServer init success : url=lion://192.168.137.1:7080/
+DEBUG (io.netty.util.NetUtil:100)- Loopback interface: lo0
+DEBUG (io.netty.util.NetUtil:105)- Loopback address: /fe80:0:0:0:0:0:0:1%1 (primary)
+DEBUG (io.netty.util.NetUtil:108)- Loopback address: /0:0:0:0:0:0:0:1
+DEBUG (io.netty.util.NetUtil:108)- Loopback address: /127.0.0.1
+DEBUG (com.alacoder.lion.remote.netty.NettyChannel:181)- NettyChannel open: lion://192.168.137.1:7080/ local=/192.168.137.1:7080
+INFO (com.alacoder.lion.remote.AbstractServer:346)- NettyServer open success , url = lion://192.168.137.1:7080/
+INFO (com.alacoder.lion.rpc.AbstractNode:281)- DefaultRpcExporter node init Success: [DefaultRpcExporter] url=lion://192.168.137.1:7080/com.alacoder.lion.rpc.DemoService?group=demoGroup
+INFO (com.alacoder.lion.rpc.AbstractProtocol:281)- DefaultRpcProtocol export Success: url=lion://192.168.137.1:7080/com.alacoder.lion.rpc.DemoService?group=demoGroup
+DEBUG (com.aben.cup.log.logging.LogFactory:181)- Using Log4J as the default logging framework
+WARN (com.alacoder.lion.common.utils.NetUtils:381)- Failed to retriving local address by connecting to dest host:port(127.0.0.1:6000) false, e=java.net.ConnectException: Connection refused
+INFO (com.alacoder.lion.rpc.DefaultMessageHandler:281)- RequestRouter addProvider: url=lion://192.168.137.1:7080/com.alacoder.lion.rpc.DemoService?group=demoGroup all_public_method_count=1
+INFO (com.alacoder.lion.rpc.AbstractEndpointFactory:346)- DefaultNettyEndpointFactory create share_channel server: url=lion://192.168.137.1:7080/com.alacoder.lion.rpc.DemoService?group=demoGroup
+DEBUG (io.netty.util.internal.logging.InternalLoggerFactory:45)- Using Log4J as the default logging framework
+DEBUG (io.netty.channel.MultithreadEventLoopGroup:41)- -Dio.netty.eventLoopThreads: 16
+DEBUG (io.netty.util.internal.PlatformDependent:366)- UID: 812348242
+DEBUG (io.netty.util.internal.PlatformDependent:443)- Java version: 7
+DEBUG (io.netty.util.internal.PlatformDependent:450)- -Dio.netty.noUnsafe: false
+DEBUG (io.netty.util.internal.PlatformDependent0:59)- java.nio.ByteBuffer.cleaner: available
+DEBUG (io.netty.util.internal.PlatformDependent0:78)- java.nio.Buffer.address: available
+DEBUG (io.netty.util.internal.PlatformDependent0:86)- sun.misc.Unsafe.theUnsafe: available
+DEBUG (io.netty.util.internal.PlatformDependent0:96)- sun.misc.Unsafe.copyMemory: available
+DEBUG (io.netty.util.internal.PlatformDependent0:133)- java.nio.Bits.unaligned: true
+DEBUG (io.netty.util.internal.PlatformDependent:477)- sun.misc.Unsafe: available
+DEBUG (io.netty.util.internal.PlatformDependent:555)- -Dio.netty.noJavassist: false
+DEBUG (io.netty.util.internal.PlatformDependent:567)- Javassist: unavailable
+DEBUG (io.netty.util.internal.PlatformDependent:568)- You don't have Javassist in your class path or you don't have enough permission to load dynamically generated classes.  Please check the configuration for better performance.
+DEBUG (io.netty.util.internal.PlatformDependent:76)- -Dio.netty.noPreferDirect: false
+DEBUG (io.netty.channel.nio.NioEventLoop:88)- -Dio.netty.noKeySetOptimization: false
+DEBUG (io.netty.channel.nio.NioEventLoop:89)- -Dio.netty.selectorAutoRebuildThreshold: 512
+INFO (com.alacoder.lion.remote.netty.NettyServer:346)- NettyServer init success : url=lion://192.168.137.1:7080/
+DEBUG (io.netty.util.NetUtil:100)- Loopback interface: lo0
+DEBUG (io.netty.util.NetUtil:105)- Loopback address: /fe80:0:0:0:0:0:0:1%1 (primary)
+DEBUG (io.netty.util.NetUtil:108)- Loopback address: /0:0:0:0:0:0:0:1
+DEBUG (io.netty.util.NetUtil:108)- Loopback address: /127.0.0.1
+DEBUG (com.alacoder.lion.remote.netty.NettyChannel:181)- NettyChannel open: lion://192.168.137.1:7080/ local=/192.168.137.1:7080
+INFO (com.alacoder.lion.remote.AbstractServer:346)- NettyServer open success , url = lion://192.168.137.1:7080/
+INFO (com.alacoder.lion.rpc.AbstractNode:281)- DefaultRpcExporter node init Success: [DefaultRpcExporter] url=lion://192.168.137.1:7080/com.alacoder.lion.rpc.DemoService?group=demoGroup
+INFO (com.alacoder.lion.rpc.AbstractProtocol:281)- DefaultRpcProtocol export Success: url=lion://192.168.137.1:7080/com.alacoder.lion.rpc.DemoService?group=demoGroup
+DEBUG (com.aben.cup.log.logging.LogFactory:181)- Using Log4J as the default logging framework
+WARN (com.alacoder.lion.common.utils.NetUtils:381)- Failed to retriving local address by connecting to dest host:port(127.0.0.1:6000) false, e=java.net.ConnectException: Connection refused
+INFO (com.alacoder.lion.rpc.DefaultMessageHandler:281)- RequestRouter addProvider: url=lion://192.168.137.1:7080/com.alacoder.lion.rpc.DemoService?group=demoGroup all_public_method_count=1
+INFO (com.alacoder.lion.rpc.AbstractEndpointFactory:346)- DefaultNettyEndpointFactory create share_channel server: url=lion://192.168.137.1:7080/com.alacoder.lion.rpc.DemoService?group=demoGroup
+DEBUG (io.netty.util.internal.logging.InternalLoggerFactory:45)- Using Log4J as the default logging framework
+DEBUG (io.netty.channel.MultithreadEventLoopGroup:41)- -Dio.netty.eventLoopThreads: 16
+DEBUG (io.netty.util.internal.PlatformDependent:366)- UID: 812348242
+DEBUG (io.netty.util.internal.PlatformDependent:443)- Java version: 7
+DEBUG (io.netty.util.internal.PlatformDependent:450)- -Dio.netty.noUnsafe: false
+DEBUG (io.netty.util.internal.PlatformDependent0:59)- java.nio.ByteBuffer.cleaner: available
+DEBUG (io.netty.util.internal.PlatformDependent0:78)- java.nio.Buffer.address: available
+DEBUG (io.netty.util.internal.PlatformDependent0:86)- sun.misc.Unsafe.theUnsafe: available
+DEBUG (io.netty.util.internal.PlatformDependent0:96)- sun.misc.Unsafe.copyMemory: available
+DEBUG (io.netty.util.internal.PlatformDependent0:133)- java.nio.Bits.unaligned: true
+DEBUG (io.netty.util.internal.PlatformDependent:477)- sun.misc.Unsafe: available
+DEBUG (io.netty.util.internal.PlatformDependent:555)- -Dio.netty.noJavassist: false
+DEBUG (io.netty.util.internal.PlatformDependent:567)- Javassist: unavailable
+DEBUG (io.netty.util.internal.PlatformDependent:568)- You don't have Javassist in your class path or you don't have enough permission to load dynamically generated classes.  Please check the configuration for better performance.
+DEBUG (io.netty.util.internal.PlatformDependent:76)- -Dio.netty.noPreferDirect: false
+DEBUG (io.netty.channel.nio.NioEventLoop:88)- -Dio.netty.noKeySetOptimization: false
+DEBUG (io.netty.channel.nio.NioEventLoop:89)- -Dio.netty.selectorAutoRebuildThreshold: 512
+INFO (com.alacoder.lion.remote.netty.NettyServer:346)- NettyServer init success : url=lion://192.168.137.1:7080/
+DEBUG (io.netty.util.NetUtil:100)- Loopback interface: lo0
+DEBUG (io.netty.util.NetUtil:105)- Loopback address: /fe80:0:0:0:0:0:0:1%1 (primary)
+DEBUG (io.netty.util.NetUtil:108)- Loopback address: /0:0:0:0:0:0:0:1
+DEBUG (io.netty.util.NetUtil:108)- Loopback address: /127.0.0.1
+DEBUG (com.alacoder.lion.remote.netty.NettyChannel:181)- NettyChannel open: lion://192.168.137.1:7080/ local=/192.168.137.1:7080
+INFO (com.alacoder.lion.remote.AbstractServer:346)- NettyServer open success , url = lion://192.168.137.1:7080/
+INFO (com.alacoder.lion.rpc.AbstractNode:281)- DefaultRpcExporter node init Success: [DefaultRpcExporter] url=lion://192.168.137.1:7080/com.alacoder.lion.rpc.DemoService?group=demoGroup
+INFO (com.alacoder.lion.rpc.AbstractProtocol:281)- DefaultRpcProtocol export Success: url=lion://192.168.137.1:7080/com.alacoder.lion.rpc.DemoService?group=demoGroup
+INFO (com.alacoder.lion.registry.api.AbstractRegistry:346)- [DirectRegistry] Url (lion://192.168.137.1:7080/com.alacoder.lion.rpc.DemoService?group=demoGroup) will register to Registry [direct://127.0.0.1:6000/default_rpc/com.alacoder.lion.registry.api.RegistryService/1.0/service]
+DEBUG (com.aben.cup.log.logging.LogFactory:181)- Using Log4J as the default logging framework
+DEBUG (io.netty.util.internal.logging.InternalLoggerFactory:45)- Using Log4J as the default logging framework
+DEBUG (io.netty.channel.MultithreadEventLoopGroup:41)- -Dio.netty.eventLoopThreads: 16
+DEBUG (io.netty.util.internal.PlatformDependent:366)- UID: 812348242
+DEBUG (io.netty.util.internal.PlatformDependent:443)- Java version: 7
+DEBUG (io.netty.util.internal.PlatformDependent:450)- -Dio.netty.noUnsafe: false
+DEBUG (io.netty.util.internal.PlatformDependent0:59)- java.nio.ByteBuffer.cleaner: available
+DEBUG (io.netty.util.internal.PlatformDependent0:78)- java.nio.Buffer.address: available
+DEBUG (io.netty.util.internal.PlatformDependent0:86)- sun.misc.Unsafe.theUnsafe: available
+DEBUG (io.netty.util.internal.PlatformDependent0:96)- sun.misc.Unsafe.copyMemory: available
+DEBUG (io.netty.util.internal.PlatformDependent0:133)- java.nio.Bits.unaligned: true
+DEBUG (io.netty.util.internal.PlatformDependent:477)- sun.misc.Unsafe: available
+DEBUG (io.netty.util.internal.PlatformDependent:555)- -Dio.netty.noJavassist: false
+DEBUG (io.netty.util.internal.PlatformDependent:567)- Javassist: unavailable
+DEBUG (io.netty.util.internal.PlatformDependent:568)- You don't have Javassist in your class path or you don't have enough permission to load dynamically generated classes.  Please check the configuration for better performance.
+DEBUG (io.netty.util.internal.PlatformDependent:76)- -Dio.netty.noPreferDirect: false
+DEBUG (io.netty.channel.nio.NioEventLoop:88)- -Dio.netty.noKeySetOptimization: false
+DEBUG (io.netty.channel.nio.NioEventLoop:89)- -Dio.netty.selectorAutoRebuildThreshold: 512
+DEBUG (com.aben.cup.log.logging.LogFactory:181)- Using Log4J as the default logging framework
+INFO (com.alacoder.lion.registry.api.AbstractRegistry:346)- [DirectRegistry] Listener (com.alacoder.lion.rpc.ha.ClusterSupport@7010e773) will subscribe to url (lion://127.0.0.1:4455/com.alacoder.lion.rpc.DemoService?group=default_rpc) in Registry [direct://127.0.0.1:4455/default_rpc/com.alacoder.lion.rpc.DemoService/1.0/service]
+INFO (com.alacoder.lion.rpc.ha.ClusterSupport:346)- ClusterSupport config change notify: registry=direct://127.0.0.1:4455/com.alacoder.lion.rpc.DemoService service=lion://127.0.0.1:4455/default_rpc/com.alacoder.lion.rpc.DemoService/1.0/service urls=[]
+DEBUG (com.aben.cup.log.logging.LogFactory:181)- Using Log4J as the default logging framework
+WARN (com.alacoder.lion.common.utils.NetUtils:381)- Failed to retriving local address by connecting to dest host:port(127.0.0.1:6000) false, e=java.net.ConnectException: Connection refused
+INFO (com.alacoder.lion.rpc.DefaultMessageHandler:281)- RequestRouter addProvider: url=lion://192.168.137.1:7080/com.alacoder.lion.rpc.DemoService?group=demoGroup all_public_method_count=1
+INFO (com.alacoder.lion.rpc.AbstractEndpointFactory:346)- DefaultNettyEndpointFactory create share_channel server: url=lion://192.168.137.1:7080/com.alacoder.lion.rpc.DemoService?group=demoGroup
+DEBUG (io.netty.util.internal.logging.InternalLoggerFactory:45)- Using Log4J as the default logging framework
+DEBUG (io.netty.channel.MultithreadEventLoopGroup:41)- -Dio.netty.eventLoopThreads: 16
+DEBUG (io.netty.util.internal.PlatformDependent:366)- UID: 812348242
+DEBUG (io.netty.util.internal.PlatformDependent:443)- Java version: 7
+DEBUG (io.netty.util.internal.PlatformDependent:450)- -Dio.netty.noUnsafe: false
+DEBUG (io.netty.util.internal.PlatformDependent0:59)- java.nio.ByteBuffer.cleaner: available
+DEBUG (io.netty.util.internal.PlatformDependent0:78)- java.nio.Buffer.address: available
+DEBUG (io.netty.util.internal.PlatformDependent0:86)- sun.misc.Unsafe.theUnsafe: available
+DEBUG (io.netty.util.internal.PlatformDependent0:96)- sun.misc.Unsafe.copyMemory: available
+DEBUG (io.netty.util.internal.PlatformDependent0:133)- java.nio.Bits.unaligned: true
+DEBUG (io.netty.util.internal.PlatformDependent:477)- sun.misc.Unsafe: available
+DEBUG (io.netty.util.internal.PlatformDependent:555)- -Dio.netty.noJavassist: false
+DEBUG (io.netty.util.internal.PlatformDependent:567)- Javassist: unavailable
+DEBUG (io.netty.util.internal.PlatformDependent:568)- You don't have Javassist in your class path or you don't have enough permission to load dynamically generated classes.  Please check the configuration for better performance.
+DEBUG (io.netty.util.internal.PlatformDependent:76)- -Dio.netty.noPreferDirect: false
+DEBUG (io.netty.channel.nio.NioEventLoop:88)- -Dio.netty.noKeySetOptimization: false
+DEBUG (io.netty.channel.nio.NioEventLoop:89)- -Dio.netty.selectorAutoRebuildThreshold: 512
+INFO (com.alacoder.lion.remote.netty.NettyServer:346)- NettyServer init success : url=lion://192.168.137.1:7080/
+DEBUG (io.netty.util.NetUtil:100)- Loopback interface: lo0
+DEBUG (io.netty.util.NetUtil:105)- Loopback address: /fe80:0:0:0:0:0:0:1%1 (primary)
+DEBUG (io.netty.util.NetUtil:108)- Loopback address: /0:0:0:0:0:0:0:1
+DEBUG (io.netty.util.NetUtil:108)- Loopback address: /127.0.0.1
+DEBUG (com.alacoder.lion.remote.netty.NettyChannel:181)- NettyChannel open: lion://192.168.137.1:7080/ local=/192.168.137.1:7080
+INFO (com.alacoder.lion.remote.AbstractServer:346)- NettyServer open success , url = lion://192.168.137.1:7080/
+INFO (com.alacoder.lion.rpc.AbstractNode:281)- DefaultRpcExporter node init Success: [DefaultRpcExporter] url=lion://192.168.137.1:7080/com.alacoder.lion.rpc.DemoService?group=demoGroup
+INFO (com.alacoder.lion.rpc.AbstractProtocol:281)- DefaultRpcProtocol export Success: url=lion://192.168.137.1:7080/com.alacoder.lion.rpc.DemoService?group=demoGroup
+INFO (com.alacoder.lion.registry.api.AbstractRegistry:346)- [DirectRegistry] Url (lion://192.168.137.1:7080/com.alacoder.lion.rpc.DemoService?group=demoGroup) will register to Registry [direct://127.0.0.1:6000/default_rpc/com.alacoder.lion.registry.api.RegistryService/1.0/service]
+INFO (com.alacoder.lion.registry.api.AbstractRegistry:346)- [DirectRegistry] Listener (com.alacoder.lion.rpc.ha.ClusterSupport@7fc84be9) will subscribe to url (lion://192.168.137.1:0/com.alacoder.lion.rpc.DemoService?group=demoGroup) in Registry [direct://127.0.0.1:6000/default_rpc/com.alacoder.lion.registry.api.RegistryService/1.0/service]
+INFO (com.alacoder.lion.rpc.ha.ClusterSupport:346)- ClusterSupport config change notify: registry=direct://127.0.0.1:6000/com.alacoder.lion.registry.api.RegistryService service=lion://192.168.137.1:0/demoGroup/com.alacoder.lion.rpc.DemoService/1.0/referer urls=[lion://192.168.137.1:7080/demoGroup/com.alacoder.lion.rpc.DemoService/1.0/service]
+INFO (com.alacoder.lion.rpc.ha.ClusterSupport:281)- refresh weight. weight=
+INFO (com.alacoder.lion.rpc.ha.AbstractLoadBalance:281)- ignore weightString:
+INFO (com.alacoder.lion.remote.netty.NettyChannelHandler:281)- chanel active [id: 0x5e557be2, /192.168.137.1:65435 => /192.168.137.1:7080]
+DEBUG (com.alacoder.lion.remote.netty.NettyChannel:181)- NettyChannel open: lion://192.168.137.1:7080/ local=/192.168.137.1:7080
+DEBUG (com.alacoder.lion.remote.netty.NettyChannelHandler:246)- chanel add  , socket = [id: 0x5e557be2, /192.168.137.1:65435 => /192.168.137.1:7080], size = 1 
+INFO (com.alacoder.lion.remote.netty.NettyChannelHandler:281)- chanel active [id: 0xde151f52, /192.168.137.1:65435 => /192.168.137.1:7080]
+DEBUG (com.alacoder.lion.remote.netty.NettyChannel:181)- NettyChannel open: lion://192.168.137.1:7080/com.alacoder.lion.rpc.DemoService local=/192.168.137.1:65435
+DEBUG (com.alacoder.lion.remote.netty.NettyChannel:181)- NettyChannel open: lion://192.168.137.1:7080/com.alacoder.lion.rpc.DemoService local=/192.168.137.1:65435
+INFO (com.alacoder.lion.rpc.AbstractNode:281)- DefaultRpcReferer node init Success: [DefaultRpcReferer] url=lion://192.168.137.1:7080/com.alacoder.lion.rpc.DemoService?group=demoGroup
+DEBUG (com.alacoder.lion.remote.netty.NettyChannelHandler:246)- chanel add  , socket = [id: 0xde151f52, /192.168.137.1:65435 => /192.168.137.1:7080], size = 1 
+INFO (com.alacoder.lion.rpc.AbstractProtocol:281)- DefaultRpcProtocol refer Success: url=lion://192.168.137.1:7080/com.alacoder.lion.rpc.DemoService?group=demoGroup
+DEBUG (io.netty.util.ResourceLeakDetector:38)- -Dio.netty.noResourceLeakDetection: false
+DEBUG (com.alacoder.lion.remote.netty.NettyChannel:181)- NettyChannel open: lion://192.168.137.1:7080/ local=/192.168.137.1:7080
+DEBUG (com.alacoder.lion.remote.netty.NettyChannelHandler:246)- processRequest , request = com.alacoder.lion.rpc.remote.DefaultRpcRequest@2278eb54 
+DEBUG (com.alacoder.lion.remote.netty.NettyChannelHandler:246)- processRequest , response = com.alacoder.lion.remote.transport.DefaultResponse@45ca5e7a 
+DEBUG (com.alacoder.lion.remote.netty.NettyChannel:181)- NettyChannel send success: lion://192.168.137.1:7080/ local=null
+DEBUG (com.alacoder.lion.remote.netty.NettyChannel:181)- NettyChannel open: lion://192.168.137.1:7080/com.alacoder.lion.rpc.DemoService local=/192.168.137.1:65435
+ERROR (com.alacoder.lion.rpc.RefererInvocationHandler:562)- RefererInvocationHandler invoke Error: uri=lion://192.168.137.1:0/com.alacoder.lion.rpc.DemoService requestId=1556668819792986113 interface=com.alacoder.lion.rpc.DemoService method=hello(java.lang.String)
+com.alacoder.common.exception.LionServiceException: error_message: ClusterSpi Call false for request: com.alacoder.lion.rpc.remote.DefaultRpcRequest@1dc7e0e8, status: 503, error_code: 10001,r=
+	at com.alacoder.lion.rpc.ha.ClusterSpi.callFalse(ClusterSpi.java:192)
+	at com.alacoder.lion.rpc.ha.ClusterSpi.call(ClusterSpi.java:75)
+	at com.alacoder.lion.rpc.RefererInvocationHandler.invoke(RefererInvocationHandler.java:103)
+	at com.sun.proxy.$Proxy6.hello(Unknown Source)
+	at com.alacoder.lion.config.RefererConfigTest.main(RefererConfigTest.java:57)
+Caused by: java.lang.ClassCastException: com.alacoder.lion.remote.transport.DefaultResponse cannot be cast to com.alacoder.lion.rpc.remote.RpcResponse
+	at com.alacoder.lion.rpc.DefaultRpcReferer.doCall(DefaultRpcReferer.java:62)
+	at com.alacoder.lion.rpc.AbstractReferer.call(AbstractReferer.java:65)
+	at com.alacoder.lion.rpc.ha.FailoverHaStrategy.call(FailoverHaStrategy.java:76)
+	at com.alacoder.lion.rpc.ha.ClusterSpi.call(ClusterSpi.java:73)
+	... 3 more
+DEBUG (com.aben.cup.log.logging.LogFactory:181)- Using Log4J as the default logging framework
+WARN (com.alacoder.lion.common.utils.NetUtils:381)- Failed to retriving local address by connecting to dest host:port(127.0.0.1:6000) false, e=java.net.ConnectException: Connection refused
+INFO (com.alacoder.lion.rpc.DefaultMessageHandler:281)- RequestRouter addProvider: url=lion://192.168.137.1:7080/com.alacoder.lion.rpc.DemoService?group=demoGroup all_public_method_count=1
+INFO (com.alacoder.lion.rpc.AbstractEndpointFactory:346)- DefaultNettyEndpointFactory create share_channel server: url=lion://192.168.137.1:7080/com.alacoder.lion.rpc.DemoService?group=demoGroup
+DEBUG (io.netty.util.internal.logging.InternalLoggerFactory:45)- Using Log4J as the default logging framework
+DEBUG (io.netty.channel.MultithreadEventLoopGroup:41)- -Dio.netty.eventLoopThreads: 16
+DEBUG (io.netty.util.internal.PlatformDependent:366)- UID: 812348242
+DEBUG (io.netty.util.internal.PlatformDependent:443)- Java version: 7
+DEBUG (io.netty.util.internal.PlatformDependent:450)- -Dio.netty.noUnsafe: false
+DEBUG (io.netty.util.internal.PlatformDependent0:59)- java.nio.ByteBuffer.cleaner: available
+DEBUG (io.netty.util.internal.PlatformDependent0:78)- java.nio.Buffer.address: available
+DEBUG (io.netty.util.internal.PlatformDependent0:86)- sun.misc.Unsafe.theUnsafe: available
+DEBUG (io.netty.util.internal.PlatformDependent0:96)- sun.misc.Unsafe.copyMemory: available
+DEBUG (io.netty.util.internal.PlatformDependent0:133)- java.nio.Bits.unaligned: true
+DEBUG (io.netty.util.internal.PlatformDependent:477)- sun.misc.Unsafe: available
+DEBUG (io.netty.util.internal.PlatformDependent:555)- -Dio.netty.noJavassist: false
+DEBUG (io.netty.util.internal.PlatformDependent:567)- Javassist: unavailable
+DEBUG (io.netty.util.internal.PlatformDependent:568)- You don't have Javassist in your class path or you don't have enough permission to load dynamically generated classes.  Please check the configuration for better performance.
+DEBUG (io.netty.util.internal.PlatformDependent:76)- -Dio.netty.noPreferDirect: false
+DEBUG (io.netty.channel.nio.NioEventLoop:88)- -Dio.netty.noKeySetOptimization: false
+DEBUG (io.netty.channel.nio.NioEventLoop:89)- -Dio.netty.selectorAutoRebuildThreshold: 512
+INFO (com.alacoder.lion.remote.netty.NettyServer:346)- NettyServer init success : url=lion://192.168.137.1:7080/
+DEBUG (io.netty.util.NetUtil:100)- Loopback interface: lo0
+DEBUG (io.netty.util.NetUtil:105)- Loopback address: /fe80:0:0:0:0:0:0:1%1 (primary)
+DEBUG (io.netty.util.NetUtil:108)- Loopback address: /0:0:0:0:0:0:0:1
+DEBUG (io.netty.util.NetUtil:108)- Loopback address: /127.0.0.1
+DEBUG (com.alacoder.lion.remote.netty.NettyChannel:181)- NettyChannel open: lion://192.168.137.1:7080/ local=/192.168.137.1:7080
+INFO (com.alacoder.lion.remote.AbstractServer:346)- NettyServer open success , url = lion://192.168.137.1:7080/
+INFO (com.alacoder.lion.rpc.AbstractNode:281)- DefaultRpcExporter node init Success: [DefaultRpcExporter] url=lion://192.168.137.1:7080/com.alacoder.lion.rpc.DemoService?group=demoGroup
+INFO (com.alacoder.lion.rpc.AbstractProtocol:281)- DefaultRpcProtocol export Success: url=lion://192.168.137.1:7080/com.alacoder.lion.rpc.DemoService?group=demoGroup
+INFO (com.alacoder.lion.registry.api.AbstractRegistry:346)- [DirectRegistry] Url (lion://192.168.137.1:7080/com.alacoder.lion.rpc.DemoService?group=demoGroup) will register to Registry [direct://127.0.0.1:6000/default_rpc/com.alacoder.lion.registry.api.RegistryService/1.0/service]
+INFO (com.alacoder.lion.registry.api.AbstractRegistry:346)- [DirectRegistry] Listener (com.alacoder.lion.rpc.ha.ClusterSupport@250a51) will subscribe to url (lion://192.168.137.1:0/com.alacoder.lion.rpc.DemoService?group=demoGroup) in Registry [direct://127.0.0.1:6000/default_rpc/com.alacoder.lion.registry.api.RegistryService/1.0/service]
+INFO (com.alacoder.lion.rpc.ha.ClusterSupport:346)- ClusterSupport config change notify: registry=direct://127.0.0.1:6000/com.alacoder.lion.registry.api.RegistryService service=lion://192.168.137.1:0/demoGroup/com.alacoder.lion.rpc.DemoService/1.0/referer urls=[lion://192.168.137.1:7080/demoGroup/com.alacoder.lion.rpc.DemoService/1.0/service]
+INFO (com.alacoder.lion.rpc.ha.ClusterSupport:281)- refresh weight. weight=
+INFO (com.alacoder.lion.rpc.ha.AbstractLoadBalance:281)- ignore weightString:
+INFO (com.alacoder.lion.remote.netty.NettyChannelHandler:281)- chanel active [id: 0xdf3b84ac, /192.168.137.1:65440 => /192.168.137.1:7080]
+DEBUG (com.alacoder.lion.remote.netty.NettyChannel:181)- NettyChannel open: lion://192.168.137.1:7080/ local=/192.168.137.1:7080
+DEBUG (com.alacoder.lion.remote.netty.NettyChannelHandler:246)- chanel add  , socket = [id: 0xdf3b84ac, /192.168.137.1:65440 => /192.168.137.1:7080], size = 1 
+INFO (com.alacoder.lion.remote.netty.NettyChannelHandler:281)- chanel active [id: 0x3fa14ce1, /192.168.137.1:65440 => /192.168.137.1:7080]
+DEBUG (com.alacoder.lion.remote.netty.NettyChannel:181)- NettyChannel open: lion://192.168.137.1:7080/com.alacoder.lion.rpc.DemoService local=/192.168.137.1:65440
+DEBUG (com.alacoder.lion.remote.netty.NettyChannel:181)- NettyChannel open: lion://192.168.137.1:7080/com.alacoder.lion.rpc.DemoService local=/192.168.137.1:65440
+INFO (com.alacoder.lion.rpc.AbstractNode:281)- DefaultRpcReferer node init Success: [DefaultRpcReferer] url=lion://192.168.137.1:7080/com.alacoder.lion.rpc.DemoService?group=demoGroup
+INFO (com.alacoder.lion.rpc.AbstractProtocol:281)- DefaultRpcProtocol refer Success: url=lion://192.168.137.1:7080/com.alacoder.lion.rpc.DemoService?group=demoGroup
+DEBUG (com.alacoder.lion.remote.netty.NettyChannelHandler:246)- chanel add  , socket = [id: 0x3fa14ce1, /192.168.137.1:65440 => /192.168.137.1:7080], size = 1 
+DEBUG (io.netty.util.ResourceLeakDetector:38)- -Dio.netty.noResourceLeakDetection: false
+DEBUG (com.alacoder.lion.remote.netty.NettyChannel:181)- NettyChannel open: lion://192.168.137.1:7080/ local=/192.168.137.1:7080
+DEBUG (com.alacoder.lion.remote.netty.NettyChannelHandler:246)- processRequest , request = com.alacoder.lion.rpc.remote.DefaultRpcRequest@36325538 
+DEBUG (com.alacoder.lion.remote.netty.NettyChannelHandler:246)- processRequest , response = com.alacoder.lion.remote.transport.DefaultResponse@3ad25119 
+DEBUG (com.alacoder.lion.remote.netty.NettyChannel:181)- NettyChannel send success: lion://192.168.137.1:7080/ local=null
+DEBUG (com.alacoder.lion.remote.netty.NettyChannel:181)- NettyChannel open: lion://192.168.137.1:7080/com.alacoder.lion.rpc.DemoService local=/192.168.137.1:65440
+ERROR (com.alacoder.lion.rpc.RefererInvocationHandler:562)- RefererInvocationHandler invoke Error: uri=lion://192.168.137.1:0/com.alacoder.lion.rpc.DemoService requestId=1556668834636627969 interface=com.alacoder.lion.rpc.DemoService method=hello(java.lang.String)
+com.alacoder.common.exception.LionServiceException: error_message: ClusterSpi Call false for request: com.alacoder.lion.rpc.remote.DefaultRpcRequest@1f3c0665, status: 503, error_code: 10001,r=
+	at com.alacoder.lion.rpc.ha.ClusterSpi.callFalse(ClusterSpi.java:192)
+	at com.alacoder.lion.rpc.ha.ClusterSpi.call(ClusterSpi.java:75)
+	at com.alacoder.lion.rpc.RefererInvocationHandler.invoke(RefererInvocationHandler.java:103)
+	at com.sun.proxy.$Proxy6.hello(Unknown Source)
+	at com.alacoder.lion.config.RefererConfigTest.main(RefererConfigTest.java:57)
+Caused by: java.lang.ClassCastException: com.alacoder.lion.remote.transport.DefaultResponse cannot be cast to com.alacoder.lion.rpc.remote.RpcResponse
+	at com.alacoder.lion.rpc.DefaultRpcReferer.doCall(DefaultRpcReferer.java:62)
+	at com.alacoder.lion.rpc.AbstractReferer.call(AbstractReferer.java:65)
+	at com.alacoder.lion.rpc.ha.FailoverHaStrategy.call(FailoverHaStrategy.java:76)
+	at com.alacoder.lion.rpc.ha.ClusterSpi.call(ClusterSpi.java:73)
+	... 3 more
+DEBUG (com.aben.cup.log.logging.LogFactory:181)- Using Log4J as the default logging framework
+INFO (com.alacoder.lion.rpc.DefaultMessageHandler:281)- RequestRouter addProvider: url=lion://192.168.137.1:7080/com.alacoder.lion.rpc.DemoService?group=demoGroup all_public_method_count=1
+INFO (com.alacoder.lion.rpc.AbstractEndpointFactory:346)- DefaultNettyEndpointFactory create share_channel server: url=lion://192.168.137.1:7080/com.alacoder.lion.rpc.DemoService?group=demoGroup
+DEBUG (io.netty.util.internal.logging.InternalLoggerFactory:45)- Using Log4J as the default logging framework
+DEBUG (io.netty.channel.MultithreadEventLoopGroup:41)- -Dio.netty.eventLoopThreads: 16
+DEBUG (io.netty.util.internal.PlatformDependent:366)- UID: 812348242
+DEBUG (io.netty.util.internal.PlatformDependent:443)- Java version: 7
+DEBUG (io.netty.util.internal.PlatformDependent:450)- -Dio.netty.noUnsafe: false
+DEBUG (io.netty.util.internal.PlatformDependent0:59)- java.nio.ByteBuffer.cleaner: available
+DEBUG (io.netty.util.internal.PlatformDependent0:78)- java.nio.Buffer.address: available
+DEBUG (io.netty.util.internal.PlatformDependent0:86)- sun.misc.Unsafe.theUnsafe: available
+DEBUG (io.netty.util.internal.PlatformDependent0:96)- sun.misc.Unsafe.copyMemory: available
+DEBUG (io.netty.util.internal.PlatformDependent0:133)- java.nio.Bits.unaligned: true
+DEBUG (io.netty.util.internal.PlatformDependent:477)- sun.misc.Unsafe: available
+DEBUG (io.netty.util.internal.PlatformDependent:555)- -Dio.netty.noJavassist: false
+DEBUG (io.netty.util.internal.PlatformDependent:567)- Javassist: unavailable
+DEBUG (io.netty.util.internal.PlatformDependent:568)- You don't have Javassist in your class path or you don't have enough permission to load dynamically generated classes.  Please check the configuration for better performance.
+DEBUG (io.netty.util.internal.PlatformDependent:76)- -Dio.netty.noPreferDirect: false
+DEBUG (io.netty.channel.nio.NioEventLoop:88)- -Dio.netty.noKeySetOptimization: false
+DEBUG (io.netty.channel.nio.NioEventLoop:89)- -Dio.netty.selectorAutoRebuildThreshold: 512
+INFO (com.alacoder.lion.remote.netty.NettyServer:346)- NettyServer init success : url=lion://192.168.137.1:7080/
+DEBUG (io.netty.util.NetUtil:100)- Loopback interface: lo0
+DEBUG (io.netty.util.NetUtil:105)- Loopback address: /fe80:0:0:0:0:0:0:1%1 (primary)
+DEBUG (io.netty.util.NetUtil:108)- Loopback address: /0:0:0:0:0:0:0:1
+DEBUG (io.netty.util.NetUtil:108)- Loopback address: /127.0.0.1
+ERROR (com.alacoder.lion.remote.netty.NettyServer:562)- NettyServer error  
+java.net.BindException: Address already in use
+	at sun.nio.ch.Net.bind0(Native Method)
+	at sun.nio.ch.Net.bind(Net.java:444)
+	at sun.nio.ch.Net.bind(Net.java:436)
+	at sun.nio.ch.ServerSocketChannelImpl.bind(ServerSocketChannelImpl.java:214)
+	at sun.nio.ch.ServerSocketAdaptor.bind(ServerSocketAdaptor.java:74)
+	at io.netty.channel.socket.nio.NioServerSocketChannel.doBind(NioServerSocketChannel.java:101)
+	at io.netty.channel.AbstractChannel$AbstractUnsafe.bind(AbstractChannel.java:459)
+	at io.netty.channel.DefaultChannelPipeline$HeadHandler.bind(DefaultChannelPipeline.java:995)
+	at io.netty.channel.DefaultChannelHandlerContext.invokeBind0(DefaultChannelHandlerContext.java:492)
+	at io.netty.channel.DefaultChannelHandlerContext.invokeBind(DefaultChannelHandlerContext.java:478)
+	at io.netty.channel.DefaultChannelHandlerContext.bind(DefaultChannelHandlerContext.java:472)
+	at io.netty.channel.DefaultChannelPipeline.bind(DefaultChannelPipeline.java:837)
+	at io.netty.channel.AbstractChannel.bind(AbstractChannel.java:186)
+	at io.netty.bootstrap.AbstractBootstrap$2.run(AbstractBootstrap.java:321)
+	at io.netty.util.concurrent.SingleThreadEventExecutor.runAllTasks(SingleThreadEventExecutor.java:353)
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:366)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$2.run(SingleThreadEventExecutor.java:101)
+	at java.lang.Thread.run(Thread.java:745)
+DEBUG (com.aben.cup.log.logging.LogFactory:181)- Using Log4J as the default logging framework
+INFO (com.alacoder.lion.rpc.DefaultMessageHandler:281)- RequestRouter addProvider: url=lion://192.168.137.1:7080/com.alacoder.lion.rpc.DemoService?group=demoGroup all_public_method_count=1
+INFO (com.alacoder.lion.rpc.AbstractEndpointFactory:346)- DefaultNettyEndpointFactory create share_channel server: url=lion://192.168.137.1:7080/com.alacoder.lion.rpc.DemoService?group=demoGroup
+DEBUG (io.netty.util.internal.logging.InternalLoggerFactory:45)- Using Log4J as the default logging framework
+DEBUG (io.netty.channel.MultithreadEventLoopGroup:41)- -Dio.netty.eventLoopThreads: 16
+DEBUG (io.netty.util.internal.PlatformDependent:366)- UID: 812348242
+DEBUG (io.netty.util.internal.PlatformDependent:443)- Java version: 7
+DEBUG (io.netty.util.internal.PlatformDependent:450)- -Dio.netty.noUnsafe: false
+DEBUG (io.netty.util.internal.PlatformDependent0:59)- java.nio.ByteBuffer.cleaner: available
+DEBUG (io.netty.util.internal.PlatformDependent0:78)- java.nio.Buffer.address: available
+DEBUG (io.netty.util.internal.PlatformDependent0:86)- sun.misc.Unsafe.theUnsafe: available
+DEBUG (io.netty.util.internal.PlatformDependent0:96)- sun.misc.Unsafe.copyMemory: available
+DEBUG (io.netty.util.internal.PlatformDependent0:133)- java.nio.Bits.unaligned: true
+DEBUG (io.netty.util.internal.PlatformDependent:477)- sun.misc.Unsafe: available
+DEBUG (io.netty.util.internal.PlatformDependent:555)- -Dio.netty.noJavassist: false
+DEBUG (io.netty.util.internal.PlatformDependent:567)- Javassist: unavailable
+DEBUG (io.netty.util.internal.PlatformDependent:568)- You don't have Javassist in your class path or you don't have enough permission to load dynamically generated classes.  Please check the configuration for better performance.
+DEBUG (io.netty.util.internal.PlatformDependent:76)- -Dio.netty.noPreferDirect: false
+DEBUG (io.netty.channel.nio.NioEventLoop:88)- -Dio.netty.noKeySetOptimization: false
+DEBUG (io.netty.channel.nio.NioEventLoop:89)- -Dio.netty.selectorAutoRebuildThreshold: 512
+INFO (com.alacoder.lion.remote.netty.NettyServer:346)- NettyServer init success : url=lion://192.168.137.1:7080/
+DEBUG (io.netty.util.NetUtil:100)- Loopback interface: lo0
+DEBUG (io.netty.util.NetUtil:105)- Loopback address: /fe80:0:0:0:0:0:0:1%1 (primary)
+DEBUG (io.netty.util.NetUtil:108)- Loopback address: /0:0:0:0:0:0:0:1
+DEBUG (io.netty.util.NetUtil:108)- Loopback address: /127.0.0.1
+ERROR (com.alacoder.lion.remote.netty.NettyServer:562)- NettyServer error  
+java.net.BindException: Address already in use
+	at sun.nio.ch.Net.bind0(Native Method)
+	at sun.nio.ch.Net.bind(Net.java:444)
+	at sun.nio.ch.Net.bind(Net.java:436)
+	at sun.nio.ch.ServerSocketChannelImpl.bind(ServerSocketChannelImpl.java:214)
+	at sun.nio.ch.ServerSocketAdaptor.bind(ServerSocketAdaptor.java:74)
+	at io.netty.channel.socket.nio.NioServerSocketChannel.doBind(NioServerSocketChannel.java:101)
+	at io.netty.channel.AbstractChannel$AbstractUnsafe.bind(AbstractChannel.java:459)
+	at io.netty.channel.DefaultChannelPipeline$HeadHandler.bind(DefaultChannelPipeline.java:995)
+	at io.netty.channel.DefaultChannelHandlerContext.invokeBind0(DefaultChannelHandlerContext.java:492)
+	at io.netty.channel.DefaultChannelHandlerContext.invokeBind(DefaultChannelHandlerContext.java:478)
+	at io.netty.channel.DefaultChannelHandlerContext.bind(DefaultChannelHandlerContext.java:472)
+	at io.netty.channel.DefaultChannelPipeline.bind(DefaultChannelPipeline.java:837)
+	at io.netty.channel.AbstractChannel.bind(AbstractChannel.java:186)
+	at io.netty.bootstrap.AbstractBootstrap$2.run(AbstractBootstrap.java:321)
+	at io.netty.util.concurrent.SingleThreadEventExecutor.runAllTasks(SingleThreadEventExecutor.java:353)
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:366)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$2.run(SingleThreadEventExecutor.java:101)
+	at java.lang.Thread.run(Thread.java:745)
+DEBUG (com.aben.cup.log.logging.LogFactory:181)- Using Log4J as the default logging framework
+INFO (com.alacoder.lion.rpc.DefaultMessageHandler:281)- RequestRouter addProvider: url=lion://192.168.137.1:7080/com.alacoder.lion.rpc.DemoService?group=demoGroup all_public_method_count=1
+INFO (com.alacoder.lion.rpc.AbstractEndpointFactory:346)- DefaultNettyEndpointFactory create share_channel server: url=lion://192.168.137.1:7080/com.alacoder.lion.rpc.DemoService?group=demoGroup
+DEBUG (io.netty.util.internal.logging.InternalLoggerFactory:45)- Using Log4J as the default logging framework
+DEBUG (io.netty.channel.MultithreadEventLoopGroup:41)- -Dio.netty.eventLoopThreads: 16
+DEBUG (io.netty.util.internal.PlatformDependent:366)- UID: 812348242
+DEBUG (io.netty.util.internal.PlatformDependent:443)- Java version: 7
+DEBUG (io.netty.util.internal.PlatformDependent:450)- -Dio.netty.noUnsafe: false
+DEBUG (io.netty.util.internal.PlatformDependent0:59)- java.nio.ByteBuffer.cleaner: available
+DEBUG (io.netty.util.internal.PlatformDependent0:78)- java.nio.Buffer.address: available
+DEBUG (io.netty.util.internal.PlatformDependent0:86)- sun.misc.Unsafe.theUnsafe: available
+DEBUG (io.netty.util.internal.PlatformDependent0:96)- sun.misc.Unsafe.copyMemory: available
+DEBUG (io.netty.util.internal.PlatformDependent0:133)- java.nio.Bits.unaligned: true
+DEBUG (io.netty.util.internal.PlatformDependent:477)- sun.misc.Unsafe: available
+DEBUG (io.netty.util.internal.PlatformDependent:555)- -Dio.netty.noJavassist: false
+DEBUG (io.netty.util.internal.PlatformDependent:567)- Javassist: unavailable
+DEBUG (io.netty.util.internal.PlatformDependent:568)- You don't have Javassist in your class path or you don't have enough permission to load dynamically generated classes.  Please check the configuration for better performance.
+DEBUG (io.netty.util.internal.PlatformDependent:76)- -Dio.netty.noPreferDirect: false
+DEBUG (io.netty.channel.nio.NioEventLoop:88)- -Dio.netty.noKeySetOptimization: false
+DEBUG (io.netty.channel.nio.NioEventLoop:89)- -Dio.netty.selectorAutoRebuildThreshold: 512
+INFO (com.alacoder.lion.remote.netty.NettyServer:346)- NettyServer init success : url=lion://192.168.137.1:7080/
+DEBUG (io.netty.util.NetUtil:100)- Loopback interface: lo0
+DEBUG (io.netty.util.NetUtil:105)- Loopback address: /fe80:0:0:0:0:0:0:1%1 (primary)
+DEBUG (io.netty.util.NetUtil:108)- Loopback address: /0:0:0:0:0:0:0:1
+DEBUG (io.netty.util.NetUtil:108)- Loopback address: /127.0.0.1
+DEBUG (com.aben.cup.log.logging.LogFactory:181)- Using Log4J as the default logging framework
+INFO (com.alacoder.lion.rpc.DefaultMessageHandler:281)- RequestRouter addProvider: url=lion://192.168.137.1:7080/com.alacoder.lion.rpc.DemoService?group=demoGroup all_public_method_count=1
+INFO (com.alacoder.lion.rpc.AbstractEndpointFactory:346)- DefaultNettyEndpointFactory create share_channel server: url=lion://192.168.137.1:7080/com.alacoder.lion.rpc.DemoService?group=demoGroup
+DEBUG (io.netty.util.internal.logging.InternalLoggerFactory:45)- Using Log4J as the default logging framework
+DEBUG (io.netty.channel.MultithreadEventLoopGroup:41)- -Dio.netty.eventLoopThreads: 16
+DEBUG (io.netty.util.internal.PlatformDependent:366)- UID: 812348242
+DEBUG (io.netty.util.internal.PlatformDependent:443)- Java version: 7
+DEBUG (io.netty.util.internal.PlatformDependent:450)- -Dio.netty.noUnsafe: false
+DEBUG (io.netty.util.internal.PlatformDependent0:59)- java.nio.ByteBuffer.cleaner: available
+DEBUG (io.netty.util.internal.PlatformDependent0:78)- java.nio.Buffer.address: available
+DEBUG (io.netty.util.internal.PlatformDependent0:86)- sun.misc.Unsafe.theUnsafe: available
+DEBUG (io.netty.util.internal.PlatformDependent0:96)- sun.misc.Unsafe.copyMemory: available
+DEBUG (io.netty.util.internal.PlatformDependent0:133)- java.nio.Bits.unaligned: true
+DEBUG (io.netty.util.internal.PlatformDependent:477)- sun.misc.Unsafe: available
+DEBUG (io.netty.util.internal.PlatformDependent:555)- -Dio.netty.noJavassist: false
+DEBUG (io.netty.util.internal.PlatformDependent:567)- Javassist: unavailable
+DEBUG (io.netty.util.internal.PlatformDependent:568)- You don't have Javassist in your class path or you don't have enough permission to load dynamically generated classes.  Please check the configuration for better performance.
+DEBUG (io.netty.util.internal.PlatformDependent:76)- -Dio.netty.noPreferDirect: false
+DEBUG (io.netty.channel.nio.NioEventLoop:88)- -Dio.netty.noKeySetOptimization: false
+DEBUG (io.netty.channel.nio.NioEventLoop:89)- -Dio.netty.selectorAutoRebuildThreshold: 512
+INFO (com.alacoder.lion.remote.netty.NettyServer:346)- NettyServer init success : url=lion://192.168.137.1:7080/
+DEBUG (io.netty.util.NetUtil:100)- Loopback interface: lo0
+DEBUG (io.netty.util.NetUtil:105)- Loopback address: /fe80:0:0:0:0:0:0:1%1 (primary)
+DEBUG (io.netty.util.NetUtil:108)- Loopback address: /0:0:0:0:0:0:0:1
+DEBUG (io.netty.util.NetUtil:108)- Loopback address: /127.0.0.1
+DEBUG (com.alacoder.lion.remote.netty.NettyChannel:181)- NettyChannel open: lion://192.168.137.1:7080/ local=/192.168.137.1:7080
+INFO (com.alacoder.lion.remote.AbstractServer:346)- NettyServer open success , url = lion://192.168.137.1:7080/
+INFO (com.alacoder.lion.rpc.AbstractNode:281)- DefaultRpcExporter node init Success: [DefaultRpcExporter] url=lion://192.168.137.1:7080/com.alacoder.lion.rpc.DemoService?group=demoGroup
+INFO (com.alacoder.lion.rpc.AbstractProtocol:281)- DefaultRpcProtocol export Success: url=lion://192.168.137.1:7080/com.alacoder.lion.rpc.DemoService?group=demoGroup
+INFO (com.alacoder.lion.registry.api.AbstractRegistry:346)- [DirectRegistry] Url (lion://192.168.137.1:7080/com.alacoder.lion.rpc.DemoService?group=demoGroup) will register to Registry [direct://127.0.0.1:6000/default_rpc/com.alacoder.lion.registry.api.RegistryService/1.0/service]
+INFO (com.alacoder.lion.registry.api.AbstractRegistry:346)- [DirectRegistry] Listener (com.alacoder.lion.rpc.ha.ClusterSupport@3764253e) will subscribe to url (lion://192.168.137.1:0/com.alacoder.lion.rpc.DemoService?group=demoGroup) in Registry [direct://127.0.0.1:6000/default_rpc/com.alacoder.lion.registry.api.RegistryService/1.0/service]
+INFO (com.alacoder.lion.rpc.ha.ClusterSupport:346)- ClusterSupport config change notify: registry=direct://127.0.0.1:6000/com.alacoder.lion.registry.api.RegistryService service=lion://192.168.137.1:0/demoGroup/com.alacoder.lion.rpc.DemoService/1.0/referer urls=[lion://192.168.137.1:7080/demoGroup/com.alacoder.lion.rpc.DemoService/1.0/service]
+INFO (com.alacoder.lion.rpc.ha.ClusterSupport:281)- refresh weight. weight=
+INFO (com.alacoder.lion.rpc.ha.AbstractLoadBalance:281)- ignore weightString:
+INFO (com.alacoder.lion.remote.netty.NettyChannelHandler:281)- chanel active [id: 0x84cfd9e4, /192.168.137.1:65161 => /192.168.137.1:7080]
+DEBUG (com.alacoder.lion.remote.netty.NettyChannel:181)- NettyChannel open: lion://192.168.137.1:7080/ local=/192.168.137.1:7080
+DEBUG (com.alacoder.lion.remote.netty.NettyChannelHandler:246)- chanel add  , socket = [id: 0x84cfd9e4, /192.168.137.1:65161 => /192.168.137.1:7080], size = 1 
+DEBUG (com.alacoder.lion.remote.netty.NettyChannel:181)- NettyChannel open: lion://192.168.137.1:7080/com.alacoder.lion.rpc.DemoService local=/192.168.137.1:65161
+INFO (com.alacoder.lion.remote.netty.NettyChannelHandler:281)- chanel active [id: 0x845f7562, /192.168.137.1:65161 => /192.168.137.1:7080]
+INFO (com.alacoder.lion.rpc.AbstractNode:281)- DefaultRpcReferer node init Success: [DefaultRpcReferer] url=lion://192.168.137.1:7080/com.alacoder.lion.rpc.DemoService?group=demoGroup
+DEBUG (com.alacoder.lion.remote.netty.NettyChannel:181)- NettyChannel open: lion://192.168.137.1:7080/com.alacoder.lion.rpc.DemoService local=/192.168.137.1:65161
+INFO (com.alacoder.lion.rpc.AbstractProtocol:281)- DefaultRpcProtocol refer Success: url=lion://192.168.137.1:7080/com.alacoder.lion.rpc.DemoService?group=demoGroup
+DEBUG (com.alacoder.lion.remote.netty.NettyChannelHandler:246)- chanel add  , socket = [id: 0x845f7562, /192.168.137.1:65161 => /192.168.137.1:7080], size = 1 
+DEBUG (io.netty.util.ResourceLeakDetector:38)- -Dio.netty.noResourceLeakDetection: false
+DEBUG (com.alacoder.lion.remote.netty.NettyChannel:181)- NettyChannel open: lion://192.168.137.1:7080/ local=/192.168.137.1:7080
+DEBUG (com.alacoder.lion.remote.netty.NettyChannelHandler:246)- processRequest , request = com.alacoder.lion.rpc.remote.DefaultRpcRequest@59298a3b 
+DEBUG (com.alacoder.lion.remote.netty.NettyChannelHandler:246)- processRequest , response = com.alacoder.lion.remote.transport.DefaultResponse@2261adb1 
+DEBUG (com.alacoder.lion.remote.netty.NettyChannel:181)- NettyChannel send fail: lion://192.168.137.1:7080/ local=null
+DEBUG (com.aben.cup.log.logging.LogFactory:181)- Using Log4J as the default logging framework
+INFO (com.alacoder.lion.rpc.DefaultMessageHandler:281)- RequestRouter addProvider: url=lion://192.168.137.1:7080/com.alacoder.lion.rpc.DemoService?group=demoGroup all_public_method_count=1
+INFO (com.alacoder.lion.rpc.AbstractEndpointFactory:346)- DefaultNettyEndpointFactory create share_channel server: url=lion://192.168.137.1:7080/com.alacoder.lion.rpc.DemoService?group=demoGroup
+DEBUG (io.netty.util.internal.logging.InternalLoggerFactory:45)- Using Log4J as the default logging framework
+DEBUG (io.netty.channel.MultithreadEventLoopGroup:41)- -Dio.netty.eventLoopThreads: 16
+DEBUG (io.netty.util.internal.PlatformDependent:366)- UID: 812348242
+DEBUG (io.netty.util.internal.PlatformDependent:443)- Java version: 7
+DEBUG (io.netty.util.internal.PlatformDependent:450)- -Dio.netty.noUnsafe: false
+DEBUG (io.netty.util.internal.PlatformDependent0:59)- java.nio.ByteBuffer.cleaner: available
+DEBUG (io.netty.util.internal.PlatformDependent0:78)- java.nio.Buffer.address: available
+DEBUG (io.netty.util.internal.PlatformDependent0:86)- sun.misc.Unsafe.theUnsafe: available
+DEBUG (io.netty.util.internal.PlatformDependent0:96)- sun.misc.Unsafe.copyMemory: available
+DEBUG (io.netty.util.internal.PlatformDependent0:133)- java.nio.Bits.unaligned: true
+DEBUG (io.netty.util.internal.PlatformDependent:477)- sun.misc.Unsafe: available
+DEBUG (io.netty.util.internal.PlatformDependent:555)- -Dio.netty.noJavassist: false
+DEBUG (io.netty.util.internal.PlatformDependent:567)- Javassist: unavailable
+DEBUG (io.netty.util.internal.PlatformDependent:568)- You don't have Javassist in your class path or you don't have enough permission to load dynamically generated classes.  Please check the configuration for better performance.
+DEBUG (io.netty.util.internal.PlatformDependent:76)- -Dio.netty.noPreferDirect: false
+DEBUG (io.netty.channel.nio.NioEventLoop:88)- -Dio.netty.noKeySetOptimization: false
+DEBUG (io.netty.channel.nio.NioEventLoop:89)- -Dio.netty.selectorAutoRebuildThreshold: 512
+INFO (com.alacoder.lion.remote.netty.NettyServer:346)- NettyServer init success : url=lion://192.168.137.1:7080/
+DEBUG (io.netty.util.NetUtil:100)- Loopback interface: lo0
+DEBUG (io.netty.util.NetUtil:105)- Loopback address: /fe80:0:0:0:0:0:0:1%1 (primary)
+DEBUG (io.netty.util.NetUtil:108)- Loopback address: /0:0:0:0:0:0:0:1
+DEBUG (io.netty.util.NetUtil:108)- Loopback address: /127.0.0.1
+ERROR (com.alacoder.lion.remote.netty.NettyServer:562)- NettyServer error  
+java.net.BindException: Address already in use
+	at sun.nio.ch.Net.bind0(Native Method)
+	at sun.nio.ch.Net.bind(Net.java:444)
+	at sun.nio.ch.Net.bind(Net.java:436)
+	at sun.nio.ch.ServerSocketChannelImpl.bind(ServerSocketChannelImpl.java:214)
+	at sun.nio.ch.ServerSocketAdaptor.bind(ServerSocketAdaptor.java:74)
+	at io.netty.channel.socket.nio.NioServerSocketChannel.doBind(NioServerSocketChannel.java:101)
+	at io.netty.channel.AbstractChannel$AbstractUnsafe.bind(AbstractChannel.java:459)
+	at io.netty.channel.DefaultChannelPipeline$HeadHandler.bind(DefaultChannelPipeline.java:995)
+	at io.netty.channel.DefaultChannelHandlerContext.invokeBind0(DefaultChannelHandlerContext.java:492)
+	at io.netty.channel.DefaultChannelHandlerContext.invokeBind(DefaultChannelHandlerContext.java:478)
+	at io.netty.channel.DefaultChannelHandlerContext.bind(DefaultChannelHandlerContext.java:472)
+	at io.netty.channel.DefaultChannelPipeline.bind(DefaultChannelPipeline.java:837)
+	at io.netty.channel.AbstractChannel.bind(AbstractChannel.java:186)
+	at io.netty.bootstrap.AbstractBootstrap$2.run(AbstractBootstrap.java:321)
+	at io.netty.util.concurrent.SingleThreadEventExecutor.runAllTasks(SingleThreadEventExecutor.java:353)
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:366)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$2.run(SingleThreadEventExecutor.java:101)
+	at java.lang.Thread.run(Thread.java:745)
+DEBUG (com.aben.cup.log.logging.LogFactory:181)- Using Log4J as the default logging framework
+INFO (com.alacoder.lion.rpc.DefaultMessageHandler:281)- RequestRouter addProvider: url=lion://192.168.137.1:7080/com.alacoder.lion.rpc.DemoService?group=demoGroup all_public_method_count=1
+INFO (com.alacoder.lion.rpc.AbstractEndpointFactory:346)- DefaultNettyEndpointFactory create share_channel server: url=lion://192.168.137.1:7080/com.alacoder.lion.rpc.DemoService?group=demoGroup
+DEBUG (io.netty.util.internal.logging.InternalLoggerFactory:45)- Using Log4J as the default logging framework
+DEBUG (io.netty.channel.MultithreadEventLoopGroup:41)- -Dio.netty.eventLoopThreads: 16
+DEBUG (io.netty.util.internal.PlatformDependent:366)- UID: 812348242
+DEBUG (io.netty.util.internal.PlatformDependent:443)- Java version: 7
+DEBUG (io.netty.util.internal.PlatformDependent:450)- -Dio.netty.noUnsafe: false
+DEBUG (io.netty.util.internal.PlatformDependent0:59)- java.nio.ByteBuffer.cleaner: available
+DEBUG (io.netty.util.internal.PlatformDependent0:78)- java.nio.Buffer.address: available
+DEBUG (io.netty.util.internal.PlatformDependent0:86)- sun.misc.Unsafe.theUnsafe: available
+DEBUG (io.netty.util.internal.PlatformDependent0:96)- sun.misc.Unsafe.copyMemory: available
+DEBUG (io.netty.util.internal.PlatformDependent0:133)- java.nio.Bits.unaligned: true
+DEBUG (io.netty.util.internal.PlatformDependent:477)- sun.misc.Unsafe: available
+DEBUG (io.netty.util.internal.PlatformDependent:555)- -Dio.netty.noJavassist: false
+DEBUG (io.netty.util.internal.PlatformDependent:567)- Javassist: unavailable
+DEBUG (io.netty.util.internal.PlatformDependent:568)- You don't have Javassist in your class path or you don't have enough permission to load dynamically generated classes.  Please check the configuration for better performance.
+DEBUG (io.netty.util.internal.PlatformDependent:76)- -Dio.netty.noPreferDirect: false
+DEBUG (io.netty.channel.nio.NioEventLoop:88)- -Dio.netty.noKeySetOptimization: false
+DEBUG (io.netty.channel.nio.NioEventLoop:89)- -Dio.netty.selectorAutoRebuildThreshold: 512
+INFO (com.alacoder.lion.remote.netty.NettyServer:346)- NettyServer init success : url=lion://192.168.137.1:7080/
+DEBUG (io.netty.util.NetUtil:100)- Loopback interface: lo0
+DEBUG (io.netty.util.NetUtil:105)- Loopback address: /fe80:0:0:0:0:0:0:1%1 (primary)
+DEBUG (io.netty.util.NetUtil:108)- Loopback address: /0:0:0:0:0:0:0:1
+DEBUG (io.netty.util.NetUtil:108)- Loopback address: /127.0.0.1
+ERROR (com.alacoder.lion.remote.netty.NettyServer:562)- NettyServer error  
+java.net.BindException: Address already in use
+	at sun.nio.ch.Net.bind0(Native Method)
+	at sun.nio.ch.Net.bind(Net.java:444)
+	at sun.nio.ch.Net.bind(Net.java:436)
+	at sun.nio.ch.ServerSocketChannelImpl.bind(ServerSocketChannelImpl.java:214)
+	at sun.nio.ch.ServerSocketAdaptor.bind(ServerSocketAdaptor.java:74)
+	at io.netty.channel.socket.nio.NioServerSocketChannel.doBind(NioServerSocketChannel.java:101)
+	at io.netty.channel.AbstractChannel$AbstractUnsafe.bind(AbstractChannel.java:459)
+	at io.netty.channel.DefaultChannelPipeline$HeadHandler.bind(DefaultChannelPipeline.java:995)
+	at io.netty.channel.DefaultChannelHandlerContext.invokeBind0(DefaultChannelHandlerContext.java:492)
+	at io.netty.channel.DefaultChannelHandlerContext.invokeBind(DefaultChannelHandlerContext.java:478)
+	at io.netty.channel.DefaultChannelHandlerContext.bind(DefaultChannelHandlerContext.java:472)
+	at io.netty.channel.DefaultChannelPipeline.bind(DefaultChannelPipeline.java:837)
+	at io.netty.channel.AbstractChannel.bind(AbstractChannel.java:186)
+	at io.netty.bootstrap.AbstractBootstrap$2.run(AbstractBootstrap.java:321)
+	at io.netty.util.concurrent.SingleThreadEventExecutor.runAllTasks(SingleThreadEventExecutor.java:353)
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:366)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$2.run(SingleThreadEventExecutor.java:101)
+	at java.lang.Thread.run(Thread.java:745)
+DEBUG (com.aben.cup.log.logging.LogFactory:181)- Using Log4J as the default logging framework
+INFO (com.alacoder.lion.rpc.DefaultMessageHandler:281)- RequestRouter addProvider: url=lion://192.168.137.1:7080/com.alacoder.lion.rpc.DemoService?group=demoGroup all_public_method_count=1
+INFO (com.alacoder.lion.rpc.AbstractEndpointFactory:346)- DefaultNettyEndpointFactory create share_channel server: url=lion://192.168.137.1:7080/com.alacoder.lion.rpc.DemoService?group=demoGroup
+DEBUG (io.netty.util.internal.logging.InternalLoggerFactory:45)- Using Log4J as the default logging framework
+DEBUG (io.netty.channel.MultithreadEventLoopGroup:41)- -Dio.netty.eventLoopThreads: 16
+DEBUG (io.netty.util.internal.PlatformDependent:366)- UID: 812348242
+DEBUG (io.netty.util.internal.PlatformDependent:443)- Java version: 7
+DEBUG (io.netty.util.internal.PlatformDependent:450)- -Dio.netty.noUnsafe: false
+DEBUG (io.netty.util.internal.PlatformDependent0:59)- java.nio.ByteBuffer.cleaner: available
+DEBUG (io.netty.util.internal.PlatformDependent0:78)- java.nio.Buffer.address: available
+DEBUG (io.netty.util.internal.PlatformDependent0:86)- sun.misc.Unsafe.theUnsafe: available
+DEBUG (io.netty.util.internal.PlatformDependent0:96)- sun.misc.Unsafe.copyMemory: available
+DEBUG (io.netty.util.internal.PlatformDependent0:133)- java.nio.Bits.unaligned: true
+DEBUG (io.netty.util.internal.PlatformDependent:477)- sun.misc.Unsafe: available
+DEBUG (io.netty.util.internal.PlatformDependent:555)- -Dio.netty.noJavassist: false
+DEBUG (io.netty.util.internal.PlatformDependent:567)- Javassist: unavailable
+DEBUG (io.netty.util.internal.PlatformDependent:568)- You don't have Javassist in your class path or you don't have enough permission to load dynamically generated classes.  Please check the configuration for better performance.
+DEBUG (io.netty.util.internal.PlatformDependent:76)- -Dio.netty.noPreferDirect: false
+DEBUG (io.netty.channel.nio.NioEventLoop:88)- -Dio.netty.noKeySetOptimization: false
+DEBUG (io.netty.channel.nio.NioEventLoop:89)- -Dio.netty.selectorAutoRebuildThreshold: 512
+INFO (com.alacoder.lion.remote.netty.NettyServer:346)- NettyServer init success : url=lion://192.168.137.1:7080/
+DEBUG (io.netty.util.NetUtil:100)- Loopback interface: lo0
+DEBUG (io.netty.util.NetUtil:105)- Loopback address: /fe80:0:0:0:0:0:0:1%1 (primary)
+DEBUG (io.netty.util.NetUtil:108)- Loopback address: /0:0:0:0:0:0:0:1
+DEBUG (io.netty.util.NetUtil:108)- Loopback address: /127.0.0.1
+DEBUG (com.alacoder.lion.remote.netty.NettyChannel:181)- NettyChannel open: lion://192.168.137.1:7080/ local=/192.168.137.1:7080
+INFO (com.alacoder.lion.remote.AbstractServer:346)- NettyServer open success , url = lion://192.168.137.1:7080/
+INFO (com.alacoder.lion.rpc.AbstractNode:281)- DefaultRpcExporter node init Success: [DefaultRpcExporter] url=lion://192.168.137.1:7080/com.alacoder.lion.rpc.DemoService?group=demoGroup
+INFO (com.alacoder.lion.rpc.AbstractProtocol:281)- DefaultRpcProtocol export Success: url=lion://192.168.137.1:7080/com.alacoder.lion.rpc.DemoService?group=demoGroup
+INFO (com.alacoder.lion.registry.api.AbstractRegistry:346)- [DirectRegistry] Url (lion://192.168.137.1:7080/com.alacoder.lion.rpc.DemoService?group=demoGroup) will register to Registry [direct://127.0.0.1:6000/default_rpc/com.alacoder.lion.registry.api.RegistryService/1.0/service]
+INFO (com.alacoder.lion.registry.api.AbstractRegistry:346)- [DirectRegistry] Listener (com.alacoder.lion.rpc.ha.ClusterSupport@6ddaf304) will subscribe to url (lion://192.168.137.1:0/com.alacoder.lion.rpc.DemoService?group=demoGroup) in Registry [direct://127.0.0.1:6000/default_rpc/com.alacoder.lion.registry.api.RegistryService/1.0/service]
+INFO (com.alacoder.lion.rpc.ha.ClusterSupport:346)- ClusterSupport config change notify: registry=direct://127.0.0.1:6000/com.alacoder.lion.registry.api.RegistryService service=lion://192.168.137.1:0/demoGroup/com.alacoder.lion.rpc.DemoService/1.0/referer urls=[lion://192.168.137.1:7080/demoGroup/com.alacoder.lion.rpc.DemoService/1.0/service]
+INFO (com.alacoder.lion.rpc.ha.ClusterSupport:281)- refresh weight. weight=
+INFO (com.alacoder.lion.rpc.ha.AbstractLoadBalance:281)- ignore weightString:
+INFO (com.alacoder.lion.remote.netty.NettyChannelHandler:281)- chanel active [id: 0x5c4d812b, /192.168.137.1:65184 => /192.168.137.1:7080]
+DEBUG (com.alacoder.lion.remote.netty.NettyChannel:181)- NettyChannel open: lion://192.168.137.1:7080/ local=/192.168.137.1:7080
+DEBUG (com.alacoder.lion.remote.netty.NettyChannel:181)- NettyChannel open: lion://192.168.137.1:7080/com.alacoder.lion.rpc.DemoService local=/192.168.137.1:65184
+INFO (com.alacoder.lion.remote.netty.NettyChannelHandler:281)- chanel active [id: 0xd4adafab, /192.168.137.1:65184 => /192.168.137.1:7080]
+DEBUG (com.alacoder.lion.remote.netty.NettyChannelHandler:246)- chanel add  , socket = [id: 0x5c4d812b, /192.168.137.1:65184 => /192.168.137.1:7080], size = 1 
+DEBUG (com.alacoder.lion.remote.netty.NettyChannel:181)- NettyChannel open: lion://192.168.137.1:7080/com.alacoder.lion.rpc.DemoService local=/192.168.137.1:65184
+INFO (com.alacoder.lion.rpc.AbstractNode:281)- DefaultRpcReferer node init Success: [DefaultRpcReferer] url=lion://192.168.137.1:7080/com.alacoder.lion.rpc.DemoService?group=demoGroup
+INFO (com.alacoder.lion.rpc.AbstractProtocol:281)- DefaultRpcProtocol refer Success: url=lion://192.168.137.1:7080/com.alacoder.lion.rpc.DemoService?group=demoGroup
+DEBUG (com.alacoder.lion.remote.netty.NettyChannelHandler:246)- chanel add  , socket = [id: 0xd4adafab, /192.168.137.1:65184 => /192.168.137.1:7080], size = 1 
+DEBUG (io.netty.util.ResourceLeakDetector:38)- -Dio.netty.noResourceLeakDetection: false
+DEBUG (com.alacoder.lion.remote.netty.NettyChannel:181)- NettyChannel open: lion://192.168.137.1:7080/ local=/192.168.137.1:7080
+DEBUG (com.alacoder.lion.remote.netty.NettyChannelHandler:246)- processRequest , request = com.alacoder.lion.rpc.remote.DefaultRpcRequest@2278eb54 
+DEBUG (com.alacoder.lion.remote.netty.NettyChannelHandler:246)- processRequest , response = com.alacoder.lion.remote.transport.DefaultResponse@45ca5e7a 
+DEBUG (com.alacoder.lion.remote.netty.NettyChannel:181)- NettyChannel send fail: lion://192.168.137.1:7080/ local=null
+DEBUG (com.aben.cup.log.logging.LogFactory:181)- Using Log4J as the default logging framework
+INFO (com.alacoder.lion.rpc.DefaultMessageHandler:281)- RequestRouter addProvider: url=lion://192.168.137.1:7080/com.alacoder.lion.rpc.DemoService?group=demoGroup all_public_method_count=1
+INFO (com.alacoder.lion.rpc.AbstractEndpointFactory:346)- DefaultNettyEndpointFactory create share_channel server: url=lion://192.168.137.1:7080/com.alacoder.lion.rpc.DemoService?group=demoGroup
+DEBUG (io.netty.util.internal.logging.InternalLoggerFactory:45)- Using Log4J as the default logging framework
+DEBUG (io.netty.channel.MultithreadEventLoopGroup:41)- -Dio.netty.eventLoopThreads: 16
+DEBUG (io.netty.util.internal.PlatformDependent:366)- UID: 812348242
+DEBUG (io.netty.util.internal.PlatformDependent:443)- Java version: 7
+DEBUG (io.netty.util.internal.PlatformDependent:450)- -Dio.netty.noUnsafe: false
+DEBUG (io.netty.util.internal.PlatformDependent0:59)- java.nio.ByteBuffer.cleaner: available
+DEBUG (io.netty.util.internal.PlatformDependent0:78)- java.nio.Buffer.address: available
+DEBUG (io.netty.util.internal.PlatformDependent0:86)- sun.misc.Unsafe.theUnsafe: available
+DEBUG (io.netty.util.internal.PlatformDependent0:96)- sun.misc.Unsafe.copyMemory: available
+DEBUG (io.netty.util.internal.PlatformDependent0:133)- java.nio.Bits.unaligned: true
+DEBUG (io.netty.util.internal.PlatformDependent:477)- sun.misc.Unsafe: available
+DEBUG (io.netty.util.internal.PlatformDependent:555)- -Dio.netty.noJavassist: false
+DEBUG (io.netty.util.internal.PlatformDependent:567)- Javassist: unavailable
+DEBUG (io.netty.util.internal.PlatformDependent:568)- You don't have Javassist in your class path or you don't have enough permission to load dynamically generated classes.  Please check the configuration for better performance.
+DEBUG (io.netty.util.internal.PlatformDependent:76)- -Dio.netty.noPreferDirect: false
+DEBUG (io.netty.channel.nio.NioEventLoop:88)- -Dio.netty.noKeySetOptimization: false
+DEBUG (io.netty.channel.nio.NioEventLoop:89)- -Dio.netty.selectorAutoRebuildThreshold: 512
+INFO (com.alacoder.lion.remote.netty.NettyServer:346)- NettyServer init success : url=lion://192.168.137.1:7080/
+DEBUG (io.netty.util.NetUtil:100)- Loopback interface: lo0
+DEBUG (io.netty.util.NetUtil:105)- Loopback address: /fe80:0:0:0:0:0:0:1%1 (primary)
+DEBUG (io.netty.util.NetUtil:108)- Loopback address: /0:0:0:0:0:0:0:1
+DEBUG (io.netty.util.NetUtil:108)- Loopback address: /127.0.0.1
+DEBUG (com.alacoder.lion.remote.netty.NettyChannel:181)- NettyChannel open: lion://192.168.137.1:7080/ local=/192.168.137.1:7080
+INFO (com.alacoder.lion.remote.AbstractServer:346)- NettyServer open success , url = lion://192.168.137.1:7080/
+INFO (com.alacoder.lion.rpc.AbstractNode:281)- DefaultRpcExporter node init Success: [DefaultRpcExporter] url=lion://192.168.137.1:7080/com.alacoder.lion.rpc.DemoService?group=demoGroup
+INFO (com.alacoder.lion.rpc.AbstractProtocol:281)- DefaultRpcProtocol export Success: url=lion://192.168.137.1:7080/com.alacoder.lion.rpc.DemoService?group=demoGroup
+INFO (com.alacoder.lion.registry.api.AbstractRegistry:346)- [DirectRegistry] Url (lion://192.168.137.1:7080/com.alacoder.lion.rpc.DemoService?group=demoGroup) will register to Registry [direct://127.0.0.1:6000/default_rpc/com.alacoder.lion.registry.api.RegistryService/1.0/service]
+INFO (com.alacoder.lion.registry.api.AbstractRegistry:346)- [DirectRegistry] Listener (com.alacoder.lion.rpc.ha.ClusterSupport@6ddaf304) will subscribe to url (lion://192.168.137.1:0/com.alacoder.lion.rpc.DemoService?group=demoGroup) in Registry [direct://127.0.0.1:6000/default_rpc/com.alacoder.lion.registry.api.RegistryService/1.0/service]
+INFO (com.alacoder.lion.rpc.ha.ClusterSupport:346)- ClusterSupport config change notify: registry=direct://127.0.0.1:6000/com.alacoder.lion.registry.api.RegistryService service=lion://192.168.137.1:0/demoGroup/com.alacoder.lion.rpc.DemoService/1.0/referer urls=[lion://192.168.137.1:7080/demoGroup/com.alacoder.lion.rpc.DemoService/1.0/service]
+INFO (com.alacoder.lion.rpc.ha.ClusterSupport:281)- refresh weight. weight=
+INFO (com.alacoder.lion.rpc.ha.AbstractLoadBalance:281)- ignore weightString:
+INFO (com.alacoder.lion.remote.netty.NettyChannelHandler:281)- chanel active [id: 0xd73927bc, /192.168.137.1:65370 => /192.168.137.1:7080]
+DEBUG (com.alacoder.lion.remote.netty.NettyChannel:181)- NettyChannel open: lion://192.168.137.1:7080/ local=/192.168.137.1:7080
+DEBUG (com.alacoder.lion.remote.netty.NettyChannelHandler:246)- chanel add  , socket = [id: 0xd73927bc, /192.168.137.1:65370 => /192.168.137.1:7080], size = 1 
+INFO (com.alacoder.lion.remote.netty.NettyChannelHandler:281)- chanel active [id: 0xb3698307, /192.168.137.1:65370 => /192.168.137.1:7080]
+DEBUG (com.alacoder.lion.remote.netty.NettyChannel:181)- NettyChannel open: lion://192.168.137.1:7080/com.alacoder.lion.rpc.DemoService local=/192.168.137.1:65370
+DEBUG (com.alacoder.lion.remote.netty.NettyChannel:181)- NettyChannel open: lion://192.168.137.1:7080/com.alacoder.lion.rpc.DemoService local=/192.168.137.1:65370
+INFO (com.alacoder.lion.rpc.AbstractNode:281)- DefaultRpcReferer node init Success: [DefaultRpcReferer] url=lion://192.168.137.1:7080/com.alacoder.lion.rpc.DemoService?group=demoGroup
+DEBUG (com.alacoder.lion.remote.netty.NettyChannelHandler:246)- chanel add  , socket = [id: 0xb3698307, /192.168.137.1:65370 => /192.168.137.1:7080], size = 1 
+INFO (com.alacoder.lion.rpc.AbstractProtocol:281)- DefaultRpcProtocol refer Success: url=lion://192.168.137.1:7080/com.alacoder.lion.rpc.DemoService?group=demoGroup
+DEBUG (io.netty.util.ResourceLeakDetector:38)- -Dio.netty.noResourceLeakDetection: false
+DEBUG (com.alacoder.lion.remote.netty.NettyChannel:181)- NettyChannel open: lion://192.168.137.1:7080/ local=/192.168.137.1:7080
+DEBUG (com.alacoder.lion.remote.netty.NettyChannelHandler:246)- processRequest , request = com.alacoder.lion.rpc.remote.DefaultRpcRequest@2278eb54 
+DEBUG (com.alacoder.lion.remote.netty.NettyChannelHandler:246)- processRequest , response = com.alacoder.lion.remote.transport.DefaultResponse@45ca5e7a 
+DEBUG (com.alacoder.lion.remote.netty.NettyChannel:181)- NettyChannel send fail: lion://192.168.137.1:7080/ local=null
+DEBUG (com.aben.cup.log.logging.LogFactory:181)- Using Log4J as the default logging framework
+WARN (com.alacoder.lion.common.utils.NetUtils:381)- Failed to retriving local address by connecting to dest host:port(127.0.0.1:6000) false, e=java.net.SocketTimeoutException: Connect timed out
+INFO (com.alacoder.lion.rpc.DefaultMessageHandler:281)- RequestRouter addProvider: url=lion://192.168.137.1:7080/com.alacoder.lion.rpc.DemoService?group=demoGroup all_public_method_count=1
+INFO (com.alacoder.lion.rpc.AbstractEndpointFactory:346)- DefaultNettyEndpointFactory create share_channel server: url=lion://192.168.137.1:7080/com.alacoder.lion.rpc.DemoService?group=demoGroup
+DEBUG (io.netty.util.internal.logging.InternalLoggerFactory:45)- Using Log4J as the default logging framework
+DEBUG (io.netty.channel.MultithreadEventLoopGroup:41)- -Dio.netty.eventLoopThreads: 16
+DEBUG (io.netty.util.internal.PlatformDependent:366)- UID: 812348242
+DEBUG (io.netty.util.internal.PlatformDependent:443)- Java version: 7
+DEBUG (io.netty.util.internal.PlatformDependent:450)- -Dio.netty.noUnsafe: false
+DEBUG (io.netty.util.internal.PlatformDependent0:59)- java.nio.ByteBuffer.cleaner: available
+DEBUG (io.netty.util.internal.PlatformDependent0:78)- java.nio.Buffer.address: available
+DEBUG (io.netty.util.internal.PlatformDependent0:86)- sun.misc.Unsafe.theUnsafe: available
+DEBUG (io.netty.util.internal.PlatformDependent0:96)- sun.misc.Unsafe.copyMemory: available
+DEBUG (io.netty.util.internal.PlatformDependent0:133)- java.nio.Bits.unaligned: true
+DEBUG (io.netty.util.internal.PlatformDependent:477)- sun.misc.Unsafe: available
+DEBUG (io.netty.util.internal.PlatformDependent:555)- -Dio.netty.noJavassist: false
+DEBUG (io.netty.util.internal.PlatformDependent:567)- Javassist: unavailable
+DEBUG (io.netty.util.internal.PlatformDependent:568)- You don't have Javassist in your class path or you don't have enough permission to load dynamically generated classes.  Please check the configuration for better performance.
+DEBUG (io.netty.util.internal.PlatformDependent:76)- -Dio.netty.noPreferDirect: false
+DEBUG (io.netty.channel.nio.NioEventLoop:88)- -Dio.netty.noKeySetOptimization: false
+DEBUG (io.netty.channel.nio.NioEventLoop:89)- -Dio.netty.selectorAutoRebuildThreshold: 512
+INFO (com.alacoder.lion.remote.netty.NettyServer:346)- NettyServer init success : url=lion://192.168.137.1:7080/
+DEBUG (io.netty.util.NetUtil:100)- Loopback interface: lo0
+DEBUG (io.netty.util.NetUtil:105)- Loopback address: /fe80:0:0:0:0:0:0:1%1 (primary)
+DEBUG (io.netty.util.NetUtil:108)- Loopback address: /0:0:0:0:0:0:0:1
+DEBUG (io.netty.util.NetUtil:108)- Loopback address: /127.0.0.1
+DEBUG (com.alacoder.lion.remote.netty.NettyChannel:181)- NettyChannel open: lion://192.168.137.1:7080/ local=/192.168.137.1:7080
+INFO (com.alacoder.lion.remote.AbstractServer:346)- NettyServer open success , url = lion://192.168.137.1:7080/
+INFO (com.alacoder.lion.rpc.AbstractNode:281)- DefaultRpcExporter node init Success: [DefaultRpcExporter] url=lion://192.168.137.1:7080/com.alacoder.lion.rpc.DemoService?group=demoGroup
+INFO (com.alacoder.lion.rpc.AbstractProtocol:281)- DefaultRpcProtocol export Success: url=lion://192.168.137.1:7080/com.alacoder.lion.rpc.DemoService?group=demoGroup
+INFO (com.alacoder.lion.registry.api.AbstractRegistry:346)- [DirectRegistry] Url (lion://192.168.137.1:7080/com.alacoder.lion.rpc.DemoService?group=demoGroup) will register to Registry [direct://127.0.0.1:6000/default_rpc/com.alacoder.lion.registry.api.RegistryService/1.0/service]
+INFO (com.alacoder.lion.registry.api.AbstractRegistry:346)- [DirectRegistry] Listener (com.alacoder.lion.rpc.ha.ClusterSupport@250a51) will subscribe to url (lion://192.168.137.1:0/com.alacoder.lion.rpc.DemoService?group=demoGroup) in Registry [direct://127.0.0.1:6000/default_rpc/com.alacoder.lion.registry.api.RegistryService/1.0/service]
+INFO (com.alacoder.lion.rpc.ha.ClusterSupport:346)- ClusterSupport config change notify: registry=direct://127.0.0.1:6000/com.alacoder.lion.registry.api.RegistryService service=lion://192.168.137.1:0/demoGroup/com.alacoder.lion.rpc.DemoService/1.0/referer urls=[lion://192.168.137.1:7080/demoGroup/com.alacoder.lion.rpc.DemoService/1.0/service]
+INFO (com.alacoder.lion.rpc.ha.ClusterSupport:281)- refresh weight. weight=
+INFO (com.alacoder.lion.rpc.ha.AbstractLoadBalance:281)- ignore weightString:
+INFO (com.alacoder.lion.remote.netty.NettyChannelHandler:281)- chanel active [id: 0xba9cec14, /192.168.137.1:49157 => /192.168.137.1:7080]
+DEBUG (com.alacoder.lion.remote.netty.NettyChannel:181)- NettyChannel open: lion://192.168.137.1:7080/ local=/192.168.137.1:7080
+DEBUG (com.alacoder.lion.remote.netty.NettyChannelHandler:246)- chanel add  , socket = [id: 0xba9cec14, /192.168.137.1:49157 => /192.168.137.1:7080], size = 1 
+INFO (com.alacoder.lion.remote.netty.NettyChannelHandler:281)- chanel active [id: 0x5e84712e, /192.168.137.1:49157 => /192.168.137.1:7080]
+DEBUG (com.alacoder.lion.remote.netty.NettyChannel:181)- NettyChannel open: lion://192.168.137.1:7080/com.alacoder.lion.rpc.DemoService local=/192.168.137.1:49157
+DEBUG (com.alacoder.lion.remote.netty.NettyChannel:181)- NettyChannel open: lion://192.168.137.1:7080/com.alacoder.lion.rpc.DemoService local=/192.168.137.1:49157
+INFO (com.alacoder.lion.rpc.AbstractNode:281)- DefaultRpcReferer node init Success: [DefaultRpcReferer] url=lion://192.168.137.1:7080/com.alacoder.lion.rpc.DemoService?group=demoGroup
+DEBUG (com.alacoder.lion.remote.netty.NettyChannelHandler:246)- chanel add  , socket = [id: 0x5e84712e, /192.168.137.1:49157 => /192.168.137.1:7080], size = 1 
+INFO (com.alacoder.lion.rpc.AbstractProtocol:281)- DefaultRpcProtocol refer Success: url=lion://192.168.137.1:7080/com.alacoder.lion.rpc.DemoService?group=demoGroup
+DEBUG (io.netty.util.ResourceLeakDetector:38)- -Dio.netty.noResourceLeakDetection: false
+DEBUG (com.alacoder.lion.remote.netty.NettyChannel:181)- NettyChannel open: lion://192.168.137.1:7080/ local=/192.168.137.1:7080
+DEBUG (com.alacoder.lion.remote.netty.NettyChannelHandler:246)- processRequest , request = com.alacoder.lion.rpc.remote.DefaultRpcRequest@4d1218ad 
+DEBUG (com.alacoder.lion.remote.netty.NettyChannelHandler:246)- processRequest , response = com.alacoder.lion.remote.transport.DefaultResponse@7fe5a19e 
+DEBUG (com.alacoder.lion.remote.netty.NettyChannel:181)- NettyChannel send fail: lion://192.168.137.1:7080/ local=null
+DEBUG (com.aben.cup.log.logging.LogFactory:181)- Using Log4J as the default logging framework
+WARN (com.alacoder.lion.common.utils.NetUtils:381)- Failed to retriving local address by connecting to dest host:port(127.0.0.1:6000) false, e=java.net.SocketTimeoutException: Connect timed out
+INFO (com.alacoder.lion.rpc.DefaultMessageHandler:281)- RequestRouter addProvider: url=lion://192.168.137.1:7080/com.alacoder.lion.rpc.DemoService?group=demoGroup all_public_method_count=1
+INFO (com.alacoder.lion.rpc.AbstractEndpointFactory:346)- DefaultNettyEndpointFactory create share_channel server: url=lion://192.168.137.1:7080/com.alacoder.lion.rpc.DemoService?group=demoGroup
+DEBUG (io.netty.util.internal.logging.InternalLoggerFactory:45)- Using Log4J as the default logging framework
+DEBUG (io.netty.channel.MultithreadEventLoopGroup:41)- -Dio.netty.eventLoopThreads: 16
+DEBUG (io.netty.util.internal.PlatformDependent:366)- UID: 812348242
+DEBUG (io.netty.util.internal.PlatformDependent:443)- Java version: 7
+DEBUG (io.netty.util.internal.PlatformDependent:450)- -Dio.netty.noUnsafe: false
+DEBUG (io.netty.util.internal.PlatformDependent0:59)- java.nio.ByteBuffer.cleaner: available
+DEBUG (io.netty.util.internal.PlatformDependent0:78)- java.nio.Buffer.address: available
+DEBUG (io.netty.util.internal.PlatformDependent0:86)- sun.misc.Unsafe.theUnsafe: available
+DEBUG (io.netty.util.internal.PlatformDependent0:96)- sun.misc.Unsafe.copyMemory: available
+DEBUG (io.netty.util.internal.PlatformDependent0:133)- java.nio.Bits.unaligned: true
+DEBUG (io.netty.util.internal.PlatformDependent:477)- sun.misc.Unsafe: available
+DEBUG (io.netty.util.internal.PlatformDependent:555)- -Dio.netty.noJavassist: false
+DEBUG (io.netty.util.internal.PlatformDependent:567)- Javassist: unavailable
+DEBUG (io.netty.util.internal.PlatformDependent:568)- You don't have Javassist in your class path or you don't have enough permission to load dynamically generated classes.  Please check the configuration for better performance.
+DEBUG (io.netty.util.internal.PlatformDependent:76)- -Dio.netty.noPreferDirect: false
+DEBUG (io.netty.channel.nio.NioEventLoop:88)- -Dio.netty.noKeySetOptimization: false
+DEBUG (io.netty.channel.nio.NioEventLoop:89)- -Dio.netty.selectorAutoRebuildThreshold: 512
+INFO (com.alacoder.lion.remote.netty.NettyServer:346)- NettyServer init success : url=lion://192.168.137.1:7080/
+DEBUG (io.netty.util.NetUtil:100)- Loopback interface: lo0
+DEBUG (io.netty.util.NetUtil:105)- Loopback address: /fe80:0:0:0:0:0:0:1%1 (primary)
+DEBUG (io.netty.util.NetUtil:108)- Loopback address: /0:0:0:0:0:0:0:1
+DEBUG (io.netty.util.NetUtil:108)- Loopback address: /127.0.0.1
+ERROR (com.alacoder.lion.remote.netty.NettyServer:562)- NettyServer error  
+java.net.BindException: Address already in use
+	at sun.nio.ch.Net.bind0(Native Method)
+	at sun.nio.ch.Net.bind(Net.java:444)
+	at sun.nio.ch.Net.bind(Net.java:436)
+	at sun.nio.ch.ServerSocketChannelImpl.bind(ServerSocketChannelImpl.java:214)
+	at sun.nio.ch.ServerSocketAdaptor.bind(ServerSocketAdaptor.java:74)
+	at io.netty.channel.socket.nio.NioServerSocketChannel.doBind(NioServerSocketChannel.java:101)
+	at io.netty.channel.AbstractChannel$AbstractUnsafe.bind(AbstractChannel.java:459)
+	at io.netty.channel.DefaultChannelPipeline$HeadHandler.bind(DefaultChannelPipeline.java:995)
+	at io.netty.channel.DefaultChannelHandlerContext.invokeBind0(DefaultChannelHandlerContext.java:492)
+	at io.netty.channel.DefaultChannelHandlerContext.invokeBind(DefaultChannelHandlerContext.java:478)
+	at io.netty.channel.DefaultChannelHandlerContext.bind(DefaultChannelHandlerContext.java:472)
+	at io.netty.channel.DefaultChannelPipeline.bind(DefaultChannelPipeline.java:837)
+	at io.netty.channel.AbstractChannel.bind(AbstractChannel.java:186)
+	at io.netty.bootstrap.AbstractBootstrap$2.run(AbstractBootstrap.java:321)
+	at io.netty.util.concurrent.SingleThreadEventExecutor.runAllTasks(SingleThreadEventExecutor.java:353)
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:366)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$2.run(SingleThreadEventExecutor.java:101)
+	at java.lang.Thread.run(Thread.java:745)
+DEBUG (com.aben.cup.log.logging.LogFactory:51)- Using Log4J as the default logging framework
+INFO (com.alacoder.lion.rpc.DefaultMessageHandler:48)- RequestRouter addProvider: url=lion://192.168.137.1:7080/com.alacoder.lion.rpc.DemoService?group=demoGroup all_public_method_count=1
+INFO (com.alacoder.lion.rpc.AbstractEndpointFactory:52)- DefaultNettyEndpointFactory create share_channel server: url=lion://192.168.137.1:7080/com.alacoder.lion.rpc.DemoService?group=demoGroup
+DEBUG (io.netty.util.internal.logging.InternalLoggerFactory:45)- Using Log4J as the default logging framework
+DEBUG (io.netty.channel.MultithreadEventLoopGroup:41)- -Dio.netty.eventLoopThreads: 16
+DEBUG (io.netty.util.internal.PlatformDependent:366)- UID: 812348242
+DEBUG (io.netty.util.internal.PlatformDependent:443)- Java version: 7
+DEBUG (io.netty.util.internal.PlatformDependent:450)- -Dio.netty.noUnsafe: false
+DEBUG (io.netty.util.internal.PlatformDependent0:59)- java.nio.ByteBuffer.cleaner: available
+DEBUG (io.netty.util.internal.PlatformDependent0:78)- java.nio.Buffer.address: available
+DEBUG (io.netty.util.internal.PlatformDependent0:86)- sun.misc.Unsafe.theUnsafe: available
+DEBUG (io.netty.util.internal.PlatformDependent0:96)- sun.misc.Unsafe.copyMemory: available
+DEBUG (io.netty.util.internal.PlatformDependent0:133)- java.nio.Bits.unaligned: true
+DEBUG (io.netty.util.internal.PlatformDependent:477)- sun.misc.Unsafe: available
+DEBUG (io.netty.util.internal.PlatformDependent:555)- -Dio.netty.noJavassist: false
+DEBUG (io.netty.util.internal.PlatformDependent:567)- Javassist: unavailable
+DEBUG (io.netty.util.internal.PlatformDependent:568)- You don't have Javassist in your class path or you don't have enough permission to load dynamically generated classes.  Please check the configuration for better performance.
+DEBUG (io.netty.util.internal.PlatformDependent:76)- -Dio.netty.noPreferDirect: false
+DEBUG (io.netty.channel.nio.NioEventLoop:88)- -Dio.netty.noKeySetOptimization: false
+DEBUG (io.netty.channel.nio.NioEventLoop:89)- -Dio.netty.selectorAutoRebuildThreshold: 512
+INFO (com.alacoder.lion.remote.netty.NettyServer:52)- NettyServer init success : url=lion://192.168.137.1:7080/
+DEBUG (io.netty.util.NetUtil:100)- Loopback interface: lo0
+DEBUG (io.netty.util.NetUtil:105)- Loopback address: /fe80:0:0:0:0:0:0:1%1 (primary)
+DEBUG (io.netty.util.NetUtil:108)- Loopback address: /0:0:0:0:0:0:0:1
+DEBUG (io.netty.util.NetUtil:108)- Loopback address: /127.0.0.1
+ERROR (com.alacoder.lion.remote.netty.NettyServer:80)- NettyServer error  
+java.net.BindException: Address already in use
+	at sun.nio.ch.Net.bind0(Native Method)
+	at sun.nio.ch.Net.bind(Net.java:444)
+	at sun.nio.ch.Net.bind(Net.java:436)
+	at sun.nio.ch.ServerSocketChannelImpl.bind(ServerSocketChannelImpl.java:214)
+	at sun.nio.ch.ServerSocketAdaptor.bind(ServerSocketAdaptor.java:74)
+	at io.netty.channel.socket.nio.NioServerSocketChannel.doBind(NioServerSocketChannel.java:101)
+	at io.netty.channel.AbstractChannel$AbstractUnsafe.bind(AbstractChannel.java:459)
+	at io.netty.channel.DefaultChannelPipeline$HeadHandler.bind(DefaultChannelPipeline.java:995)
+	at io.netty.channel.DefaultChannelHandlerContext.invokeBind0(DefaultChannelHandlerContext.java:492)
+	at io.netty.channel.DefaultChannelHandlerContext.invokeBind(DefaultChannelHandlerContext.java:478)
+	at io.netty.channel.DefaultChannelHandlerContext.bind(DefaultChannelHandlerContext.java:472)
+	at io.netty.channel.DefaultChannelPipeline.bind(DefaultChannelPipeline.java:837)
+	at io.netty.channel.AbstractChannel.bind(AbstractChannel.java:186)
+	at io.netty.bootstrap.AbstractBootstrap$2.run(AbstractBootstrap.java:321)
+	at io.netty.util.concurrent.SingleThreadEventExecutor.runAllTasks(SingleThreadEventExecutor.java:353)
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:366)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$2.run(SingleThreadEventExecutor.java:101)
+	at java.lang.Thread.run(Thread.java:745)

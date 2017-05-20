@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+    <!--<![endif]-->
+    <!-- BEGIN HEAD -->
+
+    <head>
+        <meta charset="utf-8" />
+        <title>SuperUI前端框架</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta content="width=device-width, initial-scale=1" name="viewport" />
+        <meta content="" name="description" />
+        <meta content="" name="author" />
+
+        <!-- Bootstrap 3.3.6 -->
+        <link rel="stylesheet" href="../../content/ui/global/bootstrap/css/bootstrap.min.css">
+        <!-- Font Awesome -->
+        <link href="../../content/ui/global/font-awesome/css/font-awesome.css" rel="stylesheet" />
+        <!-- Theme style -->
+        <link rel="stylesheet" href="../../content/adminlte/dist/css/AdminLTE.css">
+        <link rel="stylesheet" href="../../content/adminlte/dist/css/skins/_all-skins.min.css">
+        <link href="../../content/min/css/supershopui.common.min.css" rel="stylesheet"/>
+        <link href="../../content/plugins/bootstrap-table/bootstrap-table.css" rel="stylesheet" />
+        </head>
+    <body>
+        <section class="content-header">
+            <h1>
+               简单表格
+                <small>preview of simple tables</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+                <li><a href="#">Tables</a></li>
+                <li class="active">Simple</li>
+            </ol>
+        </section>
+        <!-- Main content -->
+		<section class="content">
+	     <!-- =========================================================== -->
+        <div class="row">
+            <div class="col-md-3 col-sm-6 col-xs-12">
+                <div id="line1" style="width: 300px;height:200px;"></div>
+                <!-- /.info-box -->
+            </div>
+            <!-- /.col -->
+            <div class="col-md-3 col-sm-6 col-xs-12">
+                 <div id="line2" style="width: 300px;height:200px;"></div>
+                <!-- /.info-box -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->	
+
+        </section>
+        
+        <script src="../../content/ui/global/jQuery/jquery.min.js"></script>
+        <!-- Bootstrap 3.3.6 -->
+
+        <script src="../../content/ui/global/bootstrap/js/bootstrap.min.js"></script>
+        <script src="../../content/min/js/supershopui.common.js"></script>
+        <script src="../../content/plugins/bootstrap-table/bootstrap-table.js"></script>
+        <script src="../../content/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
+        
+        <!-- echarts 3.4.0-->
+		<script src="../../content/echarts/dist/echarts.js"></script>
+    </body>
+	<script>
+		var dom1 = document.getElementById("line1");
+		var myChart1 = echarts.init(dom1);
+		
+		var dom2 = document.getElementById("line2");
+		var myChart2 = echarts.init(dom2);
+		
+		var app = {};
+		option = null;
+		
+		function randomData() {
+		    now = new Date(+now + oneDay);
+		    value = value + Math.random() * 21 - 10;
+		    return {
+		        name: now.toString(),
+		        value: [
+		            [now.getFullYear(), now.getMonth() + 1, now.getDate()].join('/'),
+		            Math.round(value)
+		        ]
+		    }
+		}
+		var data = [];
+		var now = +new Date(1997, 9, 3);
+		var oneDay = 24 * 3600 * 1000;
+		var value = Math.random() * 1000;
+		for (var i = 0; i < 1000; i++) {
+		    data.push(randomData());
+		}
+		
+		option = {
+		    title: {
+		        text: '动态数据 + 时间坐标轴'
+		    },
+		    tooltip: {
+		        trigger: 'axis',
+		        formatter: function (params) {
+		            params = params[0];
+		            var date = new Date(params.name);
+		            return date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear() + ' : ' + params.value[1];
+		        },
+		        axisPointer: {
+		            animation: false
+		        }
+		    },
+		    xAxis: {
+		        type: 'time',
+		        splitLine: {
+		            show: false
+		        }
+		    },
+		    yAxis: {
+		        type: 'value',
+		        boundaryGap: [0, '100%'],
+		        splitLine: {
+		            show: false
+		        }
+		    },
+		    series: [{
+		        name: '模拟数据',
+		        type: 'line',
+		        showSymbol: false,
+		        hoverAnimation: false,
+		        data: data
+		    }]
+		};
+		
+		setInterval(function () {
+			$.get('/admin/monitor/rpcMonitor.json').done(function (data) {
+				var obj = JSON.parse(data); 
+				myChart1.setOption({
+			        series: [{
+			            data: obj.data
+			        }]
+			    });
+			});
+		
+		    for (var i = 0; i < 5; i++) {
+		        data.shift();
+		        data.push(randomData());
+		    }
+		    
+		    myChart2.setOption({
+		        series: [{
+		            data: data
+		        }]
+		    });
+		}, 1000);;
+		if (option && typeof option === "object") {
+		    myChart1.setOption(option, true);
+		    myChart2.setOption(option, true);
+		}
+    </script>
+</html>
