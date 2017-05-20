@@ -13,6 +13,7 @@
     <module>lion-rpc</module>
     <module>lion-common</module>
     <module>lion-admin</module>
+    <module>lion-simple</module>
   </modules>
   
       <properties>
