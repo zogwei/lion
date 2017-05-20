@@ -13,7 +13,7 @@ consumer 注册zk
 1.2 阅读代码，熟悉dubbo-admin如何进行配置，
 1.3 阅读dubbo-monitor-simple，了解如何进行监控    
      
-JMX
+JMX 
 
 neural：放通率控制、流量控制、服务降级、幂等机制、泛化容错、SLA熔断、隔离舱壁、超时控制和慢性尝试功能。
 
