@@ -29,15 +29,15 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 @Configuration
 public class AnnotationRpcClientDemo {
 
-    public static void main(String[] args) throws InterruptedException {
+    @SuppressWarnings({ "unused", "resource" })
+	public static void main(String[] args) throws InterruptedException {
     	
         ApplicationContext applicationContext = new ClassPathXmlApplicationContext(new
                 String[]{"classpath*:lion_demo_server_annotation.xml"});
 //        LionSwitcherUtil.setSwitcherValue(LionConstants.REGISTRY_HEARTBEAT_SWITCHER, true);
         System.out.println("server start...");
 
-        @SuppressWarnings("resource")
-		ApplicationContext ctx = new ClassPathXmlApplicationContext(new
+        ApplicationContext ctx = new ClassPathXmlApplicationContext(new
                 String[]{"classpath:lion_demo_client_annotation.xml"});
 
 

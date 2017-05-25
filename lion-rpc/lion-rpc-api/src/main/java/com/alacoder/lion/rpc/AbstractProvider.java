@@ -55,6 +55,7 @@ public abstract class AbstractProvider<T> implements Provider<T> {
 		}
 	}
 
+	@SuppressWarnings("rawtypes")
 	@Override
 	public Response call(Request request) {
 		Response response = invoke(request);

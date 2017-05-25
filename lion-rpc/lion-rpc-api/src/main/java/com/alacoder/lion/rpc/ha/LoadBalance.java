@@ -33,9 +33,11 @@ public interface LoadBalance<T> {
 
     void onRefresh(List<Referer<T>> referers);
 
-    Referer<T> select(Request request);
+    @SuppressWarnings("rawtypes")
+	Referer<T> select(Request request);
 
-    void selectToHolder(Request request, List<Referer<T>> refersHolder);
+    @SuppressWarnings("rawtypes")
+	void selectToHolder(Request request, List<Referer<T>> refersHolder);
 
     void setWeightString(String weightString);
 

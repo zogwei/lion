@@ -41,7 +41,8 @@ public abstract class AbstractLoadBalance<T> implements LoadBalance<T> {
         this.referers = referers;
 	}
 
-	 @Override
+	 @SuppressWarnings("rawtypes")
+	@Override
 	    public Referer<T> select(Request request) {
 	        List<Referer<T>> referers = this.referers;
 
@@ -60,6 +61,7 @@ public abstract class AbstractLoadBalance<T> implements LoadBalance<T> {
 	    }
 
 
+	@SuppressWarnings("rawtypes")
 	@Override
 	public void selectToHolder(Request request, List<Referer<T>> refersHolder) {
 		 List<Referer<T>> referers = this.referers;
@@ -91,8 +93,10 @@ public abstract class AbstractLoadBalance<T> implements LoadBalance<T> {
         logger.info("ignore weightString:" + weightString);
     }
 	
-    protected abstract Referer<T> doSelect(Request request);
+    @SuppressWarnings("rawtypes")
+	protected abstract Referer<T> doSelect(Request request);
 
-    protected abstract void doSelectToHolder(Request request, List<Referer<T>> refersHolder);
+    @SuppressWarnings("rawtypes")
+	protected abstract void doSelectToHolder(Request request, List<Referer<T>> refersHolder);
 
 }

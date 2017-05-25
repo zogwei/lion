@@ -32,6 +32,7 @@ public interface HaStrategy<T> {
 
     void setUrl(LionURL url);
 
-    Response call(Request request, LoadBalance<T> loadBalance);
+    @SuppressWarnings("rawtypes")
+	Response call(Request request, LoadBalance<T> loadBalance);
 
 }

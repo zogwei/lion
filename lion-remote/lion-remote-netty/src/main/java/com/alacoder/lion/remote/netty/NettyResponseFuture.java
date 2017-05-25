@@ -295,7 +295,8 @@ public class NettyResponseFuture extends ResponseFuture{
 		return request.getId();
 	}
 
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public Map<String, String> getAttachments() {
         // 不需要使用
         return Collections.EMPTY_MAP;

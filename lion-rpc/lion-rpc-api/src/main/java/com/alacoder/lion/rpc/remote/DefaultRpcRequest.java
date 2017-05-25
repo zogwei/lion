@@ -13,11 +13,6 @@
 
 package com.alacoder.lion.rpc.remote;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-
-import com.alacoder.lion.remote.codec.RemoteProtocolVersion;
 import com.alacoder.lion.remote.transport.DefaultRequest;
 
 /**
@@ -28,6 +23,7 @@ import com.alacoder.lion.remote.transport.DefaultRequest;
  *
  */
 
+@SuppressWarnings("serial")
 public class DefaultRpcRequest extends DefaultRequest<RpcRequestInfo> {
 	
 	private RpcRequestInfo rpcRequestInfo;
