@@ -18,7 +18,6 @@ import java.util.Collections;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
-
 import com.alacoder.common.exception.LionErrorMsgConstant;
 import com.alacoder.common.exception.LionFrameworkException;
 import com.alacoder.lion.common.LionConstants;
@@ -79,7 +78,8 @@ public class ProtocolFilterDecorator implements Protocol {
             final Filter f = filter;
             final Referer<T> lf = lastRef;
             lastRef = new Referer<T>() {
-                @Override
+                @SuppressWarnings({ "rawtypes", "unchecked" })
+				@Override
                 public Response call(Request request) {
                 	RpcRequestInfo rpcRequestInfo =  new RpcRequestInfo();
                 	request.setRequestMsg(rpcRequestInfo);
@@ -146,7 +146,8 @@ public class ProtocolFilterDecorator implements Protocol {
             final Filter f = filter;
             final Provider<T> lp = lastProvider;
             lastProvider = new Provider<T>() {
-                @Override
+                @SuppressWarnings("rawtypes")
+				@Override
                 public Response call(Request request) {
                     return f.filter(lp, request);
                 }

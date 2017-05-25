@@ -14,7 +14,6 @@
 package com.alacoder.lion.rpc.utils;
 
 import org.apache.commons.lang3.StringUtils;
-
 import com.alacoder.lion.common.LionConstants;
 import com.alacoder.lion.common.url.LionURL;
 import com.alacoder.lion.common.url.URLParamType;
@@ -40,7 +39,7 @@ public class LionFrameworkUtil {
      * @return
      */
 
-    public static String getServiceKey(Request request) {
+    public static String getServiceKey(@SuppressWarnings("rawtypes") Request request) {
         String version = getVersionFromRequest(request);
         String group = getGroupFromRequest(request);
 
@@ -50,15 +49,18 @@ public class LionFrameworkUtil {
         return getServiceKey(group, rpcRequestInfo.getInterfaceName(), version);
     }
 
-    public static String getGroupFromRequest(Request request) {
+    @SuppressWarnings("rawtypes")
+	public static String getGroupFromRequest(Request request) {
         return getValueFromRequest(request, URLParamType.group.name(), URLParamType.group.getValue());
     }
 
-    public static String getVersionFromRequest(Request request) {
+    @SuppressWarnings("rawtypes")
+	public static String getVersionFromRequest(Request request) {
         return getValueFromRequest(request, URLParamType.version.name(), URLParamType.version.getValue());
     }
 
-    public static String getValueFromRequest(Request request, String key, String defaultValue) {
+    @SuppressWarnings("rawtypes")
+	public static String getValueFromRequest(Request request, String key, String defaultValue) {
         String value = defaultValue;
     	DefaultRpcRequest rpcRequest = (DefaultRpcRequest)request;
     	RpcRequestInfo rpcRequestInfo =  rpcRequest.getRequestMsg();
@@ -95,7 +97,8 @@ public class LionFrameworkUtil {
      * @param request
      * @return
      */
-    public static String toString(Request request) {
+    @SuppressWarnings("rawtypes")
+	public static String toString(Request request) {
     	DefaultRpcRequest rpcRequest = (DefaultRpcRequest)request;
     	RpcRequestInfo rpcRequestInfo =  rpcRequest.getRequestMsg();
         return "requestId=" + request.getId() + " interface=" + rpcRequestInfo.getInterfaceName() + " method=" + rpcRequestInfo.getMethodName()
@@ -117,7 +120,8 @@ public class LionFrameworkUtil {
      * @param request
      * @return
      */
-    public static String getFullMethodString(Request request) {
+    @SuppressWarnings("rawtypes")
+	public static String getFullMethodString(Request request) {
     	DefaultRpcRequest rpcRequest = (DefaultRpcRequest)request;
     	RpcRequestInfo rpcRequestInfo =  rpcRequest.getRequestMsg();
         return getGroupFromRequest(request) + "_" + rpcRequestInfo.getInterfaceName() + "." + rpcRequestInfo.getMethodName() + "("

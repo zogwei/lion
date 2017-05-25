@@ -45,7 +45,8 @@ public class AccessLogFilter implements Filter {
 	
     private String side;
 
-    @Override
+    @SuppressWarnings("rawtypes")
+	@Override
     public Response filter(Caller<?> caller, Request request) {
         boolean needLog = caller.getUrl().getBooleanParameter(URLParamType.accessLog.getName(), URLParamType.accessLog.getBooleanValue());
         if (needLog) {
@@ -64,7 +65,8 @@ public class AccessLogFilter implements Filter {
         }
     }
 
-    private void logAccess(Caller<?> caller, Request request, long consumeTime, boolean success) {
+    @SuppressWarnings("rawtypes")
+	private void logAccess(Caller<?> caller, Request request, long consumeTime, boolean success) {
         if (getSide() == null) {
             String side = caller instanceof Provider ? LionConstants.NODE_TYPE_SERVICE : LionConstants.NODE_TYPE_REFERER;
             setSide(side);
