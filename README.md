@@ -5,6 +5,8 @@ a RPC framework
 TODO List
 
 consumer 注册zk 
+lion-regitry-redis
+lion-amidn-web 服务治理：服务 与消费者查询，路由修改
 
 管控控制台
 1、通过阅读代码，熟悉现有配置和监控系统dubbo-admin， dubbokeeper，dubbo-monitor-simple
