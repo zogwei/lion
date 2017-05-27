@@ -21,8 +21,8 @@ package com.alacoder.lion.rpc.registry.zk;
  *
  */
 
-public enum ZkNodeType {
-    AVAILABLE_SERVER,
-    UNAVAILABLE_SERVER,
-    CLIENT
-}
+//public enum ZkNodeType {
+//    AVAILABLE_SERVER,
+//    UNAVAILABLE_SERVER,
+//    CLIENT
+//}

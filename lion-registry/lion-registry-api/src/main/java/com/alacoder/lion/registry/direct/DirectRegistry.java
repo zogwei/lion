@@ -101,15 +101,15 @@ public class DirectRegistry extends AbstractRegistry {
         return result;
     }
 
-	@Override
-	protected void doAvailable(LionURL url) {
-		
-	}
-
-	@Override
-	protected void doUnavailable(LionURL url) {
-		
-	}
+//	@Override
+//	protected void doAvailable(LionURL url) {
+//		
+//	}
+//
+//	@Override
+//	protected void doUnavailable(LionURL url) {
+//		
+//	}
 	
 	@Override
 	protected void doRegister(LionURL url) {

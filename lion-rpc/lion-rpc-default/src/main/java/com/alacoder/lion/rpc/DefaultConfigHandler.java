@@ -84,7 +84,6 @@ public class DefaultConfigHandler implements ConfigHandler {
             }
             Registry registry = registryFactory.getRegistry(url);
             registry.register(serviceUrl);
-            registry.available(serviceUrl);
         }
     }
 

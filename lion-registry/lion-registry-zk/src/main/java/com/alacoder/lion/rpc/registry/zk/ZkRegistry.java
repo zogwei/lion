@@ -70,11 +70,13 @@ public class ZkRegistry extends AbstractRegistry {
 
 	@Override
 	protected void doRegister(LionURL url) {
+		
+		String nodeType = getNodeType(url);
+		
 		try{
 			serverLock.lock();
-            removeNode(url, ZkNodeType.AVAILABLE_SERVER);
-            removeNode(url, ZkNodeType.UNAVAILABLE_SERVER);
-            createNode(url, ZkNodeType.UNAVAILABLE_SERVER);
+            removeNode(url, nodeType);
+            createNode(url, nodeType);
 		}
 		catch(Exception e){
 			throw new LionFrameworkException(String.format("Failed to register %s to zookeeper(%s), cause: %s", url, getUrl(), e.getMessage()), e);
@@ -86,10 +88,11 @@ public class ZkRegistry extends AbstractRegistry {
 
 	@Override
 	protected void doUnregister(LionURL url) {
+		String nodeType = getNodeType(url);
+		
 		try{
 			serverLock.lock();
-            removeNode(url, ZkNodeType.AVAILABLE_SERVER);
-            removeNode(url, ZkNodeType.UNAVAILABLE_SERVER);
+            removeNode(url, nodeType);
 		}
 		catch(Exception e){
 			throw new LionFrameworkException(String.format("Failed to register %s to zookeeper(%s), cause: %s", url, getUrl(), e.getMessage()), e);
@@ -101,11 +104,14 @@ public class ZkRegistry extends AbstractRegistry {
 
 	@Override
 	protected void doSubscribe(final LionURL url, final NotifyListener listener) {
+		
+		String nodeType = getNodeType(url);
+		
 		try{
 			clientLock.lock();
 			
 			LionURL urlCopy = url.createCopy();
-			String path = ZkUtils.toNodeTypePath(url, ZkNodeType.AVAILABLE_SERVER);
+			String path = ZkUtils.toNodeTypePath(url, nodeType);
 			LionCuratorWatcher lionCuratorWatcher = new LionCuratorWatcher(listener,url,zkOper);
 			
 			//TODO 考虑一个path 多个 listener
@@ -148,8 +154,11 @@ public class ZkRegistry extends AbstractRegistry {
 
 	@Override
 	protected List<LionURL> doDiscover(LionURL url) {
+		
+		String nodeType = getNodeType(url);
+		
 		try {
-            String parentPath = ZkUtils.toNodeTypePath(url, ZkNodeType.AVAILABLE_SERVER);
+            String parentPath = ZkUtils.toNodeTypePath(url, nodeType);
             List<String> currentChilds = new ArrayList<String>();
             if (zkOper.isExisted(parentPath)) {
                 currentChilds = zkOper.getChildrenKeys(parentPath);
@@ -177,53 +186,9 @@ public class ZkRegistry extends AbstractRegistry {
         return urls;
     }
 
-	@Override
-	protected void doAvailable(LionURL url) {
-		try {
-			serverLock.lock();
-			if (url == null) {
-				availableServices.addAll(getRegisteredServiceUrls());
-				for (LionURL u : getRegisteredServiceUrls()) {
-					removeNode(u, ZkNodeType.AVAILABLE_SERVER);
-					removeNode(u, ZkNodeType.UNAVAILABLE_SERVER);
-					createNode(u, ZkNodeType.AVAILABLE_SERVER);
-				}
-			} else {
-				availableServices.add(url);
-				removeNode(url, ZkNodeType.AVAILABLE_SERVER);
-				removeNode(url, ZkNodeType.UNAVAILABLE_SERVER);
-				createNode(url, ZkNodeType.AVAILABLE_SERVER);
-			}
-		} finally {
-			serverLock.unlock();
-		}
-	}
-
-	@Override
-	protected void doUnavailable(LionURL url) {
-		try {
-			serverLock.lock();
-			if (url == null) {
-				availableServices.removeAll(getRegisteredServiceUrls());
-				for (LionURL u : getRegisteredServiceUrls()) {
-					removeNode(u, ZkNodeType.AVAILABLE_SERVER);
-					removeNode(u, ZkNodeType.UNAVAILABLE_SERVER);
-					createNode(u, ZkNodeType.UNAVAILABLE_SERVER);
-				}
-			} else {
-				availableServices.remove(url);
-				removeNode(url, ZkNodeType.AVAILABLE_SERVER);
-				removeNode(url, ZkNodeType.UNAVAILABLE_SERVER);
-				createNode(url, ZkNodeType.UNAVAILABLE_SERVER);
-			}
-		} finally {
-			serverLock.unlock();
-		}
-	}
-	
-	//TODO why没有版本信息，如何处理版本
+    //TODO why没有版本信息，如何处理版本
 	//key : /lion/'group'/'path'/command/'type[server,client,unavailableServer]'/ServerPort , value : urlfullStr
-    private void createNode(LionURL url, ZkNodeType nodeType) {
+    private void createNode(LionURL url, String nodeType) {
         String nodeTypePath = ZkUtils.toNodeTypePath(url, nodeType);
         if (!zkOper.isExisted(nodeTypePath)) {
         	zkOper.persist(nodeTypePath, url.toFullStr());
@@ -231,11 +196,22 @@ public class ZkRegistry extends AbstractRegistry {
         zkOper.persistEphemeral(ZkUtils.toNodePath(url, nodeType), url.toFullStr());
     }
 
-    private void removeNode(LionURL url, ZkNodeType nodeType) {
+    private void removeNode(LionURL url, String nodeType) {
         String nodePath = ZkUtils.toNodePath(url, nodeType);
         if (zkOper.isExisted(nodePath)) {
+        	logger.warn(String.format("zk nodetype is exited, will delete,  url : %s , nodetype : %s", url, getUrl(),nodeType));
         	zkOper.remove(nodePath);
         }
+    }
+    
+    private String getNodeType(LionURL url){
+    	String nodeType = url.getParameter(URLParamType.nodeType.getName());
+    	if (nodeType == null || "".equals(nodeType.trim())) {
+    		logger.error(String.format("zk nodetype is null,  url : %s ", url, getUrl()));
+    		throw new LionFrameworkException(String.format("zk nodetype is null,  url : %s ", url, getUrl()));
+    		
+    	}
+    	return nodeType;
     }
 
 }

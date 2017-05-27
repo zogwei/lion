@@ -40,19 +40,19 @@ public interface RegistryService {
      */
     void unregister(LionURL url);
 
-    /**
-     * set service status to available, so clients could use it
-     *
-     * @param url service url to be available, <b>null</b> means all services
-     */
-    void available(LionURL url);
-
-    /**
-     * set service status to unavailable, client should not discover services of unavailable state
-     *
-     * @param url service url to be unavailable, <b>null</b> means all services
-     */
-    void unavailable(LionURL url);
+//    /**
+//     * set service status to available, so clients could use it
+//     *
+//     * @param url service url to be available, <b>null</b> means all services
+//     */
+//    void available(LionURL url);
+//
+//    /**
+//     * set service status to unavailable, client should not discover services of unavailable state
+//     *
+//     * @param url service url to be unavailable, <b>null</b> means all services
+//     */
+//    void unavailable(LionURL url);
 
     Collection<LionURL> getRegisteredServiceUrls();
 }

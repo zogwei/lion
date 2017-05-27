@@ -129,7 +129,7 @@ public enum URLParamType {
 
     // 切换group时，各个group的权重比。默认无权重
     weights("weights", "");
-
+    
     private String name;
     private String value;
     private long longValue;

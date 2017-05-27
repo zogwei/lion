@@ -15,8 +15,9 @@ package com.alacoder.lion.rpc.registry.zk;
 
 import java.util.List;
 
-import com.alacoder.lion.registry.NotifyListener;
+import com.alacoder.lion.common.url.URLParamType;
 
+import com.alacoder.lion.registry.NotifyListener;
 import com.alacoder.lion.common.LionConstants;
 import com.alacoder.lion.common.url.LionURL;
 
@@ -36,9 +37,9 @@ public class ZkRegistryTest {
 		LionURL url = new LionURL(LionConstants.REGISTRY_PROTOCOL_DIRECT, "127.0.0.1", 4455, "com.alacoder.lion.rpc.DemoService");
 		
 		url.addParameter("address", "127.0.0.1:2181");
+		url.addParameter(URLParamType.nodeType.getName(), "server");
 		ZkRegistry zkRegistry = new ZkRegistry(url);
 		zkRegistry.register(url);
-		zkRegistry.available(url);
 		ZkRegistry subReg = zkRegistry;
 		
 		Thread.sleep(1000);
@@ -60,9 +61,10 @@ public class ZkRegistryTest {
 	    url = new LionURL(LionConstants.REGISTRY_PROTOCOL_DIRECT, "127.0.0.1", 4466, "com.alacoder.lion.rpc.DemoService");
 		
 		url.addParameter("address", "127.0.0.1:2181");
+		url.addParameter(URLParamType.nodeType.getName(), "server");
+		
 		zkRegistry = new ZkRegistry(url);
 		zkRegistry.register(url);
-		zkRegistry.available(url);
 
 		Thread.sleep(1000);
 		System.out.println("----------unregister-----------");
@@ -81,9 +83,9 @@ public class ZkRegistryTest {
 	    url = new LionURL(LionConstants.REGISTRY_PROTOCOL_DIRECT, "127.0.0.1", 4477, "com.alacoder.lion.rpc.DemoService");
 		
 		url.addParameter("address", "127.0.0.1:2181");
+		url.addParameter(URLParamType.nodeType.getName(), "server");
 		zkRegistry = new ZkRegistry(url);
 		zkRegistry.register(url);
-		zkRegistry.available(url);
 
 
 		

@@ -105,25 +105,25 @@ public abstract class AbstractRegistry implements Registry {
         doUnsubscribe(url.createCopy(), listener);
     }
     
-    @Override
-    public void available(LionURL url) {
-        logger.info("[{}] Url ({}) will set to available to Registry [{}]", registryClassName, url, registryUrl.getIdentity());
-        if (url != null) {
-            doAvailable(removeUnnecessaryParmas(url.createCopy()));
-        } else {
-            doAvailable(null);
-        }
-    }
-
-    @Override
-    public void unavailable(LionURL url) {
-        logger.info("[{}] Url ({}) will set to unavailable to Registry [{}]", registryClassName, url, registryUrl.getIdentity());
-        if (url != null) {
-            doUnavailable(removeUnnecessaryParmas(url.createCopy()));
-        } else {
-            doUnavailable(null);
-        }
-    }
+//    @Override
+//    public void available(LionURL url) {
+//        logger.info("[{}] Url ({}) will set to available to Registry [{}]", registryClassName, url, registryUrl.getIdentity());
+//        if (url != null) {
+//            doAvailable(removeUnnecessaryParmas(url.createCopy()));
+//        } else {
+//            doAvailable(null);
+//        }
+//    }
+//
+//    @Override
+//    public void unavailable(LionURL url) {
+//        logger.info("[{}] Url ({}) will set to unavailable to Registry [{}]", registryClassName, url, registryUrl.getIdentity());
+//        if (url != null) {
+//            doUnavailable(removeUnnecessaryParmas(url.createCopy()));
+//        } else {
+//            doUnavailable(null);
+//        }
+//    }
     
 	@Override
 	public Collection<LionURL> getRegisteredServiceUrls() {
@@ -175,7 +175,7 @@ public abstract class AbstractRegistry implements Registry {
 
     protected abstract List<LionURL> doDiscover(LionURL url);
 
-    protected abstract void doAvailable(LionURL url);
-
-    protected abstract void doUnavailable(LionURL url);
+//    protected abstract void doAvailable(LionURL url);
+//
+//    protected abstract void doUnavailable(LionURL url);
 }

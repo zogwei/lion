@@ -86,6 +86,7 @@ public class ClusterSupport<T> implements NotifyListener {
 			// TODO 未注册自己，服务如何知道谁订阅了自己的服务
             Registry registry = getRegistry(ru);
             registry.subscribe(subUrl, this);
+            
 		 }
 		
 		 boolean check = Boolean.parseBoolean(url.getParameter(URLParamType.check.getName(), URLParamType.check.getValue()));
@@ -137,6 +138,12 @@ public class ClusterSupport<T> implements NotifyListener {
 	private LionURL toSubscribeUrl(LionURL url) {
 		LionURL subUrl = url.createCopy();
 		subUrl.addParameter(URLParamType.nodeType.getName(), LionConstants.NODE_TYPE_SERVICE);
+		return subUrl;
+	}
+	
+	private LionURL toConsumerUrl(LionURL url) {
+		LionURL subUrl = url.createCopy();
+		subUrl.addParameter(URLParamType.nodeType.getName(), LionConstants.NODE_TYPE_REFERER);
 		return subUrl;
 	}
 	
