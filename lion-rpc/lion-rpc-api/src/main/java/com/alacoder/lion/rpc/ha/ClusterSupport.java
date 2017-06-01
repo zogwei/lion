@@ -83,8 +83,10 @@ public class ClusterSupport<T> implements NotifyListener {
 			}
 			
 			 // client 注册自己，同时订阅service列表
-			// TODO 未注册自己，服务如何知道谁订阅了自己的服务
             Registry registry = getRegistry(ru);
+            //注册自己
+            registry.register(toConsumerUrl(url));
+            //订阅
             registry.subscribe(subUrl, this);
             
 		 }

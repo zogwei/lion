@@ -13,6 +13,9 @@
 
 package com.alacoder.lion.common.url;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -21,7 +24,6 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
-
 import com.alacoder.common.exception.LionServiceException;
 import com.alacoder.lion.common.LionConstants;
 
@@ -520,6 +522,28 @@ public class LionURL {
             numbers = new ConcurrentHashMap<String, Number>();
         }
         return numbers;
+    }
+    
+    public static String encode(String value) {
+        if (value == null || value.length() == 0) { 
+            return "";
+        }
+        try {
+            return URLEncoder.encode(value, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException(e.getMessage(), e);
+        }
+    }
+    
+    public static String decode(String value) {
+        if (value == null || value.length() == 0) { 
+            return "";
+        }
+        try {
+            return URLDecoder.decode(value, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException(e.getMessage(), e);
+        }
     }
 
 }

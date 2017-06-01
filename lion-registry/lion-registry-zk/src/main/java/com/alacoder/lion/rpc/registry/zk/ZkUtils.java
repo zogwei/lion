@@ -46,6 +46,6 @@ public class ZkUtils {
     }
 
     public static String toNodePath(LionURL url, String nodeType) {
-        return toNodeTypePath(url, nodeType) + LionConstants.PATH_SEPARATOR + url.getServerPortStr();
+        return toNodeTypePath(url, nodeType) + LionConstants.PATH_SEPARATOR + LionURL.encode(url.toFullStr());
     }
 }
