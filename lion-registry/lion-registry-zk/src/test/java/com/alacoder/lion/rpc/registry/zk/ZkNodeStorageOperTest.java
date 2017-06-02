@@ -60,13 +60,17 @@ public class ZkNodeStorageOperTest {
 		LionURL url = new LionURL(LionConstants.REGISTRY_PROTOCOL_DIRECT, "127.0.0.1", 4455, "com.alacoder.lion.rpc.DemoService");
 		url.addParameter("embed", "lion://127.0.0.1:4455/com.alacoder.lion.rpc.DemoService?");
 		
+		
 		NotifyListener listener = new NotifyListener(){
 
+			Long index=0L;
+			
 			@Override
 			public void notify(LionURL registryUrl, List<LionURL> urls) {
-				System.out.println("registryUrl : " +  registryUrl.toFullStr());
+				Long temp = index++;
+				System.out.println("registryUrl index :"+ temp +" : " +  registryUrl.toFullStr());
 				for(LionURL suburl : urls){
-					System.out.println("suburl : " +  suburl.toFullStr());
+					System.out.println("suburl :  index : "+ temp +" : " +suburl.toFullStr());
 				}
 			}
 		};
@@ -75,10 +79,9 @@ public class ZkNodeStorageOperTest {
 		
 		zkOper.persist("/keyPersisit/watch/sub1", "valuewatch-sub1");
 		zkOper.persist("/keyPersisit/watch/sub2", "valuewatch-sub2");
-		Thread.sleep(1000);
 		zkOper.persist("/keyPersisit/watch/sub3", "valuewatch-sub3");
 		try {
-			Thread.sleep(1000000);
+			Thread.sleep(10*1000);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
