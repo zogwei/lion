@@ -33,6 +33,11 @@ other
 4、网络层支持心跳
 
 
+考虑将register 支持 spring 获得注册对象
+考虑 admin-web变成 spring boot服务
+
+
+
 
 
 

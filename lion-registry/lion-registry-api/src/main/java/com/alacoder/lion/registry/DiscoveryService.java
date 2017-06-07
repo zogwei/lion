@@ -31,4 +31,5 @@ public interface DiscoveryService {
     void unsubscribe(LionURL url, NotifyListener listener);
 
     List<LionURL> discover(LionURL url);
+    
 }

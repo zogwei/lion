@@ -30,7 +30,7 @@
     <!-- 
     <lion:registry regProtocol="direct" name="registry"  connectTimeout="2000"/>
      -->
-     <lion:registry regProtocol="zookeeper" name="registry"  address="127.0.0.1:2181" connectTimeout="2000"/>
+    <lion:registry regProtocol="zookeeper" name="registry"  address="127.0.0.1:2181" connectTimeout="2000"/>
 
     <!-- 协议配置。为防止多个业务配置冲突，推荐使用id表示具体协议。-->
     <lion:protocol id="demoLion" default="true" name="lion"
