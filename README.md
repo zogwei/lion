@@ -4,13 +4,16 @@ a RPC framework
   
 TODO List
 
+TCC支持
+分布式事务
+传播性
+
 consumer 注册zk 
 lion-regitry-redis
 
 lion-amidn-web 
 配置注册中心信息，获得provider consumer 信息
 服务治理：服务 与消费者查询，路由修改
-
 
 
 管控控制台

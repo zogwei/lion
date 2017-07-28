@@ -14,6 +14,7 @@
     <module>lion-common</module>
     <module>lion-admin</module>
     <module>lion-simple</module>
+    <module>lion-tcc</module>
   </modules>
   
       <properties>
