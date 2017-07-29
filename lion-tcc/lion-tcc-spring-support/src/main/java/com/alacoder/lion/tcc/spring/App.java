@@ -1,4 +1,4 @@
-package com.alacoder.lion.tcc;
+package com.alacoder.lion.tcc.spring;
 
 /**
  * Hello world!

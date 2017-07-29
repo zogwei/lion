@@ -10,5 +10,6 @@
   <packaging>pom</packaging>
   <modules>
     <module>lion-tcc-core</module>
+    <module>lion-tcc-spring-support</module>
   </modules>
 </project>
