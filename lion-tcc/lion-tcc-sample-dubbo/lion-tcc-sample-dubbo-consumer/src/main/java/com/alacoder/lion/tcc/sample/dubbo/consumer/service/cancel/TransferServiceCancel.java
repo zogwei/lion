@@ -23,4 +23,12 @@ public class TransferServiceCancel implements ITransferService {
 		System.out.printf("exec decrease: acct= %s, amount= %7.2f%n", targetAcctId, amount);
 	}
 
+    public void transferServiceConfirm(String sourceAcctId, String targetAcctId, double amount) throws ServiceException {
+        throw new ServiceException("not support!");
+    }
+
+    public void transferServiceCancel(String sourceAcctId, String targetAcctId, double amount) throws ServiceException {
+        throw new ServiceException("not support!");
+    }
+
 }

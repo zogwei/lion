@@ -9,7 +9,6 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service("accountService")
-@Compensable(interfaceClass = IAccountService.class, confirmableKey = "accountServiceConfirm", cancellableKey = "accountServiceCancel")
 public class AccountServiceImpl implements IAccountService {
 
 	@SuppressWarnings("restriction")
@@ -17,6 +16,7 @@ public class AccountServiceImpl implements IAccountService {
 	private JdbcTemplate jdbcTemplate;
 
 	@Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = ServiceException.class)
+    @Compensable(interfaceClass = IAccountService.class, confirmableKey = "increaseAmountConfirm", cancellableKey = "increaseAmountCancel")
 	public void increaseAmount(String acctId, double amount) throws ServiceException {
 		int value = this.jdbcTemplate.update("update tb_account_one set frozen = frozen + ? where acct_id = ?", amount, acctId);
 		if (value != 1) {
@@ -26,7 +26,8 @@ public class AccountServiceImpl implements IAccountService {
 	}
 
 	@Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = ServiceException.class)
-	public void decreaseAmount(String acctId, double amount) throws ServiceException {
+    @Compensable(interfaceClass = IAccountService.class, confirmableKey = "decreaseAmountConfirm", cancellableKey = "decreaseAmountCancel")
+    public void decreaseAmount(String acctId, double amount) throws ServiceException {
 		int value = this.jdbcTemplate.update(
 				"update tb_account_one set amount = amount - ?, frozen = frozen + ? where acct_id = ?", amount, amount, acctId);
 		if (value != 1) {
@@ -34,5 +35,45 @@ public class AccountServiceImpl implements IAccountService {
 		}
 		System.out.printf("exec decrease: acct= %s, amount= %7.2f%n", acctId, amount);
 	}
+
+    @Transactional(rollbackFor = ServiceException.class)
+    public void increaseAmountConfirm(String acctId, double amount) throws ServiceException {
+        int value = this.jdbcTemplate.update("update tb_account_one set amount = amount + ?, frozen = frozen - ? where acct_id = ?",
+                                             amount, amount, acctId);
+        if (value != 1) {
+            throw new ServiceException("ERROR!");
+        }
+        System.out.printf("done increase: acct= %s, amount= %7.2f%n", acctId, amount);
+    }
+
+    @Transactional(rollbackFor = ServiceException.class)
+    public void decreaseAmountConfirm(String acctId, double amount) throws ServiceException {
+        int value = this.jdbcTemplate.update("update tb_account_one set frozen = frozen - ? where acct_id = ?", amount,
+                                             acctId);
+        if (value != 1) {
+            throw new ServiceException("ERROR!");
+        }
+        System.out.printf("done decrease: acct= %s, amount= %7.2f%n", acctId, amount);
+    }
+
+    @Transactional(rollbackFor = ServiceException.class)
+    public void increaseAmountCancel(String acctId, double amount) throws ServiceException {
+        int value = this.jdbcTemplate.update("update tb_account_one set frozen = frozen - ? where acct_id = ?", amount,
+                                             acctId);
+        if (value != 1) {
+            throw new ServiceException("ERROR!");
+        }
+        System.out.printf("undo increase: acct= %s, amount= %7.2f%n", acctId, amount);
+    }
+
+    @Transactional(rollbackFor = ServiceException.class)
+    public void decreaseAmountCancel(String acctId, double amount) throws ServiceException {
+        int value = this.jdbcTemplate.update("update tb_account_one set amount = amount + ?, frozen = frozen - ? where acct_id = ?",
+                                             amount, amount, acctId);
+        if (value != 1) {
+            throw new ServiceException("ERROR!");
+        }
+        System.out.printf("undo decrease: acct= %s, amount= %7.2f%n", acctId, amount);
+    }
 
 }

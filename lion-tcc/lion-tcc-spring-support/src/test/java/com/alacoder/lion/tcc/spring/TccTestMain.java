@@ -14,7 +14,7 @@ public class TccTestMain {
 	public static void main(String[] args) throws InterruptedException {
     	
         ApplicationContext applicationContext = new ClassPathXmlApplicationContext(
-                                                                                   new String[] { "classpath*:spring-context*.xml" });
+                                                                                   new String[] { "classpath*:spring-*.xml" });
         System.out.println("server start...");
         
         DemoService demoService = (DemoService) applicationContext.getBean("demoService");

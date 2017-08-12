@@ -114,5 +114,10 @@
 			<scope>runtime</scope>
 		</dependency>
 		<!-- PERSISTENCE end -->
+		<dependency>
+			<groupId>com.alacoder</groupId>
+			<artifactId>lion-tcc-core</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 </project>

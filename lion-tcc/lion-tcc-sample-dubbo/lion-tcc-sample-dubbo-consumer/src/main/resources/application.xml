@@ -12,6 +12,7 @@
            http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
 
 	<import resource="dubbo-consumer.xml" />
+	<import resource="classpath*:spring-tcc-transaction.xml" />
 
 	<context:component-scan base-package="com.alacoder.lion.tcc.sample.dubbo.consumer.service" />
 

@@ -23,4 +23,13 @@ public class TransferServiceConfirm implements ITransferService {
 		System.out.printf("done increase: acct= %s, amount= %7.2f%n", targetAcctId, amount);
 	}
 
+    public void transferServiceConfirm(String sourceAcctId, String targetAcctId, double amount) throws ServiceException {
+        throw new ServiceException("not support!");
+
+    }
+
+    public void transferServiceCancel(String sourceAcctId, String targetAcctId, double amount) throws ServiceException {
+        throw new ServiceException("not support!");
+    }
+
 }

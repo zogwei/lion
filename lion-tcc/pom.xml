@@ -123,4 +123,11 @@
     <module>lion-tcc-sample-dubbo</module>
     <module>lion-tcc-dubbo-support</module>
   </modules>
+  <dependencies>
+  	<dependency>
+  		<groupId>com.alacoder</groupId>
+  		<artifactId>lion-common</artifactId>
+  		<version>0.0.1-SNAPSHOT</version>
+  	</dependency>
+  </dependencies>
 </project>
