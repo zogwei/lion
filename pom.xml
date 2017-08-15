@@ -62,13 +62,13 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <version>1.7.6</version>
+            <version>1.5.8</version>
         </dependency>
 
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
-            <version>1.7.6</version>
+            <version>1.5.8</version>
         </dependency>
 
         <dependency>
@@ -95,5 +95,19 @@
 	      <version>3.8.1</version>
 	      <scope>test</scope>
 	    </dependency>
-	    </dependencies>    
+	</dependencies>   
+	
+	<profile>  
+	    <id>jdk17</id>  
+	     <activation>  
+	          <activeByDefault>true</activeByDefault>  
+	          <jdk>1.7</jdk>  
+	     </activation>  
+	     <properties>  
+	          <maven.compiler.source>1.7</maven.compiler.source>  
+	          <maven.compiler.target>1.7</maven.compiler.target>  
+	          <maven.compiler.compilerVersion>1.7</maven.compiler.compilerVersion>  
+	     </properties>   
+	</profile>  
+	 
 </project>
