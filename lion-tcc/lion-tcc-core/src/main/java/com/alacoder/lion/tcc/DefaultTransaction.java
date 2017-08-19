@@ -25,7 +25,7 @@ public class DefaultTransaction implements Transaction {
     private Map<String, Object> attachments    = new ConcurrentHashMap<String, Object>();
 
     public DefaultTransaction() {
-
+        xid = new TransactionXid();
     }
 
     public void commit() {

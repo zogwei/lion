@@ -10,4 +10,6 @@ public interface Transaction {
     public void enlistParticipant(Participant participant);
 
     public TransactionXid getXid();
+
+    public TransactionStatus getTransactionStatus();
 }

@@ -5,7 +5,8 @@ import java.nio.ByteBuffer;
 import java.util.UUID;
 
 public class TransactionXid implements Serializable {
-    private static final long serialVersionUID = -6817267250789142043L;
+
+    private static final long serialVersionUID = -1;
 
     private int formatId = 1;
 
@@ -31,4 +32,5 @@ public class TransactionXid implements Serializable {
         long secondLong = bb.getLong();
         return new UUID(firstLong, secondLong);
     }
+
 }

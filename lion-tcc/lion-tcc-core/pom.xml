@@ -27,6 +27,10 @@
       <scope>test</scope>
     </dependency>
     <dependency>
+			<groupId>com.caucho</groupId>
+			<artifactId>hessian</artifactId>
+		</dependency>
+    <dependency>
     	<groupId>com.alacoder</groupId>
     	<artifactId>lion-common</artifactId>
     	<version>0.0.1-SNAPSHOT</version>

@@ -1,5 +1,14 @@
 package com.alacoder.lion.tcc;
 
-public interface TransactionContext {
+import java.io.Serializable;
+import java.util.Map;
+
+public interface TransactionContext extends Serializable {
+
+    public TransactionXid getXid();
+
+    public Map<String, String> getAttachments();
+
+    public int getStatus();
 
 }

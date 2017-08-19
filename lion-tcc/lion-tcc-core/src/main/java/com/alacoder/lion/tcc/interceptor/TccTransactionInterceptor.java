@@ -20,7 +20,7 @@ public class TccTransactionInterceptor {
 
     private final static Log logger = LogFactory.getLog(TccTransactionInterceptor.class);
 
-    private TransactionManager transactionManager = new DefaultTransactionManager();
+    private TransactionManager transactionManager = DefaultTransactionManager.getInstance();
 
 
     public Object interceptCompensableMethod(ProceedingJoinPoint pjp) throws Throwable {

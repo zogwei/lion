@@ -5,7 +5,13 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class DefaultTransactionManager implements TransactionManager {
 
-    private final Map<Thread, Transaction> associatedTxMap = new ConcurrentHashMap<Thread, Transaction>();
+    private static final Map<Thread, Transaction> associatedTxMap = new ConcurrentHashMap<Thread, Transaction>();
+
+    private static final DefaultTransactionManager instance        = new DefaultTransactionManager();
+
+    public static TransactionManager getInstance() {
+        return instance;
+    }
 
     public Transaction getTransaction(TransactionAttribute transactionAttr) {
         Transaction transaction = associatedTxMap.get(Thread.currentThread());
@@ -28,6 +34,10 @@ public class DefaultTransactionManager implements TransactionManager {
 
     public void cleanUp() {
         associatedTxMap.remove(Thread.currentThread());
+    }
+
+    private DefaultTransactionManager() {
+
     }
 
 }
