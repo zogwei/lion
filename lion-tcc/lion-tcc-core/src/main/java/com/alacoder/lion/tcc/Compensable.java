@@ -9,12 +9,8 @@ import java.lang.annotation.Target;
 @Target({ ElementType.METHOD })
 public @interface Compensable {
 
-    public boolean simplified() default false;
+    public String confirmMethod() default "";
 
-    public Class<?> interfaceClass();
-
-    public String confirmableKey() default "";
-
-    public String cancellableKey() default "";
+    public String cancelMethod() default "";
 
 }

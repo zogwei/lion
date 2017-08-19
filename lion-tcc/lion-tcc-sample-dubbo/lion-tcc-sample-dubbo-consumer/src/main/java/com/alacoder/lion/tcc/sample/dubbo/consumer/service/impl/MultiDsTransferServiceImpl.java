@@ -19,7 +19,7 @@ public class MultiDsTransferServiceImpl implements ITransferService {
 	private JdbcTemplate jdbcTemplate;
 
 	@Transactional(rollbackFor = ServiceException.class)
-    @Compensable(interfaceClass = ITransferService.class, confirmableKey = "transferServiceConfirm", cancellableKey = "transferServiceCancel")
+    @Compensable(confirmMethod = "transferServiceConfirm", cancelMethod = "transferServiceCancel")
 	public void transfer(String sourceAcctId, String targetAcctId, double amount) throws ServiceException {
 
 		this.nativeAccountService.decreaseAmount(sourceAcctId, amount);

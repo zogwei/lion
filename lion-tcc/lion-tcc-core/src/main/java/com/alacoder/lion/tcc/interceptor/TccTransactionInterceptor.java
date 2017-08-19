@@ -4,11 +4,16 @@ import java.lang.reflect.Method;
 
 import com.aben.cup.log.logging.Log;
 import com.aben.cup.log.logging.LogFactory;
+import com.alacoder.lion.tcc.Compensable;
 import com.alacoder.lion.tcc.DefaultTransactionManager;
+import com.alacoder.lion.tcc.InvocationContext;
+import com.alacoder.lion.tcc.Participant;
 import com.alacoder.lion.tcc.Transaction;
 import com.alacoder.lion.tcc.TransactionAttribute;
 import com.alacoder.lion.tcc.TransactionManager;
+import com.alacoder.lion.tcc.TransactionXid;
 import com.alacoder.lion.tcc.utils.CompensableUtils;
+import com.alacoder.lion.tcc.utils.ReflectionUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 
 public class TccTransactionInterceptor {
@@ -27,11 +32,14 @@ public class TccTransactionInterceptor {
         TransactionAttribute transactionAttr = getTransactionAttribute(pjp);
 
         Transaction transaction = createTransactionIfNecessary(transactionAttr);
+        enlistParticipant(pjp);
         Object retVal = null;
         try {
             // This is an around advice: Invoke the next interceptor in the chain.
             // This will normally result in a target object being invoked.
             retVal = pjp.proceed();
+            commitTransaction(transaction);
+
         } catch (Throwable ex) {
             // target invocation exception
             completeTransactionAfterThrowing(transaction, ex);
@@ -47,15 +55,22 @@ public class TccTransactionInterceptor {
     }
 
     private void completeTransactionAfterThrowing(Transaction transaction, Throwable ex) {
+        logger.debug("TccTransactionInterceptor completeTransactionAfterThrowing() begin");
         transaction.rollback();
     }
 
     private void cleanupTransaction(Transaction transaction) {
+        transactionManager.cleanUp();
+    }
+
+    private void commitTransaction(Transaction transaction) {
+        logger.debug("TccTransactionInterceptor commitTransaction() begin");
+        transaction.commit();
 
     }
 
     private void commitTransactionAfterReturning(Transaction transaction) {
-        transaction.commit();
+
     }
 
     private TransactionAttribute getTransactionAttribute(ProceedingJoinPoint pjp) {
@@ -75,6 +90,35 @@ public class TccTransactionInterceptor {
 
     public void setTransactionManager(TransactionManager transactionManager) {
         this.transactionManager = transactionManager;
+    }
+
+    private void enlistParticipant(ProceedingJoinPoint pjp) {
+        Method method = CompensableUtils.getCompensableMethod(pjp);
+        Compensable compensable = method.getAnnotation(Compensable.class);
+
+        String confirmMethodName = compensable.confirmMethod();
+        String cancelMethodName = compensable.cancelMethod();
+
+        Transaction transaction = transactionManager.getCurrentTransaction();
+        TransactionXid xid = transaction.getXid();
+
+        Class targetClass = ReflectionUtils.getDeclaringType(pjp.getTarget().getClass(), method.getName(),
+                                                             method.getParameterTypes());
+
+
+
+        InvocationContext confirmInvocation = new InvocationContext(targetClass, confirmMethodName,
+                                                                    method.getParameterTypes(), pjp.getArgs());
+
+        InvocationContext cancelInvocation = new InvocationContext(targetClass, cancelMethodName,
+                                                                   method.getParameterTypes(), pjp.getArgs());
+
+        Participant participant = new Participant(xid, confirmInvocation, cancelInvocation);
+
+        participant.setTargetClass(pjp.getTarget().getClass());
+
+        transactionManager.enlistParticipant(participant);
+
     }
 
 }

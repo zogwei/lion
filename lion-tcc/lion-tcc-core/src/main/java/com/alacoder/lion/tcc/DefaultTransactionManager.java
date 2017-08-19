@@ -9,14 +9,25 @@ public class DefaultTransactionManager implements TransactionManager {
 
     public Transaction getTransaction(TransactionAttribute transactionAttr) {
         Transaction transaction = associatedTxMap.get(Thread.currentThread());
-        if (transaction != null) {
-            // 已经存在事务，作为参与方加入事务
-        } else {
-            // 当前线程不存在事务，新增一个全局事务
-
+        if (transaction == null) {
+            // 当前线程不存在事务，新增一个全局事务,
+            transaction = new DefaultTransaction();
+            associatedTxMap.put(Thread.currentThread(), transaction);
         }
 
         return transaction;
+    }
+
+    public Transaction getCurrentTransaction() {
+        return associatedTxMap.get(Thread.currentThread());
+    }
+
+    public void enlistParticipant(Participant participant) {
+        getCurrentTransaction().enlistParticipant(participant);
+    }
+
+    public void cleanUp() {
+        associatedTxMap.remove(Thread.currentThread());
     }
 
 }

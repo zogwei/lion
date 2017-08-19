@@ -16,7 +16,7 @@ public class AccountServiceImpl implements IAccountService {
 	private JdbcTemplate jdbcTemplate;
 
 	@Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = ServiceException.class)
-    @Compensable(interfaceClass = IAccountService.class, confirmableKey = "increaseAmountConfirm", cancellableKey = "increaseAmountCancel")
+    @Compensable(confirmMethod = "increaseAmountConfirm", cancelMethod = "increaseAmountCancel")
 	public void increaseAmount(String acctId, double amount) throws ServiceException {
 		int value = this.jdbcTemplate.update("update tb_account_one set frozen = frozen + ? where acct_id = ?", amount, acctId);
 		if (value != 1) {
@@ -26,7 +26,7 @@ public class AccountServiceImpl implements IAccountService {
 	}
 
 	@Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = ServiceException.class)
-    @Compensable(interfaceClass = IAccountService.class, confirmableKey = "decreaseAmountConfirm", cancellableKey = "decreaseAmountCancel")
+    @Compensable(confirmMethod = "decreaseAmountConfirm", cancelMethod = "decreaseAmountCancel")
     public void decreaseAmount(String acctId, double amount) throws ServiceException {
 		int value = this.jdbcTemplate.update(
 				"update tb_account_one set amount = amount - ?, frozen = frozen + ? where acct_id = ?", amount, amount, acctId);

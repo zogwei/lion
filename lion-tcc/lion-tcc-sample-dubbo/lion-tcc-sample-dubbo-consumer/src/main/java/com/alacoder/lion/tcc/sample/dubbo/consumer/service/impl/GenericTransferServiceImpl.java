@@ -19,13 +19,13 @@ public class GenericTransferServiceImpl implements ITransferService {
 	private IAccountService remoteAccountService;
 
 	@Transactional(rollbackFor = ServiceException.class)
-    @Compensable(interfaceClass = ITransferService.class, confirmableKey = "transferServiceConfirm", cancellableKey = "transferServiceCancel")
+    @Compensable(confirmMethod = "transferServiceConfirm", cancelMethod = "transferServiceCancel")
 	public void transfer(String sourceAcctId, String targetAcctId, double amount) throws ServiceException {
 
 		this.remoteAccountService.decreaseAmount(sourceAcctId, amount);
 		this.increaseAmount(targetAcctId, amount);
 
-		 throw new ServiceException("rollback");
+        // throw new ServiceException("rollback");
 	}
 
     @Transactional(rollbackFor = ServiceException.class)

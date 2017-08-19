@@ -5,9 +5,15 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd     http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd">
 
     <aop:aspectj-autoproxy proxy-target-class="true"/>
+    
+    <bean id="springBeanFactory" class="com.alacoder.lion.tcc.spring.beanFactory.SpringBeanFactory"/>
+    <bean id="springPostProcessor" class="com.alacoder.lion.tcc.spring.beanFactory.SpringBeanFactoryPostProcessor"/>
+    
 	
      <bean id="configurableTccTransactionAspect" class="com.alacoder.lion.tcc.spring.aspect.ConfigurableTccTransactionAspect"
           init-method="init">
     </bean>
+    
+    
 
 </beans>
