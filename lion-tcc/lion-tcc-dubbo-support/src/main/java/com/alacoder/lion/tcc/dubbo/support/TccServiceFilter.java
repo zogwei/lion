@@ -13,6 +13,7 @@ import com.alibaba.dubbo.rpc.Invoker;
 import com.alibaba.dubbo.rpc.Result;
 import com.alibaba.dubbo.rpc.RpcContext;
 import com.alibaba.dubbo.rpc.RpcException;
+import com.alibaba.dubbo.rpc.RpcResult;
 
 import com.alacoder.lion.tcc.DefaultTransactionContext;
 import com.alacoder.lion.tcc.DefaultTransactionManager;
@@ -47,7 +48,6 @@ public class TccServiceFilter implements Filter {
 
     public Result providerInvoke(Invoker<?> invoker, Invocation invocation) throws RpcException {
         URL url = RpcContext.getContext().getUrl();
-        String interfaceClazz = url.getServiceInterface();
         TransactionContext transactionContext = null;
         String transactionContextContent = invocation.getAttachment(TransactionContext.class.getName());
         if (StringUtils.isNotEmpty(transactionContextContent)) {
@@ -65,14 +65,24 @@ public class TccServiceFilter implements Filter {
 
         if (transactionContext.getStatus() == TransactionStatus.TRYING.id()) {
             // 开启一个本地事务，判断事务阶段，一阶段生成事务 ，以便事务的传播
+            Transaction transaction = transactionManager.getRemoteTransaction(transactionContext);
+            // 添加自身参与者
 
-        } else {
-            // 二阶段，根据事务状态，提交或者回滚
-            // 获得本地参与者局部tcc事务，根据全局事务状态，回顾，或者提交
 
+        } else if (transactionContext.getStatus() == TransactionStatus.CANCELLING.id()) {
+            // 二阶段，回滚
+            // 根据全局事务id和参与分支id获得本地参与者局部tcc事务（注意一个全局事务，两个局部分支），回顾
+            Transaction transaction = transactionManager.getRemoteTransaction(transactionContext);
+            transaction.rollback();
+
+        } else if (transactionContext.getStatus() == TransactionStatus.CONFIRMING.id()) {
+            // 二阶段，提交
+            // 根据全局事务id和参与分支id获得本地参与者局部tcc事务（注意一个全局事务，两个局部分支），提交
+            Transaction transaction = transactionManager.getRemoteTransaction(transactionContext);
+            transaction.commit();
         }
 
-        return null;
+        return new RpcResult();
     }
 
     public Result consumerInvoke(Invoker<?> invoker, Invocation invocation) throws RpcException {
@@ -91,7 +101,7 @@ public class TccServiceFilter implements Filter {
         }
         TransactionXid xid = null;
         if (transaction.getTransactionStatus().equals(TransactionStatus.TRYING)) {
-            xid = transaction.getXid();
+            xid = new TransactionXid(transaction.getXid().getGlobalTransactionId());
 
             Class targetClass = invocation.getClass();
 

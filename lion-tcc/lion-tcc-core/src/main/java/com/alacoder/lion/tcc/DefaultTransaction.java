@@ -25,9 +25,14 @@ public class DefaultTransaction implements Transaction {
     private Map<String, Object> attachments    = new ConcurrentHashMap<String, Object>();
 
     public DefaultTransaction() {
-        xid = new TransactionXid();
+        this.xid = new TransactionXid();
     }
 
+    public DefaultTransaction(TransactionXid xid) {
+        this.xid = xid;
+    }
+
+    // TODO 考虑 参与者先后提交问题
     public void commit() {
         for (Participant participant : participantList) {
             participant.commit();

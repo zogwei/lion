@@ -12,4 +12,7 @@ public interface Transaction {
     public TransactionXid getXid();
 
     public TransactionStatus getTransactionStatus();
+
+    public void setTransactionStatus(TransactionStatus transactionStatus);
+
 }

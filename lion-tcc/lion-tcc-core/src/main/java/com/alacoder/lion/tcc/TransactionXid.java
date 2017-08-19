@@ -10,13 +10,18 @@ public class TransactionXid implements Serializable {
 
     private int formatId = 1;
 
-    private byte[] globalTransactionId;
+    private String            globalTransactionId;
 
-    private byte[] branchQualifier;
+    private String            branchQualifier;
 
     public TransactionXid() {
-        globalTransactionId = uuidToByteArray(UUID.randomUUID());
-        branchQualifier = uuidToByteArray(UUID.randomUUID());
+        globalTransactionId = String.valueOf(uuidToByteArray(UUID.randomUUID()));
+        branchQualifier = String.valueOf(uuidToByteArray(UUID.randomUUID()));
+    }
+
+    public TransactionXid(String globalTransactionId) {
+        globalTransactionId = globalTransactionId;
+        branchQualifier = String.valueOf(uuidToByteArray(UUID.randomUUID()));
     }
 
     public static byte[] uuidToByteArray(UUID uuid) {
@@ -31,6 +36,34 @@ public class TransactionXid implements Serializable {
         long firstLong = bb.getLong();
         long secondLong = bb.getLong();
         return new UUID(firstLong, secondLong);
+    }
+
+    public String getGlobalTransactionId() {
+        return globalTransactionId;
+    }
+
+    public void setGlobalTransactionId(String globalTransactionId) {
+        this.globalTransactionId = globalTransactionId;
+    }
+
+    public String getBranchQualifier() {
+        return branchQualifier;
+    }
+
+    public void setBranchQualifier(String branchQualifier) {
+        this.branchQualifier = branchQualifier;
+    }
+
+    public boolean equals(TransactionXid xid) {
+        if (xid == null) {
+            return false;
+        }
+        return this.globalTransactionId.equals(xid.getGlobalTransactionId())
+               && this.getBranchQualifier().equals(xid.getBranchQualifier());
+    }
+
+    public int hashcode() {
+        return this.globalTransactionId.hashCode() + this.getBranchQualifier().hashCode();
     }
 
 }

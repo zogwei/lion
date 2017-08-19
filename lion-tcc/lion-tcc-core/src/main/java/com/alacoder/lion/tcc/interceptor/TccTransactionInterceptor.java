@@ -11,6 +11,7 @@ import com.alacoder.lion.tcc.Participant;
 import com.alacoder.lion.tcc.Transaction;
 import com.alacoder.lion.tcc.TransactionAttribute;
 import com.alacoder.lion.tcc.TransactionManager;
+import com.alacoder.lion.tcc.TransactionStatus;
 import com.alacoder.lion.tcc.TransactionXid;
 import com.alacoder.lion.tcc.utils.CompensableUtils;
 import com.alacoder.lion.tcc.utils.ReflectionUtils;
@@ -56,6 +57,7 @@ public class TccTransactionInterceptor {
 
     private void completeTransactionAfterThrowing(Transaction transaction, Throwable ex) {
         logger.debug("TccTransactionInterceptor completeTransactionAfterThrowing() begin");
+        transaction.setTransactionStatus(TransactionStatus.CANCELLING);
         transaction.rollback();
     }
 
@@ -65,6 +67,7 @@ public class TccTransactionInterceptor {
 
     private void commitTransaction(Transaction transaction) {
         logger.debug("TccTransactionInterceptor commitTransaction() begin");
+        transaction.setTransactionStatus(TransactionStatus.CONFIRMING);
         transaction.commit();
 
     }
@@ -100,7 +103,7 @@ public class TccTransactionInterceptor {
         String cancelMethodName = compensable.cancelMethod();
 
         Transaction transaction = transactionManager.getCurrentTransaction();
-        TransactionXid xid = transaction.getXid();
+        TransactionXid xid = new TransactionXid(transaction.getXid().getGlobalTransactionId());
 
         Class targetClass = ReflectionUtils.getDeclaringType(pjp.getTarget().getClass(), method.getName(),
                                                              method.getParameterTypes());

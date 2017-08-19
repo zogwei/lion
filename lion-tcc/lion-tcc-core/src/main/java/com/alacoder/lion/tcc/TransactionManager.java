@@ -9,4 +9,6 @@ public interface TransactionManager {
     public void enlistParticipant(Participant participant);
 
     public void cleanUp();
+
+    public Transaction getRemoteTransaction(TransactionContext transactionContext);
 }
