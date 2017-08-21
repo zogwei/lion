@@ -15,6 +15,7 @@ import com.alibaba.dubbo.rpc.RpcContext;
 import com.alibaba.dubbo.rpc.RpcException;
 import com.alibaba.dubbo.rpc.RpcResult;
 
+import com.alacoder.lion.tcc.Compensable;
 import com.alacoder.lion.tcc.DefaultTransactionContext;
 import com.alacoder.lion.tcc.DefaultTransactionManager;
 import com.alacoder.lion.tcc.InvocationContext;
@@ -66,8 +67,30 @@ public class TccServiceFilter implements Filter {
         if (transactionContext.getStatus() == TransactionStatus.TRYING.id()) {
             // 开启一个本地事务，判断事务阶段，一阶段生成事务 ，以便事务的传播
             Transaction transaction = transactionManager.getRemoteTransaction(transactionContext);
-            // 添加自身参与者
+            Class targetClass = invocation.getClass();
+            invoker.getInterface();
+            TransactionXid xid = null;
+            xid = new TransactionXid(transaction.getXid().getGlobalTransactionId());
 
+            invocation.getArguments();
+
+            Compensable compensable = (Compensable) targetClass.getAnnotation(Compensable.class);
+
+            String confirmMethodName = compensable.confirmMethod();
+            String cancelMethodName = compensable.cancelMethod();
+
+            InvocationContext confirmInvocation = new InvocationContext(targetClass, confirmMethodName,
+                                                                        invocation.getParameterTypes(),
+                                                                        invocation.getArguments());
+
+            InvocationContext cancelInvocation = new InvocationContext(targetClass, confirmMethodName,
+                                                                       invocation.getParameterTypes(),
+                                                                       invocation.getArguments());
+            Participant participant = new Participant(xid, confirmInvocation, cancelInvocation);
+
+            participant.setTargetClass(targetClass);
+
+            transactionManager.enlistParticipant(participant);
 
         } else if (transactionContext.getStatus() == TransactionStatus.CANCELLING.id()) {
             // 二阶段，回滚

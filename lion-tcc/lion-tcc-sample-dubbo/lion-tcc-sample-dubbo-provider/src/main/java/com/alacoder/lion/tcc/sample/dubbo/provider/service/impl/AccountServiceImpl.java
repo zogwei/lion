@@ -1,7 +1,6 @@
 package com.alacoder.lion.tcc.sample.dubbo.provider.service.impl;
 
 
-import com.alacoder.lion.tcc.Compensable;
 import com.alacoder.lion.tcc.sample.dubbo.api.ServiceException;
 import com.alacoder.lion.tcc.sample.dubbo.api.service.IAccountService;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -17,7 +16,6 @@ public class AccountServiceImpl implements IAccountService {
     private JdbcTemplate jdbcTemplate;
 
     @Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = ServiceException.class)
-    @Compensable(confirmMethod = "increaseAmountConfirm", cancelMethod = "increaseAmountCancel")
     public void increaseAmount(String acctId, double amount) throws ServiceException {
         int value = this.jdbcTemplate.update("update tb_account_one set frozen = frozen + ? where acct_id = ?", amount,
                                              acctId);
@@ -28,7 +26,6 @@ public class AccountServiceImpl implements IAccountService {
     }
 
     @Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = ServiceException.class)
-    @Compensable(confirmMethod = "decreaseAmountConfirm", cancelMethod = "decreaseAmountCancel")
     public void decreaseAmount(String acctId, double amount) throws ServiceException {
         int value = this.jdbcTemplate.update("update tb_account_one set amount = amount - ?, frozen = frozen + ? where acct_id = ?",
                                              amount, amount, acctId);
