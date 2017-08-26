@@ -1,14 +1,14 @@
 package com.alacoder.lion.tcc.sample.dubbo.consumer.service.impl;
 
 import com.alacoder.lion.tcc.sample.dubbo.api.ServiceException;
-import com.alacoder.lion.tcc.sample.dubbo.api.service.IAccountService;
+import com.alacoder.lion.tcc.sample.dubbo.consumer.service.ILocalAccountService;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service("accountService")
-public class AccountServiceImpl implements IAccountService {
+public class AccountServiceImpl implements ILocalAccountService {
 
 	@SuppressWarnings("restriction")
 	@javax.annotation.Resource(name = "jdbcTemplate1")

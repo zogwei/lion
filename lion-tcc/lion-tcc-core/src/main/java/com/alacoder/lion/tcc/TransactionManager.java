@@ -11,4 +11,6 @@ public interface TransactionManager {
     public void cleanUp();
 
     public Transaction getRemoteTransaction(TransactionContext transactionContext);
+
+    public Transaction getRemoteTransaction(TransactionXid xid);
 }

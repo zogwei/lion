@@ -15,6 +15,7 @@
 
 
 	<import resource="dubbo-provider.xml" />
+	<import resource="classpath*:spring-tcc-transaction.xml" />
 
 	<context:component-scan base-package="com.alacoder.lion.tcc.sample.dubbo.provider.service" />
 

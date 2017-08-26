@@ -22,10 +22,13 @@ public class DefaultTransaction implements Transaction {
 
     private List<Participant>   participantList = new ArrayList<Participant>();
 
+    private volatile Participant lastParticipant = null;
+
     private Map<String, Object> attachments    = new ConcurrentHashMap<String, Object>();
 
     public DefaultTransaction() {
         this.xid = new TransactionXid();
+        this.setTransactionStatus(TransactionStatus.TRYING);
     }
 
     public DefaultTransaction(TransactionXid xid) {
@@ -35,6 +38,7 @@ public class DefaultTransaction implements Transaction {
     // TODO 考虑 参与者先后提交问题
     public void commit() {
         for (Participant participant : participantList) {
+            lastParticipant = participant;
             participant.commit();
         }
 
@@ -42,6 +46,7 @@ public class DefaultTransaction implements Transaction {
 
     public void rollback() {
         for (Participant participant : participantList) {
+            lastParticipant = participant;
             participant.rollback();
         }
     }
@@ -112,6 +117,14 @@ public class DefaultTransaction implements Transaction {
 
     public void setAttachments(Map<String, Object> attachments) {
         this.attachments = attachments;
+    }
+
+    public Participant getLastParticipant() {
+        return lastParticipant;
+    }
+
+    public void setLastParticipant(Participant lastParticipant) {
+        this.lastParticipant = lastParticipant;
     }
 
 }

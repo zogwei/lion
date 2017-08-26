@@ -7,7 +7,7 @@ public class DefaultTransactionManager implements TransactionManager {
 
     private static final Map<Thread, Transaction> associatedTxMap = new ConcurrentHashMap<Thread, Transaction>();
 
-    private static final Map<TransactionXid, Transaction> associatedRemoteTxMap = new ConcurrentHashMap<TransactionXid, Transaction>();
+    private static final Map<String, Transaction>  associatedRemoteTxMap = new ConcurrentHashMap<String, Transaction>();
 
     private static final DefaultTransactionManager instance        = new DefaultTransactionManager();
 
@@ -30,10 +30,15 @@ public class DefaultTransactionManager implements TransactionManager {
         Transaction transaction = associatedRemoteTxMap.get(transactionContext.getXid());
         if (transaction == null) {
             transaction = new DefaultTransaction();
-            associatedRemoteTxMap.put(transactionContext.getXid(), transaction);
+            associatedRemoteTxMap.put(transactionContext.getXid().getBranchQualifier(), transaction);
             associatedTxMap.put(Thread.currentThread(), transaction);
         }
 
+        return transaction;
+    }
+
+    public Transaction getRemoteTransaction(TransactionXid xid) {
+        Transaction transaction = associatedRemoteTxMap.get(xid.getBranchQualifier());
         return transaction;
     }
 

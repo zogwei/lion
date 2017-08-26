@@ -15,4 +15,5 @@ public interface Transaction {
 
     public void setTransactionStatus(TransactionStatus transactionStatus);
 
+    public Participant getLastParticipant();
 }

@@ -2,7 +2,7 @@ package com.alacoder.lion.tcc.sample.dubbo.consumer.service.impl;
 
 import com.alacoder.lion.tcc.Compensable;
 import com.alacoder.lion.tcc.sample.dubbo.api.ServiceException;
-import com.alacoder.lion.tcc.sample.dubbo.api.service.IAccountService;
+import com.alacoder.lion.tcc.sample.dubbo.consumer.service.ILocalAccountService;
 import com.alacoder.lion.tcc.sample.dubbo.consumer.service.ITransferService;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
@@ -13,7 +13,7 @@ public class MultiDsTransferServiceImpl implements ITransferService {
 
 	@SuppressWarnings("restriction")
 	@javax.annotation.Resource(name = "accountService")
-	private IAccountService nativeAccountService;
+    private ILocalAccountService nativeAccountService;
 	@SuppressWarnings("restriction")
 	@javax.annotation.Resource(name = "jdbcTemplate2")
 	private JdbcTemplate jdbcTemplate;

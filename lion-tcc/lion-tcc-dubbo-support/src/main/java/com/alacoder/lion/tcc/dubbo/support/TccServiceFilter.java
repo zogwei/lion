@@ -3,6 +3,7 @@ package com.alacoder.lion.tcc.dubbo.support;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.lang.reflect.Method;
 import java.util.Map;
 
 import com.alibaba.dubbo.common.URL;
@@ -67,14 +68,36 @@ public class TccServiceFilter implements Filter {
         if (transactionContext.getStatus() == TransactionStatus.TRYING.id()) {
             // 开启一个本地事务，判断事务阶段，一阶段生成事务 ，以便事务的传播
             Transaction transaction = transactionManager.getRemoteTransaction(transactionContext);
-            Class targetClass = invocation.getClass();
             invoker.getInterface();
             TransactionXid xid = null;
             xid = new TransactionXid(transaction.getXid().getGlobalTransactionId());
 
             invocation.getArguments();
 
-            Compensable compensable = (Compensable) targetClass.getAnnotation(Compensable.class);
+            String interfaceClazz = url.getServiceInterface();
+
+            // 获得事务，如果事务是第一阶段，添加参与者，否则直接调用
+            String methodName = invocation.getMethodName();
+            Class<?>[] parameterTypes = invocation.getParameterTypes();
+            Object[] arguments = invocation.getArguments();
+
+            Compensable compensable = null;
+            Class targetClass = null;
+            Method method = null;
+            try {
+                targetClass = Class.forName(interfaceClazz);
+                method = targetClass.getMethod(methodName, parameterTypes);
+                compensable = method.getAnnotation(Compensable.class);
+            } catch (ClassNotFoundException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } catch (NoSuchMethodException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } catch (SecurityException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
 
             String confirmMethodName = compensable.confirmMethod();
             String cancelMethodName = compensable.cancelMethod();
@@ -83,7 +106,7 @@ public class TccServiceFilter implements Filter {
                                                                         invocation.getParameterTypes(),
                                                                         invocation.getArguments());
 
-            InvocationContext cancelInvocation = new InvocationContext(targetClass, confirmMethodName,
+            InvocationContext cancelInvocation = new InvocationContext(targetClass, cancelMethodName,
                                                                        invocation.getParameterTypes(),
                                                                        invocation.getArguments());
             Participant participant = new Participant(xid, confirmInvocation, cancelInvocation);
@@ -92,16 +115,18 @@ public class TccServiceFilter implements Filter {
 
             transactionManager.enlistParticipant(participant);
 
+            return invoker.invoke(invocation);
+
         } else if (transactionContext.getStatus() == TransactionStatus.CANCELLING.id()) {
             // 二阶段，回滚
             // 根据全局事务id和参与分支id获得本地参与者局部tcc事务（注意一个全局事务，两个局部分支），回顾
-            Transaction transaction = transactionManager.getRemoteTransaction(transactionContext);
+            Transaction transaction = transactionManager.getRemoteTransaction(transactionContext.getXid());
             transaction.rollback();
 
         } else if (transactionContext.getStatus() == TransactionStatus.CONFIRMING.id()) {
             // 二阶段，提交
             // 根据全局事务id和参与分支id获得本地参与者局部tcc事务（注意一个全局事务，两个局部分支），提交
-            Transaction transaction = transactionManager.getRemoteTransaction(transactionContext);
+            Transaction transaction = transactionManager.getRemoteTransaction(transactionContext.getXid());
             transaction.commit();
         }
 
@@ -112,40 +137,54 @@ public class TccServiceFilter implements Filter {
         URL url = RpcContext.getContext().getUrl();
         String interfaceClazz = url.getServiceInterface();
 
-        // 获得事务，如果事务是第一阶段，添加参与者，否则直接调用
-        String methodName = invocation.getMethodName();
-
-        String confirmMethodName = methodName;
-        String cancelMethodName = methodName;
-
         Transaction transaction = transactionManager.getCurrentTransaction();
         if (transaction == null) {
             throw new SystemException("dubbo consumer must in tcc transaction");
         }
+
+        DefaultTransactionContext transactionContext = null;
         TransactionXid xid = null;
+
         if (transaction.getTransactionStatus().equals(TransactionStatus.TRYING)) {
+            // 获得事务，如果事务是第一阶段，添加参与者，否则直接调用
+            String methodName = invocation.getMethodName();
+            Class<?>[] parameterTypes = invocation.getParameterTypes();
+            Object[] arguments = invocation.getArguments();
+
+            Compensable compensable = null;
+            Class targetClass = null;
+            Method method = null;
+            try {
+                targetClass = Class.forName(interfaceClazz);
+                method = targetClass.getMethod(methodName, parameterTypes);
+                compensable = method.getAnnotation(Compensable.class);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            String confirmMethodName = compensable.confirmMethod();
+            String cancelMethodName = compensable.cancelMethod();
+
             xid = new TransactionXid(transaction.getXid().getGlobalTransactionId());
-
-            Class targetClass = invocation.getClass();
-
-            invocation.getArguments();
-
             InvocationContext confirmInvocation = new InvocationContext(targetClass, confirmMethodName,
                                                                         invocation.getParameterTypes(),
                                                                         invocation.getArguments());
 
-            InvocationContext cancelInvocation = new InvocationContext(targetClass, confirmMethodName,
+            InvocationContext cancelInvocation = new InvocationContext(targetClass, cancelMethodName,
                                                                        invocation.getParameterTypes(),
                                                                        invocation.getArguments());
             Participant participant = new Participant(xid, confirmInvocation, cancelInvocation);
-
             participant.setTargetClass(targetClass);
-
             transactionManager.enlistParticipant(participant);
+
+
+        } else {
+            //获得当前分支xid
+            xid = transaction.getLastParticipant().getXid();
         }
 
         // 添加事务上下文
-        DefaultTransactionContext transactionContext = new DefaultTransactionContext();
+        transactionContext = new DefaultTransactionContext();
         transactionContext.setXid(xid);
         transactionContext.setStatus(transaction.getTransactionStatus().id());
 
