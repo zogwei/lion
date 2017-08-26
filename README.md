@@ -4,10 +4,6 @@ a RPC framework
   
 TODO List
 
-TCC支持
-分布式事务
-传播性
-
 consumer 注册zk 
 lion-regitry-redis
 
