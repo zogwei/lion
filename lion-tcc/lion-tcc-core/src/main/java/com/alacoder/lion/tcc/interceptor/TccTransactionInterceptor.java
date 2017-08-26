@@ -29,8 +29,6 @@ public class TccTransactionInterceptor {
         // param check
         Method compensableMethod = CompensableUtils.getCompensableMethod(pjp);
 
-        // TransactionAttribute transactionAttr = getTransactionAttribute(pjp);
-
         Transaction transaction = createTransactionIfNecessary();
         enlistParticipant(pjp);
         Object retVal = null;
