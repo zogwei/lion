@@ -125,8 +125,9 @@
   <modules>
     <module>lion-tcc-core</module>
     <module>lion-tcc-spring-support</module>
-    <module>lion-tcc-sample-dubbo</module>
+    <module>lion-tcc-sample</module>
     <module>lion-tcc-dubbo-support</module>
+    <module>lion-tcc-motan-support</module>
   </modules>
   <dependencies>
   	<dependency>

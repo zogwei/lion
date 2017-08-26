@@ -2,7 +2,7 @@ package com.alacoder.lion.tcc;
 
 public interface TransactionManager {
 
-    public Transaction getTransaction(TransactionAttribute transactionAttr);
+    public Transaction getTransaction();
     
     public Transaction getCurrentTransaction();
 

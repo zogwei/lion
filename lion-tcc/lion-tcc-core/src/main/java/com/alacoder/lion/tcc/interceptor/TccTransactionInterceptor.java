@@ -9,7 +9,6 @@ import com.alacoder.lion.tcc.DefaultTransactionManager;
 import com.alacoder.lion.tcc.InvocationContext;
 import com.alacoder.lion.tcc.Participant;
 import com.alacoder.lion.tcc.Transaction;
-import com.alacoder.lion.tcc.TransactionAttribute;
 import com.alacoder.lion.tcc.TransactionManager;
 import com.alacoder.lion.tcc.TransactionStatus;
 import com.alacoder.lion.tcc.TransactionXid;
@@ -30,9 +29,9 @@ public class TccTransactionInterceptor {
         // param check
         Method compensableMethod = CompensableUtils.getCompensableMethod(pjp);
 
-        TransactionAttribute transactionAttr = getTransactionAttribute(pjp);
+        // TransactionAttribute transactionAttr = getTransactionAttribute(pjp);
 
-        Transaction transaction = createTransactionIfNecessary(transactionAttr);
+        Transaction transaction = createTransactionIfNecessary();
         enlistParticipant(pjp);
         Object retVal = null;
         try {
@@ -76,14 +75,14 @@ public class TccTransactionInterceptor {
 
     }
 
-    private TransactionAttribute getTransactionAttribute(ProceedingJoinPoint pjp) {
-        TransactionAttribute ret = null;
-
-        return ret;
-    }
-
-    private Transaction createTransactionIfNecessary(TransactionAttribute transactionAtt) {
-        return transactionManager.getTransaction(transactionAtt);
+    // private TransactionAttribute getTransactionAttribute(ProceedingJoinPoint pjp) {
+    // TransactionAttribute ret = null;
+    //
+    // return ret;
+    // }
+    //
+    private Transaction createTransactionIfNecessary() {
+        return transactionManager.getTransaction();
     }
 
 

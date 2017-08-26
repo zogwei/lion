@@ -3,14 +3,11 @@ package com.alacoder.lion.tcc;
 import java.io.Serializable;
 import java.lang.reflect.Method;
 
-import com.alacoder.lion.tcc.exception.SystemException;
-
 import com.alacoder.lion.tcc.beanFactory.FactoryBuilder;
+import com.alacoder.lion.tcc.exception.SystemException;
 import com.alacoder.lion.tcc.utils.StringUtils;
 
-/**
- * Created by changmingxie on 10/30/15.
- */
+
 public class Terminator implements Serializable {
 
     private static final long serialVersionUID = -164958655471605778L;
@@ -31,10 +28,6 @@ public class Terminator implements Serializable {
 
                 method = target.getClass().getMethod(invocationContext.getMethodName(),
                                                      invocationContext.getParameterTypes());
-                //
-                // FactoryBuilder.factoryOf(transactionContextEditorClass).getInstance().set(transactionContext, target,
-                // method,
-                // invocationContext.getArgs());
 
                 return method.invoke(target, invocationContext.getArgs());
 
@@ -57,10 +50,6 @@ public class Terminator implements Serializable {
 
                 method = target.getClass().getMethod(invocationContext.getMethodName(),
                                                      invocationContext.getParameterTypes());
-                //
-                // FactoryBuilder.factoryOf(transactionContextEditorClass).getInstance().set(transactionContext, target,
-                // method,
-                // invocationContext.getArgs());
 
                 return method.invoke(target, invocationContext.getArgs());
 

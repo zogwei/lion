@@ -15,7 +15,7 @@ public class DefaultTransactionManager implements TransactionManager {
         return instance;
     }
 
-    public Transaction getTransaction(TransactionAttribute transactionAttr) {
+    public Transaction getTransaction() {
         Transaction transaction = associatedTxMap.get(Thread.currentThread());
         if (transaction == null) {
             // 当前线程不存在事务，新增一个全局事务,
