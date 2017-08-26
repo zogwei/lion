@@ -1,4 +1,4 @@
-package com.alacoder.lion.tcc;
+package com.alacoder.lion.tcc.exception;
 
 public class SystemException extends RuntimeException {
 
