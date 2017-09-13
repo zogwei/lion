@@ -14,7 +14,6 @@ public class MultiDsConsumerMain {
 
 	public static void main(String... args) throws Throwable {
 		startup();
-		
 
 		ITransferService transferSvc = (ITransferService) context.getBean("multiDsTransferService");
 		try {
