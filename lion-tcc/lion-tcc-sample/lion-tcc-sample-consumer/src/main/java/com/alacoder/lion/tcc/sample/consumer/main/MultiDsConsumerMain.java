@@ -6,7 +6,7 @@ import org.springframework.transaction.config.TxNamespaceHandler;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
- * 多数据源场景
+ * 多数据源 场景
  */
 public class MultiDsConsumerMain {
 
@@ -14,7 +14,6 @@ public class MultiDsConsumerMain {
 
 	public static void main(String... args) throws Throwable {
 		startup();
-		
 
 		ITransferService transferSvc = (ITransferService) context.getBean("multiDsTransferService");
 		try {
